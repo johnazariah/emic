@@ -92,7 +92,8 @@ jobs:
 
       - name: Run notebook tests
         run: |
-          if [ -d "tests/notebooks" ] && [ -n "$(ls -A tests/notebooks)" ]; then
+          # Check for actual test files (not just __init__.py)
+          if [ -d "tests/notebooks" ] && find tests/notebooks -name "test_*.py" -o -name "*_test.py" | grep -q .; then
             uv run pytest tests/notebooks/ -v -m notebooks --timeout=600
           else
             echo "No notebook tests found, skipping."
