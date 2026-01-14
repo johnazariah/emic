@@ -29,15 +29,15 @@ Analyze the current changes and group them into multiple logical commits.
    ```powershell
    # First unstage everything
    git reset HEAD
-   
+
    # Stage files for first commit
    git add <file1> <file2> ...
    git commit -m "<type>(<scope>): <description>"
-   
+
    # Stage files for second commit (skip hooks after first commit passed)
    git add <file3> <file4> ...
    git commit --no-verify -m "<type>(<scope>): <description>"
-   
+
    # Repeat for remaining groups
    ```
 

@@ -37,7 +37,7 @@ For pipelines, we use `__rshift__` on pipeline-aware objects:
 ```python
 class Pipeable(Protocol[T]):
     """An object that can participate in pipelines."""
-    
+
     def __rshift__(self, other: Callable[[T], U]) -> U:
         """Pipe self into a callable."""
         ...
@@ -54,18 +54,18 @@ U = TypeVar('U')
 class PipeableMixin(Generic[T]):
     """
     Mixin that adds pipeline support via >> operator.
-    
+
     Classes that inherit this can be used as the left side of >>.
     The right side must be a callable that accepts the object.
     """
-    
+
     def __rshift__(self, other: Callable[['PipeableMixin[T]'], U]) -> U:
         return other(self)
-    
+
     def pipe(self, *funcs: Callable) -> Any:
         """
         Apply a sequence of functions.
-        
+
         Alternative to chained >> for programmatic composition.
         """
         result: Any = self
@@ -85,9 +85,9 @@ Sources produce data. They implement `__rshift__` to pass themselves to transfor
 ```python
 class SequenceSource(PipeableMixin[Iterator[A]], Protocol[A]):
     """Sources are pipeable."""
-    
+
     def __iter__(self) -> Iterator[A]: ...
-    
+
     @property
     def alphabet(self) -> frozenset[A]: ...
 ```
@@ -106,9 +106,9 @@ Transforms are callables that take input and produce output. They should also be
 @dataclass(frozen=True)
 class TakeN(Generic[A]):
     """Transform: take first N elements."""
-    
+
     n: int
-    
+
     def __call__(self, source: SequenceSource[A]) -> 'SequenceData[A]':
         from itertools import islice
         symbols = tuple(islice(source, self.n))
@@ -121,10 +121,10 @@ For transforms to be chainable on the right side of `>>`, the output must also b
 @dataclass(frozen=True)
 class SequenceData(PipeableMixin['SequenceData[A]'], Generic[A]):
     """Finite sequence - also pipeable."""
-    
+
     symbols: tuple[A, ...]
     _alphabet: frozenset[A] | None = None
-    
+
     def __iter__(self) -> Iterator[A]:
         return iter(self.symbols)
 ```
@@ -137,13 +137,13 @@ Inference algorithms are callables that produce `InferenceResult`:
 @dataclass
 class CSSR(Generic[A]):
     config: CSSRConfig
-    
+
     def __call__(
-        self, 
+        self,
         source: Iterable[A]
     ) -> InferenceResult[A]:
         return self.infer(source)
-    
+
     # Also support being on the right side
     def __rrshift__(self, source: Iterable[A]) -> InferenceResult[A]:
         return self(source)
@@ -168,7 +168,7 @@ To use in pipelines, `InferenceResult` must be pipeable and extract the machine:
 class InferenceResult(PipeableMixin['InferenceResult[A]'], Generic[A]):
     machine: EpsilonMachine[A]
     # ... other fields
-    
+
     def __rshift__(self, other: Callable) -> Any:
         # If other expects a machine, pass the machine
         # If other expects InferenceResult, pass self
@@ -209,7 +209,7 @@ from typing import Callable, Any
 class Pipeline(Generic[A]):
     """
     A reusable pipeline that can be applied to multiple sources.
-    
+
     Example:
         >>> pipeline = (
         ...     Pipeline[int]()
@@ -217,41 +217,41 @@ class Pipeline(Generic[A]):
         ...     .infer(CSSR(CSSRConfig(max_history=5)))
         ...     .analyze()
         ... )
-        >>> 
+        >>>
         >>> result1 = pipeline.run(GoldenMeanSource(p=0.3))
         >>> result2 = pipeline.run(GoldenMeanSource(p=0.7))
     """
-    
+
     def __init__(self) -> None:
         self._steps: list[Callable] = []
-    
+
     def take(self, n: int) -> 'Pipeline[A]':
         """Add a TakeN step."""
         self._steps.append(TakeN(n))
         return self
-    
+
     def skip(self, n: int) -> 'Pipeline[A]':
         """Add a SkipN step."""
         self._steps.append(SkipN(n))
         return self
-    
+
     def infer(self, algorithm: InferenceAlgorithm[A]) -> 'Pipeline[A]':
         """Add an inference step."""
         self._steps.append(algorithm)
         return self
-    
+
     def analyze(self) -> 'Pipeline[A]':
         """Add analysis step."""
         self._steps.append(lambda r: (r, analyze(r.machine)))
         return self
-    
+
     def run(self, source: SequenceSource[A]) -> Any:
         """Execute the pipeline on a source."""
         result: Any = source
         for step in self._steps:
             result = step(result)
         return result
-    
+
     def __call__(self, source: SequenceSource[A]) -> Any:
         return self.run(source)
 ```
@@ -288,9 +288,9 @@ class PipelineError:
 @dataclass
 class SafePipeline(Generic[A]):
     """A pipeline that catches and reports errors."""
-    
+
     steps: list[tuple[str, Callable]]
-    
+
     def run(self, source: SequenceSource[A]) -> Union[Any, PipelineError]:
         result: Any = source
         for name, step in self.steps:
@@ -317,7 +317,7 @@ class ParallelResults(NamedTuple):
 def parallel(**branches: Callable) -> Callable:
     """
     Create a parallel pipeline stage.
-    
+
     Example:
         >>> results = (
         ...     source
@@ -346,7 +346,7 @@ def parallel(**branches: Callable) -> Callable:
 def tap(func: Callable[[T], None]) -> Callable[[T], T]:
     """
     Create a tap that inspects values without modifying them.
-    
+
     Example:
         >>> result = (
         ...     source
@@ -374,7 +374,7 @@ def log(
 ) -> Callable[[T], T]:
     """Log a value passing through the pipeline."""
     logger = logging.getLogger("emic.pipeline")
-    
+
     def wrapper(value: T) -> T:
         logger.log(level, f"{message}: {type(value).__name__}")
         return wrapper
@@ -398,7 +398,7 @@ C = TypeVar('C')
 class Pipeable(Generic[A]):
     @overload
     def __rshift__(self, other: Callable[[A], B]) -> B: ...
-    
+
     def __rshift__(self, other: Callable[[A], Any]) -> Any:
         return other(self)
 ```

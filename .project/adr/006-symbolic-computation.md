@@ -102,7 +102,7 @@ Before adding symbolic support, the core must:
 
 ### Positive
 - **Faster v1**: Focus on core functionality first
-- **Validated architecture**: Prove design before adding complexity  
+- **Validated architecture**: Prove design before adding complexity
 - **Clean extension**: Symbolic support adds to, doesn't modify, core
 - **Lower risk**: Avoid over-engineering for features that may not be needed
 

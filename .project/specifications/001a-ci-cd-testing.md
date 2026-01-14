@@ -99,11 +99,11 @@ class TestDistribution:
         d = Distribution({'a': 2, 'b': 2})
         assert d['a'] == pytest.approx(0.5)
         assert d['b'] == pytest.approx(0.5)
-    
+
     def test_empty_distribution_raises(self):
         with pytest.raises(ValueError, match="cannot be empty"):
             Distribution({})
-    
+
     def test_entropy_uniform(self):
         d = Distribution({'a': 0.5, 'b': 0.5})
         assert d.entropy() == pytest.approx(1.0)  # log2(2) = 1
@@ -154,7 +154,7 @@ def test_golden_mean_two_states():
     """Golden Mean process should infer exactly 2 causal states."""
     source = GoldenMeanSource(p=0.5, seed=42)
     result = source >> TakeN(50_000) >> CSSR(CSSRConfig(max_history=5))
-    
+
     assert len(result.machine.states) == 2
 
 @pytest.mark.golden
@@ -162,7 +162,7 @@ def test_golden_mean_entropy_rate():
     """Golden Mean entropy rate should match theoretical value."""
     source = GoldenMeanSource(p=0.5, seed=42)
     result = source >> TakeN(100_000) >> CSSR(CSSRConfig(max_history=5))
-    
+
     # H(p) = -p*log2(p) - (1-p)*log2(1-p) for p=0.5 is 1.0
     # But for Golden Mean it's different
     # Theoretical: H = 0.5 * log2(2) = 0.5 bits
@@ -188,9 +188,9 @@ def test_full_pipeline_executes():
         >> TakeN(10_000)
         >> CSSR(CSSRConfig(max_history=3))
     )
-    
+
     summary = analyze(result.machine)
-    
+
     assert summary.statistical_complexity >= 0
     assert summary.entropy_rate >= 0
     assert len(summary.states) >= 1
@@ -216,7 +216,7 @@ def test_notebook_executes(notebook):
     """Each notebook should execute without errors."""
     with open(notebook) as f:
         nb = nbformat.read(f, as_version=4)
-    
+
     ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
     ep.preprocess(nb, {'metadata': {'path': str(NOTEBOOKS_DIR)}})
 ```
@@ -281,22 +281,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Install uv
         uses: astral-sh/setup-uv@v4
-      
+
       - name: Set up Python
         run: uv python install 3.11
-      
+
       - name: Install dependencies
         run: uv sync --dev
-      
+
       - name: Run ruff check
         run: uv run ruff check src tests
-      
+
       - name: Run ruff format check
         run: uv run ruff format --check src tests
-      
+
       - name: Run pyright
         run: uv run pyright src
 
@@ -305,19 +305,19 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.11", "3.12", "3.13"]
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Install uv
         uses: astral-sh/setup-uv@v4
-      
+
       - name: Set up Python ${{ matrix.python-version }}
         run: uv python install ${{ matrix.python-version }}
-      
+
       - name: Install dependencies
         run: uv sync --dev
-      
+
       - name: Run tests with coverage
         run: |
           uv run pytest tests/ \
@@ -326,7 +326,7 @@ jobs:
             --cov-report=html \
             --cov-fail-under=90 \
             -v
-      
+
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
@@ -338,16 +338,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Install uv
         uses: astral-sh/setup-uv@v4
-      
+
       - name: Set up Python
         run: uv python install 3.11
-      
+
       - name: Install dependencies
         run: uv sync --dev
-      
+
       - name: Run notebook tests
         run: uv run pytest tests/notebooks/ -v -m notebooks
 ```
@@ -368,16 +368,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Install uv
         uses: astral-sh/setup-uv@v4
-      
+
       - name: Set up Python
         run: uv python install 3.11
-      
+
       - name: Build package
         run: uv build
-      
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -389,21 +389,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Install uv
         uses: astral-sh/setup-uv@v4
-      
+
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist/
-      
+
       - name: Install from wheel
         run: |
           uv venv
           uv pip install dist/*.whl
-      
+
       - name: Test import
         run: uv run python -c "import emic; print(emic.__version__)"
 
@@ -419,7 +419,7 @@ jobs:
         with:
           name: dist
           path: dist/
-      
+
       - name: Publish to TestPyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
@@ -437,7 +437,7 @@ jobs:
         with:
           name: dist
           path: dist/
-      
+
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
 
@@ -448,13 +448,13 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist/
-      
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
@@ -477,20 +477,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Install uv
         uses: astral-sh/setup-uv@v4
-      
+
       - name: Set up Python
         run: uv python install 3.11
-      
+
       - name: Install dependencies
         run: uv sync --dev
-      
+
       # Future: Generate API docs with mkdocs or sphinx
       # - name: Build docs
       #   run: uv run mkdocs build
-      
+
       # - name: Deploy to GitHub Pages
       #   uses: peaceiris/actions-gh-pages@v3
       #   with:
@@ -531,7 +531,7 @@ addopts = [
 ]
 markers = [
     "unit: fast, isolated unit tests",
-    "integration: component integration tests", 
+    "integration: component integration tests",
     "property: hypothesis property-based tests",
     "golden: known-answer regression tests",
     "slow: tests that take > 1 second",

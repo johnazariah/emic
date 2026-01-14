@@ -15,22 +15,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Install uv
         uses: astral-sh/setup-uv@v4
-      
+
       - name: Set up Python
         run: uv python install ${{ env.PYTHON_VERSION }}
-      
+
       - name: Install dependencies
         run: uv sync --dev
-      
+
       - name: Run ruff check
         run: uv run ruff check src tests
-      
+
       - name: Run ruff format check
         run: uv run ruff format --check src tests
-      
+
       - name: Run pyright
         run: uv run pyright src
 
@@ -41,19 +41,19 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.11", "3.12", "3.13"]
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Install uv
         uses: astral-sh/setup-uv@v4
-      
+
       - name: Set up Python ${{ matrix.python-version }}
         run: uv python install ${{ matrix.python-version }}
-      
+
       - name: Install dependencies
         run: uv sync --dev
-      
+
       - name: Run tests with coverage
         env:
           HYPOTHESIS_PROFILE: ci
@@ -64,7 +64,7 @@ jobs:
             --cov-report=term-missing \
             --cov-fail-under=90 \
             -v
-      
+
       - name: Upload coverage to Codecov
         if: matrix.python-version == '3.11'
         uses: codecov/codecov-action@v4
@@ -79,16 +79,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Install uv
         uses: astral-sh/setup-uv@v4
-      
+
       - name: Set up Python
         run: uv python install ${{ env.PYTHON_VERSION }}
-      
+
       - name: Install dependencies
         run: uv sync --dev
-      
+
       - name: Run notebook tests
         run: |
           if [ -d "tests/notebooks" ] && [ -n "$(ls -A tests/notebooks)" ]; then

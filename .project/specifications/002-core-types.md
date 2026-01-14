@@ -50,19 +50,19 @@ A = TypeVar('A', bound=Hashable)
 
 class Alphabet(Protocol[A]):
     """A finite set of symbols."""
-    
+
     def __contains__(self, symbol: A) -> bool:
         """Check if symbol is in alphabet."""
         ...
-    
+
     def __iter__(self) -> Iterator[A]:
         """Iterate over symbols."""
         ...
-    
+
     def __len__(self) -> int:
         """Number of symbols."""
         ...
-    
+
     @property
     def symbols(self) -> frozenset[A]:
         """The set of all symbols."""
@@ -77,27 +77,27 @@ from dataclasses import dataclass
 @dataclass(frozen=True)
 class ConcreteAlphabet(Generic[A]):
     """Immutable alphabet implementation."""
-    
+
     _symbols: frozenset[A]
-    
+
     def __contains__(self, symbol: A) -> bool:
         return symbol in self._symbols
-    
+
     def __iter__(self) -> Iterator[A]:
         return iter(self._symbols)
-    
+
     def __len__(self) -> int:
         return len(self._symbols)
-    
+
     @property
     def symbols(self) -> frozenset[A]:
         return self._symbols
-    
+
     @classmethod
     def binary(cls) -> 'ConcreteAlphabet[int]':
         """Create binary alphabet {0, 1}."""
         return cls(frozenset({0, 1}))
-    
+
     @classmethod
     def from_symbols(cls, *symbols: A) -> 'ConcreteAlphabet[A]':
         """Create alphabet from symbols."""
@@ -125,15 +125,15 @@ from typing import Mapping, Iterator
 class Distribution(Generic[A]):
     """
     An immutable probability distribution over symbols.
-    
+
     Invariants:
     - All probabilities are in [0, 1]
     - Probabilities sum to 1 (within tolerance)
     - Only non-zero probabilities are stored
     """
-    
+
     _probs: Mapping[A, ProbabilityValue]
-    
+
     def __post_init__(self) -> None:
         # Validate probabilities
         total = sum(self._probs.values())
@@ -142,36 +142,36 @@ class Distribution(Generic[A]):
         for p in self._probs.values():
             if not (0 <= p <= 1):
                 raise ValueError(f"Probability must be in [0,1], got {p}")
-    
+
     def __getitem__(self, symbol: A) -> ProbabilityValue:
         return self._probs.get(symbol, 0.0)
-    
+
     def __iter__(self) -> Iterator[A]:
         return iter(self._probs)
-    
+
     def __len__(self) -> int:
         return len(self._probs)
-    
+
     @property
     def support(self) -> frozenset[A]:
         """Symbols with non-zero probability."""
         return frozenset(self._probs.keys())
-    
+
     def entropy(self) -> float:
         """Shannon entropy of the distribution."""
         import math
         return -sum(
-            p * math.log2(p) 
-            for p in self._probs.values() 
+            p * math.log2(p)
+            for p in self._probs.values()
             if p > 0
         )
-    
+
     @classmethod
     def uniform(cls, symbols: frozenset[A]) -> 'Distribution[A]':
         """Create uniform distribution over symbols."""
         n = len(symbols)
         return cls({s: 1.0 / n for s in symbols})
-    
+
     @classmethod
     def deterministic(cls, symbol: A) -> 'Distribution[A]':
         """Create distribution with all mass on one symbol."""
@@ -196,14 +196,14 @@ StateId = str
 class Transition(Generic[A]):
     """
     A labeled transition from one state to another.
-    
+
     Represents: "On symbol `symbol`, go to `target` with probability `probability`"
     """
-    
+
     symbol: A
     probability: ProbabilityValue
     target: StateId
-    
+
     def __post_init__(self) -> None:
         if not (0 < self.probability <= 1):
             raise ValueError(f"Probability must be in (0,1], got {self.probability}")
@@ -216,14 +216,14 @@ class Transition(Generic[A]):
 class CausalState(Generic[A]):
     """
     A causal state in an epsilon-machine.
-    
+
     A causal state is an equivalence class of histories that induce
     the same conditional distribution over futures.
     """
-    
+
     id: StateId
     transitions: frozenset[Transition[A]]
-    
+
     def __post_init__(self) -> None:
         # Validate: transitions for each symbol should sum to <= 1
         # (can be < 1 if machine is partial)
@@ -235,16 +235,16 @@ class CausalState(Generic[A]):
                 raise ValueError(
                     f"Transitions for symbol {symbol} sum to {total} > 1"
                 )
-    
+
     @property
     def alphabet(self) -> frozenset[A]:
         """Symbols that have transitions from this state."""
         return frozenset(t.symbol for t in self.transitions)
-    
+
     def transition_distribution(self, symbol: A) -> Distribution[StateId]:
         """
         Get the distribution over next states given a symbol.
-        
+
         Raises:
             KeyError: If symbol has no transitions from this state
         """
@@ -252,18 +252,18 @@ class CausalState(Generic[A]):
         if not relevant:
             raise KeyError(f"No transition for symbol {symbol} from state {self.id}")
         return Distribution({t.target: t.probability for t in relevant})
-    
+
     def emission_distribution(self) -> Distribution[A]:
         """
         Get the distribution over emitted symbols from this state.
-        
+
         Note: This assumes the machine is "edge-emitting" (symbols on transitions).
         """
         probs: dict[A, float] = {}
         for t in self.transitions:
             probs[t.symbol] = probs.get(t.symbol, 0.0) + t.probability
         return Distribution(probs)
-    
+
     def next_states(self, symbol: A) -> frozenset[StateId]:
         """Get possible next states given a symbol."""
         return frozenset(t.target for t in self.transitions if t.symbol == symbol)
@@ -280,38 +280,38 @@ class CausalState(Generic[A]):
 class EpsilonMachine(Generic[A]):
     """
     An epsilon-machine (ε-machine) over alphabet A.
-    
+
     An ε-machine is the minimal, optimal predictor of a stationary stochastic
     process. It consists of:
     - A finite set of causal states
     - Labeled transitions between states
     - A stationary distribution over states
-    
+
     Properties:
     - Unifilarity: Each (state, symbol) pair has at most one outgoing transition
     - Minimality: No two states have the same conditional future distribution
-    
+
     This class represents the result of inference - the discovered structure.
     """
-    
+
     alphabet: frozenset[A]
     states: frozenset[CausalState[A]]
     start_state: StateId
     stationary_distribution: Distribution[StateId]
-    
+
     def __post_init__(self) -> None:
         # Validate start state exists
         state_ids = frozenset(s.id for s in self.states)
         if self.start_state not in state_ids:
             raise ValueError(f"Start state {self.start_state} not in states")
-        
+
         # Validate stationary distribution is over states
         for state_id in self.stationary_distribution.support:
             if state_id not in state_ids:
                 raise ValueError(
                     f"Stationary distribution contains unknown state {state_id}"
                 )
-        
+
         # Validate unifilarity
         for state in self.states:
             seen: dict[A, StateId] = {}
@@ -322,20 +322,20 @@ class EpsilonMachine(Generic[A]):
                         f"symbol {t.symbol} goes to both {seen[t.symbol]} and {t.target}"
                     )
                 seen[t.symbol] = t.target
-    
+
     def __len__(self) -> int:
         """Number of causal states."""
         return len(self.states)
-    
+
     @property
     def state_ids(self) -> frozenset[StateId]:
         """Set of all state IDs."""
         return frozenset(s.id for s in self.states)
-    
+
     def get_state(self, state_id: StateId) -> CausalState[A]:
         """
         Get a state by ID.
-        
+
         Raises:
             KeyError: If state not found
         """
@@ -343,11 +343,11 @@ class EpsilonMachine(Generic[A]):
             if state.id == state_id:
                 return state
         raise KeyError(f"State {state_id} not found")
-    
+
     def transition_matrix(self, symbol: A) -> dict[StateId, Distribution[StateId]]:
         """
         Get the transition matrix for a given symbol.
-        
+
         Returns a mapping from source state to distribution over target states.
         """
         return {
@@ -355,7 +355,7 @@ class EpsilonMachine(Generic[A]):
             for state in self.states
             if symbol in state.alphabet
         }
-    
+
     def is_unifilar(self) -> bool:
         """Check if machine is unifilar (deterministic given state and symbol)."""
         for state in self.states:
@@ -365,7 +365,7 @@ class EpsilonMachine(Generic[A]):
                     return False
                 symbols_seen.add(t.symbol)
         return True
-    
+
     def is_ergodic(self) -> bool:
         """Check if machine is ergodic (single recurrent class)."""
         # TODO: Implement graph connectivity check
@@ -382,7 +382,7 @@ Since core types are immutable, provide builders for ergonomic construction:
 class EpsilonMachineBuilder(Generic[A]):
     """
     Mutable builder for constructing EpsilonMachine instances.
-    
+
     Usage:
         machine = (
             EpsilonMachineBuilder[int]()
@@ -396,22 +396,22 @@ class EpsilonMachineBuilder(Generic[A]):
             .build()
         )
     """
-    
+
     def __init__(self) -> None:
         self._alphabet: set[A] = set()
         self._states: dict[StateId, list[Transition[A]]] = {}
         self._start_state: StateId | None = None
         self._stationary: dict[StateId, float] | None = None
-    
+
     def with_alphabet(self, symbols: set[A]) -> 'EpsilonMachineBuilder[A]':
         self._alphabet = symbols
         return self
-    
+
     def add_state(self, state_id: StateId) -> 'EpsilonMachineBuilder[A]':
         if state_id not in self._states:
             self._states[state_id] = []
         return self
-    
+
     def add_transition(
         self,
         source: StateId,
@@ -424,34 +424,34 @@ class EpsilonMachineBuilder(Generic[A]):
         self._alphabet.add(symbol)
         self._states[source].append(Transition(symbol, probability, target))
         return self
-    
+
     def with_start_state(self, state_id: StateId) -> 'EpsilonMachineBuilder[A]':
         self._start_state = state_id
         return self
-    
+
     def with_stationary_distribution(
-        self, 
+        self,
         dist: dict[StateId, float]
     ) -> 'EpsilonMachineBuilder[A]':
         self._stationary = dist
         return self
-    
+
     def build(self) -> EpsilonMachine[A]:
         if self._start_state is None:
             raise ValueError("Start state not set")
-        
+
         states = frozenset(
             CausalState(id=sid, transitions=frozenset(trans))
             for sid, trans in self._states.items()
         )
-        
+
         # Compute stationary distribution if not provided
         if self._stationary is None:
             # TODO: Compute from transition matrices
             # For now, use uniform
             n = len(states)
             self._stationary = {s.id: 1.0/n for s in states}
-        
+
         return EpsilonMachine(
             alphabet=frozenset(self._alphabet),
             states=states,

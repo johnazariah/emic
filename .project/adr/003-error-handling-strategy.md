@@ -85,12 +85,12 @@ All framework exceptions inherit from a common base:
 ```python
 class EpsilonMachineError(Exception):
     """Base exception for all epsilon-machine framework errors."""
-    
+
     def __init__(self, message: str, **context: Any):
         super().__init__(message)
         self.message = message
         self.context = context
-    
+
     def explain(self) -> str:
         """Return a user-friendly explanation of the error."""
         return self.message
@@ -103,7 +103,7 @@ class InferenceError(EpsilonMachineError):
 
 class InsufficientDataError(InferenceError):
     """Not enough data to perform inference."""
-    
+
     def __init__(self, required: int, provided: int, **context: Any):
         super().__init__(
             f"Insufficient data: need {required} symbols, got {provided}",
@@ -113,7 +113,7 @@ class InsufficientDataError(InferenceError):
         )
         self.required = required
         self.provided = provided
-    
+
     def explain(self) -> str:
         return (
             f"The sequence is too short for reliable inference. "
@@ -124,7 +124,7 @@ class InsufficientDataError(InferenceError):
 
 class NonConvergenceError(InferenceError):
     """Algorithm did not converge within iteration limit."""
-    
+
     def __init__(self, iterations: int, tolerance: float, **context: Any):
         super().__init__(
             f"Did not converge after {iterations} iterations (tol={tolerance})",

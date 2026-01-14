@@ -34,9 +34,9 @@ A = TypeVar('A')  # Alphabet/Symbol type
 
 class SequenceSource(Protocol[A]):
     """Any object that can produce a sequence of symbols."""
-    
+
     def __iter__(self) -> Iterator[A]: ...
-    
+
     @property
     def alphabet(self) -> frozenset[A]: ...
 ```

@@ -32,17 +32,17 @@ The **statistical complexity** is the Shannon entropy of the stationary distribu
 def statistical_complexity(machine: EpsilonMachine[A]) -> float:
     """
     Compute the statistical complexity Cμ.
-    
+
     Cμ = H(S) = -Σᵢ πᵢ log₂(πᵢ)
-    
+
     where πᵢ is the stationary probability of state i.
-    
+
     Args:
         machine: The epsilon-machine
-    
+
     Returns:
         Statistical complexity in bits
-    
+
     Example:
         >>> machine = GoldenMeanSource(p=0.5).true_machine
         >>> statistical_complexity(machine)
@@ -59,18 +59,18 @@ The **entropy rate** is the conditional entropy of the next symbol given the cur
 def entropy_rate(machine: EpsilonMachine[A]) -> float:
     """
     Compute the entropy rate hμ.
-    
+
     hμ = H(X | S) = Σᵢ πᵢ H(X | S = sᵢ)
-    
+
     where H(X | S = sᵢ) is the entropy of the emission distribution
     from state sᵢ.
-    
+
     Args:
         machine: The epsilon-machine
-    
+
     Returns:
         Entropy rate in bits per symbol
-    
+
     Example:
         >>> machine = BiasedCoinSource(p=0.5).true_machine
         >>> entropy_rate(machine)
@@ -92,22 +92,22 @@ The **excess entropy** (also called **predictive information**) is the mutual in
 def excess_entropy(machine: EpsilonMachine[A]) -> float:
     """
     Compute the excess entropy E.
-    
+
     E = I(Past; Future) = Cμ + Cμ' - I
-    
+
     where Cμ' is the complexity of the reverse-time machine
     and I is the mutual information between forward and reverse
     causal states.
-    
+
     For unifilar machines:
     E = Cμ (statistical complexity equals excess entropy)
-    
+
     Args:
         machine: The epsilon-machine
-    
+
     Returns:
         Excess entropy in bits
-    
+
     Note:
         For general (non-unifilar) machines, this requires
         the reverse-time machine which is not yet implemented.
@@ -116,7 +116,7 @@ def excess_entropy(machine: EpsilonMachine[A]) -> float:
     # For unifilar machines, E = Cμ
     if machine.is_unifilar():
         return statistical_complexity(machine)
-    
+
     # TODO: Implement full excess entropy calculation
     raise NotImplementedError(
         "Excess entropy for non-unifilar machines not yet implemented"
@@ -131,14 +131,14 @@ def excess_entropy(machine: EpsilonMachine[A]) -> float:
 def crypticity(machine: EpsilonMachine[A]) -> float:
     """
     Compute the crypticity χ.
-    
+
     χ = Cμ - E
-    
+
     For unifilar machines, χ = 0 (no hidden information).
-    
+
     Args:
         machine: The epsilon-machine
-    
+
     Returns:
         Crypticity in bits
     """
@@ -153,16 +153,16 @@ def crypticity(machine: EpsilonMachine[A]) -> float:
 def oracularity(machine: EpsilonMachine[A]) -> float:
     """
     Compute the oracularity (gauge information).
-    
+
     Measures the difference between forward and reverse
     statistical complexity.
-    
+
     Args:
         machine: The epsilon-machine
-    
+
     Returns:
         Oracularity in bits
-    
+
     Note:
         Requires reverse-time machine (not yet implemented).
     """
@@ -179,7 +179,7 @@ def oracularity(machine: EpsilonMachine[A]) -> float:
 def state_count(machine: EpsilonMachine[A]) -> int:
     """
     Number of causal states.
-    
+
     A simple but fundamental measure of structural complexity.
     """
     return len(machine.states)
@@ -201,7 +201,7 @@ def transition_count(machine: EpsilonMachine[A]) -> int:
 def topological_complexity(machine: EpsilonMachine[A]) -> float:
     """
     Topological complexity: log₂(number of states).
-    
+
     An upper bound on statistical complexity.
     """
     import math
@@ -215,10 +215,10 @@ def topological_complexity(machine: EpsilonMachine[A]) -> float:
 def effective_markov_order(machine: EpsilonMachine[A]) -> int | None:
     """
     The effective Markov order of the process.
-    
+
     Returns the minimum history length L such that the process
     is L-th order Markov, or None if infinite.
-    
+
     For a unifilar machine with N states, this is at most N-1.
     """
     # TODO: Implement by analyzing transition structure
@@ -233,18 +233,18 @@ def effective_markov_order(machine: EpsilonMachine[A]) -> int | None:
 
 ```python
 def block_entropy(
-    machine: EpsilonMachine[A], 
+    machine: EpsilonMachine[A],
     length: int
 ) -> float:
     """
     Compute the block entropy H(X₁, ..., Xₗ).
-    
+
     The entropy of length-L blocks emitted by the process.
-    
+
     Args:
         machine: The epsilon-machine
         length: Block length L
-    
+
     Returns:
         Block entropy in bits
     """
@@ -263,10 +263,10 @@ def block_entropy_curve(
 ) -> list[tuple[int, float]]:
     """
     Compute block entropy for lengths 1..max_length.
-    
+
     Returns:
         List of (length, entropy) pairs
-    
+
     Useful for visualizing the approach to the entropy rate.
     """
     return [(l, block_entropy(machine, l)) for l in range(1, max_length + 1)]
@@ -284,22 +284,22 @@ class AnalysisSummary:
     """
     Complete analysis of an epsilon-machine.
     """
-    
+
     # Core measures
     statistical_complexity: float
     entropy_rate: float
     excess_entropy: float
     crypticity: float
-    
+
     # Structural measures
     num_states: int
     num_transitions: int
     alphabet_size: int
-    
+
     # Optional measures
     oracularity: float | None = None
     markov_order: int | None = None
-    
+
     def to_dict(self) -> dict[str, float | int | None]:
         """Convert to dictionary for serialization."""
         return {
@@ -313,7 +313,7 @@ class AnalysisSummary:
             'oracularity': self.oracularity,
             'markov_order': self.markov_order,
         }
-    
+
     def __str__(self) -> str:
         return (
             f"ε-Machine Analysis:\n"
@@ -330,13 +330,13 @@ class AnalysisSummary:
 def analyze(machine: EpsilonMachine[A]) -> AnalysisSummary:
     """
     Compute all standard measures for an epsilon-machine.
-    
+
     Args:
         machine: The epsilon-machine to analyze
-    
+
     Returns:
         AnalysisSummary with all computed measures
-    
+
     Example:
         >>> machine = GoldenMeanSource(p=0.5).true_machine
         >>> summary = analyze(machine)
@@ -344,13 +344,13 @@ def analyze(machine: EpsilonMachine[A]) -> AnalysisSummary:
     """
     c_mu = statistical_complexity(machine)
     h_mu = entropy_rate(machine)
-    
+
     # Excess entropy (approximate for non-unifilar)
     try:
         e = excess_entropy(machine)
     except NotImplementedError:
         e = c_mu  # Approximation
-    
+
     return AnalysisSummary(
         statistical_complexity=c_mu,
         entropy_rate=h_mu,
@@ -373,12 +373,12 @@ def compare_machines(
 ) -> dict[str, float]:
     """
     Compare two epsilon-machines.
-    
+
     Returns differences in key measures.
     """
     a1 = analyze(machine1)
     a2 = analyze(machine2)
-    
+
     return {
         'delta_C_mu': a1.statistical_complexity - a2.statistical_complexity,
         'delta_h_mu': a1.entropy_rate - a2.entropy_rate,
@@ -392,7 +392,7 @@ def is_isomorphic(
 ) -> bool:
     """
     Check if two machines are isomorphic (same structure).
-    
+
     Two machines are isomorphic if there exists a bijection
     between their states that preserves transitions.
     """
@@ -401,7 +401,7 @@ def is_isomorphic(
         return False
     if machine1.alphabet != machine2.alphabet:
         return False
-    
+
     # TODO: Implement graph isomorphism check
     raise NotImplementedError()
 ```

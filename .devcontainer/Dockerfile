@@ -2,7 +2,7 @@
 # emic Development Container
 # ============================================================================
 # Multi-stage Dockerfile for Python + LaTeX development environment
-# 
+#
 # Base: Microsoft Python devcontainer
 # Adds: TeX Live (science scheme), uv package manager, Graphviz
 # ============================================================================
@@ -80,6 +80,9 @@ ENV HYPOTHESIS_PROFILE="dev"
 # ============================================================================
 # User Configuration
 # ============================================================================
+
+# Create X11 socket directory with proper permissions (for VS Code Dev Containers)
+RUN mkdir -p /tmp/.X11-unix && chmod 1777 /tmp/.X11-unix
 
 # Switch to vscode user (created by base image)
 USER vscode

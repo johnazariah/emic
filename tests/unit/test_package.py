@@ -1,4 +1,5 @@
 """Unit tests for emic core types."""
+
 from __future__ import annotations
 
 import pytest

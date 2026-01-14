@@ -33,15 +33,15 @@ A = TypeVar('A', bound=Hashable)
 class SequenceSource(Protocol[A]):
     """
     A source of symbols for epsilon-machine inference.
-    
+
     Any object that is iterable over symbols and knows its alphabet
     satisfies this protocol.
     """
-    
+
     def __iter__(self) -> Iterator[A]:
         """Yield symbols from the source."""
         ...
-    
+
     @property
     def alphabet(self) -> frozenset[A]:
         """The set of possible symbols."""
@@ -53,12 +53,12 @@ class SequenceSource(Protocol[A]):
 ```python
 class SeededSource(SequenceSource[A], Protocol[A]):
     """A source that can be seeded for reproducibility."""
-    
+
     @property
     def seed(self) -> int | None:
         """The random seed, if set."""
         ...
-    
+
     def with_seed(self, seed: int) -> 'SeededSource[A]':
         """Return a new source with the given seed."""
         ...
@@ -79,32 +79,32 @@ import random
 class StochasticSource(Generic[A]):
     """
     Base class for stochastic process sources.
-    
+
     Handles random state management and provides common functionality.
     Not frozen because it maintains RNG state.
     """
-    
+
     _alphabet: frozenset[A]
     _seed: int | None = None
     _rng: random.Random = field(default_factory=random.Random, repr=False)
-    
+
     def __post_init__(self) -> None:
         if self._seed is not None:
             self._rng.seed(self._seed)
-    
+
     @property
     def alphabet(self) -> frozenset[A]:
         return self._alphabet
-    
+
     @property
     def seed(self) -> int | None:
         return self._seed
-    
+
     def with_seed(self, seed: int) -> 'StochasticSource[A]':
         """Return a new source with the given seed."""
         # Subclasses should override to return correct type
         raise NotImplementedError()
-    
+
     def __iter__(self) -> Iterator[A]:
         """Subclasses must implement."""
         raise NotImplementedError()
@@ -135,27 +135,27 @@ Constraint: After emitting 1, must emit 0.
 class GoldenMeanSource(StochasticSource[int]):
     """
     The Golden Mean Process.
-    
+
     A binary process where consecutive 1s are forbidden.
     After emitting a 1, the next symbol must be 0.
-    
+
     Parameters:
         p: Probability of emitting 0 from state A (default: 0.5)
         seed: Random seed for reproducibility
-    
+
     Statistical properties:
         - Entropy rate: h = -p*log(p) - (1-p)*log(1-p) for state A
         - Statistical complexity: C_μ = H(π) where π = (2/3, 1/3) for p=0.5
     """
-    
+
     p: float = 0.5
-    
+
     def __post_init__(self) -> None:
         super().__post_init__()
         object.__setattr__(self, '_alphabet', frozenset({0, 1}))
         if not (0 < self.p < 1):
             raise ValueError(f"p must be in (0, 1), got {self.p}")
-    
+
     def __iter__(self) -> Iterator[int]:
         state = 'A'
         while True:
@@ -169,10 +169,10 @@ class GoldenMeanSource(StochasticSource[int]):
             else:  # state == 'B'
                 yield 0
                 state = 'A'
-    
+
     def with_seed(self, seed: int) -> 'GoldenMeanSource':
         return GoldenMeanSource(p=self.p, _seed=seed)
-    
+
     @property
     def true_machine(self) -> 'EpsilonMachine[int]':
         """Return the known epsilon-machine for this process."""
@@ -209,23 +209,23 @@ Constraint: Once a 1 is started, must emit another 1.
 class EvenProcessSource(StochasticSource[int]):
     """
     The Even Process.
-    
+
     A binary process where 1s must appear in runs of even length.
     After emitting a 1, must emit another 1 before any 0.
-    
+
     Parameters:
         p: Probability of emitting 0 from state A (default: 0.5)
         seed: Random seed for reproducibility
     """
-    
+
     p: float = 0.5
-    
+
     def __post_init__(self) -> None:
         super().__post_init__()
         object.__setattr__(self, '_alphabet', frozenset({0, 1}))
         if not (0 < self.p < 1):
             raise ValueError(f"p must be in (0, 1), got {self.p}")
-    
+
     def __iter__(self) -> Iterator[int]:
         state = 'A'
         while True:
@@ -239,7 +239,7 @@ class EvenProcessSource(StochasticSource[int]):
             else:  # state == 'B'
                 yield 1
                 state = 'A'
-    
+
     def with_seed(self, seed: int) -> 'EvenProcessSource':
         return EvenProcessSource(p=self.p, _seed=seed)
 ```
@@ -251,24 +251,24 @@ class EvenProcessSource(StochasticSource[int]):
 class BiasedCoinSource(StochasticSource[int]):
     """
     Independent identically distributed binary source.
-    
+
     The simplest stochastic process: each symbol is independent.
     The ε-machine has exactly one state.
-    
+
     Parameters:
         p: Probability of emitting 1 (default: 0.5)
     """
-    
+
     p: float = 0.5
-    
+
     def __post_init__(self) -> None:
         super().__post_init__()
         object.__setattr__(self, '_alphabet', frozenset({0, 1}))
-    
+
     def __iter__(self) -> Iterator[int]:
         while True:
             yield 1 if self._rng.random() < self.p else 0
-    
+
     @property
     def true_machine(self) -> 'EpsilonMachine[int]':
         from emic.types import EpsilonMachineBuilder
@@ -289,22 +289,22 @@ class BiasedCoinSource(StochasticSource[int]):
 class PeriodicSource(StochasticSource[int]):
     """
     A deterministic periodic process.
-    
+
     Repeats a fixed pattern indefinitely.
     The ε-machine has N states (one per position in pattern).
-    
+
     Parameters:
         pattern: The repeating sequence of symbols
     """
-    
+
     pattern: tuple[int, ...]
-    
+
     def __post_init__(self) -> None:
         super().__post_init__()
         if len(self.pattern) == 0:
             raise ValueError("Pattern must be non-empty")
         object.__setattr__(self, '_alphabet', frozenset(self.pattern))
-    
+
     def __iter__(self) -> Iterator[int]:
         i = 0
         while True:
@@ -317,21 +317,21 @@ class PeriodicSource(StochasticSource[int]):
 A source that produces a process that is **not unifilar** — demonstrating a case where the forward-time ε-machine differs from reverse-time.
 
 ```python
-@dataclass  
+@dataclass
 class SimpleNonunifilarSource(StochasticSource[int]):
     """
     Simple Nonunifilar Source.
-    
+
     A process where the ε-machine requires looking at more history
     than a naive Markov model would suggest.
-    
+
     This is useful for testing inference algorithms.
     """
-    
+
     def __post_init__(self) -> None:
         super().__post_init__()
         object.__setattr__(self, '_alphabet', frozenset({0, 1}))
-    
+
     def __iter__(self) -> Iterator[int]:
         # Implementation depends on specific SNS variant
         raise NotImplementedError("TODO: Implement specific SNS")
@@ -348,30 +348,30 @@ class SimpleNonunifilarSource(StochasticSource[int]):
 class SequenceData(Generic[A]):
     """
     A finite sequence of observed symbols.
-    
+
     Wraps empirical data for use in inference pipelines.
     """
-    
+
     symbols: tuple[A, ...]
     _alphabet: frozenset[A] | None = None
-    
+
     def __iter__(self) -> Iterator[A]:
         return iter(self.symbols)
-    
+
     def __len__(self) -> int:
         return len(self.symbols)
-    
+
     @property
     def alphabet(self) -> frozenset[A]:
         if self._alphabet is not None:
             return self._alphabet
         return frozenset(self.symbols)
-    
+
     @classmethod
     def from_string(cls, s: str) -> 'SequenceData[str]':
         """Create from a string (each character is a symbol)."""
         return cls(tuple(s))
-    
+
     @classmethod
     def from_file(cls, path: str, alphabet: frozenset[A] | None = None) -> 'SequenceData[A]':
         """Load sequence from a file."""
@@ -392,12 +392,12 @@ Transforms take sources and produce new sources.
 class TakeN(Generic[A]):
     """
     Take the first N symbols from a source.
-    
+
     Converts an infinite source into a finite sequence.
     """
-    
+
     n: int
-    
+
     def __call__(self, source: SequenceSource[A]) -> SequenceData[A]:
         from itertools import islice
         symbols = tuple(islice(source, self.n))
@@ -411,12 +411,12 @@ class TakeN(Generic[A]):
 class SkipN(Generic[A]):
     """
     Skip the first N symbols (burn-in period).
-    
+
     Useful for allowing a process to reach stationarity.
     """
-    
+
     n: int
-    
+
     def __call__(self, source: SequenceSource[A]) -> Iterator[A]:
         it = iter(source)
         for _ in range(self.n):

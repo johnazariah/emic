@@ -31,22 +31,22 @@ class InferenceAlgorithm(Protocol[A]):
     """
     An algorithm that infers an epsilon-machine from a sequence.
     """
-    
+
     def infer(
-        self, 
+        self,
         sequence: Iterable[A],
         alphabet: frozenset[A] | None = None,
     ) -> 'InferenceResult[A]':
         """
         Infer an epsilon-machine from the given sequence.
-        
+
         Args:
             sequence: The observed symbols
             alphabet: Known alphabet (inferred from sequence if None)
-        
+
         Returns:
             InferenceResult containing the machine and diagnostics
-        
+
         Raises:
             InsufficientDataError: If sequence too short
             NonConvergenceError: If algorithm fails to converge
@@ -64,29 +64,29 @@ from typing import Generic
 class InferenceResult(Generic[A]):
     """
     The result of epsilon-machine inference.
-    
+
     Contains the inferred machine plus diagnostics and quality metrics.
     """
-    
+
     machine: EpsilonMachine[A]
-    
+
     # Diagnostics
     sequence_length: int
     max_history_used: int
     num_histories_considered: int
-    
+
     # Quality metrics
     log_likelihood: float | None = None
     aic: float | None = None  # Akaike Information Criterion
     bic: float | None = None  # Bayesian Information Criterion
-    
+
     # Convergence info
     converged: bool = True
     iterations: int | None = None
-    
+
     # Warnings
     warnings: tuple[str, ...] = ()
-    
+
     def summary(self) -> str:
         """Return a human-readable summary."""
         return (
@@ -123,34 +123,34 @@ class CSSRConfig:
     """
     Configuration for the CSSR algorithm.
     """
-    
+
     max_history: int
     """Maximum history length L to consider."""
-    
+
     significance: float = 0.05
     """
     Significance level for statistical tests.
     Lower values = more conservative splitting (fewer states).
     """
-    
+
     min_count: int = 5
     """
     Minimum observation count for a history to be considered.
     Histories with fewer observations are merged with parent.
     """
-    
+
     test: str = "chi2"
     """
     Statistical test for comparing distributions.
     Options: "chi2" (chi-squared), "ks" (Kolmogorov-Smirnov), "g" (G-test)
     """
-    
+
     max_iterations: int = 1000
     """Maximum iterations for convergence."""
-    
+
     verbose: bool = False
     """Print progress information."""
-    
+
     def __post_init__(self) -> None:
         if self.max_history < 1:
             raise ValueError(f"max_history must be >= 1, got {self.max_history}")
@@ -167,42 +167,42 @@ class CSSRConfig:
 class CSSR(Generic[A]):
     """
     Causal State Splitting Reconstruction algorithm.
-    
+
     Infers an epsilon-machine from an observed sequence by:
     1. Building a suffix tree of observed histories
     2. Grouping histories into causal states based on
        statistical indistinguishability of their futures
-    
+
     Reference:
         Shalizi, C.R. & Crutchfield, J.P. (2001).
         "Computational Mechanics: Pattern and Prediction,
         Structure and Simplicity"
-    
+
     Example:
         >>> from emic.sources import GoldenMeanSource, TakeN
         >>> from emic.inference import CSSR
-        >>> 
+        >>>
         >>> source = GoldenMeanSource(p=0.5, seed=42)
         >>> sequence = TakeN(10_000)(source)
-        >>> 
+        >>>
         >>> cssr = CSSR(CSSRConfig(max_history=5))
         >>> result = cssr.infer(sequence)
         >>> print(result.summary())
     """
-    
+
     config: CSSRConfig
-    
+
     def infer(
         self,
         sequence: Iterable[A],
         alphabet: frozenset[A] | None = None,
     ) -> InferenceResult[A]:
         """Infer epsilon-machine from sequence."""
-        
+
         # Convert to list for multiple passes
         symbols = list(sequence)
         n = len(symbols)
-        
+
         # Check minimum data requirement
         min_required = self.config.min_count * (self.config.max_history + 1)
         if n < min_required:
@@ -211,37 +211,37 @@ class CSSR(Generic[A]):
                 provided=n,
                 algorithm="CSSR",
             )
-        
+
         # Infer alphabet if not provided
         if alphabet is None:
             alphabet = frozenset(symbols)
-        
+
         # Build suffix tree
         suffix_tree = self._build_suffix_tree(symbols, alphabet)
-        
+
         # Initialize: all histories in one state
         states = self._initialize_states(suffix_tree)
-        
+
         # Iterate: split and merge until convergence
         converged = False
         for iteration in range(self.config.max_iterations):
             old_states = states
             states = self._split_states(states, suffix_tree)
             states = self._merge_states(states)
-            
+
             if states == old_states:
                 converged = True
                 break
-        
+
         if not converged:
             raise NonConvergenceError(
                 iterations=self.config.max_iterations,
                 tolerance=self.config.significance,
             )
-        
+
         # Build machine from final states
         machine = self._build_machine(states, suffix_tree, alphabet)
-        
+
         return InferenceResult(
             machine=machine,
             sequence_length=n,
@@ -250,48 +250,48 @@ class CSSR(Generic[A]):
             converged=converged,
             iterations=iteration + 1,
         )
-    
+
     def _build_suffix_tree(
-        self, 
-        symbols: list[A], 
+        self,
+        symbols: list[A],
         alphabet: frozenset[A]
     ) -> 'SuffixTree[A]':
         """
         Build a suffix tree collecting next-symbol statistics.
-        
+
         For each history h of length 0..L, count:
         - How many times h was observed
         - Distribution of next symbol after h
         """
         # Implementation detail - see internal module
         ...
-    
+
     def _initialize_states(self, suffix_tree: 'SuffixTree[A]') -> 'StatePartition':
         """Start with all histories in one equivalence class."""
         ...
-    
+
     def _split_states(
-        self, 
+        self,
         states: 'StatePartition',
         suffix_tree: 'SuffixTree[A]'
     ) -> 'StatePartition':
         """
         Split states where histories have different next-symbol distributions.
-        
+
         Uses chi-squared (or configured test) to determine if distributions
         are significantly different.
         """
         ...
-    
+
     def _merge_states(self, states: 'StatePartition') -> 'StatePartition':
         """
         Merge states that are statistically indistinguishable.
-        
+
         Two states are merged if their histories have the same
         distribution over next states (not just next symbols).
         """
         ...
-    
+
     def _build_machine(
         self,
         states: 'StatePartition',
@@ -302,7 +302,7 @@ class CSSR(Generic[A]):
         Construct the epsilon-machine from the final state partition.
         """
         ...
-    
+
     # Pipeline operator support
     def __rrshift__(self, source: Iterable[A]) -> InferenceResult[A]:
         """Support: sequence >> CSSR(config)"""
@@ -321,16 +321,16 @@ class CSSR(Generic[A]):
 @dataclass
 class HistoryStats(Generic[A]):
     """Statistics for a single history string."""
-    
+
     history: tuple[A, ...]
     count: int
     next_symbol_counts: dict[A, int]
-    
+
     @property
     def next_symbol_distribution(self) -> Distribution[A]:
         total = sum(self.next_symbol_counts.values())
         return Distribution({
-            s: c / total 
+            s: c / total
             for s, c in self.next_symbol_counts.items()
         })
 
@@ -338,25 +338,25 @@ class HistoryStats(Generic[A]):
 class SuffixTree(Generic[A]):
     """
     A tree collecting statistics for all observed histories.
-    
+
     Each node represents a history string and stores:
     - Count of observations
     - Distribution of next symbols
     """
-    
+
     def __init__(self, max_depth: int, alphabet: frozenset[A]):
         self.max_depth = max_depth
         self.alphabet = alphabet
         self._stats: dict[tuple[A, ...], HistoryStats[A]] = {}
-    
+
     def add_observation(self, history: tuple[A, ...], next_symbol: A) -> None:
         """Record an observation of history followed by next_symbol."""
         ...
-    
+
     def get_stats(self, history: tuple[A, ...]) -> HistoryStats[A] | None:
         """Get statistics for a history, or None if not observed."""
         return self._stats.get(history)
-    
+
     def histories_of_length(self, length: int) -> Iterator[tuple[A, ...]]:
         """Iterate over all observed histories of given length."""
         for h in self._stats:
@@ -371,27 +371,27 @@ class StatePartition:
     """
     A partition of histories into equivalence classes (causal states).
     """
-    
+
     def __init__(self) -> None:
         self._history_to_state: dict[tuple[Any, ...], str] = {}
         self._state_to_histories: dict[str, set[tuple[Any, ...]]] = {}
-    
+
     def assign(self, history: tuple[Any, ...], state_id: str) -> None:
         """Assign a history to a state."""
         ...
-    
+
     def get_state(self, history: tuple[Any, ...]) -> str | None:
         """Get the state ID for a history."""
         return self._history_to_state.get(history)
-    
+
     def split_state(
-        self, 
-        state_id: str, 
+        self,
+        state_id: str,
         partition: list[set[tuple[Any, ...]]]
     ) -> list[str]:
         """Split a state into multiple new states."""
         ...
-    
+
     def merge_states(self, state_ids: list[str]) -> str:
         """Merge multiple states into one."""
         ...
@@ -411,7 +411,7 @@ def chi_squared_test(
 ) -> bool:
     """
     Test if two count distributions are significantly different.
-    
+
     Returns True if distributions are significantly different
     (should be in different states).
     """
@@ -419,11 +419,11 @@ def chi_squared_test(
     all_keys = set(dist1.keys()) | set(dist2.keys())
     obs1 = [dist1.get(k, 0) for k in all_keys]
     obs2 = [dist2.get(k, 0) for k in all_keys]
-    
+
     # Chi-squared test
     contingency = [obs1, obs2]
     chi2, p_value, dof, expected = stats.chi2_contingency(contingency)
-    
+
     return p_value < significance
 
 
@@ -442,7 +442,7 @@ def ks_test(
         samples1.extend([i] * c)
     for i, (k, c) in enumerate(counts2.items()):
         samples2.extend([i] * c)
-    
+
     statistic, p_value = stats.ks_2samp(samples1, samples2)
     return p_value < significance
 ```
@@ -459,11 +459,11 @@ class InferenceError(EpsilonMachineError):
 
 class InsufficientDataError(InferenceError):
     """Raised when sequence is too short for reliable inference."""
-    
+
     def __init__(
-        self, 
-        required: int, 
-        provided: int, 
+        self,
+        required: int,
+        provided: int,
         algorithm: str = "unknown",
         **context
     ):
@@ -475,7 +475,7 @@ class InsufficientDataError(InferenceError):
         self.required = required
         self.provided = provided
         self.algorithm = algorithm
-    
+
     def explain(self) -> str:
         return (
             f"The sequence you provided has {self.provided} symbols, "
@@ -489,7 +489,7 @@ class InsufficientDataError(InferenceError):
 
 class NonConvergenceError(InferenceError):
     """Raised when algorithm fails to converge."""
-    
+
     def __init__(self, iterations: int, tolerance: float, **context):
         super().__init__(
             f"Algorithm did not converge after {iterations} iterations",
@@ -497,7 +497,7 @@ class NonConvergenceError(InferenceError):
         )
         self.iterations = iterations
         self.tolerance = tolerance
-    
+
     def explain(self) -> str:
         return (
             f"The algorithm did not stabilize after {self.iterations} iterations. "

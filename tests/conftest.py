@@ -1,12 +1,16 @@
 """
 Shared pytest fixtures and configuration for emic tests.
 """
+
 from __future__ import annotations
 
 import os
+from typing import TYPE_CHECKING
 
-import pytest
-from hypothesis import settings, Verbosity
+from hypothesis import Verbosity, settings
+
+if TYPE_CHECKING:
+    import pytest
 
 # ============================================================================
 # Hypothesis Profiles
@@ -45,6 +49,7 @@ settings.load_profile(os.getenv("HYPOTHESIS_PROFILE", "dev"))
 # Pytest Markers Configuration
 # ============================================================================
 
+
 def pytest_configure(config: pytest.Config) -> None:
     """Register custom markers."""
     config.addinivalue_line("markers", "unit: fast, isolated unit tests")
@@ -59,23 +64,5 @@ def pytest_configure(config: pytest.Config) -> None:
 # Shared Fixtures
 # ============================================================================
 
-# Note: Add fixtures here as we implement core types.
-# Examples:
-#
-# @pytest.fixture
-# def golden_mean_source():
-#     """Standard Golden Mean source for testing."""
-#     from emic.sources import GoldenMeanSource
-#     return GoldenMeanSource(p=0.5, seed=42)
-#
-# @pytest.fixture
-# def simple_machine():
-#     """A minimal valid epsilon machine for testing."""
-#     from emic.core import EpsilonMachine, CausalState
-#     # ... implementation
-#     pass
-#
-# @pytest.fixture
-# def sample_sequence():
-#     """A known sequence for deterministic tests."""
-#     return tuple([0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1])
+# Fixtures will be added here as we implement core types.
+# See .project/specifications/002-core-types.md for planned fixtures.
