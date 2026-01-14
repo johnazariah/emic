@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "emic"
+version = "0.0.1"
+description = "Epsilon Machine Inference & Characterization - A framework for computational mechanics"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [
+    { name = "John Azariah", email = "john.azariah@student.uts.edu.au" }
+]
+keywords = [
+    "epsilon-machine",
+    "computational-mechanics",
+    "causal-states",
+    "complexity",
+    "emergence",
+    "stochastic-processes",
+]
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://github.com/johnazariah/emic"
+Documentation = "https://github.com/johnazariah/emic#readme"
+Repository = "https://github.com/johnazariah/emic"
+Issues = "https://github.com/johnazariah/emic/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/emic"]
