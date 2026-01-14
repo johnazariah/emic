@@ -155,7 +155,7 @@ epsilon-machines/
 
 1. ~~**Package Name**: What should the package be called?~~ → **Decided: `emic`** (see ADR-005)
 
-2. **Symbolic Computation Priority**: Should SymPy-based alphabets be in v1 or a later extension?
+2. ~~**Symbolic Computation Priority**: Should SymPy-based alphabets be in v1 or a later extension?~~ → **Decided: Extension point** (see ADR-006)
 
 3. **ADR-003 Open Questions**: See error handling ADR for pending decisions
 
