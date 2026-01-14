@@ -1,0 +1,104 @@
+{
+    "name": "emic - Epsilon Machine Framework",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    
+    // Container configuration
+    "containerEnv": {
+        "PYTHONPATH": "${containerWorkspaceFolder}/src",
+        "HYPOTHESIS_PROFILE": "dev"
+    },
+    
+    // VS Code customizations
+    "customizations": {
+        "vscode": {
+            "settings": {
+                // Python settings
+                "python.defaultInterpreterPath": "/workspace/.venv/bin/python",
+                "python.terminal.activateEnvironment": true,
+                
+                // Type checking
+                "python.analysis.typeCheckingMode": "strict",
+                "python.analysis.diagnosticMode": "workspace",
+                
+                // Testing
+                "python.testing.pytestEnabled": true,
+                "python.testing.pytestPath": "/workspace/.venv/bin/pytest",
+                "python.testing.pytestArgs": ["tests"],
+                
+                // Formatting & Linting (Ruff)
+                "[python]": {
+                    "editor.defaultFormatter": "charliermarsh.ruff",
+                    "editor.formatOnSave": true,
+                    "editor.codeActionsOnSave": {
+                        "source.fixAll.ruff": "explicit",
+                        "source.organizeImports.ruff": "explicit"
+                    }
+                },
+                
+                // Jupyter
+                "jupyter.notebookFileRoot": "${workspaceFolder}",
+                "notebook.formatOnSave.enabled": true,
+                
+                // LaTeX
+                "latex-workshop.latex.autoBuild.run": "onSave",
+                "latex-workshop.latex.recipe.default": "latexmk",
+                "latex-workshop.latex.outDir": "%DIR%/out",
+                
+                // Editor
+                "editor.rulers": [100],
+                "files.trimTrailingWhitespace": true,
+                "files.insertFinalNewline": true
+            },
+            
+            "extensions": [
+                // Python
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "charliermarsh.ruff",
+                
+                // Jupyter
+                "ms-toolsai.jupyter",
+                "ms-toolsai.jupyter-keymap",
+                "ms-toolsai.jupyter-renderers",
+                
+                // LaTeX
+                "james-yu.latex-workshop",
+                
+                // Git
+                "mhutchie.git-graph",
+                "eamodio.gitlens",
+                
+                // Utilities
+                "streetsidesoftware.code-spell-checker",
+                "yzhang.markdown-all-in-one",
+                "bierner.markdown-mermaid",
+                "redhat.vscode-yaml",
+                "tamasfe.even-better-toml"
+            ]
+        }
+    },
+    
+    // Features to add
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {}
+    },
+    
+    // Lifecycle hooks
+    "postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
+    "postStartCommand": "uv sync",
+    
+    // Forward ports (for Jupyter, etc.)
+    "forwardPorts": [8888],
+    
+    // Mount configuration
+    "mounts": [
+        "source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached"
+    ],
+    
+    // Run as non-root user
+    "remoteUser": "vscode"
+}
