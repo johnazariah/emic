@@ -8,41 +8,14 @@ A Python framework for constructing and analyzing epsilon-machines based on comp
 
 An **epsilon-machine** (ε-machine) is the minimal, optimal predictor of a stochastic process. Introduced by James Crutchfield and collaborators, ε-machines capture the intrinsic computational structure hidden in sequential data.
 
-<div class="grid cards" markdown>
+## Features
 
--   :material-magnify:{ .lg .middle } **Inference**
-
-    ---
-
-    Reconstruct ε-machines from observed sequences using the CSSR algorithm
-
-    [:octicons-arrow-right-24: Learn more](guide/inference.md)
-
--   :material-chart-bar:{ .lg .middle } **Analysis**
-
-    ---
-
-    Compute complexity measures: statistical complexity (Cμ), entropy rate (hμ), excess entropy
-
-    [:octicons-arrow-right-24: Learn more](guide/analysis.md)
-
--   :material-dice-multiple:{ .lg .middle } **Sources**
-
-    ---
-
-    Built-in stochastic process generators and empirical data loading
-
-    [:octicons-arrow-right-24: Learn more](guide/sources.md)
-
--   :material-pipe:{ .lg .middle } **Pipelines**
-
-    ---
-
-    Compose workflows with the `>>` operator
-
-    [:octicons-arrow-right-24: Learn more](guide/pipelines.md)
-
-</div>
+| Feature | Description |
+|---------|-------------|
+| 🔮 **[Inference](guide/inference.md)** | Reconstruct ε-machines from observed sequences using the CSSR algorithm |
+| 📊 **[Analysis](guide/analysis.md)** | Compute complexity measures: statistical complexity (Cμ), entropy rate (hμ), excess entropy |
+| 🎲 **[Sources](guide/sources.md)** | Built-in stochastic process generators and empirical data loading |
+| 🔗 **[Pipelines](guide/pipelines.md)** | Compose workflows with the `>>` operator |
 
 ## Quick Example
 
