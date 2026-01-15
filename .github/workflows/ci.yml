@@ -74,6 +74,24 @@ jobs:
           fail_ci_if_error: false
           verbose: true
 
+  docs:
+    name: Build Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+
+      - name: Set up Python
+        run: uv python install ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: uv sync --dev --extra docs
+
+      - name: Build docs
+        run: uv run mkdocs build --strict
+
   test-notebooks:
     name: Test Notebooks
     runs-on: ubuntu-latest

@@ -1,0 +1,90 @@
+site_name: emic
+site_description: Epsilon Machine Inference & Characterization
+site_author: John Azariah
+site_url: https://johnazariah.github.io/emic
+
+repo_name: johnazariah/emic
+repo_url: https://github.com/johnazariah/emic
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - content.code.copy
+    - content.code.annotate
+  icon:
+    repo: fontawesome/brands/github
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - User Guide:
+      - Sources: guide/sources.md
+      - Inference: guide/inference.md
+      - Analysis: guide/analysis.md
+      - Pipelines: guide/pipelines.md
+  - API Reference:
+      - emic: api/index.md
+      - emic.sources: api/sources.md
+      - emic.inference: api/inference.md
+      - emic.analysis: api/analysis.md
+      - emic.types: api/types.md
+      - emic.output: api/output.md
+  - Contributing: contributing.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: google
+            show_source: true
+            show_root_heading: true
+            show_root_full_path: false
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            members_order: source
+            merge_init_into_class: true
+            separate_signature: true
+            show_signature_annotations: true
+            signature_crossrefs: true
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+  - attr_list
+  - md_in_html
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/johnazariah
+
+copyright: Copyright &copy; 2026 John Azariah

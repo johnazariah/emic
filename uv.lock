@@ -385,6 +385,9 @@ viz = [
 [package.dev-dependencies]
 dev = [
     { name = "hypothesis" },
+    { name = "mkdocs" },
+    { name = "mkdocs-material" },
+    { name = "mkdocstrings", extra = ["python"] },
     { name = "nbconvert" },
     { name = "nbformat" },
     { name = "pre-commit" },
@@ -412,6 +415,9 @@ provides-extras = ["viz", "docs", "all"]
 [package.metadata.requires-dev]
 dev = [
     { name = "hypothesis", specifier = ">=6.100" },
+    { name = "mkdocs", specifier = ">=1.5" },
+    { name = "mkdocs-material", specifier = ">=9.0" },
+    { name = "mkdocstrings", extras = ["python"], specifier = ">=0.24" },
     { name = "nbconvert", specifier = ">=7.16" },
     { name = "nbformat", specifier = ">=5.10" },
     { name = "pre-commit", specifier = ">=3.7" },

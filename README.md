@@ -1,6 +1,7 @@
 # emic
 
 [![CI](https://github.com/johnazariah/emic/actions/workflows/ci.yml/badge.svg)](https://github.com/johnazariah/emic/actions/workflows/ci.yml)
+[![Docs](https://github.com/johnazariah/emic/actions/workflows/docs.yml/badge.svg)](https://johnazariah.github.io/emic/)
 [![Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen)](https://github.com/johnazariah/emic)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
@@ -8,6 +9,8 @@
 **E**psilon **M**achine **I**nference & **C**haracterization
 
 A Python framework for constructing and analyzing epsilon-machines based on computational mechanics.
+
+📚 **[Documentation](https://johnazariah.github.io/emic/)** | 🚀 **[Getting Started](https://johnazariah.github.io/emic/getting-started/)**
 
 ## What is an Epsilon-Machine?
 

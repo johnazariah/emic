@@ -26,3 +26,11 @@ repos:
         language: system
         types: [python]
         pass_filenames: false
+
+      - id: check-docstrings
+        name: check docstrings
+        entry: uv run python scripts/check_docstrings.py
+        language: system
+        types: [python]
+        files: ^src/
+        exclude: test_
