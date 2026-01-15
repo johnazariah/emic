@@ -38,6 +38,19 @@ Documentation = "https://github.com/johnazariah/emic#readme"
 Repository = "https://github.com/johnazariah/emic"
 Issues = "https://github.com/johnazariah/emic/issues"
 
+[project.optional-dependencies]
+viz = [
+    "graphviz>=0.20",
+]
+docs = [
+    "mkdocs>=1.5",
+    "mkdocs-material>=9.0",
+    "mkdocstrings[python]>=0.24",
+]
+all = [
+    "emic[viz,docs]",
+]
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/emic"]
 
@@ -153,7 +166,7 @@ include = ["src"]
 exclude = ["**/__pycache__"]
 pythonVersion = "3.11"
 typeCheckingMode = "strict"
-reportMissingImports = true
+reportMissingImports = "warning"  # Allow optional deps like graphviz
 reportMissingTypeStubs = false
 # Relax some strict rules for inference module (complex generics)
 reportUnknownParameterType = "warning"
