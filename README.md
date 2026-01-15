@@ -105,7 +105,7 @@ print(result.summary)
 - Pipeline composition
 - 194 tests with 90% coverage
 
-📚 **Documentation in progress** — See `.project/specifications/` for detailed specs.
+📚 **[Full documentation available](https://johnazariah.github.io/emic/)**
 
 ## Etymology
 
@@ -113,7 +113,7 @@ The name **emic** works on multiple levels:
 
 1. **Acronym**: **E**psilon **M**achine **I**nference & **C**haracterization
 2. **Linguistic**: In linguistics/anthropology, *emic* refers to analysis from within the system — understanding structure on its own terms. This resonates with computational mechanics: ε-machines reveal the intrinsic structure of a process.
-3. **Phonetic**: Sounds like "ε-mic" (epsilon-machine)
+3. **Phonetic**: Pronounced "EE-mik" or "EH-mic" — a nod to "ε-machine"
 
 ## References
 
@@ -123,7 +123,7 @@ The name **emic** works on multiple levels:
 
 ## Contributing
 
-Contributions are welcome! Please see the architecture decision records in `.project/adr/` to understand the design principles.
+Contributions are welcome! See the [Contributing Guide](https://johnazariah.github.io/emic/contributing/) for details.
 
 ## License
 
