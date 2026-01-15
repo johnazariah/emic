@@ -299,10 +299,11 @@ Finalize pipeline composition and polish the API.
 - [ ] `Pipeline` builder (optional)
 
 #### 7.2 Documentation
-- [ ] API reference (docstrings)
-- [ ] User guide
-- [ ] Tutorial notebooks
-- [ ] Example gallery
+- [ ] API reference (docstrings with examples)
+- [ ] User guide (getting-started, sources, inference, analysis, pipelines)
+- [ ] Pipeline showcase notebook
+- [ ] Complexity landscape notebook
+- [ ] README with quick-start example
 
 #### 7.3 Polish
 - [ ] Error message review
@@ -310,7 +311,7 @@ Finalize pipeline composition and polish the API.
 - [ ] Performance profiling
 - [ ] Memory usage check
 
-**Spec**: [007-pipeline-composition.md](specifications/007-pipeline-composition.md)
+**Spec**: [007-pipeline-composition.md](specifications/007-pipeline-composition.md), [008-documentation.md](specifications/008-documentation.md)
 
 ### Acceptance Criteria
 - [ ] Full pipeline works as documented
@@ -334,12 +335,44 @@ Finalize pipeline composition and polish the API.
 
 ---
 
-## Future Phases (Post v0.1.0)
+## Phase 9: Research Paper
+*Target: Post v0.1.0*
 
-### Phase 9: Educational Notebooks
-- Interactive tutorials
-- Visualization improvements
-- Binder/Colab support
+### Objective
+Write a research paper demonstrating the framework and empirical results.
+
+### Tasks
+
+#### 9.1 Experiments
+- [ ] Run inference experiments on canonical processes
+- [ ] Vary data lengths (1K, 10K, 100K, 1M)
+- [ ] Vary CSSR parameters (max_history, significance)
+- [ ] Collect metrics: state count, entropy rate, complexity
+
+#### 9.2 Paper Writing
+- [ ] LaTeX structure created
+- [ ] Background section (computational mechanics)
+- [ ] Framework section (architecture, design)
+- [ ] Experiments section (results, discussion)
+- [ ] Introduction and conclusion
+
+#### 9.3 Figures
+- [ ] Architecture diagram (TikZ)
+- [ ] Epsilon-machine state diagrams
+- [ ] Accuracy vs data length plots
+- [ ] Parameter sensitivity heatmaps
+
+**Spec**: [009-research-paper.md](specifications/009-research-paper.md)
+
+### Acceptance Criteria
+- [ ] Paper compiles with pdflatex
+- [ ] Experiments reproducible
+- [ ] Figures auto-generated
+- [ ] Submitted to arXiv
+
+---
+
+## Future Phases (Post Paper)
 
 ### Phase 10: Additional Algorithms
 - Bayesian inference
@@ -364,13 +397,14 @@ Finalize pipeline composition and polish the API.
 |-------|--------|------------|
 | 0: Foundation | ✅ Complete | 100% |
 | 1: Dev Environment | ✅ Complete | 100% |
-| 2: Core Types | 🔲 Not Started | 0% |
-| 3: Sources | 🔲 Not Started | 0% |
-| 4: Inference | 🔲 Not Started | 0% |
-| 5: Analysis | 🔲 Not Started | 0% |
+| 2: Core Types | ✅ Complete | 100% |
+| 3: Sources | ✅ Complete | 100% |
+| 4: Inference | ✅ Complete | 100% |
+| 5: Analysis | ✅ Complete | 100% |
 | 6: Output | 🔲 Not Started | 0% |
-| 7: Pipeline | 🔲 Not Started | 0% |
-| 8: Release | 🔲 Not Started | 0% |
+| 7: Pipeline & Docs | 🔲 Not Started | 0% |
+| 8: Release v0.1.0 | 🔲 Not Started | 0% |
+| 9: Research Paper | 🔲 Not Started | 0% |
 
 ---
 
