@@ -334,10 +334,7 @@ class EpsilonMachineBuilder(Generic[A]):
 
         # Compute stationary distribution if not provided
         if self._stationary is None:
-            # For now, use uniform distribution
-            # TODO: Compute from transition matrices
-            n = len(states)
-            self._stationary = {s.id: 1.0 / n for s in states}
+            self._stationary = self._compute_stationary_distribution()
 
         return EpsilonMachine(
             alphabet=frozenset(self._alphabet),
@@ -345,3 +342,68 @@ class EpsilonMachineBuilder(Generic[A]):
             start_state=self._start_state,
             stationary_distribution=Distribution(self._stationary),
         )
+
+    def _compute_stationary_distribution(self) -> dict[StateId, float]:
+        """
+        Compute the stationary distribution by solving π = π P.
+
+        Uses power iteration for simplicity and robustness.
+        Pure Python implementation - no numpy dependency.
+
+        For machines with absorbing states or incomplete transitions,
+        falls back to uniform distribution.
+        """
+        state_ids = list(self._states.keys())
+        n = len(state_ids)
+        if n == 0:
+            return {}
+        if n == 1:
+            return {state_ids[0]: 1.0}
+
+        # Build transition matrix P[i][j] = prob of going from state i to state j
+        state_idx = {sid: i for i, sid in enumerate(state_ids)}
+        P: list[list[float]] = [[0.0] * n for _ in range(n)]
+
+        for sid, transitions in self._states.items():
+            i = state_idx[sid]
+            row_sum = 0.0
+            for t in transitions:
+                if t.target in state_idx:
+                    j = state_idx[t.target]
+                    P[i][j] += t.probability
+                    row_sum += t.probability
+            # Check if row sums to ~1 (proper stochastic matrix)
+            if abs(row_sum - 1.0) > 0.01:
+                # Not a proper stochastic matrix, use uniform
+                return dict.fromkeys(state_ids, 1.0 / n)
+
+        # Power iteration to find stationary distribution
+        # Start with uniform
+        pi = [1.0 / n] * n
+
+        for _ in range(1000):  # Max iterations
+            # Compute pi_new = pi @ P (matrix-vector multiplication)
+            pi_new = [0.0] * n
+            for j in range(n):
+                for i in range(n):
+                    pi_new[j] += pi[i] * P[i][j]
+
+            # Normalize to handle numerical errors
+            total = sum(pi_new)
+            if total <= 0:
+                # Degenerate case, use uniform
+                return {state_ids[i]: 1.0 / n for i in range(n)}
+            pi_new = [p / total for p in pi_new]
+
+            # Check convergence
+            max_diff = max(abs(pi_new[i] - pi[i]) for i in range(n))
+            if max_diff < 1e-10:
+                break
+            pi = pi_new
+
+        # Final validation
+        total = sum(pi)
+        if total <= 0:
+            return {state_ids[i]: 1.0 / n for i in range(n)}
+
+        return {state_ids[i]: pi[i] for i in range(n)}

@@ -121,22 +121,37 @@ class CSSR(Generic[A]):
         """
         Initialize partition by grouping similar histories.
 
-        Start with histories of length max_history grouped by
+        Start with histories of length 1 to max_history grouped by
         their next-symbol distribution similarity.
+
+        Note: The empty history () is excluded because it represents
+        the stationary mixture of causal states, not a single state.
+        Including it would cause spurious state creation.
         """
         partition = StatePartition()
 
-        # Collect histories with sufficient counts
+        # Collect histories with sufficient counts, excluding empty history
+        # The empty history reflects the stationary distribution (mixture of states),
+        # not a specific causal state, so it must be excluded from partitioning.
         valid_histories: list[tuple[A, ...]] = []
         for history in suffix_tree.all_histories():
+            if len(history) == 0:
+                continue  # Exclude empty history
             stats = suffix_tree.get_stats(history)
             if stats and stats.count >= self.config.min_count:
                 valid_histories.append(history)
 
         if not valid_histories:
-            # No valid histories - create single state with empty history
-            partition.assign((), partition.new_state_id())
-            return partition
+            # No valid histories - create single state
+            # Use length-1 histories if available
+            for symbol in suffix_tree.alphabet:
+                stats = suffix_tree.get_stats((symbol,))
+                if stats and stats.count > 0:
+                    valid_histories.append((symbol,))
+            if not valid_histories:
+                # Fallback: include empty history only if nothing else available
+                partition.assign((), partition.new_state_id())
+                return partition
 
         # Initially put all histories in one state
         initial_state = partition.new_state_id()
