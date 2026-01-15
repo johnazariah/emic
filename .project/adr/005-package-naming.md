@@ -33,7 +33,7 @@ We need a name for the Python package that will be:
    - This resonates deeply with computational mechanics: ε-machines reveal the *intrinsic* computational structure of a process, not an externally imposed model
    - The "emic" perspective is about discovering structure that's *already there*
 
-3. **Phonetic similarity**: Sounds like "ε-mic" (epsilon-machine)
+3. **Phonetic similarity**: Pronounced "EE-mik" — a nod to "ε-machine"
 
 4. **Practical benefits**:
    - 4 characters — minimal typing
