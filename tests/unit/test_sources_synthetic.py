@@ -28,9 +28,9 @@ class TestGoldenMeanSource:
         symbols = list(itertools.islice(source, 1000))
 
         for i in range(len(symbols) - 1):
-            assert not (
-                symbols[i] == 1 and symbols[i + 1] == 1
-            ), f"Found consecutive 1s at positions {i} and {i + 1}"
+            assert not (symbols[i] == 1 and symbols[i + 1] == 1), (
+                f"Found consecutive 1s at positions {i} and {i + 1}"
+            )
 
     def test_reproducibility_with_seed(self) -> None:
         """Same seed produces same sequence."""
@@ -88,9 +88,9 @@ class TestEvenProcessSource:
         for s in symbols:
             if s == 0:
                 if seen_first_zero:
-                    assert (
-                        ones_count % 2 == 0
-                    ), f"Found {ones_count} ones between zeros (should be even)"
+                    assert ones_count % 2 == 0, (
+                        f"Found {ones_count} ones between zeros (should be even)"
+                    )
                 seen_first_zero = True
                 ones_count = 0
             else:
