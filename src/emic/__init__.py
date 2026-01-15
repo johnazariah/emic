@@ -5,6 +5,7 @@ A Python framework for constructing and analyzing epsilon-machines
 based on computational mechanics.
 """
 
+from emic.pipeline import Pipeline, identity, tap
 from emic.types import (
     Alphabet,
     CausalState,
@@ -26,8 +27,11 @@ __all__ = [
     "Distribution",
     "EpsilonMachine",
     "EpsilonMachineBuilder",
+    "Pipeline",
     "ProbabilityValue",
     "StateId",
     "Symbol",
     "Transition",
+    "identity",
+    "tap",
 ]
