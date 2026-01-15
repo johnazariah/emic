@@ -34,7 +34,9 @@ echo "🔧 Setting up pre-commit hooks..."
 
 if [ -f ".pre-commit-config.yaml" ]; then
     uv run pre-commit install
-    echo "✅ Pre-commit hooks installed"
+    # Pre-warm the pre-commit environments so first commit doesn't have cold start
+    uv run pre-commit install-hooks
+    echo "✅ Pre-commit hooks installed and environments cached"
 else
     echo "⚠️  No .pre-commit-config.yaml found, skipping"
 fi
@@ -50,6 +52,11 @@ git config --global init.defaultBranch main
 
 # Enable git push for new branches
 git config --global push.autoSetupRemote true
+
+# Set up GitHub CLI as git credential helper (works with Podman on Windows)
+if command -v gh &> /dev/null; then
+    gh auth setup-git 2>/dev/null || echo "⚠️  GitHub CLI not authenticated - run 'gh auth login' to authenticate"
+fi
 
 echo "✅ Git configured"
 

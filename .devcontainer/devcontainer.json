@@ -11,6 +11,12 @@
         "HYPOTHESIS_PROFILE": "dev"
     },
 
+    // Podman-specific configuration
+    "runArgs": [
+        "--userns=keep-id",
+        "--tmpfs=/tmp:rw,exec,nosuid,size=2g,mode=1777"
+    ],
+
     // VS Code customizations
     "customizations": {
         "vscode": {
@@ -93,11 +99,6 @@
 
     // Forward ports (for Jupyter, etc.)
     "forwardPorts": [8888],
-
-    // Mount configuration
-    "mounts": [
-        "source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached"
-    ],
 
     // Run as non-root user
     "remoteUser": "vscode"

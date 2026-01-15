@@ -21,7 +21,7 @@ class InsufficientDataError(InferenceError):
         algorithm: str = "unknown",
     ) -> None:
         super().__init__(
-            f"Insufficient data for {algorithm}: " f"need {required} symbols, got {provided}"
+            f"Insufficient data for {algorithm}: need {required} symbols, got {provided}"
         )
         self.required = required
         self.provided = provided
