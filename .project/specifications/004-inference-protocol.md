@@ -108,12 +108,17 @@ class InferenceResult(Generic[A]):
 **CSSR** (Causal State Splitting Reconstruction) works by:
 
 1. **Build suffix tree**: Collect statistics for all observed histories up to length L
-2. **Initialize**: Start with one state containing all histories
+2. **Initialize**: Start with one state containing all histories (excluding empty history)
 3. **Split**: Recursively split states when histories have statistically different futures
 4. **Merge**: Combine states that are statistically indistinguishable
-5. **Construct machine**: Build transitions from final state partition
+5. **Post-merge**: (Optional) Additional merging pass to handle finite-sample over-estimation
+6. **Construct machine**: Build transitions from final state partition
 
 Key insight: Two histories are in the same causal state iff they predict the same distribution over next symbols.
+
+**Important**: The empty history `()` is excluded from the initial partition because it represents the stationary mixture of all causal states, not a single causal state. Including it causes spurious state creation.
+
+**Finite-sample behavior**: CSSR may produce more states than the minimal ε-machine due to finite-sample effects. This is well-documented in Shalizi & Crutchfield (2004) and addressed by optional post-convergence state merging.
 
 ### 2.2 Configuration
 
@@ -147,6 +152,26 @@ class CSSRConfig:
 
     max_iterations: int = 1000
     """Maximum iterations for convergence."""
+
+    post_merge: bool = True
+    """
+    Enable post-convergence state merging.
+
+    After CSSR converges, performs additional passes to merge states
+    with statistically indistinguishable next-symbol distributions.
+    This addresses finite-sample over-estimation where the standard
+    split/merge loop may not identify all equivalent states.
+
+    Reference: Shalizi & Crutchfield (2004) discuss state merging as
+    a separate post-processing step for achieving minimality.
+    """
+
+    merge_significance: float | None = None
+    """
+    Significance level for post-merge testing.
+    If None, uses the same value as `significance`.
+    A higher value (e.g., 0.1) is more aggressive at merging.
+    """
 
     verbose: bool = False
     """Print progress information."""
@@ -449,7 +474,76 @@ def ks_test(
 
 ---
 
-## 5. Error Types
+## 5. Post-Convergence State Merging
+
+CSSR may produce more states than the minimal ε-machine due to **finite-sample effects**. This is documented in Shalizi & Crutchfield (2004): the algorithm is conservative and splits first, with the expectation that equivalent states can be merged later.
+
+### 5.1 Why Over-Estimation Occurs
+
+Consider the Even Process with histories:
+- `(0, 1)` → P(next=1) = 1.0 (must complete even run)
+- `(1, 1)` → P(next=1) ≈ 0.66 (can emit 0 or continue)
+- `(1,)` → P(next=1) ≈ 0.75 (**mixes both contexts**)
+
+The history `(1,)` mixes two different causal states, making it statistically distinct from both. CSSR correctly identifies this as a different equivalence class, but this creates extra states.
+
+### 5.2 Post-Merge Algorithm
+
+After CSSR converges, an optional post-merge pass:
+
+```python
+def _post_merge_states(
+    self,
+    partition: StatePartition,
+    suffix_tree: SuffixTree[A],
+) -> StatePartition:
+    """
+    Aggressive post-convergence merging.
+
+    Iteratively merges state pairs until no more merges are possible.
+    Uses a potentially higher significance level to be more aggressive.
+    """
+    merge_sig = self.config.merge_significance or self.config.significance
+
+    changed = True
+    while changed:
+        changed = False
+        state_ids = partition.state_ids()
+
+        # Compute aggregate distributions
+        state_dists = self._compute_state_distributions(partition, suffix_tree)
+
+        # Try all pairs
+        for i, s1 in enumerate(state_ids):
+            for s2 in state_ids[i + 1:]:
+                if not distributions_differ(
+                    state_dists[s1],
+                    state_dists[s2],
+                    merge_sig,
+                    self.config.test,
+                ):
+                    partition = partition.copy()
+                    partition.merge_states([s1, s2])
+                    changed = True
+                    break
+            if changed:
+                break
+
+    return partition
+```
+
+### 5.3 Configuration
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `post_merge` | `True` | Enable post-convergence merging |
+| `merge_significance` | `None` (same as `significance`) | Significance for merge tests |
+
+**Recommendation**: Use `merge_significance=0.1` or higher for aggressive merging when the goal is to minimize state count.
+
+---
+
+## 6. Error Types
 
 ```python
 class InferenceError(EpsilonMachineError):

@@ -105,6 +105,10 @@ class CSSR(Generic[A]):
                 tolerance=self.config.significance,
             )
 
+        # Post-convergence state merging for minimality
+        if self.config.post_merge:
+            partition = self._post_merge_states(partition, suffix_tree)
+
         # Build machine from final partition
         machine = self._build_machine(partition, suffix_tree, alphabet)
 
@@ -259,6 +263,59 @@ class CSSR(Generic[A]):
                     merged.add(s2)
 
         return new_partition
+
+    def _post_merge_states(
+        self,
+        partition: StatePartition,
+        suffix_tree: SuffixTree[A],
+    ) -> StatePartition:
+        """
+        Post-convergence state merging for minimality.
+
+        After CSSR converges, this performs additional aggressive merging
+        to address finite-sample over-estimation. Iteratively merges state
+        pairs until no more merges are possible.
+
+        Reference: Shalizi & Crutchfield (2004) discuss state merging as
+        a separate post-processing step for achieving minimality.
+        """
+        merge_sig = self.config.merge_significance or self.config.significance
+        current = partition.copy()
+
+        changed = True
+        while changed:
+            changed = False
+            state_ids = current.state_ids()
+
+            if len(state_ids) <= 1:
+                break
+
+            # Compute aggregate distribution for each state
+            state_distributions: dict[str, dict[A, int]] = {}
+            for state_id in state_ids:
+                aggregate: dict[A, int] = {}
+                for history in current.get_histories(state_id):
+                    stats = suffix_tree.get_stats(history)
+                    if stats:
+                        for symbol, count in stats.next_symbol_counts.items():
+                            aggregate[symbol] = aggregate.get(symbol, 0) + count
+                state_distributions[state_id] = aggregate
+
+            # Try all pairs
+            for i, s1 in enumerate(state_ids):
+                for s2 in state_ids[i + 1 :]:
+                    dist1 = state_distributions.get(s1, {})
+                    dist2 = state_distributions.get(s2, {})
+
+                    if not distributions_differ(dist1, dist2, merge_sig, self.config.test):
+                        current = current.copy()
+                        current.merge_states([s1, s2])
+                        changed = True
+                        break
+                if changed:
+                    break
+
+        return current
 
     def _build_machine(
         self,
