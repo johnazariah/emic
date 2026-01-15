@@ -4,6 +4,13 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      use_testpypi:
+        description: 'Publish to TestPyPI first'
+        required: false
+        default: false
+        type: boolean
 
 env:
   PYTHON_VERSION: "3.11"
@@ -66,6 +73,7 @@ jobs:
   publish-testpypi:
     name: Publish to TestPyPI
     needs: test-release
+    if: ${{ inputs.use_testpypi == true }}
     runs-on: ubuntu-latest
     environment: testpypi
     permissions:
@@ -84,7 +92,8 @@ jobs:
 
   publish-pypi:
     name: Publish to PyPI
-    needs: publish-testpypi
+    needs: test-release
+    if: ${{ always() && needs.test-release.result == 'success' }}
     runs-on: ubuntu-latest
     environment: pypi
     permissions:

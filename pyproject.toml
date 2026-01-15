@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "emic"
-version = "0.0.1"
+version = "0.1.0"
 description = "Epsilon Machine Inference & Characterization - A framework for computational mechanics"
 readme = "README.md"
 license = "MIT"
@@ -21,7 +21,7 @@ keywords = [
     "stochastic-processes",
 ]
 classifiers = [
-    "Development Status :: 1 - Planning",
+    "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
