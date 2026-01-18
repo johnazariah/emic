@@ -79,6 +79,17 @@ class TestRenderStateDiagram:
         diagram = render_state_diagram(machine, style)
         assert "doublecircle" in diagram.source
 
+    def test_render_with_size(self) -> None:
+        """Test rendering with size option."""
+        pytest.importorskip("graphviz")
+        from emic.output import render_state_diagram
+
+        machine = GoldenMeanSource(p=0.5).true_machine
+        style = DiagramStyle(size=(8.0, 6.0))
+        diagram = render_state_diagram(machine, style)
+        assert "size" in diagram.source
+        assert "8.0,6.0" in diagram.source
+
 
 class TestToTikz:
     """Tests for TikZ export."""
