@@ -67,6 +67,28 @@ class TestGoldenMeanSource:
         # If we got here without error, machine is unifiliar
         assert machine is not None
 
+    def test_invalid_p_zero(self) -> None:
+        """p=0 raises ValueError."""
+        with pytest.raises(ValueError, match="p must be in"):
+            GoldenMeanSource(p=0.0)
+
+    def test_invalid_p_one(self) -> None:
+        """p=1 raises ValueError."""
+        with pytest.raises(ValueError, match="p must be in"):
+            GoldenMeanSource(p=1.0)
+
+    def test_invalid_p_negative(self) -> None:
+        """Negative p raises ValueError."""
+        with pytest.raises(ValueError, match="p must be in"):
+            GoldenMeanSource(p=-0.1)
+
+    def test_with_seed_returns_new_source(self) -> None:
+        """with_seed returns a new source with the given seed."""
+        source1 = GoldenMeanSource(p=0.5)
+        source2 = source1.with_seed(42)
+        assert source2 is not source1
+        assert source2.p == source1.p
+
 
 class TestEvenProcessSource:
     """Tests for EvenProcessSource (even number of 1s between 0s)."""
@@ -113,6 +135,23 @@ class TestEvenProcessSource:
 
         assert isinstance(machine, EpsilonMachine)
         assert len(machine.states) == 2  # Even and odd states
+
+    def test_invalid_p_zero(self) -> None:
+        """p=0 raises ValueError."""
+        with pytest.raises(ValueError, match="p must be in"):
+            EvenProcessSource(p=0.0)
+
+    def test_invalid_p_one(self) -> None:
+        """p=1 raises ValueError."""
+        with pytest.raises(ValueError, match="p must be in"):
+            EvenProcessSource(p=1.0)
+
+    def test_with_seed_returns_new_source(self) -> None:
+        """with_seed returns a new source with the given seed."""
+        source1 = EvenProcessSource(p=0.5)
+        source2 = source1.with_seed(42)
+        assert source2 is not source1
+        assert source2.p == source1.p
 
 
 class TestBiasedCoinSource:
@@ -233,3 +272,20 @@ class TestPeriodicSource:
             # The single transition should have probability 1
             transition = next(iter(state.transitions))
             assert abs(transition.probability - 1.0) < 1e-10
+
+    def test_pipeline_operator_with_callable(self) -> None:
+        """Test >> operator with callable transform."""
+        source = PeriodicSource(pattern=(0, 1))
+
+        # Use a simple callable that takes the source
+        def take_10(src: PeriodicSource) -> list:  # type: ignore[type-arg]
+            return list(itertools.islice(src, 10))
+
+        result = source >> take_10
+        assert result == [0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
+
+    def test_pipeline_operator_with_non_callable(self) -> None:
+        """Test >> operator with non-callable returns NotImplemented."""
+        source = PeriodicSource(pattern=(0, 1))
+        result = source.__rshift__(42)  # Not callable
+        assert result is NotImplemented
