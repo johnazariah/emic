@@ -128,6 +128,57 @@ class TestStatePartition:
         assert partition.get_state((0,)) == merged_id
         assert partition.get_state((1,)) == merged_id
 
+    def test_merge_states_empty_list(self) -> None:
+        """merge_states with empty list returns new state id."""
+        partition = StatePartition()
+        new_id = partition.merge_states([])
+        assert new_id is not None
+
+    def test_split_state_nonexistent(self) -> None:
+        """split_state with nonexistent state returns empty list."""
+        partition = StatePartition()
+        result = partition.split_state("nonexistent", [])
+        assert result == []
+
+    def test_split_state_with_remaining_histories(self) -> None:
+        """split_state keeps remaining histories in new state."""
+        partition = StatePartition()
+        partition.assign((0,), "S0")
+        partition.assign((1,), "S0")
+        partition.assign((2,), "S0")
+
+        # Split, moving only (0,) and (1,) to new groups
+        result = partition.split_state("S0", [{(0,)}, {(1,)}])
+
+        # Should have new states for the groups plus one for remaining (2,)
+        assert len(result) >= 2
+        # All histories should still be assigned
+        assert partition.get_state((0,)) is not None
+        assert partition.get_state((1,)) is not None
+        assert partition.get_state((2,)) is not None
+
+    def test_equality_with_non_partition(self) -> None:
+        """Comparing partition to non-partition returns NotImplemented."""
+        partition = StatePartition()
+        result = partition.__eq__("not a partition")
+        assert result is NotImplemented
+
+    def test_equality_with_same_content(self) -> None:
+        """Partitions with same content are equal."""
+        p1 = StatePartition()
+        p2 = StatePartition()
+        p1.assign((0,), "S0")
+        p2.assign((0,), "S0")
+        assert p1 == p2
+
+    def test_equality_with_different_content(self) -> None:
+        """Partitions with different content are not equal."""
+        p1 = StatePartition()
+        p2 = StatePartition()
+        p1.assign((0,), "S0")
+        p2.assign((0,), "S1")
+        assert p1 != p2
+
 
 class TestStatisticalTests:
     """Tests for statistical tests."""
