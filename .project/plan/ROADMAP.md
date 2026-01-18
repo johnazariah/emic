@@ -1,6 +1,6 @@
 # Project Roadmap
 
-*Last updated: 2026-01-15*
+*Last updated: 2026-01-18*
 
 ---
 
@@ -29,17 +29,19 @@ Build a comprehensive framework for computational mechanics that bridges classic
 - [x] PyPI release
 
 ### 🚧 M2: Validation & Experimentation (In Progress)
-- [ ] Expand golden test suite (10+ processes)
+- [x] Expand golden test suite (10+ processes)
 - [ ] Convergence analysis experiments
 - [ ] Parameter sensitivity characterization
 - [ ] Finite-sample bias quantification
 - [ ] Visualization gallery
 
-### 📝 M3: Alternative Algorithms (Planned)
-- [ ] Causal State Merging (CSM)
-- [ ] Spectral Learning
-- [ ] Bayesian Structural Inference
-- [ ] Algorithm comparison framework
+### ✅ M3: Alternative Algorithms (Complete)
+- [x] Causal State Merging (CSM)
+- [x] Spectral Learning
+- [x] Bayesian Structural Inference (BSI)
+- [x] Neural State Discovery (NSD)
+- [x] Algorithm comparison framework (Spec 015)
+- [x] 92% test coverage, 309 tests
 
 ### 📝 M4: Research Paper (Planned)
 - [ ] Structure and outline
@@ -70,13 +72,13 @@ Build a comprehensive framework for computational mechanics that bridges classic
 
 ```
 2026 Q1 (Jan-Mar)
-├── Jan: M2 - Experiments and validation
-├── Feb: M3 - Alternative algorithms  
-└── Mar: M4 - Paper draft
+├── Jan: M2/M3 - Experiments and algorithms ✅
+├── Feb: M4 - Paper draft, multivariate study
+└── Mar: M4 - Paper submission
 
 2026 Q2 (Apr-Jun)
-├── Apr: M4 - Paper submission
-├── May: M5 - Mixed states
+├── Apr: M5 - Mixed states
+├── May: M5 - Crypticity
 └── Jun: M6 - Quantum foundations
 
 2026 Q3 (Jul-Sep)
@@ -90,25 +92,35 @@ Build a comprehensive framework for computational mechanics that bridges classic
 
 ## Next Actions
 
-### This Week (Jan 15-21)
-1. [ ] Expand golden test suite with more reference processes
-2. [ ] Implement entropy rate benchmarks
-3. [ ] Create visualization functions for state diagrams
-4. [ ] Start CSM algorithm design
+### This Week (Jan 18-24)
+1. [ ] Run pilot multivariate study (Spec 015, reduced design)
+2. [ ] Add golden tests for BSI, NSD, Spectral algorithms
+3. [ ] Create visualization gallery for state diagrams
+4. [ ] Prepare v0.2.0 release with new algorithms
 
-### Next Week (Jan 22-28)
-1. [ ] Run convergence experiments
+### Next Week (Jan 25-31)
+1. [ ] Run full convergence experiments
 2. [ ] Generate parameter sensitivity plots
-3. [ ] Begin CSM implementation
+3. [ ] Begin paper outline (M4)
 
 ---
 
 ## Open Questions
 
-1. **Algorithm selection**: Which alternative algorithm to prioritize? (Current: CSM)
+1. **Multivariate study scope**: Full factorial (635k runs) or reduced design (15k runs)?
 2. **Real-world data**: Which domain to focus on? (Finance, genomics, neuro?)
 3. **Paper venue**: Target journal/conference?
 4. **Quantum scope**: Which toy model first?
+
+---
+
+## Recent Achievements
+
+### Session: Jan 15-18, 2026
+- ✅ Implemented 4 alternative algorithms (CSM, BSI, NSD, Spectral)
+- ✅ Created comprehensive test suite (309 tests, 92% coverage)
+- ✅ Designed multivariate study (Spec 015)
+- ✅ Added CSM demonstration notebook
 
 ---
 
