@@ -131,7 +131,7 @@ class NSD(Generic[A]):
     def _build_embeddings(
         self,
         sequence: list[A],
-        symbols: list[A],
+        _symbols: list[A],
         sym_to_idx: dict[A, int],
         n_symbols: int,
     ) -> tuple[list[tuple[A, ...]], list[list[float]]]:
@@ -277,9 +277,9 @@ class NSD(Generic[A]):
         histories: list[tuple[A, ...]],
         labels: list[int],
         symbols: list[A],
-        sym_to_idx: dict[A, int],
-        n_states: int,
-        alphabet: frozenset[A],
+        _sym_to_idx: dict[A, int],
+        _n_states: int,
+        _alphabet: frozenset[A],
     ) -> EpsilonMachine[A]:
         """Build epsilon-machine from clustered histories."""
         # Map histories to states
@@ -297,7 +297,7 @@ class NSD(Generic[A]):
             current_sym = sequence[i]
 
             # Find next history's state
-            next_history = history[1:] + (current_sym,)
+            next_history = (*history[1:], current_sym)
             if next_history in history_to_state:
                 next_state = history_to_state[next_history]
                 trans_counts[(current_state, current_sym)][next_state] += 1
@@ -345,7 +345,11 @@ class NSD(Generic[A]):
 
         return builder.build()
 
-    def _build_trivial_machine(self, alphabet: frozenset[A], symbols: list[A]) -> EpsilonMachine[A]:
+    def _build_trivial_machine(
+        self,
+        _alphabet: frozenset[A],
+        symbols: list[A],
+    ) -> EpsilonMachine[A]:
         """Build a trivial single-state machine for edge cases."""
         builder: EpsilonMachineBuilder[A] = EpsilonMachineBuilder()
 

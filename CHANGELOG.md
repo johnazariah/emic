@@ -5,6 +5,49 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-01-18
+
+### Added
+
+#### Alternative Inference Algorithms
+- **CSM** (Causal State Merging) - Bottom-up algorithm that starts with finest partition and iteratively merges states with similar predictive distributions
+  - Supports four distance metrics: KL divergence, Hellinger, total variation, chi-squared
+  - `CSMConfig` with `history_length`, `merge_threshold`, `distance_metric`, `hierarchical`
+
+- **BSI** (Bayesian Structural Inference) - MCMC-based Bayesian approach
+  - Gibbs sampling over state assignments with Dirichlet-multinomial likelihood
+  - BIC-based model selection for automatic state count
+  - `BSIConfig` with `max_states`, `alpha_prior`, `n_samples`, `burnin`, `thin`, `seed`
+
+- **NSD** (Neural State Discovery) - Clustering-based approach
+  - History embeddings from predictive distributions
+  - K-means++ clustering with automatic k selection via information-theoretic scoring
+  - `NSDConfig` with `max_states`, `history_length`, `embedding_dim`, `n_iterations`, `seed`
+
+- **Spectral** - Spectral learning via Hankel matrix decomposition
+  - Simplified SVD implementation (no NumPy dependency)
+  - Automatic rank selection via singular value threshold
+  - `SpectralConfig` with `max_history`, `rank_threshold`, `rank`, `regularization`
+
+#### Documentation
+- Project standards documents (coding, documentation, experimentation, governance)
+- Specification 010-015 for algorithms, experiments, and quantum roadmap
+- CSM demonstration notebook
+- AI assistant instructions (copilot-instructions.md)
+- Release protocol prompt (prepare-release.prompt.md)
+
+#### Testing
+- 309 tests with 92% coverage (up from 194 tests, 90% coverage)
+- Comprehensive tests for all new inference algorithms
+- Golden tests comparing algorithm outputs
+- Edge case tests for CSSR partition operations
+- Source validation tests
+
+### Changed
+- Updated roadmap to reflect completed M3 (Alternative Algorithms) milestone
+- All inference algorithms now follow unified `InferenceAlgorithm` protocol
+- Improved project organization with `.project/` structure
+
 ## [0.1.1] - 2026-01-15
 
 ### Fixed
@@ -64,5 +107,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Crutchfield, J.P. (1994). "The Calculus of Emergence". *Physica D*.
 - Shalizi, C.R. & Crutchfield, J.P. (2001). "Computational Mechanics: Pattern and Prediction, Structure and Simplicity". *Journal of Statistical Physics*.
 
+[0.2.0]: https://github.com/johnazariah/emic/releases/tag/v0.2.0
 [0.1.1]: https://github.com/johnazariah/emic/releases/tag/v0.1.1
 [0.1.0]: https://github.com/johnazariah/emic/releases/tag/v0.1.0

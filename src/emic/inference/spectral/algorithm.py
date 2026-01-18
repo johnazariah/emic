@@ -244,11 +244,11 @@ class Spectral(Generic[A]):
 
     def _extract_operators(
         self,
-        hankel: dict[tuple[tuple[A, ...], tuple[A, ...]], float],
-        hankel_x: dict[A, dict[tuple[tuple[A, ...], tuple[A, ...]], float]],
-        U: list[list[float]],
-        S: list[float],
-        Vt: list[list[float]],
+        _hankel: dict[tuple[tuple[A, ...], tuple[A, ...]], float],
+        _hankel_x: dict[A, dict[tuple[tuple[A, ...], tuple[A, ...]], float]],
+        _U: list[list[float]],
+        _S: list[float],
+        _Vt: list[list[float]],
         rank: int,
         alphabet: frozenset[A],
     ) -> dict[A, dict[int, dict[int, float]]]:

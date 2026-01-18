@@ -132,7 +132,7 @@ class BSI(Generic[A]):
         sequence: list[A],
         alphabet: frozenset[A],
         suffix_counts: dict[tuple[A, ...], dict[A, int]],
-        _n_states: int,  # noqa: ARG002
+        n_states: int,
         rng: random.Random,
     ) -> tuple[EpsilonMachine[A], float]:
         """
@@ -205,7 +205,7 @@ class BSI(Generic[A]):
         state: int,
         state_assignments: dict[tuple[A, ...], int],
         suffix_counts: dict[tuple[A, ...], dict[A, int]],
-        _n_states: int,  # noqa: ARG002
+        n_states: int,
         n_symbols: int,
     ) -> float:
         """Compute log conditional probability of assigning history to state."""
@@ -266,7 +266,7 @@ class BSI(Generic[A]):
         self,
         state_assignments: dict[tuple[A, ...], int],
         suffix_counts: dict[tuple[A, ...], dict[A, int]],
-        _n_states: int,  # noqa: ARG002
+        n_states: int,
         n_symbols: int,
     ) -> float:
         """Compute log posterior of current state assignments."""
@@ -297,8 +297,8 @@ class BSI(Generic[A]):
         self,
         state_assignments: dict[tuple[A, ...], int],
         suffix_counts: dict[tuple[A, ...], dict[A, int]],
-        _symbols: list[A],  # noqa: ARG002
-        _n_states: int,  # noqa: ARG002
+        _symbols: list[A],
+        _n_states: int,
     ) -> dict[tuple[int, A], dict[int, int]]:
         """Extract transition counts from state assignments."""
         transitions: dict[tuple[int, A], dict[int, int]] = defaultdict(lambda: defaultdict(int))
@@ -306,10 +306,7 @@ class BSI(Generic[A]):
         for history, state in state_assignments.items():
             for sym, count in suffix_counts.get(history, {}).items():
                 # Infer transition: history + sym -> next_history's state
-                if len(history) > 0:
-                    next_history = history[1:] + (sym,)
-                else:
-                    next_history = (sym,)
+                next_history = (*history[1:], sym) if history else (sym,)
 
                 # Find best matching history for transition
                 for h_len in range(len(next_history), 0, -1):
@@ -329,9 +326,9 @@ class BSI(Generic[A]):
     def _build_machine(
         self,
         trans_counts: dict[tuple[int, A], dict[int, int]],
-        _n_states: int,  # noqa: ARG002
-        _symbols: list[A],  # noqa: ARG002
-        alphabet: frozenset[A],
+        _n_states: int,
+        symbols: list[A],
+        _alphabet: frozenset[A],
     ) -> EpsilonMachine[A]:
         """Build epsilon-machine from transition counts."""
         builder: EpsilonMachineBuilder[A] = EpsilonMachineBuilder()

@@ -10,27 +10,19 @@ from emic.inference.result import InferenceResult
 from emic.inference.spectral import Spectral, SpectralConfig
 
 __all__ = [
-    # BSI
     "BSI",
-    "BSIConfig",
-    # CSM
     "CSM",
-    "CSMConfig",
-    # CSSR
     "CSSR",
-    "CSSRConfig",
-    # NSD
     "NSD",
-    "NSDConfig",
-    # Protocol
+    "BSIConfig",
+    "CSMConfig",
+    "CSSRConfig",
     "InferenceAlgorithm",
-    # Spectral
-    "Spectral",
-    "SpectralConfig",
-    # Errors
     "InferenceError",
-    # Result
     "InferenceResult",
     "InsufficientDataError",
+    "NSDConfig",
     "NonConvergenceError",
+    "Spectral",
+    "SpectralConfig",
 ]
