@@ -1,9 +1,3 @@
----
-mode: agent
-description: Analyze changes, prepare documentation, validate quality, and execute a Python package release
-tools: ['run_in_terminal', 'read_file', 'replace_string_in_file', 'create_file']
----
-
 # Prepare and Execute a Python Package Release
 
 Analyze changes since the last release, prepare documentation, validate quality, and execute the release ceremony.

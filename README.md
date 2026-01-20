@@ -90,7 +90,7 @@ summary = analyze(result.machine)
 print(summary)
 ```
 
-## Supported Processes
+## Built-in Sources
 
 | Process | Description | True States |
 |---------|-------------|-------------|

@@ -1,6 +1,3 @@
----
-description: Analyze specifications, plan, and codebase to suggest the next piece of work
----
 # Pick Next Work
 
 You are helping the user decide what to work on next. Analyze the project state and make a prioritized recommendation.
