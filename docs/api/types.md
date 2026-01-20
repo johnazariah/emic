@@ -5,9 +5,13 @@ Core types for epsilon-machines.
 ::: emic.types
     options:
       members:
-        - EpsilonMachine
-        - CausalState
-        - Alphabet
         - Symbol
-        - Probability
-        - TransitionMatrix
+        - StateId
+        - Alphabet
+        - ConcreteAlphabet
+        - Distribution
+        - ProbabilityValue
+        - Transition
+        - CausalState
+        - EpsilonMachine
+        - EpsilonMachineBuilder

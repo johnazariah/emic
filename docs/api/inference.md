@@ -7,5 +7,16 @@ Epsilon-machine inference algorithms.
       members:
         - CSSR
         - CSSRConfig
+        - CSM
+        - CSMConfig
+        - BSI
+        - BSIConfig
+        - Spectral
+        - SpectralConfig
+        - NSD
+        - NSDConfig
+        - InferenceAlgorithm
         - InferenceResult
         - InferenceError
+        - InsufficientDataError
+        - NonConvergenceError

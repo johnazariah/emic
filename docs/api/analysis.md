@@ -6,5 +6,10 @@ Complexity measures and machine analysis.
     options:
       members:
         - analyze
-        - Analyzer
         - AnalysisSummary
+        - statistical_complexity
+        - entropy_rate
+        - excess_entropy
+        - state_count
+        - transition_count
+        - topological_complexity

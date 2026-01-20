@@ -6,9 +6,13 @@ Data sources for epsilon-machine inference.
     options:
       show_submodules: true
       members:
+        - SequenceSource
+        - SeededSource
+        - StochasticSource
         - GoldenMeanSource
         - EvenProcessSource
         - BiasedCoinSource
         - PeriodicSource
         - SequenceData
-        - Source
+        - TakeN
+        - SkipN
