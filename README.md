@@ -25,12 +25,12 @@ Key concepts:
 
 ## Features
 
-- 🔮 **Inference**: Reconstruct ε-machines from observed sequences using the CSSR algorithm
-- 📊 **Analysis**: Compute complexity measures (Cμ, hμ, excess entropy)
+- 🔮 **Inference**: Reconstruct ε-machines using multiple algorithms (CSSR, CSM, BSI, Spectral, NSD)
+- 📊 **Analysis**: Compute complexity measures (Cμ, hμ, excess entropy, crypticity)
 - 🎲 **Sources**: Built-in stochastic process generators (Golden Mean, Even Process, Biased Coin, Periodic)
 - 🔗 **Pipeline**: Composable `>>` operator for source → inference → analysis workflows
 - 📈 **Visualization**: State diagram rendering with Graphviz
-- 📝 **LaTeX Export**: Publication-ready tables and machine descriptions
+- 📝 **Export**: LaTeX tables, TikZ diagrams, DOT, Mermaid, and JSON formats
 - 🧩 **Extensible**: Protocol-based architecture for custom algorithms and sources
 
 ## Installation
@@ -50,16 +50,17 @@ uv sync --dev
 ## Quick Start
 
 ```python
-from emic.sources import GoldenMeanSource
+from emic.sources import GoldenMeanSource, TakeN
 from emic.inference import CSSR, CSSRConfig
 from emic.analysis import analyze
 
 # Generate data from the Golden Mean process (no consecutive 1s)
-source = GoldenMeanSource(p=0.5, seed=42)
+source = GoldenMeanSource(p=0.5, _seed=42)
+data = TakeN(10_000)(source)
 
 # Infer the epsilon-machine using CSSR
 config = CSSRConfig(max_history=5, significance=0.001)
-result = CSSR(config).infer(source.take(10_000))
+result = CSSR(config).infer(data)
 
 # Analyze the inferred machine
 summary = analyze(result.machine)
@@ -73,18 +74,20 @@ print(f"Entropy Rate: hμ = {summary.entropy_rate:.4f}")
 Chain operations using the `>>` operator:
 
 ```python
-from emic.sources import GoldenMeanSource
+from emic.sources import GoldenMeanSource, TakeN
 from emic.inference import CSSR, CSSRConfig
-from emic.analysis import Analyzer
+from emic.analysis import analyze
 
-# Compose a full pipeline
-result = (
-    GoldenMeanSource(p=0.5, seed=42)
-    >> CSSR(CSSRConfig(max_history=5, significance=0.001))
-    >> Analyzer()
-)
+# Compose source and transforms
+source = GoldenMeanSource(p=0.5, _seed=42)
+data = source >> TakeN(10_000)
 
-print(result.summary)
+# Infer and analyze
+config = CSSRConfig(max_history=5, significance=0.001)
+result = CSSR(config).infer(data)
+summary = analyze(result.machine)
+
+print(summary)
 ```
 
 ## Supported Processes
@@ -99,8 +102,8 @@ print(result.summary)
 ## Project Status
 
 ✅ **Core implementation complete** — The framework is functional with:
-- CSSR inference algorithm with post-merge state optimization
-- Full analysis suite (Cμ, hμ, excess entropy)
+- Multiple inference algorithms: CSSR, CSM, BSI, Spectral, NSD
+- Full analysis suite (Cμ, hμ, excess entropy, crypticity)
 - Synthetic and empirical data sources
 - Pipeline composition
 - 194 tests with 90% coverage
