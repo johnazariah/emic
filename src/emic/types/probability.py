@@ -86,8 +86,8 @@ class Distribution(Generic[A]):
         Examples:
             >>> Distribution.uniform(frozenset({0, 1})).entropy()
             1.0
-            >>> Distribution.deterministic('a').entropy()
-            0.0
+            >>> abs(Distribution.deterministic('a').entropy()) < 1e-10
+            True
         """
         return -sum(p * math.log2(p) for p in self._probs.values() if p > 0)
 

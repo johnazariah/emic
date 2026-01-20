@@ -35,7 +35,8 @@ class GoldenMeanSource(StochasticSource[int]):
 
     Examples:
         >>> source = GoldenMeanSource(p=0.5, _seed=42)
-        >>> symbols = list(next(iter(source)) for _ in range(10))
+        >>> it = iter(source)
+        >>> symbols = [next(it) for _ in range(100)]
         >>> # No consecutive 1s in output
         >>> '11' not in ''.join(map(str, symbols))
         True

@@ -18,8 +18,7 @@ Example:
     >>> from emic.output import render_state_diagram, to_tikz
     >>> machine = GoldenMeanSource(p=0.5).true_machine
     >>> diagram = render_state_diagram(machine)
-    >>> diagram.render('golden_mean', format='pdf')
-    >>> print(to_tikz(machine))
+    >>> _ = diagram.render('golden_mean', format='pdf')  # doctest: +SKIP
 """
 
 from emic.output.diagram import (

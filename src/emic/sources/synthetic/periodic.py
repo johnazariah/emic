@@ -29,8 +29,8 @@ class PeriodicSource(Generic[A]):
 
     Examples:
         >>> source = PeriodicSource(pattern=(0, 1, 0))
-        >>> symbols = [next(iter(source)) for _ in range(9)]
-        >>> symbols
+        >>> it = iter(source)
+        >>> [next(it) for _ in range(9)]
         [0, 1, 0, 0, 1, 0, 0, 1, 0]
     """
 

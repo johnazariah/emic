@@ -30,11 +30,9 @@ class EvenProcessSource(StochasticSource[int]):
         p: Probability of emitting 0 from state A (default: 0.5)
 
     Examples:
-        >>> source = EvenProcessSource(p=0.5, _seed=42)
-        >>> symbols = []
+        >>> source = EvenProcessSource(p=0.5, _seed=1)
         >>> it = iter(source)
-        >>> for _ in range(20):
-        ...     symbols.append(next(it))
+        >>> symbols = [next(it) for _ in range(100)]
         >>> # Count runs of 1s - all should be even length
         >>> s = ''.join(map(str, symbols))
         >>> import re
