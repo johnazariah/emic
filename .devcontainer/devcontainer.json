@@ -10,7 +10,7 @@
         "PYTHONPATH": "${containerWorkspaceFolder}/src",
         "HYPOTHESIS_PROFILE": "dev"
     },
-    
+
     // Podman-specific configuration
     "runArgs": [
         "--userns=keep-id",
