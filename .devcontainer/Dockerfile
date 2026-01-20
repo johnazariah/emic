@@ -30,6 +30,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     # Graphviz for state diagrams
     graphviz \
     libgraphviz-dev \
+    # PDF text extraction
+    poppler-utils \
     # Other useful tools
     make \
     curl \
