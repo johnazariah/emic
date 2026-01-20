@@ -12,7 +12,7 @@ An **epsilon-machine** (ε-machine) is the minimal, optimal predictor of a stoch
 
 | Feature | Description |
 |---------|-------------|
-| 🔮 **[Inference](guide/inference.md)** | Reconstruct ε-machines from observed sequences using the CSSR algorithm |
+| 🔮 **[Inference](guide/inference.md)** | Reconstruct ε-machines using multiple algorithms (CSSR, CSM, BSI, Spectral, NSD) |
 | 📊 **[Analysis](guide/analysis.md)** | Compute complexity measures: statistical complexity (Cμ), entropy rate (hμ), excess entropy |
 | 🎲 **[Sources](guide/sources.md)** | Built-in stochastic process generators and empirical data loading |
 | 🔗 **[Pipelines](guide/pipelines.md)** | Compose workflows with the `>>` operator |
@@ -20,16 +20,17 @@ An **epsilon-machine** (ε-machine) is the minimal, optimal predictor of a stoch
 ## Quick Example
 
 ```python
-from emic.sources import GoldenMeanSource
+from emic.sources import GoldenMeanSource, TakeN
 from emic.inference import CSSR, CSSRConfig
 from emic.analysis import analyze
 
 # Generate data from the Golden Mean process
-source = GoldenMeanSource(p=0.5, seed=42)
+source = GoldenMeanSource(p=0.5, _seed=42)
+data = TakeN(10_000)(source)
 
 # Infer the epsilon-machine
 config = CSSRConfig(max_history=5, significance=0.001)
-result = CSSR(config).infer(source.take(10_000))
+result = CSSR(config).infer(data)
 
 # Analyze
 summary = analyze(result.machine)

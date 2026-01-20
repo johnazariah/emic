@@ -1,17 +1,29 @@
 # Inference
 
-The `emic` framework uses the **CSSR** (Causal State Splitting Reconstruction) algorithm to infer epsilon-machines from data.
+The `emic` framework provides multiple algorithms for inferring epsilon-machines from data. Each algorithm has different strengths and trade-offs.
 
-## CSSR Algorithm Overview
+## Available Algorithms
 
-CSSR works by:
+| Algorithm | Approach | Best For |
+|-----------|----------|----------|
+| **CSSR** | Top-down splitting | General purpose, well-studied |
+| **CSM** | Bottom-up merging | Complement to CSSR |
+| **BSI** | Bayesian inference | Uncertainty quantification |
+| **Spectral** | Matrix decomposition | Polynomial time, large data |
+| **NSD** | Clustering | Exploratory analysis |
 
-1. Building a suffix tree from observed sequences
-2. Initializing each unique history as a potential causal state
-3. Iteratively merging states with statistically indistinguishable futures
-4. Splitting states when distributions differ significantly
+## CSSR (Causal State Splitting Reconstruction)
 
-## Basic Usage
+CSSR is the primary algorithm, based on Shalizi & Crutchfield (2001).
+
+### How it Works
+
+1. Build a suffix tree from observed sequences
+2. Initialize each unique history as a potential causal state
+3. Iteratively split states with statistically different futures
+4. Merge states with statistically indistinguishable futures
+
+### Basic Usage
 
 ```python
 from emic.inference import CSSR, CSSRConfig
@@ -24,121 +36,264 @@ config = CSSRConfig(
 result = CSSR(config).infer(data)
 ```
 
-## Configuration Parameters
+### Configuration
 
-### `max_history`
-
-Maximum history length (L) to consider. Longer histories capture more complex structure but require more data.
-
-| Data Size | Recommended `max_history` |
-|-----------|---------------------------|
-| 1,000 | 3-4 |
-| 10,000 | 5-6 |
-| 100,000 | 7-8 |
-
-```python
-config = CSSRConfig(max_history=5)
-```
-
-### `significance`
-
-Significance level (α) for the chi-squared test when comparing distributions. Lower values are more conservative.
-
-| Value | Behavior |
-|-------|----------|
-| 0.05 | Liberal — may under-split (fewer states) |
-| 0.01 | Moderate |
-| 0.001 | Conservative — may over-split initially |
-
-```python
-config = CSSRConfig(significance=0.001)
-```
-
-### `min_count`
-
-Minimum observation count for a history to be considered. Filters out rare histories.
-
-```python
-config = CSSRConfig(min_count=5)  # Default: 1
-```
-
-### `post_merge`
-
-Enable post-convergence state merging. Useful for processes like Even Process where CSSR may infer extra states due to finite-sample effects.
-
-```python
-config = CSSRConfig(post_merge=True)  # Default: True
-```
-
-### `merge_significance`
-
-Significance level for post-merge comparisons. If `None`, uses the main `significance` value.
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `max_history` | 5 | Maximum history length (L) to consider |
+| `significance` | 0.001 | Chi-squared test significance level (α) |
+| `min_count` | 1 | Minimum observations per history |
+| `post_merge` | True | Enable post-convergence merging |
+| `merge_significance` | None | Significance for post-merge (uses `significance` if None) |
 
 ```python
 config = CSSRConfig(
-    significance=0.001,
-    merge_significance=0.01,  # More aggressive merging
+    max_history=6,
+    significance=0.01,
+    min_count=5,
+    post_merge=True,
 )
 ```
 
+### Reference
+
+Shalizi, C.R. & Klinkner, K.L. (2004). "Blind Construction of Optimal Nonlinear Recursive Predictors for Discrete Sequences". *AUAI*.
+
+---
+
+## CSM (Causal State Merging)
+
+CSM is a bottom-up approach that complements CSSR.
+
+### How it Works
+
+1. Create a state for each unique history of specified length
+2. Compute pairwise distances between state predictive distributions
+3. Iteratively merge the closest pair until threshold is exceeded
+
+### Basic Usage
+
+```python
+from emic.inference import CSM, CSMConfig
+
+config = CSMConfig(
+    history_length=5,
+    merge_threshold=0.05,
+)
+
+result = CSM(config).infer(data)
+```
+
+### Configuration
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `history_length` | 5 | Fixed history length for initial states |
+| `merge_threshold` | 0.05 | Distance threshold for merging |
+| `distance_metric` | "kl" | Metric: "kl", "hellinger", "tv", "chi2" |
+| `min_count` | 5 | Minimum observations per history |
+| `hierarchical` | False | Return full merge hierarchy |
+
+```python
+config = CSMConfig(
+    history_length=6,
+    merge_threshold=0.1,
+    distance_metric="hellinger",
+)
+```
+
+---
+
+## BSI (Bayesian Structural Inference)
+
+BSI uses Bayesian inference with MCMC sampling for uncertainty quantification.
+
+### How it Works
+
+1. Place Dirichlet priors on transition probabilities
+2. Use Gibbs sampling to explore posterior over state assignments
+3. Select model with highest marginal likelihood
+
+### Basic Usage
+
+```python
+from emic.inference import BSI, BSIConfig
+
+config = BSIConfig(
+    max_states=5,
+    n_samples=1000,
+)
+
+result = BSI(config).infer(data)
+```
+
+### Configuration
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `max_states` | 10 | Maximum number of states |
+| `max_history` | 5 | History length for likelihood |
+| `alpha_prior` | 1.0 | Dirichlet concentration (higher = more uniform) |
+| `n_samples` | 1000 | Number of MCMC samples |
+| `burnin` | 200 | Burn-in samples to discard |
+| `seed` | None | Random seed |
+
+```python
+config = BSIConfig(
+    max_states=8,
+    n_samples=2000,
+    alpha_prior=0.5,  # Sparse prior
+)
+```
+
+### Reference
+
+Strelioff, C.C. & Crutchfield, J.P. (2014). "Bayesian Structural Inference for Hidden Processes".
+
+---
+
+## Spectral Learning
+
+Spectral methods use SVD of Hankel matrices for polynomial-time inference.
+
+### How it Works
+
+1. Build Hankel matrices from history/future statistics
+2. Compute SVD to find observable operator representation
+3. Extract epsilon-machine from learned operators
+
+### Basic Usage
+
+```python
+from emic.inference import Spectral, SpectralConfig
+
+config = SpectralConfig(
+    max_history=5,
+    rank_threshold=0.01,
+)
+
+result = Spectral(config).infer(data)
+```
+
+### Configuration
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `max_history` | 10 | History length for Hankel matrix |
+| `rank_threshold` | 0.01 | Singular value threshold |
+| `rank` | None | Fixed rank (overrides threshold) |
+| `regularization` | 1e-6 | Numerical stability |
+| `min_count` | 5 | Minimum observations per history |
+
+```python
+config = SpectralConfig(
+    max_history=8,
+    rank=3,  # Force 3 states
+)
+```
+
+### Reference
+
+Hsu, D., Kakade, S.M., & Zhang, T. (2012). "Spectral Algorithm for Learning Hidden Markov Models".
+
+---
+
+## NSD (Neural State Discovery)
+
+NSD uses embedding and clustering for state discovery.
+
+### How it Works
+
+1. Embed histories into a vector space based on next-symbol distributions
+2. Cluster embeddings using k-means
+3. Build machine from cluster assignments
+
+### Basic Usage
+
+```python
+from emic.inference import NSD, NSDConfig
+
+config = NSDConfig(
+    max_states=5,
+    history_length=10,
+)
+
+result = NSD(config).infer(data)
+```
+
+### Configuration
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `max_states` | 10 | Maximum number of states |
+| `history_length` | 10 | History window length |
+| `embedding_dim` | 16 | Embedding dimensionality |
+| `n_iterations` | 100 | Clustering iterations |
+| `seed` | None | Random seed |
+
+---
+
 ## Inference Result
+
+All algorithms return an `InferenceResult`:
 
 ```python
 result = CSSR(config).infer(data)
 
-# Access the inferred machine
+# The inferred machine
 machine = result.machine
 print(f"States: {len(machine.states)}")
 
-# Check convergence
+# Convergence status
 print(f"Converged: {result.converged}")
 print(f"Iterations: {result.iterations}")
-
-# Access diagnostics
-print(f"Final partition size: {result.final_partition_size}")
 ```
 
-## Pipeline Integration
+## Choosing an Algorithm
 
-CSSR integrates with the pipeline operator:
-
-```python
-from emic.sources import GoldenMeanSource
-from emic.inference import CSSR, CSSRConfig
-
-result = GoldenMeanSource(p=0.5) >> CSSR(CSSRConfig(max_history=5))
-
-# result is an InferenceResult
-print(result.machine)
-```
+| Scenario | Recommended Algorithm |
+|----------|----------------------|
+| General use | CSSR |
+| Need uncertainty | BSI |
+| Very large data | Spectral |
+| CSSR gives too many states | CSM or post_merge=True |
+| Exploratory analysis | NSD |
 
 ## Troubleshooting
 
 ### Too Many States
 
-If CSSR infers more states than expected:
-
 1. **Increase data**: More samples reduce finite-sample effects
-2. **Lower significance**: Use `significance=0.01` or `0.05`
-3. **Enable post-merge**: `post_merge=True` merges equivalent states
-4. **Check `max_history`**: May be too high for your data size
+2. **Lower significance**: Use `significance=0.01` or `0.05` (CSSR)
+3. **Raise merge threshold**: Use higher `merge_threshold` (CSM)
+4. **Enable post-merge**: `post_merge=True` (CSSR)
 
 ### Too Few States
 
-If CSSR infers fewer states than expected:
-
 1. **Increase `max_history`**: May not capture full structure
-2. **Raise significance**: Use `significance=0.001`
-3. **Lower `min_count`**: May be filtering important histories
+2. **Raise significance**: Use `significance=0.001` (CSSR)
+3. **Lower merge threshold**: Use smaller `merge_threshold` (CSM)
 
-### Non-Convergence
+### Algorithm Comparison
 
-If `result.converged` is False:
+Run multiple algorithms and compare:
 
-1. **Increase `max_iterations`**: Default is usually sufficient
-2. **Check data quality**: Ensure sufficient samples
-3. **Examine the process**: Some processes require very long histories
+```python
+from emic.sources import GoldenMeanSource, TakeN
+from emic.inference import CSSR, CSM, CSSRConfig, CSMConfig
+from emic.analysis import analyze
 
-## References
+source = GoldenMeanSource(p=0.5, _seed=42)
+data = TakeN(10_000)(source)
 
-- Shalizi, C.R. & Klinkner, K.L. (2004). "Blind Construction of Optimal Nonlinear Recursive Predictors for Discrete Sequences". *AUAI*.
+# CSSR
+cssr_result = CSSR(CSSRConfig(max_history=5)).infer(data)
+cssr_summary = analyze(cssr_result.machine)
+
+# CSM
+csm_result = CSM(CSMConfig(history_length=5)).infer(data)
+csm_summary = analyze(csm_result.machine)
+
+print(f"CSSR: {cssr_summary.num_states} states, Cμ={cssr_summary.statistical_complexity:.4f}")
+print(f"CSM:  {csm_summary.num_states} states, Cμ={csm_summary.statistical_complexity:.4f}")
+```

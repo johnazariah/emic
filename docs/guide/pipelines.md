@@ -5,107 +5,151 @@ The `emic` framework uses the `>>` operator to compose operations into pipelines
 ## Basic Pipeline
 
 ```python
-from emic.sources import GoldenMeanSource
+from emic.sources import GoldenMeanSource, TakeN
 from emic.inference import CSSR, CSSRConfig
-from emic.analysis import Analyzer
+from emic.analysis import analyze
 
-result = (
-    GoldenMeanSource(p=0.5, seed=42)
-    >> CSSR(CSSRConfig(max_history=5))
-    >> Analyzer()
-)
+# Generate data
+source = GoldenMeanSource(p=0.5, _seed=42)
+data = source >> TakeN(10_000)
+
+# Infer machine
+result = CSSR(CSSRConfig(max_history=5)).infer(data)
+
+# Analyze
+summary = analyze(result.machine)
+print(summary)
 ```
 
 ## Pipeline Stages
 
-A typical pipeline flows through these stages:
+A typical workflow flows through these stages:
 
 ```
-Source → Data → Inference → Machine → Analysis → Summary
+Source → Transform → Data → Inference → Machine → Analysis → Summary
 ```
 
 ### Stage 1: Source
 
-Sources produce symbol sequences:
+Sources produce infinite symbol sequences:
 
 ```python
-source = GoldenMeanSource(p=0.5, seed=42)
+from emic.sources import GoldenMeanSource
+
+source = GoldenMeanSource(p=0.5, _seed=42)
 ```
 
-### Stage 2: Inference
+### Stage 2: Transform
 
-CSSR consumes data and produces an `InferenceResult`:
+Transforms convert sources to finite data:
 
 ```python
-result = source >> CSSR(config)
+from emic.sources import TakeN, SkipN
+
+# Take first 10,000 symbols
+data = source >> TakeN(10_000)
+
+# Or skip burn-in, then take
+data = source >> SkipN(1000) >> TakeN(10_000)
+```
+
+### Stage 3: Inference
+
+Inference algorithms consume data and produce an `InferenceResult`:
+
+```python
+from emic.inference import CSSR, CSSRConfig
+
+result = CSSR(CSSRConfig(max_history=5)).infer(data)
 # result.machine contains the inferred epsilon-machine
+# result.converged indicates if algorithm converged
 ```
 
-### Stage 3: Analysis
+### Stage 4: Analysis
 
-Analyzer consumes a machine and produces analysis:
+The `analyze` function computes complexity measures:
 
 ```python
-analysis = source >> CSSR(config) >> Analyzer()
-# analysis.summary contains complexity measures
+from emic.analysis import analyze
+
+summary = analyze(result.machine)
+print(f"Cμ = {summary.statistical_complexity:.4f}")
 ```
 
 ## Transform Chains
 
-Chain transforms on sources:
+Chain transforms using the `>>` operator:
 
 ```python
+from emic.sources import GoldenMeanSource, SkipN, TakeN
+
 # Skip burn-in, then take samples
-data = (
-    GoldenMeanSource(p=0.5)
-    .skip(1000)
-    .take(10_000)
-)
+data = GoldenMeanSource(p=0.5, _seed=42) >> SkipN(1000) >> TakeN(10_000)
 ```
 
-Or with the `>>` operator:
+Or use function call syntax:
 
 ```python
-from emic.sources.transforms import Skip, Take
-
-data = GoldenMeanSource(p=0.5) >> Skip(1000) >> Take(10_000)
+source = GoldenMeanSource(p=0.5, _seed=42)
+skipped = SkipN(1000)(source)
+data = TakeN(10_000)(skipped)
 ```
 
 ## Full Example
 
 ```python
-from emic.sources import GoldenMeanSource
+from emic.sources import GoldenMeanSource, TakeN
 from emic.inference import CSSR, CSSRConfig
-from emic.analysis import Analyzer
-from emic.output import render_diagram
+from emic.analysis import analyze
+from emic.output import render_state_diagram
 
 # Configure
-source = GoldenMeanSource(p=0.5, seed=42)
+source = GoldenMeanSource(p=0.5, _seed=42)
 config = CSSRConfig(max_history=5, significance=0.001)
 
-# Run pipeline
-result = source >> CSSR(config) >> Analyzer()
+# Generate data
+data = source >> TakeN(10_000)
 
-# Access results
+# Infer
+result = CSSR(config).infer(data)
 print(f"States: {len(result.machine.states)}")
-print(f"Cμ = {result.summary.statistical_complexity:.4f}")
+print(f"Converged: {result.converged}")
+
+# Analyze
+summary = analyze(result.machine)
+print(f"Cμ = {summary.statistical_complexity:.4f}")
 
 # Visualize
-render_diagram(result.machine, "output.png")
+diagram = render_state_diagram(result.machine)
+diagram.render("output", format="png")
 ```
 
-## Pipeline Protocol
+## The Pipeline Class
 
-Any object implementing `__rshift__` can participate in pipelines:
+For more complex workflows, use the `Pipeline` class:
 
 ```python
-from emic.pipeline import Pipeable
+from emic import Pipeline
 
-class MyProcessor(Pipeable):
-    def __rshift__(self, other):
-        # Process and pass to next stage
-        result = self.process()
-        return other.receive(result)
+# Create a pipeline from a sequence of operations
+pipeline = Pipeline([
+    lambda x: x * 2,
+    lambda x: x + 1,
+])
+
+result = pipeline(5)  # (5 * 2) + 1 = 11
+```
+
+### Pipeline Utilities
+
+```python
+from emic import identity, tap
+
+# Identity function (pass-through)
+result = identity(value)  # Returns value unchanged
+
+# Tap function (side-effect without modifying value)
+logged = tap(print)(value)  # Prints value, returns value
 ```
 
 ## Debugging Pipelines
@@ -113,15 +157,38 @@ class MyProcessor(Pipeable):
 Break apart pipelines to inspect intermediate results:
 
 ```python
+from emic.sources import GoldenMeanSource, TakeN
+from emic.inference import CSSR, CSSRConfig
+from emic.analysis import analyze
+
 # Step by step
-source = GoldenMeanSource(p=0.5, seed=42)
-data = source.take(10_000)
+source = GoldenMeanSource(p=0.5, _seed=42)
+data = TakeN(10_000)(source)
 print(f"Data length: {len(data)}")
 
+config = CSSRConfig(max_history=5)
 inference_result = CSSR(config).infer(data)
 print(f"Converged: {inference_result.converged}")
 print(f"States: {len(inference_result.machine.states)}")
 
-analysis = Analyzer().analyze(inference_result.machine)
-print(f"Cμ = {analysis.statistical_complexity:.4f}")
+summary = analyze(inference_result.machine)
+print(f"Cμ = {summary.statistical_complexity:.4f}")
+```
+
+## Pipeline Composition with `>>`
+
+Most `emic` objects support the `>>` operator:
+
+| Left Side | Right Side | Result |
+|-----------|------------|--------|
+| Source | TakeN/SkipN | SequenceData |
+| SequenceData | TakeN | SequenceData |
+| SequenceData | Inference | InferenceResult |
+
+```python
+# Sources compose with transforms
+data = GoldenMeanSource() >> TakeN(1000)
+
+# SequenceData composes with inference
+result = data >> CSSR(config)  # Returns InferenceResult
 ```

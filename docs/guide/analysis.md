@@ -43,9 +43,7 @@ summary.entropy_rate  # In bits per symbol
 
 The mutual information between the past and future:
 
-$$E = C_\mu - h_\mu \cdot \tau$$
-
-where $\tau$ is a characteristic timescale.
+$$E = I(\overleftarrow{X}; \overrightarrow{X})$$
 
 **Interpretation**: The total predictable information, or "complexity" of patterns.
 
@@ -53,48 +51,95 @@ where $\tau$ is a characteristic timescale.
 summary.excess_entropy  # In bits
 ```
 
-## Using the Analyzer
+### Crypticity (χ)
 
-### Direct Function
+The difference between statistical complexity and excess entropy:
+
+$$\chi = C_\mu - E$$
+
+**Interpretation**: The "hidden" information stored in the causal states that is not directly revealed in the bi-infinite sequence.
+
+```python
+summary.crypticity  # In bits
+```
+
+### Topological Complexity
+
+The logarithm of the number of causal states:
+
+$$C_{top} = \log_2 |S|$$
+
+**Interpretation**: An upper bound on statistical complexity that ignores state probabilities.
+
+```python
+summary.topological_complexity  # In bits
+```
+
+## Using the analyze Function
+
+The `analyze` function computes all measures at once:
 
 ```python
 from emic.analysis import analyze
 
-summary = analyze(machine)
-```
-
-### Pipeline Component
-
-```python
-from emic.analysis import Analyzer
-
-result = (
-    source
-    >> CSSR(config)
-    >> Analyzer()
-)
-
-print(result.summary)
-```
-
-## Analysis Summary
-
-The `AnalysisSummary` contains all computed measures:
-
-```python
 summary = analyze(machine)
 
 # Core measures
 summary.statistical_complexity  # Cμ in bits
 summary.entropy_rate           # hμ in bits/symbol
 summary.excess_entropy         # E in bits
+summary.crypticity             # χ in bits
 
-# Machine properties
+# Structural measures
 summary.num_states             # Number of causal states
+summary.num_transitions        # Number of transitions
 summary.alphabet_size          # Size of symbol alphabet
+summary.topological_complexity # log₂(num_states)
+```
 
-# Stationary distribution
-summary.stationary_distribution  # Dict[state_id, probability]
+## Individual Measure Functions
+
+You can also compute measures individually:
+
+```python
+from emic.analysis import (
+    statistical_complexity,
+    entropy_rate,
+    excess_entropy,
+    state_count,
+    transition_count,
+    topological_complexity,
+)
+
+c_mu = statistical_complexity(machine)
+h_mu = entropy_rate(machine)
+e = excess_entropy(machine)
+n_states = state_count(machine)
+n_trans = transition_count(machine)
+c_top = topological_complexity(machine)
+```
+
+## Analysis Summary
+
+The `AnalysisSummary` dataclass contains all computed measures:
+
+```python
+summary = analyze(machine)
+
+# Print human-readable summary
+print(summary)
+# Output:
+# ε-Machine Analysis:
+#   States: 2
+#   Transitions: 3
+#   Alphabet: 2 symbols
+#   Statistical Complexity Cμ: 0.9183 bits
+#   Entropy Rate hμ: 0.5500 bits/symbol
+#   Excess Entropy E: 0.4591 bits
+#   Crypticity χ: 0.4591 bits
+
+# Convert to dictionary for serialization
+data = summary.to_dict()
 ```
 
 ## Comparing Machines
@@ -102,32 +147,24 @@ summary.stationary_distribution  # Dict[state_id, probability]
 Compare inferred vs theoretical machines:
 
 ```python
-from emic.sources import GoldenMeanSource
+from emic.sources import GoldenMeanSource, TakeN
 from emic.inference import CSSR, CSSRConfig
 from emic.analysis import analyze
 
-source = GoldenMeanSource(p=0.5, seed=42)
+source = GoldenMeanSource(p=0.5, _seed=42)
 
 # Theoretical
 true_summary = analyze(source.true_machine)
 
 # Inferred
-result = CSSR(CSSRConfig(max_history=5)).infer(source.take(10_000))
+data = TakeN(10_000)(source)
+result = CSSR(CSSRConfig(max_history=5)).infer(data)
 inferred_summary = analyze(result.machine)
 
 # Compare
 print(f"True Cμ:     {true_summary.statistical_complexity:.4f}")
 print(f"Inferred Cμ: {inferred_summary.statistical_complexity:.4f}")
 print(f"Error:       {abs(true_summary.statistical_complexity - inferred_summary.statistical_complexity):.4f}")
-```
-
-## Working with Stationary Distribution
-
-```python
-summary = analyze(machine)
-
-for state_id, prob in summary.stationary_distribution.items():
-    print(f"State {state_id}: π = {prob:.4f}")
 ```
 
 ## Theoretical Background
@@ -137,5 +174,6 @@ The measures computed by `emic` are central to **computational mechanics**:
 - **Cμ** quantifies the *memory* required for optimal prediction
 - **hμ** quantifies the *intrinsic randomness* that cannot be predicted
 - **E** quantifies the *total predictable structure*
+- **χ** quantifies the *hidden complexity* not visible in the data
 
 For a deterministic process (like Periodic), hμ = 0. For an i.i.d. process (like Biased Coin), Cμ = 0.
