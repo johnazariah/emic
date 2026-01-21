@@ -1,0 +1,69 @@
+# Noise Robustness Experiment Configuration
+
+experiment:
+  id: EXP-002
+  name: noise_robustness
+  version: 1.0.0
+  description: Algorithm behavior under observation noise
+
+parameters:
+  process:
+    name: GoldenMean
+    module: emic.sources.synthetic.GoldenMeanSource
+    params:
+      p: 0.5
+    true_states: 2
+    true_cmu: 0.9183
+
+  noise_models:
+    - name: bitflip
+      description: Binary symmetric channel
+      levels: [0, 0.01, 0.02, 0.05, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5]
+
+  sample_size: 10000
+  repetitions: 50
+
+  algorithms:
+    - name: CSSR
+      config:
+        max_history: 5
+        significance: 0.001
+
+    - name: CSM
+      config:
+        max_history: 5
+        significance: 0.001
+
+    - name: BSI
+      config:
+        max_states: 5
+        n_samples: 100
+        burnin: 20
+
+    - name: Spectral
+      config:
+        max_history: 5
+
+outputs:
+  - name: state_count
+    file: results/state_count.parquet
+    columns:
+      - {name: algorithm, type: string}
+      - {name: noise_model, type: string}
+      - {name: epsilon, type: float}
+      - {name: rep, type: int}
+      - {name: states, type: int}
+
+  - name: complexity
+    file: results/complexity.parquet
+    columns:
+      - {name: algorithm, type: string}
+      - {name: epsilon, type: float}
+      - {name: rep, type: int}
+      - {name: cmu, type: float}
+      - {name: cmu_bias, type: float}
+
+execution:
+  parallel: true
+  n_workers: 4
+  seed_base: 42
