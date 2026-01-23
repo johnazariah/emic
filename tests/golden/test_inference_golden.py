@@ -76,7 +76,6 @@ class TestBiasedCoinGolden:
         assert len(result.machine.states) == 1
         assert result.converged
 
-    @pytest.mark.xfail(reason="Spectral tends to over-split IID processes")
     def test_spectral_finds_one_state(self, sequence: list[int]) -> None:
         """Spectral should find exactly 1 state for IID process."""
         config = SpectralConfig(max_history=5, rank_threshold=0.1)
@@ -138,7 +137,6 @@ class TestGoldenMeanGolden:
         assert 2 <= len(result.machine.states) <= 3
         assert result.converged
 
-    @pytest.mark.xfail(reason="Spectral state extraction needs tuning")
     def test_spectral_finds_two_states(self, sequence: list[int]) -> None:
         """Spectral should find 2 states for Golden Mean."""
         config = SpectralConfig(max_history=5, rank_threshold=0.01)
@@ -348,7 +346,6 @@ class TestEvenProcessGolden:
         assert 2 <= len(result.machine.states) <= 3
         assert result.converged
 
-    @pytest.mark.xfail(reason="Spectral state extraction needs tuning")
     def test_spectral_finds_two_states(self, sequence: list[int]) -> None:
         """Spectral should find 2 states for Even process."""
         config = SpectralConfig(max_history=5, rank_threshold=0.01)
