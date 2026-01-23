@@ -11,11 +11,9 @@
         "HYPOTHESIS_PROFILE": "dev"
     },
 
-    // Podman-specific configuration
-    "runArgs": [
-        "--userns=keep-id",
-        "--tmpfs=/tmp:rw,exec,nosuid,size=2g,mode=1777"
-    ],
+    // Mount workspace folder
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+    "workspaceFolder": "/workspace",
 
     // VS Code customizations
     "customizations": {
@@ -95,7 +93,6 @@
 
     // Lifecycle hooks
     "postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
-    "postStartCommand": "bash .devcontainer/postStartCommand.sh",
 
     // Forward ports (for Jupyter, etc.)
     "forwardPorts": [8888],
