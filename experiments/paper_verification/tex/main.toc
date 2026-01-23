@@ -1,0 +1,23 @@
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\contentsline {section}{\numberline {2}Preliminaries: The Language of Uncertainty}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Entropy: A Measure of Surprise}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Joint and Conditional Entropy}{2}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Mutual Information}{2}{subsection.2.3}%
+\contentsline {section}{\numberline {3}The Prediction Game}{2}{section.3}%
+\contentsline {subsection}{\numberline {3.1}The Goal of Modeling}{3}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Causal States}{3}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}The Epsilon Machine}{3}{subsection.3.3}%
+\contentsline {section}{\numberline {4}A Concrete Example: The Golden Mean}{3}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Inferring the Structure}{3}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Reading the Machine}{3}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Measures of Complexity}{4}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Definitions}{4}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Calculation}{4}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Comparison of Processes}{5}{subsection.5.3}%
+\contentsline {section}{\numberline {6}How Good is Our Prediction?}{5}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Theorem 1: Prescience (Accuracy)}{5}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Theorem 2: Minimality (Efficiency)}{6}{subsection.6.2}%
+\contentsline {section}{\numberline {7}From Rules to Chaos}{6}{section.7}%
+\contentsline {subsection}{\numberline {7.1}The Logistic Map}{6}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}The Structure of Chaos}{6}{subsection.7.2}%
+\contentsline {section}{\numberline {8}Conclusion: The Physics of Information}{6}{section.8}%
