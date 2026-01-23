@@ -38,6 +38,7 @@ nav:
       - Inference: guide/inference.md
       - Analysis: guide/analysis.md
       - Pipelines: guide/pipelines.md
+  - Gallery: gallery.md
   - API Reference:
       - emic: api/index.md
       - emic.sources: api/sources.md
