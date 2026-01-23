@@ -16,6 +16,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 # System Dependencies
 # ============================================================================
 
+# Remove expired Yarn repository (from base image) before updating
+RUN rm -f /etc/apt/sources.list.d/yarn.list 2>/dev/null || true
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     # LaTeX - using texlive-science for a good balance of size and features
     texlive-latex-recommended \
