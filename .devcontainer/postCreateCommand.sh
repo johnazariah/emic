@@ -47,6 +47,10 @@ fi
 
 echo "🔧 Configuring git..."
 
+# Set up git user identity (required in devcontainer)
+git config user.name "John S Azariah"
+git config user.email "john.azariah@student.uts.edu.au"
+
 # Set up git to use main as default branch
 git config --global init.defaultBranch main
 
