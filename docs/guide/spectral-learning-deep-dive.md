@@ -520,16 +520,16 @@ def cluster_beliefs_kmeans(beliefs, k):
     # Normalize belief vectors (use direction, not magnitude)
     normalized = [b / norm(b) for b in beliefs]
 
-    # Initialize centroids with k-means++
+    # Initialize centroids with k-means++ for better convergence
     centroids = init_centroids_plusplus(normalized, k)
 
     # Run k-means with cosine similarity
     for iteration in range(max_iter):
-        # Assign each belief to nearest centroid
+        # Assign each belief to nearest centroid (highest cosine similarity)
         assignments = [argmax(dot(b, c) for c in centroids)
                        for b in normalized]
 
-        # Update centroids
+        # Update centroids to mean of assigned points
         for j in range(k):
             cluster_points = [b for b, a in zip(normalized, assignments) if a == j]
             if cluster_points:
@@ -537,6 +537,11 @@ def cluster_beliefs_kmeans(beliefs, k):
 
     return assignments, n_clusters
 ```
+
+**K-means++ initialization**: Instead of random centroids, we:
+1. Pick the first centroid uniformly at random
+2. For each subsequent centroid, pick with probability proportional to distance² from nearest existing centroid
+3. This spreads centroids apart for faster convergence
 
 **Why k-means?** The SVD tells us the rank k, which is the number of hidden states. K-means finds k cluster centers that best represent the belief state distribution.
 
@@ -759,6 +764,26 @@ The Spectral algorithm now uses **adaptive parameters** by default:
 ```python
 SpectralConfig()  # max_history and min_count adapt to sample size
 ```
+
+**How it works:**
+
+For `max_history` L, we want enough samples per (history, future) cell:
+- Need at least ~50 samples per cell for reliable probability estimates
+- With |Σ| symbols and history length L, there are |Σ|^(2L) cells
+- Formula: L = floor(log(N / 50) / log(|Σ|))
+
+| Sample Size | Binary (|Σ|=2) | Ternary (|Σ|=3) |
+|-------------|----------------|-----------------|
+| N = 100     | L = 2          | L = 2           |
+| N = 500     | L = 3          | L = 2           |
+| N = 1000    | L = 4          | L = 3           |
+| N = 10000   | L = 7          | L = 4           |
+
+For `min_count`, we scale with √N:
+- Formula: min_count = max(2, min(10, √N / 10))
+- N = 100 → min_count = 2
+- N = 1000 → min_count = 3
+- N = 10000 → min_count = 10
 
 This means:
 - For small samples (N < 500): uses smaller `max_history` (2-3) and `min_count` (2)
