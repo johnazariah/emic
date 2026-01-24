@@ -38,6 +38,7 @@ nav:
       - Inference: guide/inference.md
       - Analysis: guide/analysis.md
       - Pipelines: guide/pipelines.md
+      - Spectral Learning Deep Dive: guide/spectral-learning-deep-dive.md
   - Gallery: gallery.md
   - API Reference:
       - emic: api/index.md
