@@ -1,0 +1,73 @@
+# Benchmark Experiment Configuration
+# EXP-005: Algorithm Performance Benchmarks
+
+experiment:
+  id: EXP-005
+  title: Algorithm Performance Benchmarks
+  description: |
+    Comprehensive measurement of runtime and accuracy of inference algorithms
+    across different data sizes and processes.
+
+  # Benchmark parameters
+  benchmark:
+    repetitions: 5
+    seed: 42
+    warmup_runs: 1
+
+    # Data sizes to test (log scale)
+    sample_sizes:
+      - 100
+      - 1000
+      - 10000
+      - 100000
+      - 1000000
+
+    # All processes to benchmark
+    processes:
+      - name: golden_mean
+        params:
+          p: 0.5
+        expected_states: 2
+      - name: even_process
+        params:
+          p: 0.5
+        expected_states: 2
+      - name: biased_coin
+        params:
+          p: 0.7
+        expected_states: 1
+      - name: periodic
+        params:
+          pattern: [0, 1, 0]
+        expected_states: 3
+
+    # All algorithms to benchmark
+    algorithms:
+      - name: cssr
+        config:
+          max_history: 5
+          significance: 0.001
+      - name: spectral
+        config:
+          max_history: 5
+          rank_threshold: 0.01
+      - name: csm
+        config:
+          history_length: 5
+          merge_threshold: 0.1
+      - name: bsi
+        config:
+          max_states: 5
+          n_samples: 100
+      - name: nsd
+        config:
+          max_states: 5
+          history_length: 5
+
+  # Output configuration
+  output:
+    results_dir: results
+    figures_dir: results/figures
+    formats:
+      - parquet
+      - csv

@@ -58,3 +58,16 @@ experiments:
     questions:
       - Q004
     hypotheses: []
+
+  benchmarks:
+    id: EXP-005
+    title: Algorithm Performance Benchmarks
+    description: |
+      Measure runtime and memory usage of inference algorithms
+      across different data sizes and processes. Results feed
+      into Appendix B of the technical report.
+    status: ready
+    created: 2026-01-24
+    last_run: null
+    questions: []
+    hypotheses: []
