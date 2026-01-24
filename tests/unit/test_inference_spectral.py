@@ -17,11 +17,11 @@ class TestSpectralConfig:
     def test_default_values(self) -> None:
         """Test default configuration values."""
         config = SpectralConfig()
-        assert config.max_history == 10
-        assert config.rank_threshold == 0.01
+        assert config.max_history is None  # Adaptive by default
+        assert config.rank_threshold == 0.001  # Conservative default
         assert config.rank is None
         assert config.regularization == 1e-6
-        assert config.min_count == 5
+        assert config.min_count is None  # Adaptive by default
 
     def test_invalid_max_history(self) -> None:
         """Test that max_history must be positive."""
@@ -163,8 +163,8 @@ class TestSpectralHankelMatrix:
 
     def test_hankel_counts_basic(self) -> None:
         """Test that Hankel matrix is built correctly."""
-        # Simple repeating pattern
-        data = [0, 1] * 100
+        # Simple repeating pattern - need more data for adaptive params
+        data = [0, 1] * 500
 
         spectral = Spectral(SpectralConfig(max_history=2))
         result = spectral.infer(data)
