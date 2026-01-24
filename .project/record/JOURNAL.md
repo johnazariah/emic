@@ -6,6 +6,101 @@
 
 ## 2026
 
+### January 24, 2026
+
+**Session Focus**: Comprehensive Tutorial Development
+
+**Completed**:
+
+1. **Tutorial Rewrite** — Complete overhaul of tutorial document
+   - Now covers all 6 Shalizi theorems (Prescience, Minimality, Uniqueness, Min Stochasticity, Bound, Control)
+   - Added Bayesian perspective with Dirichlet-Multinomial framework
+   - Structured into 6 Parts: Foundations → Causal States → Theorems → Measures → Inference → Examples
+   - ~800 lines of LaTeX with custom environments (keyidea, intuition, theorembox, etc.)
+
+2. **Spell Checker Config** — Added `.vscode/settings.json` with `cSpell.words` for academic names (Crutchfield, Shalizi, Siddiqi, etc.)
+
+**Key Content Added to Tutorial**:
+- Part I: Probability refresher, information theory (H, I, conditional entropy)
+- Part II: Causal equivalence, causal states, morphs, ε-machine, unifilarity
+- Part III: All 6 theorems with intuitive explanations and proof sketches
+- Part IV: Cμ, hμ, complexity-entropy plane visualization
+- Part V: CSSR algorithm + Bayesian (BSI) with Gibbs sampling explanation
+- Part VI: Worked examples (BiasedCoin, GoldenMean, EvenProcess, Periodic)
+
+**Files Modified**:
+- `.project/research/papers/tutorial/tex/main.tex` — complete rewrite
+- `.vscode/settings.json` — new file
+
+**Notes**:
+- Tutorial is now ~30 pages, suitable for university seminars
+- References the Bayesian primer in `.project/references/bayesian-inference-primer.md`
+- Cross-references the companion review paper for formal proofs
+
+---
+
+### January 23, 2026
+
+**Session Focus**: Publication Strategy & Paper Writing Infrastructure
+
+**Completed**:
+
+1. **Mac Devcontainer Fix** (early session)
+   - Fixed missing `postStartCommand.sh` in `.devcontainer/`
+   - Added Podman `runArgs` workaround for Mac compatibility
+   - Tagged as v0.2.1-mac-safe
+
+2. **Golden Tests for All Algorithms**
+   - Extended `tests/golden/test_inference_golden.py` with BSI, NSD, Spectral tests
+   - Spectral tests initially xfailed due to stub implementation
+
+3. **Visualization Gallery**
+   - Created `docs/gallery.md` with state machine diagrams
+   - Added to MkDocs navigation
+
+4. **Proper Spectral Learning Implementation**
+   - Rewrote `src/emic/inference/spectral/algorithm.py` (+413/-170 lines)
+   - Implemented Hsu, Kakade & Zhang 2012 algorithm with numpy.linalg.svd
+   - Observable operators: A_x = U^T H_x V Σ^{-1}
+   - State merging with 25% total variation threshold
+   - All 326 tests now pass (removed 3 xfail markers)
+
+5. **Publication Strategy**
+   - Created `.project/research/papers/publication-strategy.md`
+   - Defined three complementary documents:
+     - **Tutorial**: "A Practical Guide to Computational Mechanics" — for university presentations
+     - **Research Paper**: "Computational Mechanics: A Modern Review" — journal submission
+     - **Technical Report**: "emic: A Python Framework" — thesis chapter
+   - Set up directory structure with LaTeX templates
+   - Created shared bibliography (20+ references)
+
+**Created Files**:
+- `.project/research/papers/publication-strategy.md` — master planning doc
+- `.project/research/papers/shared/bibliography/references.bib` — shared citations
+- `.project/research/papers/tutorial/tex/main.tex` — pedagogical guide template
+- `.project/research/papers/review-paper/tex/main.tex` — formal paper template
+- `.project/research/papers/technical-report/tex/main.tex` — thesis chapter template
+- `.project/notes/spectral-learning-implementation.md` — algorithm analysis
+
+**Test Results**:
+- 326 tests passing
+- pyright: 0 errors
+- All algorithms validated on golden processes
+
+**Notes**:
+- The three documents form a hierarchy: Tutorial → Paper → Report
+- Each references the others appropriately
+- Shared assets (figures, tables, code) avoid duplication
+- Existing content in `experiments/paper_verification/tex/` can be salvaged
+
+**Next Steps**:
+- Run EXP-003 to populate numerical validation tables
+- Generate figures programmatically for reproducibility
+- Draft Tutorial Sections 1-6 (narrative content)
+- Complete proofs in Research Paper
+
+---
+
 ### January 15, 2026 (Session 3)
 
 **Session Focus**: Implementing All Alternative Inference Algorithms (Spec 010)
