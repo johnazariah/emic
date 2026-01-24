@@ -57,10 +57,15 @@ site/
 *.aux
 *.bbl
 *.blg
+*.bcf
 *.fdb_latexmk
 *.fls
 *.log
 *.out
 *.toc
+*.lof
+*.lot
+*.run.xml
 *.synctex.gz
 *.synctex(busy)
+**/tex/out/
