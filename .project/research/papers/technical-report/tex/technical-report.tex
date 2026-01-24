@@ -1,0 +1,374 @@
+\documentclass[11pt,a4paper]{report}
+
+% === PACKAGES ===
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathpazo}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning,arrows.meta,shapes.geometric}
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+
+% === COLORS ===
+\definecolor{emicblue}{RGB}{41,98,255}
+\definecolor{emicgreen}{RGB}{0,150,136}
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{linkblue}{RGB}{0,51,153}
+
+% === HYPERREF SETUP ===
+\hypersetup{
+    colorlinks=true,
+    linkcolor=linkblue,
+    citecolor=emicgreen,
+    urlcolor=emicblue
+}
+
+% === LISTINGS SETUP ===
+\lstset{
+    language=Python,
+    basicstyle=\small\ttfamily,
+    backgroundcolor=\color{codebg},
+    frame=single,
+    framerule=0.5pt,
+    rulecolor=\color{gray!50},
+    xleftmargin=1em,
+    xrightmargin=1em,
+    breaklines=true,
+    showstringspaces=false,
+    keywordstyle=\color{emicblue}\bfseries,
+    commentstyle=\color{gray}\itshape,
+    stringstyle=\color{emicgreen},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    numbersep=8pt
+}
+
+% === HEADER/FOOTER ===
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% === THEOREM ENVIRONMENTS ===
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+
+% === NOTATION ===
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Cmu}{C_\mu}
+\newcommand{\hmu}{h_\mu}
+\newcommand{\calS}{\mathcal{S}}
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\emic}{\texttt{emic}}
+
+% === TITLE ===
+\title{%
+    \vspace{-2em}
+    {\LARGE\bfseries emic}\\[0.5em]
+    {\Large A Python Framework for $\eps$-Machine Inference}\\[1em]
+    {\normalsize Technical Report / Thesis Chapter}
+}
+\author{%
+    Author Name\\
+    \small Department, University\\
+    \small\texttt{email@university.edu}
+}
+\date{January 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Computational Mechanics provides a rigorous framework for understanding structure in stochastic processes through the construction of $\eps$-machines—minimal, optimal predictive models. Despite decades of theoretical development, accessible software implementations have been lacking. We present \emic{}, a production-quality Python library for $\eps$-machine inference from symbolic time series data. The library implements multiple inference algorithms (CSSR, Spectral Learning, Bayesian Structural Inference), provides comprehensive analysis tools, and emphasizes correctness through extensive validation against known analytical results. This report describes the design principles, architecture, algorithms, and validation methodology, serving as both documentation and a thesis chapter on the software contribution.
+\end{abstract}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+% ===================================================================
+\chapter{Introduction}
+\label{ch:introduction}
+% ===================================================================
+
+\section{Motivation}
+
+Computational Mechanics, developed by Crutchfield, Shalizi, and colleagues over the past three decades, provides the theoretical foundation for understanding structure and complexity in stochastic processes. The central object is the \emph{$\eps$-machine}—the unique, minimal hidden Markov model that captures a process's ``causal architecture.''
+
+Despite the elegance and power of this framework, practical adoption has been hindered by the lack of modern, well-documented software tools. The original CSSR implementation in Perl \cite{shalizi2004algorithm} is unmaintained. More recent tools exist but lack comprehensive documentation, testing, or support for multiple algorithms.
+
+\section{Contribution}
+
+\emic{} addresses this gap with:
+
+\begin{itemize}
+    \item \textbf{Modern Python implementation}: Type-annotated, immutable data structures, comprehensive documentation
+    \item \textbf{Multiple algorithms}: CSSR, Spectral Learning, Causal State Merging, Bayesian Structural Inference, Naive State Discovery
+    \item \textbf{Rigorous validation}: 326+ tests including golden tests against known analytical results
+    \item \textbf{Composable pipelines}: Functional composition with \texttt{>>} operator
+    \item \textbf{Extensible architecture}: Protocol-based design for custom algorithms
+\end{itemize}
+
+\section{Outline}
+
+Chapter~\ref{ch:background} provides background on Computational Mechanics (for full treatment, see \cite{shalizi2001computational}). Chapter~\ref{ch:architecture} describes the software architecture. Chapter~\ref{ch:algorithms} details the implemented algorithms. Chapter~\ref{ch:validation} presents validation methodology and results. Chapter~\ref{ch:usage} demonstrates usage patterns. Chapter~\ref{ch:conclusion} discusses limitations and future work.
+
+% ===================================================================
+\chapter{Background}
+\label{ch:background}
+% ===================================================================
+
+\section{Computational Mechanics in Brief}
+
+We provide a minimal recap; for rigorous treatment, see our companion review paper.
+
+\textbf{[Brief background section to be written]}
+
+\section{Existing Tools}
+
+\begin{table}[h]
+\centering
+\caption{Comparison of $\eps$-machine inference tools}
+\label{tab:tools}
+\begin{tabular}{lccccc}
+\toprule
+Tool & Language & Algorithms & Tests & Maintained \\
+\midrule
+CSSR (original) & Perl & CSSR & No & No \\
+CMPy & Python & CSSR & Limited & Partial \\
+\emic{} & Python & 5 & 326+ & Yes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ===================================================================
+\chapter{Architecture}
+\label{ch:architecture}
+% ===================================================================
+
+\section{Design Principles}
+
+\begin{enumerate}
+    \item \textbf{Immutability}: All core types are frozen dataclasses
+    \item \textbf{Type Safety}: Full type annotations, validated with Pyright
+    \item \textbf{Protocol-Based Extension}: Abstract interfaces for custom implementations
+    \item \textbf{Composability}: Pipeline operators for data flow
+    \item \textbf{Correctness}: Extensive testing, golden tests
+\end{enumerate}
+
+\section{Core Types}
+
+\subsection{Symbol and Alphabet}
+
+\begin{lstlisting}[caption={Core type definitions}]
+Symbol = str  # Single character
+
+@dataclass(frozen=True)
+class Alphabet:
+    """Finite set of symbols."""
+    symbols: frozenset[Symbol]
+
+    def __contains__(self, s: Symbol) -> bool:
+        return s in self.symbols
+\end{lstlisting}
+
+\subsection{StateId and Transition}
+
+\textbf{[Code listings to be added]}
+
+\subsection{EpsilonMachine}
+
+The central data structure:
+
+\begin{lstlisting}[caption={EpsilonMachine class}]
+@dataclass(frozen=True)
+class EpsilonMachine:
+    """An epsilon-machine (minimal unifilar HMM)."""
+    states: frozenset[StateId]
+    alphabet: Alphabet
+    transitions: Mapping[StateId, Mapping[Symbol, Transition]]
+    start_state: StateId
+
+    @property
+    def num_states(self) -> int:
+        return len(self.states)
+\end{lstlisting}
+
+\section{Pipeline Composition}
+
+\begin{lstlisting}[caption={Pipeline composition with >> operator}]
+from emic import GoldenMean, CSSR
+from emic.analysis import Summary
+
+# Compose a pipeline
+pipeline = GoldenMean(p=0.5) >> CSSR() >> Summary()
+
+# Execute
+result = pipeline.run(n=100_000)
+print(result)
+\end{lstlisting}
+
+\section{Module Structure}
+
+\begin{figure}[h]
+\centering
+\textbf{[Architecture diagram to be created]}
+\caption{Module structure of \emic{}}
+\label{fig:architecture}
+\end{figure}
+
+% ===================================================================
+\chapter{Inference Algorithms}
+\label{ch:algorithms}
+% ===================================================================
+
+\section{CSSR: Causal State Splitting Reconstruction}
+
+The primary algorithm, due to Shalizi and Klinkner \cite{shalizi2004algorithm}.
+
+\textbf{[Algorithm description to be written]}
+
+\section{Spectral Learning}
+
+Based on Hsu, Kakade, and Zhang \cite{hsu2012spectral}.
+
+\textbf{[Algorithm description to be written]}
+
+\section{Causal State Merging}
+
+\textbf{[Algorithm description to be written]}
+
+\section{Bayesian Structural Inference}
+
+\textbf{[Algorithm description to be written]}
+
+\section{Algorithm Comparison}
+
+\begin{table}[h]
+\centering
+\caption{Algorithm comparison}
+\label{tab:algorithms}
+\begin{tabular}{lcccc}
+\toprule
+Algorithm & Complexity & Consistency & Noise Robust \\
+\midrule
+CSSR & $O(n \cdot L \cdot |\calA|^L)$ & Yes & Moderate \\
+Spectral & $O(n \cdot L^2)$ & Yes & Good \\
+CSM & $O(n \cdot L)$ & No & Good \\
+BSI & $O(n \cdot k^2)$ & Yes & Excellent \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ===================================================================
+\chapter{Validation}
+\label{ch:validation}
+% ===================================================================
+
+\section{Testing Methodology}
+
+\subsection{Unit Tests}
+
+\subsection{Golden Tests}
+
+Golden tests verify inference on processes with known analytical solutions:
+
+\begin{table}[h]
+\centering
+\caption{Golden test processes}
+\label{tab:golden}
+\begin{tabular}{lcccc}
+\toprule
+Process & States & $\Cmu$ (bits) & $\hmu$ (bits) & Tolerance \\
+\midrule
+BiasedCoin(0.5) & 1 & 0.000 & 1.000 & 0.01 \\
+BiasedCoin(0.3) & 1 & 0.000 & 0.881 & 0.01 \\
+GoldenMean(0.5) & 2 & 0.918 & 0.667 & 0.01 \\
+EvenProcess(0.5) & 2 & 0.918 & 0.667 & 0.01 \\
+Periodic(3) & 3 & 1.585 & 0.000 & 0.01 \\
+Periodic(5) & 5 & 2.322 & 0.000 & 0.01 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Property Tests}
+
+Using Hypothesis for property-based testing.
+
+\section{Results}
+
+\textbf{[Validation results to be added from EXP-003]}
+
+% ===================================================================
+\chapter{Usage}
+\label{ch:usage}
+% ===================================================================
+
+\section{Installation}
+
+\begin{lstlisting}[language=bash]
+pip install emic
+\end{lstlisting}
+
+\section{Basic Usage}
+
+\textbf{[Usage examples to be added]}
+
+\section{Advanced Usage}
+
+\textbf{[Advanced examples to be added]}
+
+% ===================================================================
+\chapter{Conclusion}
+\label{ch:conclusion}
+% ===================================================================
+
+\section{Summary}
+
+\section{Limitations}
+
+\section{Future Work}
+
+\begin{itemize}
+    \item Quantum extension for quantum computational mechanics
+    \item Continuous-alphabet processes
+    \item GPU acceleration for large datasets
+    \item Interactive visualization
+\end{itemize}
+
+% ===================================================================
+% APPENDICES
+% ===================================================================
+\appendix
+
+\chapter{API Reference}
+\label{app:api}
+
+\textbf{[Generated API documentation]}
+
+\chapter{Benchmark Results}
+\label{app:benchmarks}
+
+\textbf{[Performance benchmarks]}
+
+% ===================================================================
+% BIBLIOGRAPHY
+% ===================================================================
+\bibliographystyle{plain}
+\bibliography{../../shared/bibliography/references}
+
+\end{document}
