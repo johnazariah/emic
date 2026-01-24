@@ -52,3 +52,15 @@ Thumbs.db
 # Project specific
 .project/references/*.pdf
 site/
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.synctex(busy)
