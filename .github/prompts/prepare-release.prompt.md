@@ -103,9 +103,17 @@ Analyze changes since the last release, prepare documentation, validate quality,
    # or: uv run sphinx-build -W docs docs/_build
    ```
 
-4. **Verify API documentation** covers new exports:
+4. **Review and update guide documentation**:
+   - Check `docs/guide/` for completeness
+   - Ensure new features are documented in relevant guides
+   - Verify examples use current API patterns
+   - Update algorithm recommendation tables if benchmarks changed
+   - Add new transforms/sources to sources guide
+
+5. **Verify API documentation** covers new exports:
    - Check `src/<package>/__init__.py` exports
    - Ensure all public APIs have docstrings
+   - Update `docs/api/*.md` if new modules were added
 
 ---
 
@@ -234,7 +242,20 @@ Analyze changes since the last release, prepare documentation, validate quality,
    - Verify new features are documented
    - Check API reference is updated
 
-6. **Report final status**:
+6. **Upload release artifacts** (if applicable):
+   ```bash
+   # Build and upload research documentation PDFs
+   # (If project has LaTeX documents in .project/research/)
+   cd .project/research/<project>/technical-report/tex && pdflatex -interaction=nonstopmode *.tex && pdflatex *.tex
+   cd .project/research/<project>/tutorial/tex && pdflatex -interaction=nonstopmode *.tex && pdflatex *.tex
+
+   gh release upload vX.Y.Z \
+     .project/research/<project>/technical-report/tex/*.pdf \
+     .project/research/<project>/tutorial/tex/*.pdf \
+     --clobber
+   ```
+
+7. **Report final status**:
    ```
    ## Release Complete ✅
 
