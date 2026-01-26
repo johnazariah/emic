@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] - 2026-01-26
+
+### Added
+- **CSSR deep dive**: Comprehensive guide explaining suffix trees, chi-squared testing, state splitting/merging with worked Golden Mean example
+- **Complexity measures explained**: Educational guide covering Cμ, hμ, E, χ with intuition, formulas, and examples
+- **Working with real data**: Practical guide for empirical sequences covering preprocessing, alphabet design, noise handling, and validation
+- **MathJax support**: LaTeX formula rendering in documentation for mathematical expressions
+- **BitFlipNoise documentation**: Added to sources guide and API reference
+
+### Changed
+- Reorganized User Guide navigation with Deep Dives subsection
+- Updated algorithm recommendation to suggest Spectral for general use
+- Added cross-references to emic documentation in research papers
+
 ## [0.3.0] - 2026-01-26
 
 ### Added
