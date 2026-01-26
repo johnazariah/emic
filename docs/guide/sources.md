@@ -123,6 +123,28 @@ from emic.sources import GoldenMeanSource, SkipN, TakeN
 data = GoldenMeanSource(p=0.5, _seed=42) >> SkipN(100) >> TakeN(1000)
 ```
 
+### BitFlipNoise
+
+Add observation noise to test robustness:
+
+```python
+from emic.sources import GoldenMeanSource, TakeN, BitFlipNoise
+
+source = GoldenMeanSource(p=0.5, _seed=42)
+
+# Add 5% bit-flip noise (binary symmetric channel)
+noisy = source >> BitFlipNoise(flip_prob=0.05, seed=123) >> TakeN(10_000)
+```
+
+**Parameters:**
+
+- `flip_prob`: Probability of flipping each symbol (0.0 to 0.5)
+- `seed`: Random seed for reproducibility
+
+!!! tip "Noise Robustness"
+    Use `BitFlipNoise` to study how inference algorithms degrade under observation noise.
+    Most algorithms maintain >80% accuracy up to 10% noise levels.
+
 ## Creating Custom Sources
 
 Implement the `SequenceSource` protocol:

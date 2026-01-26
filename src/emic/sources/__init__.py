@@ -12,6 +12,7 @@ Public API:
     - SequenceData
     - TakeN
     - SkipN
+    - BitFlipNoise
 """
 
 from emic.sources.base import StochasticSource
@@ -23,9 +24,10 @@ from emic.sources.synthetic import (
     GoldenMeanSource,
     PeriodicSource,
 )
-from emic.sources.transforms import SkipN, TakeN
+from emic.sources.transforms import BitFlipNoise, SkipN, TakeN
 
 __all__ = [
+    "BitFlipNoise",
     "BiasedCoinSource",
     "EvenProcessSource",
     "GoldenMeanSource",

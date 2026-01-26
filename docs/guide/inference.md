@@ -265,9 +265,9 @@ print(f"Iterations: {result.iterations}")
 
 | Scenario | Recommended Algorithm |
 |----------|----------------------|
-| General use | CSSR |
+| General use | Spectral (highest accuracy) |
+| Well-studied reference | CSSR |
 | Need uncertainty | BSI |
-| Very large data | Spectral |
 | CSSR gives too many states | CSM or post_merge=True |
 | Exploratory analysis | NSD |
 

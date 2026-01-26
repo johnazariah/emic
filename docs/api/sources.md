@@ -16,3 +16,4 @@ Data sources for epsilon-machine inference.
         - SequenceData
         - TakeN
         - SkipN
+        - BitFlipNoise

@@ -22,6 +22,7 @@ from emic.sources import (
     SequenceData,
     TakeN,
     SkipN,
+    BitFlipNoise,
 )
 
 # Inference (multiple algorithms available)
