@@ -27,8 +27,8 @@ from emic.sources.synthetic import (
 from emic.sources.transforms import BitFlipNoise, SkipN, TakeN
 
 __all__ = [
-    "BitFlipNoise",
     "BiasedCoinSource",
+    "BitFlipNoise",
     "EvenProcessSource",
     "GoldenMeanSource",
     "PeriodicSource",
