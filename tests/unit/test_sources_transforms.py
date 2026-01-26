@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+import pytest
+
 from emic.sources.empirical.sequence_data import SequenceData
+from emic.sources.transforms.noise import BitFlipNoise
 from emic.sources.transforms.skip import SkipN
 from emic.sources.transforms.take import TakeN
 
@@ -133,3 +136,71 @@ class TestTransformChaining:
         pipeline = source >> SkipN(1) >> TakeN(8) >> SkipN(2) >> TakeN(3)
         result = list(pipeline)
         assert result == ["d", "e", "f"]
+
+
+class TestBitFlipNoise:
+    """Tests for BitFlipNoise transform."""
+
+    def test_zero_noise_preserves_data(self) -> None:
+        """BitFlipNoise(0) does not change data."""
+        source = SequenceData(tuple("abcdefghij"))
+        noisy = BitFlipNoise[str](flip_prob=0.0, seed=42)(source)
+        result = list(noisy)
+        assert result == list("abcdefghij")
+
+    def test_noise_flips_some_symbols(self) -> None:
+        """BitFlipNoise with non-zero probability flips some symbols."""
+        # Use binary alphabet so flips are visible
+        # Note: with binary alphabet, flip chooses randomly from {0,1}
+        # so half of flips return to the same symbol.
+        # Effective flip rate = flip_prob * 0.5 = 0.15
+        source = SequenceData(tuple([0, 1] * 500))  # 1000 symbols
+        noisy = BitFlipNoise[int](flip_prob=0.3, seed=42)(source)
+        result = list(noisy)
+        original = list([0, 1] * 500)
+        # Count differences
+        flipped = sum(1 for o, n in zip(original, result, strict=True) if o != n)
+        # Should flip about 15% of symbols (150 +/- variance)
+        assert 50 < flipped < 250
+
+    def test_deterministic_with_seed(self) -> None:
+        """Same seed produces same noise pattern."""
+        source1 = SequenceData(tuple(range(100)))
+        source2 = SequenceData(tuple(range(100)))
+        result1 = list(BitFlipNoise[int](flip_prob=0.2, seed=123)(source1))
+        result2 = list(BitFlipNoise[int](flip_prob=0.2, seed=123)(source2))
+        assert result1 == result2
+
+    def test_different_seeds_differ(self) -> None:
+        """Different seeds produce different noise."""
+        source1 = SequenceData(tuple(range(100)))
+        source2 = SequenceData(tuple(range(100)))
+        result1 = list(BitFlipNoise[int](flip_prob=0.2, seed=123)(source1))
+        result2 = list(BitFlipNoise[int](flip_prob=0.2, seed=456)(source2))
+        assert result1 != result2
+
+    def test_flip_prob_validation(self) -> None:
+        """flip_prob must be in [0, 0.5]."""
+        with pytest.raises(ValueError, match="flip_prob"):
+            BitFlipNoise[int](flip_prob=-0.1)
+        with pytest.raises(ValueError, match="flip_prob"):
+            BitFlipNoise[int](flip_prob=0.6)
+
+    def test_alphabet_preserved(self) -> None:
+        """Noisy source has same alphabet as original."""
+        source = SequenceData(("a", "b", "c"))
+        noisy = BitFlipNoise[str](flip_prob=0.1, seed=42)(source)
+        assert noisy.alphabet == source.alphabet
+
+    def test_pipeline_composition(self) -> None:
+        """BitFlipNoise works in pipelines."""
+        source = SequenceData(tuple(range(20)))
+        pipeline = source >> SkipN(5) >> BitFlipNoise[int](flip_prob=0.1, seed=42) >> TakeN(10)
+        result = list(pipeline)
+        assert len(result) == 10
+
+    def test_repr(self) -> None:
+        """BitFlipNoise has informative repr."""
+        transform = BitFlipNoise[int](flip_prob=0.1, seed=42)
+        assert "BitFlipNoise" in repr(transform)
+        assert "0.1" in repr(transform)

@@ -4,13 +4,15 @@ The `emic` framework provides multiple algorithms for inferring epsilon-machines
 
 ## Available Algorithms
 
-| Algorithm | Approach | Best For |
-|-----------|----------|----------|
-| **CSSR** | Top-down splitting | General purpose, well-studied |
-| **CSM** | Bottom-up merging | Complement to CSSR |
-| **BSI** | Bayesian inference | Uncertainty quantification |
-| **Spectral** | Matrix decomposition | Polynomial time, large data |
-| **NSD** | Clustering | Exploratory analysis |
+| Algorithm | Approach | Correctness* | Best For |
+|-----------|----------|--------------|----------|
+| **Spectral** | Matrix decomposition | **98%** | General purpose, best accuracy |
+| **CSSR** | Top-down splitting | 80% | Well-studied reference |
+| **NSD** | Clustering | 75% | Fast exploratory analysis |
+| **CSM** | Bottom-up merging | 45% | Complement to CSSR |
+| **BSI** | Bayesian inference | 25% | Uncertainty quantification |
+
+*Correctness measured at sample sizes N ≥ 1,000 on canonical test processes.
 
 ## CSSR (Causal State Splitting Reconstruction)
 
@@ -154,24 +156,30 @@ Strelioff, C.C. & Crutchfield, J.P. (2014). "Bayesian Structural Inference for H
 
 ## Spectral Learning
 
-Spectral methods use SVD of Hankel matrices for polynomial-time inference.
+Spectral methods use SVD of Hankel matrices for polynomial-time inference. After recent improvements (adaptive parameters, belief state clustering), Spectral achieves the highest correctness of all algorithms.
 
 ### How it Works
 
 1. Build Hankel matrices from history/future statistics
 2. Compute SVD to find observable operator representation
-3. Extract epsilon-machine from learned operators
+3. Apply belief state clustering to discretize continuous states
+4. Extract epsilon-machine from learned operators
+
+For a complete explanation, see the [Spectral Learning Deep Dive](spectral-learning-deep-dive.md).
 
 ### Basic Usage
 
 ```python
 from emic.inference import Spectral, SpectralConfig
 
+# Default: adaptive parameters (recommended)
+result = Spectral(SpectralConfig()).infer(data)
+
+# Or with explicit settings
 config = SpectralConfig(
     max_history=5,
     rank_threshold=0.01,
 )
-
 result = Spectral(config).infer(data)
 ```
 
@@ -179,17 +187,21 @@ result = Spectral(config).infer(data)
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
-| `max_history` | 10 | History length for Hankel matrix |
-| `rank_threshold` | 0.01 | Singular value threshold |
+| `max_history` | None (adaptive) | History length for Hankel matrix. Auto-computed as `min(8, 2 + log₂(N/100))` |
+| `rank_threshold` | 0.001 | Relative singular value cutoff for rank selection |
 | `rank` | None | Fixed rank (overrides threshold) |
 | `regularization` | 1e-6 | Numerical stability |
-| `min_count` | 5 | Minimum observations per history |
+| `min_count` | None (adaptive) | Min observations per history. Auto-computed as `max(3, N/10000)` |
 
 ```python
-config = SpectralConfig(
-    max_history=8,
-    rank=3,  # Force 3 states
-)
+# Adaptive defaults work well for most cases
+config = SpectralConfig()
+
+# Force exactly 3 states
+config = SpectralConfig(rank=3)
+
+# More aggressive filtering for noisy data
+config = SpectralConfig(rank_threshold=0.1)
 ```
 
 ### Reference

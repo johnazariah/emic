@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-01-26
+
+### Added
+- **Spectral Learning improvements**: Complete SVD-based spectral learning with belief state clustering and automatic rank selection
+- **Algorithm benchmark suite**: Comprehensive benchmarking framework for comparing inference algorithms across processes and sample sizes
+- **Noise robustness experiments**: Analysis of algorithm behavior under observation noise with entropy rate and statistical complexity metrics
+- **Visualization gallery**: State diagram visualization examples with GraphViz integration
+- **Comprehensive tutorial**: 32-page computational mechanics tutorial with worked examples
+- **Technical report**: 49-page technical documentation of the emic library
+- **Golden tests**: BSI, NSD, and Spectral algorithm golden tests against known processes
+
+### Changed
+- Refactored Spectral algorithm with modular belief state clustering for improved interpretability
+- Expanded user guide with Spectral learning deep-dive and parameter formulas
+
+### Fixed
+- macOS devcontainer compatibility and git user configuration
+- Expired Yarn repository in devcontainer base image
+
 ## [0.2.1] - 2026-01-20
 
 ### Fixed

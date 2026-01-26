@@ -1,0 +1,5023 @@
+{
+  "metadata": {
+    "algorithm": "Spectral",
+    "timestamp": "2026-01-25T22:32:17.191515+00:00",
+    "process": "GoldenMean(p=0.5)",
+    "sample_size": 10000,
+    "repetitions": 50,
+    "noise_levels": [
+      0,
+      0.01,
+      0.02,
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.3,
+      0.4,
+      0.5
+    ]
+  },
+  "results": [
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 0,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.08660578727722168,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 1,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06068110466003418,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 2,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06083965301513672,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 3,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.0605471134185791,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 4,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.13576745986938477,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 5,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07850885391235352,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 6,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.0613248348236084,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 7,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06324076652526855,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 8,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06286978721618652,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 9,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06126141548156738,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 10,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06034541130065918,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 11,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.061514854431152344,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 12,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06106257438659668,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 13,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.061098575592041016,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 14,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07695555686950684,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 15,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.0599210262298584,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 16,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06020689010620117,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 17,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.08994007110595703,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 18,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060271501541137695,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 19,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060674428939819336,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 20,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.061064720153808594,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 21,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.059800148010253906,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 22,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.0742788314819336,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 23,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.05887436866760254,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 24,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06034231185913086,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 25,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.05988121032714844,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 26,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06060051918029785,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 27,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07531189918518066,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 28,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.05991101264953613,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 29,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06083488464355469,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 30,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06011557579040527,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 31,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.05996298789978027,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 32,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.059799909591674805,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 33,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06049060821533203,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 34,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07521486282348633,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 35,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06006121635437012,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 36,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06039237976074219,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 37,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060577392578125,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 38,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07538962364196777,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 39,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060706377029418945,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 40,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06038975715637207,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 41,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07528114318847656,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 42,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.05992436408996582,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 43,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.09017586708068848,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 44,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.05976748466491699,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 45,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.09089279174804688,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 46,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.09076642990112305,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 47,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.0752418041229248,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 48,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06051516532897949,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0,
+      "rep": 49,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.05939364433288574,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 0,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07578706741333008,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 1,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.10571098327636719,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 2,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060460805892944336,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 3,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.0606083869934082,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 4,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06154370307922363,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 5,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.0610198974609375,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 6,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07485723495483398,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 7,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06082415580749512,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 8,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06065726280212402,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 9,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06059408187866211,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 10,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060704708099365234,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 11,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06156349182128906,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 12,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07638859748840332,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 13,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.061135292053222656,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 14,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.061273813247680664,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 15,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06107163429260254,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 16,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07642102241516113,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 17,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06072044372558594,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 18,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060686588287353516,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 19,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.061372995376586914,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 20,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060774803161621094,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 21,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.0751957893371582,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 22,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06032514572143555,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 23,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06002044677734375,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 24,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.05977201461791992,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 25,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06083226203918457,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 26,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.0600588321685791,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 27,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.05962944030761719,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 28,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.05916166305541992,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 29,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.05974435806274414,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 30,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.05958747863769531,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 31,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.10494327545166016,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 32,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06052279472351074,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 33,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06074976921081543,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 34,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06136727333068848,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 35,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06077170372009277,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 36,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07453322410583496,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 37,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.059670448303222656,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 38,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06012248992919922,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 39,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060250043869018555,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 40,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06004190444946289,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 41,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.059534549713134766,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 42,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.05934643745422363,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 43,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060237884521484375,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 44,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.0608370304107666,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 45,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.0904543399810791,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 46,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06017136573791504,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 47,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060382843017578125,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 48,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060375213623046875,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.01,
+      "rep": 49,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07487225532531738,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 0,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060364723205566406,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 1,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.10536980628967285,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 2,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06072521209716797,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 3,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06100773811340332,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 4,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.0625145435333252,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 5,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07645463943481445,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 6,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06020998954772949,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 7,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07494115829467773,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 8,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.0600275993347168,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 9,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07536482810974121,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 10,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06071925163269043,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 11,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.061574459075927734,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 12,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06173896789550781,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 13,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06150364875793457,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 14,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.05948185920715332,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 15,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06038951873779297,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 16,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.05996274948120117,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 17,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.0751028060913086,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 18,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06043124198913574,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 19,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06108975410461426,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 20,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06128263473510742,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 21,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060004234313964844,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 22,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.059647321701049805,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 23,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.059844970703125,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 24,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060050249099731445,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 25,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060196638107299805,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 26,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060298919677734375,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 27,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.05959749221801758,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 28,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.05940651893615723,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 29,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07595705986022949,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 30,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06066703796386719,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 31,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07521915435791016,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 32,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06029176712036133,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 33,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.0606389045715332,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 34,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.061389923095703125,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 35,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07642626762390137,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 36,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07474088668823242,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 37,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060440778732299805,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 38,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06036829948425293,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 39,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06084847450256348,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 40,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.09084868431091309,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 41,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06075429916381836,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 42,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07533812522888184,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 43,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060040950775146484,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 44,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.0596621036529541,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 45,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.05979752540588379,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 46,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.059705495834350586,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 47,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.0603790283203125,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 48,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06004667282104492,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.02,
+      "rep": 49,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.05982518196105957,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 0,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07443499565124512,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 1,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03937077522277832,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 2,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06206536293029785,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 3,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07744359970092773,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 4,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03868603706359863,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 5,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.09151363372802734,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 6,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06161379814147949,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 7,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.12849020957946777,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 8,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.09251236915588379,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 9,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03967785835266113,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 10,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06415128707885742,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 11,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06501197814941406,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 12,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06380987167358398,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 13,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06279587745666504,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 14,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.14654183387756348,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 15,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07699799537658691,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 16,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 0.408099889755249,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 17,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06154322624206543,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 18,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03810238838195801,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 19,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.10976767539978027,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 20,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.10774493217468262,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 21,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06012368202209473,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 22,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03781533241271973,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 23,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 0.1761159896850586,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 24,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060564279556274414,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 25,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038886070251464844,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 26,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.09331393241882324,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 27,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.039180755615234375,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 28,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03906822204589844,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 29,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07668709754943848,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 30,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.09199738502502441,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 31,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.09061098098754883,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 32,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.060430288314819336,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 33,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.16268515586853027,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 34,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.07596492767333984,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 35,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.23399758338928223,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 36,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06328487396240234,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 37,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03785371780395508,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 38,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.47597765922546387,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 39,
+      "num_states": 5,
+      "expected_states": 2,
+      "runtime_seconds": 0.15423321723937988,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 40,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.037737131118774414,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 41,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.12877917289733887,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 42,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.10833477973937988,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 43,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 0.17555570602416992,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 44,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.09092402458190918,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 45,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.1623821258544922,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 46,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 0.5127968788146973,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 47,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.42565417289733887,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 48,
+      "num_states": 5,
+      "expected_states": 2,
+      "runtime_seconds": 0.152695894241333,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.05,
+      "rep": 49,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.06094241142272949,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 0,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038036346435546875,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 1,
+      "num_states": 2,
+      "expected_states": 2,
+      "runtime_seconds": 0.0930020809173584,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 2,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.037953853607177734,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 3,
+      "num_states": 6,
+      "expected_states": 2,
+      "runtime_seconds": 0.8090238571166992,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 4,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03824210166931152,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 5,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03812098503112793,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 6,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 0.5537436008453369,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 7,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03818702697753906,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 8,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03874373435974121,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 9,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03819918632507324,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 10,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03837108612060547,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 11,
+      "num_states": 5,
+      "expected_states": 2,
+      "runtime_seconds": 0.15470242500305176,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 12,
+      "num_states": 7,
+      "expected_states": 2,
+      "runtime_seconds": 1.2764525413513184,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 13,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03811788558959961,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 14,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03789520263671875,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 15,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03767991065979004,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 16,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03860616683959961,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 17,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03875231742858887,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 18,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 0.8555574417114258,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 19,
+      "num_states": 5,
+      "expected_states": 2,
+      "runtime_seconds": 0.4318709373474121,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 20,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03853654861450195,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 21,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03870725631713867,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 22,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.0389101505279541,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 23,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03905797004699707,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 24,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038631439208984375,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 25,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038403987884521484,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 26,
+      "num_states": 5,
+      "expected_states": 2,
+      "runtime_seconds": 0.36259031295776367,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 27,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03888511657714844,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 28,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03879690170288086,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 29,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.0387725830078125,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 30,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038462162017822266,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 31,
+      "num_states": 6,
+      "expected_states": 2,
+      "runtime_seconds": 0.7796435356140137,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 32,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038208723068237305,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 33,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03828883171081543,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 34,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.28991079330444336,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 35,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03807210922241211,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 36,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.223515510559082,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 37,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03916525840759277,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 38,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03913712501525879,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 39,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03869771957397461,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 40,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03835797309875488,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 41,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03826022148132324,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 42,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03850245475769043,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 43,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03790020942687988,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 44,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03785443305969238,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 45,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03807401657104492,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 46,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03775906562805176,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 47,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03779864311218262,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 48,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5256056785583496,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.1,
+      "rep": 49,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.4791591167449951,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 0,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03878664970397949,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 1,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03734612464904785,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 2,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.0374908447265625,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 3,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.037439584732055664,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 4,
+      "num_states": 5,
+      "expected_states": 2,
+      "runtime_seconds": 0.6144063472747803,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 5,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03833937644958496,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 6,
+      "num_states": 5,
+      "expected_states": 2,
+      "runtime_seconds": 0.36020994186401367,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 7,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03862571716308594,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 8,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.0382230281829834,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 9,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038385629653930664,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 10,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038277387619018555,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 11,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03779768943786621,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 12,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03817129135131836,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 13,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03806710243225098,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 14,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03847026824951172,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 15,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038175106048583984,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 16,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038491010665893555,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 17,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.037854671478271484,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 18,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03795337677001953,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 19,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03805398941040039,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 20,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03778076171875,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 21,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038056373596191406,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 22,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03821444511413574,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 23,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03819155693054199,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 24,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03867936134338379,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 25,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03879070281982422,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 26,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03860306739807129,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 27,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03840303421020508,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 28,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03827333450317383,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 29,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03784656524658203,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 30,
+      "num_states": 5,
+      "expected_states": 2,
+      "runtime_seconds": 0.2703425884246826,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 31,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03913164138793945,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 32,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038910865783691406,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 33,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.039293766021728516,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 34,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038861751556396484,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 35,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03834033012390137,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 36,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03817391395568848,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 37,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.037872314453125,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 38,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03794288635253906,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 39,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03798270225524902,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 40,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03778576850891113,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 41,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03773140907287598,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 42,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.7077348232269287,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 43,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03780674934387207,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 44,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03848981857299805,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 45,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03824019432067871,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 46,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.037822723388671875,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 47,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.037842512130737305,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 48,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.037682294845581055,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.15,
+      "rep": 49,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03745269775390625,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 0,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03811836242675781,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 1,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03827691078186035,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 2,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.039849281311035156,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 3,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03816819190979004,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 4,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03807234764099121,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 5,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03797554969787598,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 6,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03809762001037598,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 7,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03773903846740723,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 8,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038446664810180664,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 9,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03828740119934082,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 10,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03857421875,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 11,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03811168670654297,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 12,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038202524185180664,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 13,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038329362869262695,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 14,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.037775278091430664,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 15,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03770756721496582,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 16,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03818011283874512,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 17,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03783249855041504,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 18,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03831052780151367,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 19,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03841233253479004,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 20,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03844594955444336,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 21,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03844428062438965,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 22,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.039147377014160156,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 23,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03942608833312988,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 24,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.039255380630493164,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 25,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03820514678955078,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 26,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.037982940673828125,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 27,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.037740230560302734,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 28,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03757739067077637,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 29,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.037735700607299805,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 30,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03752923011779785,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 31,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03813505172729492,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 32,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038275718688964844,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 33,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038419485092163086,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 34,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.0380864143371582,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 35,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03780484199523926,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 36,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.037714481353759766,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 37,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03787088394165039,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 38,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.0377349853515625,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 39,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03801870346069336,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 40,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03781628608703613,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 41,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.0378117561340332,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 42,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03807544708251953,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 43,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.037619590759277344,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 44,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038262367248535156,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 45,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03846430778503418,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 46,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03866410255432129,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 47,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.039261579513549805,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 48,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038750648498535156,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.2,
+      "rep": 49,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03876161575317383,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 0,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038271427154541016,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 1,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03851056098937988,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 2,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03862714767456055,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 3,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038350820541381836,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 4,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03846478462219238,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 5,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03817009925842285,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 6,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03989672660827637,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 7,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.0398097038269043,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 8,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03937411308288574,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 9,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03923940658569336,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 10,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03942990303039551,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 11,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03888559341430664,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 12,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03864550590515137,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 13,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038414955139160156,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 14,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03827190399169922,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 15,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038307905197143555,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 16,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03806114196777344,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 17,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03789162635803223,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 18,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038378238677978516,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 19,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03821301460266113,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 20,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03809928894042969,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 21,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03850889205932617,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 22,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03825688362121582,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 23,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.037878990173339844,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 24,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038005828857421875,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 25,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03855633735656738,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 26,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03828883171081543,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 27,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.04052567481994629,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 28,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03845620155334473,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 29,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038424015045166016,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 30,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03805971145629883,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 31,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03732419013977051,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 32,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.0380091667175293,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 33,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.037931203842163086,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 34,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03786039352416992,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 35,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03803586959838867,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 36,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.037946462631225586,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 37,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03809857368469238,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 38,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03821539878845215,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 39,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03814244270324707,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 40,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03835415840148926,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 41,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03821158409118652,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 42,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038282155990600586,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 43,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038378238677978516,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 44,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038193702697753906,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 45,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03783726692199707,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 46,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.037966251373291016,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 47,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03844594955444336,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 48,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03821587562561035,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.3,
+      "rep": 49,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03820037841796875,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 0,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038758277893066406,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 1,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.0396575927734375,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 2,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03961539268493652,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 3,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03960609436035156,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 4,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03858208656311035,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 5,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03882026672363281,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 6,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.0388338565826416,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 7,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03870582580566406,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 8,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.0386502742767334,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 9,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03872323036193848,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 10,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038649559020996094,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 11,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03870368003845215,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 12,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03845787048339844,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 13,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03913450241088867,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 14,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03957343101501465,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 15,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03918123245239258,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 16,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.039212703704833984,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 17,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03911089897155762,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 18,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.04006218910217285,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 19,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03955340385437012,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 20,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03924250602722168,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 21,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03806734085083008,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 22,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03846168518066406,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 23,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03857731819152832,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 24,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03834962844848633,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 25,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038233280181884766,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 26,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03917980194091797,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 27,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.039057254791259766,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 28,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.0391085147857666,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 29,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.039209842681884766,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 30,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03928637504577637,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 31,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03917980194091797,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 32,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03927803039550781,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 33,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.0386357307434082,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 34,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03959536552429199,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 35,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03969454765319824,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 36,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.039510488510131836,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 37,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03851628303527832,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 38,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03888106346130371,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 39,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03886532783508301,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 40,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03902411460876465,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 41,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03870987892150879,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 42,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03876471519470215,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 43,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03933286666870117,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 44,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03909802436828613,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 45,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.0388178825378418,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 46,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03955698013305664,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 47,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03981900215148926,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 48,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.039821624755859375,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.4,
+      "rep": 49,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03907060623168945,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 0,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038969993591308594,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 1,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.0388646125793457,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 2,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038813114166259766,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 3,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038666725158691406,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 4,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.0391390323638916,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 5,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.039949893951416016,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 6,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03966784477233887,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 7,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03969764709472656,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 8,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03919553756713867,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 9,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03991556167602539,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 10,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.0399317741394043,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 11,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03935384750366211,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 12,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038784027099609375,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 13,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038602590560913086,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 14,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03865313529968262,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 15,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038794517517089844,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 16,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.0384674072265625,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 17,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03875088691711426,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 18,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038106679916381836,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 19,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03813815116882324,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 20,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038088321685791016,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 21,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03941607475280762,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 22,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03902125358581543,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 23,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03823232650756836,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 24,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.0382535457611084,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 25,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03837251663208008,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 26,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038094520568847656,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 27,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038244009017944336,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 28,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038352012634277344,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 29,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03860664367675781,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 30,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03874945640563965,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 31,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03888869285583496,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 32,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038848161697387695,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 33,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03865766525268555,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 34,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03859996795654297,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 35,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038329124450683594,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 36,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03844904899597168,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 37,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03809332847595215,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 38,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.037752389907836914,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 39,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.038500308990478516,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 40,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03864622116088867,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 41,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03918266296386719,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 42,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03865981101989746,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 43,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03856372833251953,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 44,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03827214241027832,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 45,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03851032257080078,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 46,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03819751739501953,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 47,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03869438171386719,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 48,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03816699981689453,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "Spectral",
+      "epsilon": 0.5,
+      "rep": 49,
+      "num_states": 1,
+      "expected_states": 2,
+      "runtime_seconds": 0.03847241401672363,
+      "success": true,
+      "error": null
+    }
+  ]
+}

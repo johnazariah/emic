@@ -1,0 +1,18 @@
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Process} & \textbf{CSSR} & \textbf{Spectral} & \textbf{NSD} & \textbf{CSM} & \textbf{BSI} \\
+\midrule
+BiasedCoin (1) & 3/4 & 4/4 & 4/4 & 3/4 & 4/4 \\
+GoldenMean (2) & 4/4 & 3/4 & 4/4 & 4/4 & 0/4 \\
+EvenProcess (2) & 1/4 & 4/4 & 4/4 & 0/4 & 0/4 \\
+Periodic (3) & 4/4 & 4/4 & 0/4 & 0/4 & 0/4 \\
+\midrule
+\textbf{Overall} & 12/16 & \textbf{15/16} & 12/16 & 7/16 & 4/16 \\
+  & (75\%) & \textbf{(94\%)} & (75\%) & (44\%) & (25\%) \\
+\bottomrule
+\end{tabular}
+\caption{Correctness by algorithm and process for $N \geq 1{,}000$. Each cell shows the number of sample sizes (out of 4: 1K, 10K, 100K, 1M) where the algorithm found the correct number of states.}
+\label{tab:correctness}
+\end{table}

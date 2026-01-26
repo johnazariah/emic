@@ -1,64 +1,7 @@
 # Experiment Registry
-# Master catalog of all experiments
+# Master catalog of experiments in this directory
 
 experiments:
-  convergence:
-    id: EXP-001
-    title: Convergence Analysis
-    description: |
-      Analyze how inferred state count and complexity measures
-      converge to true values as sample size increases.
-    status: planned
-    created: 2026-01-20
-    last_run: null
-    questions:
-      - Q002
-    hypotheses:
-      - H004
-      - H005
-
-  noise_robustness:
-    id: EXP-002
-    title: Noise Robustness Analysis
-    description: |
-      Study how epsilon-machine inference algorithms behave
-      under various types of observation noise.
-    status: planned
-    created: 2026-01-20
-    last_run: null
-    questions:
-      - Q001
-    hypotheses:
-      - H001
-      - H002
-      - H003
-
-  paper_verification:
-    id: EXP-003
-    title: Paper Result Verification
-    description: |
-      Reproduce theoretical results from Crutchfield (1994) and
-      Shalizi & Crutchfield (2000) to validate implementation.
-    status: planned
-    created: 2026-01-20
-    last_run: null
-    questions:
-      - Q003
-    hypotheses: []
-
-  algorithm_compare:
-    id: EXP-004
-    title: Algorithm Comparison
-    description: |
-      Compare CSSR, CSM, BSI, and Spectral algorithms on
-      accuracy, runtime, and robustness.
-    status: planned
-    created: 2026-01-20
-    last_run: null
-    questions:
-      - Q004
-    hypotheses: []
-
   benchmarks:
     id: EXP-005
     title: Algorithm Performance Benchmarks
@@ -68,6 +11,6 @@ experiments:
       into Appendix B of the technical report.
     status: ready
     created: 2026-01-24
-    last_run: null
+    last_run: 2026-01-25
     questions: []
     hypotheses: []

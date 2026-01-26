@@ -1,0 +1,5028 @@
+{
+  "metadata": {
+    "algorithm": "BSI",
+    "timestamp": "2026-01-25T22:29:58.863758+00:00",
+    "process": "GoldenMean(p=0.5)",
+    "sample_size": 10000,
+    "repetitions": 50,
+    "noise_levels": [
+      0,
+      0.01,
+      0.02,
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.3,
+      0.4,
+      0.5
+    ],
+    "config": {
+      "max_states": 5,
+      "n_samples": 100,
+      "burnin": 200
+    }
+  },
+  "results": [
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 0,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5587635040283203,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 1,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5563714504241943,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 2,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5568373203277588,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 3,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5621311664581299,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 4,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5607800483703613,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 5,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5544536113739014,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 6,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5561892986297607,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 7,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5526123046875,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 8,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5532815456390381,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 9,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5558445453643799,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 10,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5547893047332764,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 11,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5530233383178711,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 12,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.554314374923706,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 13,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5531699657440186,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 14,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5545229911804199,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 15,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5569071769714355,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 16,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5535063743591309,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 17,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5532267093658447,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 18,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5589747428894043,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 19,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5634713172912598,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 20,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5556395053863525,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 21,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5549089908599854,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 22,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.556190013885498,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 23,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5537638664245605,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 24,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5565366744995117,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 25,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5566494464874268,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 26,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5532772541046143,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 27,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5560636520385742,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 28,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5531713962554932,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 29,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5546624660491943,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 30,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5571215152740479,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 31,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.560394287109375,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 32,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5587015151977539,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 33,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5630855560302734,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 34,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5532095432281494,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 35,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5562384128570557,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 36,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5516364574432373,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 37,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5546379089355469,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 38,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5560288429260254,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 39,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5532124042510986,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 40,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5566449165344238,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 41,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5546395778656006,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 42,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5600581169128418,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 43,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5573530197143555,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 44,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5557088851928711,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 45,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5527315139770508,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 46,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5565552711486816,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 47,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5558576583862305,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 48,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5565185546875,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0,
+      "rep": 49,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 0.5542502403259277,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 0,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6603453159332275,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 1,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.7206182479858398,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 2,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6696348190307617,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 3,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6777141094207764,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 4,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6669890880584717,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 5,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.7260732650756836,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 6,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6763560771942139,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 7,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6693496704101562,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 8,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.7217071056365967,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 9,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6740012168884277,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 10,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6841723918914795,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 11,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.669424057006836,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 12,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6146767139434814,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 13,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6695451736450195,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 14,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.666471242904663,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 15,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6810824871063232,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 16,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6760969161987305,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 17,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6666827201843262,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 18,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.5589170455932617,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 19,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.7252323627471924,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 20,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6549746990203857,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 21,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6683166027069092,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 22,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.677527904510498,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 23,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6684045791625977,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 24,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.666712760925293,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 25,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6705946922302246,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 26,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6544981002807617,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 27,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6767551898956299,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 28,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6640920639038086,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 29,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6801323890686035,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 30,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.687206745147705,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 31,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.629695177078247,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 32,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6757214069366455,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 33,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.8267629146575928,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 34,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6661865711212158,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 35,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6648738384246826,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 36,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6737785339355469,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 37,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.678541898727417,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 38,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6688024997711182,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 39,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6639647483825684,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 40,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6742331981658936,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 41,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6658368110656738,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 42,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.7258415222167969,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 43,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6852102279663086,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 44,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.894134521484375,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 45,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6658313274383545,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 46,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.669996976852417,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 47,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6763770580291748,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 48,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6685662269592285,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.01,
+      "rep": 49,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6742768287658691,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 0,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.670961618423462,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 1,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6644504070281982,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 2,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9065930843353271,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 3,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6712164878845215,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 4,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.8389685153961182,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 5,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6780900955200195,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 6,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.842195749282837,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 7,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.841533899307251,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 8,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.846515417098999,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 9,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6688241958618164,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 10,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6882433891296387,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 11,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.8396968841552734,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 12,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6692428588867188,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 13,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9069156646728516,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 14,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9507262706756592,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 15,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.734379529953003,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 16,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.7326686382293701,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 17,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.857086181640625,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 18,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9044933319091797,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 19,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6713895797729492,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 20,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6762454509735107,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 21,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6689143180847168,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 22,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9054512977600098,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 23,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.8391635417938232,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 24,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.672149896621704,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 25,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.66998291015625,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 26,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6729657649993896,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 27,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6818368434906006,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 28,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6815845966339111,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 29,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6760263442993164,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 30,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.8444483280181885,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 31,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.7366585731506348,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 32,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.7507410049438477,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 33,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.734893798828125,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 34,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.680629014968872,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 35,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.7307219505310059,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 36,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.7428126335144043,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 37,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.7358722686767578,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 38,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.7329413890838623,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 39,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6644279956817627,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 40,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6906850337982178,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 41,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6714708805084229,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 42,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6796035766601562,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 43,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.7398300170898438,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 44,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.7384016513824463,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 45,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6738436222076416,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 46,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6758408546447754,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 47,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.7377524375915527,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 48,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.8475327491760254,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.02,
+      "rep": 49,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.6762540340423584,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 0,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.8961753845214844,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 1,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9152405261993408,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 2,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.8974275588989258,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 3,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9619100093841553,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 4,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.675555944442749,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 5,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.740920066833496,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 6,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9169857501983643,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 7,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.8926095962524414,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 8,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9681499004364014,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 9,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9029083251953125,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 10,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.7550053596496582,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 11,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.7404732704162598,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 12,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9163849353790283,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 13,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.8497064113616943,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 14,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9750666618347168,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 15,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.8457884788513184,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 16,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.8949394226074219,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 17,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9561233520507812,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 18,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9097180366516113,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 19,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.912431001663208,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 20,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9473130702972412,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 21,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9633376598358154,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 22,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.8316092491149902,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 23,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9683020114898682,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 24,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.971522569656372,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 25,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9080641269683838,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 26,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9015741348266602,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 27,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9212348461151123,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 28,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9020850658416748,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 29,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9623994827270508,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 30,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9032824039459229,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 31,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.966141700744629,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 32,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9193520545959473,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 33,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9729094505310059,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 34,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9175519943237305,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 35,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9081895351409912,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 36,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9039487838745117,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 37,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.8382534980773926,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 38,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9738609790802002,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 39,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.8988053798675537,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 40,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9650001525878906,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 41,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.753032922744751,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 42,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9218871593475342,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 43,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9078972339630127,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 44,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9748430252075195,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 45,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9127202033996582,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 46,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9245223999023438,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 47,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9117262363433838,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 48,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.8438081741333008,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.05,
+      "rep": 49,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9123611450195312,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 0,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.977623462677002,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 1,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9791655540466309,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 2,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.928149700164795,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 3,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9757249355316162,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 4,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9799857139587402,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 5,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9723944664001465,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 6,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.916104793548584,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 7,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9606873989105225,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 8,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9706027507781982,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 9,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.972405195236206,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 10,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9744174480438232,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 11,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9722168445587158,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 12,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9668962955474854,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 13,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9146440029144287,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 14,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9757604598999023,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 15,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9647157192230225,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 16,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.978292465209961,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 17,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9710569381713867,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 18,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9112722873687744,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 19,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9648616313934326,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 20,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9713404178619385,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 21,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.98403000831604,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 22,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9671745300292969,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 23,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9770009517669678,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 24,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.972254991531372,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 25,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9686322212219238,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 26,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9753422737121582,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 27,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9753901958465576,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 28,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9765641689300537,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 29,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9676518440246582,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 30,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9784340858459473,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 31,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9709348678588867,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 32,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9819045066833496,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 33,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9646756649017334,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 34,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9699196815490723,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 35,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.974531888961792,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 36,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9933443069458008,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 37,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9761013984680176,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 38,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9729719161987305,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 39,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9700100421905518,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 40,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9671387672424316,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 41,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9742629528045654,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 42,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9648993015289307,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 43,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9640941619873047,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 44,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9788093566894531,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 45,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.983003854751587,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 46,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9686052799224854,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 47,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9729349613189697,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 48,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9768052101135254,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.1,
+      "rep": 49,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.977339506149292,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 0,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.978614330291748,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 1,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9776787757873535,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 2,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.974660873413086,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 3,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9821434020996094,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 4,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9853637218475342,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 5,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9809520244598389,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 6,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.966090440750122,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 7,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9771339893341064,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 8,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9825007915496826,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 9,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9735705852508545,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 10,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9906537532806396,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 11,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.979006052017212,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 12,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9829983711242676,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 13,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9856324195861816,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 14,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.973783016204834,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 15,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.981022596359253,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 16,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9671554565429688,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 17,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9656236171722412,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 18,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9884982109069824,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 19,
+      "num_states": 5,
+      "expected_states": 2,
+      "runtime_seconds": 1.983677625656128,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 20,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9802005290985107,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 21,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9758868217468262,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 22,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9797234535217285,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 23,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.970926284790039,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 24,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9712936878204346,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 25,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.977776050567627,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 26,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9753808975219727,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 27,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9622242450714111,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 28,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9742047786712646,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 29,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.970926284790039,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 30,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.978785514831543,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 31,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9786932468414307,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 32,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9693305492401123,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 33,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9839787483215332,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 34,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9951598644256592,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 35,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.978022813796997,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 36,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.974311351776123,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 37,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9727301597595215,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 38,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9818320274353027,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 39,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.974302053451538,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 40,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.970301628112793,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 41,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9660217761993408,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 42,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.979811668395996,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 43,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.98567533493042,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 44,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.975600242614746,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 45,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.963390588760376,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 46,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.97998046875,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 47,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9743945598602295,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 48,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9705545902252197,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.15,
+      "rep": 49,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9848124980926514,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 0,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.987156629562378,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 1,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9763295650482178,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 2,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9875123500823975,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 3,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9716739654541016,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 4,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9858989715576172,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 5,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9680349826812744,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 6,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9586105346679688,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 7,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9704258441925049,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 8,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9780378341674805,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 9,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9854564666748047,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 10,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9842612743377686,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 11,
+      "num_states": 5,
+      "expected_states": 2,
+      "runtime_seconds": 1.9622089862823486,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 12,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9810817241668701,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 13,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9755828380584717,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 14,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9947826862335205,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 15,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9886419773101807,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 16,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9774246215820312,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 17,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9865868091583252,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 18,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9696786403656006,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 19,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9800422191619873,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 20,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9851586818695068,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 21,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9788978099822998,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 22,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9766309261322021,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 23,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9792404174804688,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 24,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9881689548492432,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 25,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9775705337524414,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 26,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9875199794769287,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 27,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9864253997802734,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 28,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9773671627044678,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 29,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.974273443222046,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 30,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.980231761932373,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 31,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9847464561462402,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 32,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9754774570465088,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 33,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.967186689376831,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 34,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.989065170288086,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 35,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9862585067749023,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 36,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9741199016571045,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 37,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9821085929870605,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 38,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.994781494140625,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 39,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9745686054229736,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 40,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9733576774597168,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 41,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9852168560028076,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 42,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9747824668884277,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 43,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9798567295074463,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 44,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9768321514129639,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 45,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9801244735717773,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 46,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9920685291290283,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 47,
+      "num_states": 5,
+      "expected_states": 2,
+      "runtime_seconds": 1.9823956489562988,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 48,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9802577495574951,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.2,
+      "rep": 49,
+      "num_states": 5,
+      "expected_states": 2,
+      "runtime_seconds": 1.9804046154022217,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 0,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9870216846466064,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 1,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9777312278747559,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 2,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9799025058746338,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 3,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9804790019989014,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 4,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9725193977355957,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 5,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9789791107177734,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 6,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9739391803741455,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 7,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9794981479644775,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 8,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9842848777770996,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 9,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9739599227905273,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 10,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9889397621154785,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 11,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9832353591918945,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 12,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9745874404907227,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 13,
+      "num_states": 5,
+      "expected_states": 2,
+      "runtime_seconds": 1.9745242595672607,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 14,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9845092296600342,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 15,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.975416898727417,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 16,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.973963737487793,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 17,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9850707054138184,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 18,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.974402666091919,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 19,
+      "num_states": 5,
+      "expected_states": 2,
+      "runtime_seconds": 1.9780445098876953,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 20,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9815068244934082,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 21,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9796524047851562,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 22,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.980881929397583,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 23,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9749441146850586,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 24,
+      "num_states": 5,
+      "expected_states": 2,
+      "runtime_seconds": 1.9795863628387451,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 25,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9970850944519043,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 26,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.969144344329834,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 27,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9782164096832275,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 28,
+      "num_states": 5,
+      "expected_states": 2,
+      "runtime_seconds": 1.9780263900756836,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 29,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9848928451538086,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 30,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.981175422668457,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 31,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9781877994537354,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 32,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9780850410461426,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 33,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9732129573822021,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 34,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9740104675292969,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 35,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9872028827667236,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 36,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.981269359588623,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 37,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9850080013275146,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 38,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9768180847167969,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 39,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9852948188781738,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 40,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9717156887054443,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 41,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9747850894927979,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 42,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.977480411529541,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 43,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.979579210281372,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 44,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9885950088500977,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 45,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9810912609100342,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 46,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9752840995788574,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 47,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9752042293548584,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 48,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.974062442779541,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.3,
+      "rep": 49,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9851195812225342,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 0,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9852633476257324,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 1,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9793627262115479,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 2,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9826710224151611,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 3,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9845595359802246,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 4,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.985081672668457,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 5,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9880123138427734,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 6,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9845483303070068,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 7,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9917099475860596,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 8,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.986558437347412,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 9,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9920217990875244,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 10,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9952716827392578,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 11,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9832096099853516,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 12,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.985405445098877,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 13,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9889979362487793,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 14,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9918124675750732,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 15,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9784786701202393,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 16,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9868710041046143,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 17,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9807701110839844,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 18,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9878828525543213,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 19,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.979353427886963,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 20,
+      "num_states": 5,
+      "expected_states": 2,
+      "runtime_seconds": 1.9857056140899658,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 21,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9772181510925293,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 22,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9784483909606934,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 23,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9747607707977295,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 24,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9807593822479248,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 25,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9901466369628906,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 26,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9900903701782227,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 27,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.975855827331543,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 28,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9898357391357422,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 29,
+      "num_states": 5,
+      "expected_states": 2,
+      "runtime_seconds": 2.001814365386963,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 30,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9795424938201904,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 31,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.981412649154663,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 32,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9764034748077393,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 33,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9810233116149902,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 34,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.979830026626587,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 35,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.991487979888916,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 36,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9823882579803467,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 37,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9892947673797607,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 38,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.976222276687622,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 39,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9806008338928223,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 40,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9643964767456055,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 41,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9902889728546143,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 42,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9826509952545166,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 43,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9879963397979736,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 44,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.986126184463501,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 45,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9915616512298584,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 46,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9869825839996338,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 47,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.979008674621582,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 48,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9858508110046387,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.4,
+      "rep": 49,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9794189929962158,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 0,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9869189262390137,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 1,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9878666400909424,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 2,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9882237911224365,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 3,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9803228378295898,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 4,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9813034534454346,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 5,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.988781213760376,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 6,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9662549495697021,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 7,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9851367473602295,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 8,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9913842678070068,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 9,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.982480525970459,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 10,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9769997596740723,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 11,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9924278259277344,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 12,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9979302883148193,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 13,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.986793041229248,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 14,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.980090856552124,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 15,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9792277812957764,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 16,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9931538105010986,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 17,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.99729585647583,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 18,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9905807971954346,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 19,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.981428861618042,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 20,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9841742515563965,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 21,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.969944715499878,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 22,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9732425212860107,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 23,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9831199645996094,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 24,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9867441654205322,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 25,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.980562448501587,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 26,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9862451553344727,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 27,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.984682321548462,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 28,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.986145257949829,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 29,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9860894680023193,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 30,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.9791021347045898,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 31,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.982064962387085,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 32,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9849205017089844,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 33,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.984609603881836,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 34,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9823243618011475,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 35,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.981156826019287,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 36,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9836549758911133,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 37,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9778645038604736,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 38,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9791715145111084,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 39,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9735643863677979,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 40,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.975539207458496,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 41,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9876708984375,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 42,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.98710298538208,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 43,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9849319458007812,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 44,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9859724044799805,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 45,
+      "num_states": 4,
+      "expected_states": 2,
+      "runtime_seconds": 1.974109411239624,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 46,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9926033020019531,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 47,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.9934239387512207,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 48,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.979381799697876,
+      "success": true,
+      "error": null
+    },
+    {
+      "algorithm": "BSI",
+      "epsilon": 0.5,
+      "rep": 49,
+      "num_states": 3,
+      "expected_states": 2,
+      "runtime_seconds": 1.980884313583374,
+      "success": true,
+      "error": null
+    }
+  ]
+}

@@ -1,35 +1,24 @@
 # Research Program
 
-This directory contains research planning, hypotheses, and paper development for the `emic` project.
+Research projects for the `emic` library.
 
-## Structure
+## Projects
+
+| Project | Description | Status |
+|---------|-------------|--------|
+| [computational-mechanics-review/](computational-mechanics-review/) | Literature review and emic documentation | Active |
+
+## Adding New Projects
+
+Each research project should be a self-contained directory with:
 
 ```
-research/
-├── README.md           # This file
-├── questions/          # Open research questions
-├── hypotheses/         # Testable claims with predictions
-├── papers/             # Paper drafts and outlines
-└── synthesis/          # Cross-cutting analysis
+project-name/
+├── README.md           # Project overview
+├── experiments/        # Experiments and data
+└── papers/             # Related publications (if any)
 ```
 
-## Research Questions
+## Shared Resources
 
-| ID | Question | Status |
-|----|----------|--------|
-| Q001 | How does noise affect epsilon-machine inference? | Active |
-| Q002 | What sample size is needed for reliable inference? | Active |
-| Q003 | Can we reproduce Crutchfield's theoretical results? | Active |
-| Q004 | How do algorithms compare on the same data? | Planned |
-
-## Current Focus
-
-See [.project/plan/ROADMAP.md](../plan/ROADMAP.md) for current priorities.
-
-## Workflow
-
-1. **Ask** — Document question in `questions/`
-2. **Hypothesize** — Form testable claims in `hypotheses/`
-3. **Experiment** — Design and run in `experiments/`
-4. **Analyze** — Interpret results, update hypothesis status
-5. **Synthesize** — Write up findings in `papers/`
+- `../references/` — Downloaded reference PDFs (shared across projects)
