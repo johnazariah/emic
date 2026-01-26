@@ -38,7 +38,11 @@ nav:
       - Inference: guide/inference.md
       - Analysis: guide/analysis.md
       - Pipelines: guide/pipelines.md
-      - Spectral Learning Deep Dive: guide/spectral-learning-deep-dive.md
+      - Deep Dives:
+          - CSSR Algorithm: guide/cssr-deep-dive.md
+          - Spectral Learning: guide/spectral-learning-deep-dive.md
+          - Complexity Measures: guide/complexity-measures-explained.md
+          - Working with Real Data: guide/working-with-real-data.md
   - Gallery: gallery.md
   - API Reference:
       - emic: api/index.md
