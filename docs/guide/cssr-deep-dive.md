@@ -540,7 +540,17 @@ config = CSSRConfig(
    - Theoretical foundations
    - Causal state definition and properties
 
-### 10.2 Related Algorithms
+### 10.2 Reference Implementation
+
+The canonical CSSR implementation is available at:
+
+- **GitHub**: [https://github.com/stites/CSSR](https://github.com/stites/CSSR)
+- Language: C++
+- Based on the original Shalizi implementation
+
+The emic implementation follows the same algorithmic structure but with modern Python idioms and additional features like post-merging.
+
+### 10.3 Related Algorithms
 
 - **Spectral Learning**: Matrix-based approach, often more accurate
   - See: [Spectral Learning Deep Dive](spectral-learning-deep-dive.md)
