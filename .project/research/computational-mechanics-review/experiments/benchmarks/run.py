@@ -6,14 +6,23 @@ Measures runtime and memory usage of inference algorithms
 across different data sizes and processes.
 
 Usage:
-    uv run python experiments/benchmarks/run.py
+    uv run python run.py              # Full benchmark
+    uv run python run.py --quick      # Skip BSI, limit to N<=100K
+    uv run python run.py --timeout 30 # 30s per-run timeout
+
+Timeouts:
+    --timeout SECONDS    Per-run timeout (default: 120s)
+    --total-timeout MINS Total benchmark timeout (default: 60 min)
+    --quick              Skip BSI and N=1M for faster runs (~5 min)
 """
 
 from __future__ import annotations
 
+import argparse
 import gc
 import json
 import platform
+import signal
 import statistics
 import sys
 import time
@@ -27,6 +36,22 @@ from typing import TYPE_CHECKING, Any
 import matplotlib.pyplot as plt
 import numpy as np
 import yaml
+
+# Default timeouts
+DEFAULT_RUN_TIMEOUT = 120  # seconds per run
+DEFAULT_TOTAL_TIMEOUT = 60 * 60  # 1 hour total
+
+
+class TimeoutError(Exception):
+    """Raised when a benchmark run exceeds the timeout."""
+
+    pass
+
+
+def timeout_handler(_signum: int, _frame: Any) -> None:
+    """Signal handler for timeout."""
+    raise TimeoutError("Benchmark run timed out")
+
 
 # Add project root to path
 PROJECT_ROOT = Path(__file__).parent.parent.parent
@@ -210,8 +235,9 @@ def run_single_benchmark(
     run_index: int,
     seed: int,
     expected_states: int,
+    timeout_seconds: int = DEFAULT_RUN_TIMEOUT,
 ) -> BenchmarkResult:
-    """Run a single benchmark iteration."""
+    """Run a single benchmark iteration with timeout."""
     # Generate fresh data for each run
     run_seed = seed + run_index * 1000 + sample_size
     data = generate_data(process_name, process_params, sample_size, run_seed)
@@ -223,6 +249,11 @@ def run_single_benchmark(
     # Force garbage collection before measurement
     gc.collect()
 
+    # Set up timeout (Unix only)
+    if hasattr(signal, "SIGALRM"):
+        signal.signal(signal.SIGALRM, timeout_handler)
+        signal.alarm(timeout_seconds)
+
     # Measure memory and time
     tracemalloc.start()
     start_time = time.perf_counter()
@@ -230,6 +261,11 @@ def run_single_benchmark(
     try:
         result = algorithm.infer(data, alphabet=alphabet)
         end_time = time.perf_counter()
+
+        # Cancel timeout
+        if hasattr(signal, "SIGALRM"):
+            signal.alarm(0)
+
         _, peak_memory = tracemalloc.get_traced_memory()
         tracemalloc.stop()
 
@@ -249,10 +285,38 @@ def run_single_benchmark(
             success=True,
             error=None,
         )
+    except TimeoutError:
+        end_time = time.perf_counter()
+        if hasattr(signal, "SIGALRM"):
+            signal.alarm(0)
+        try:
+            _, peak_memory = tracemalloc.get_traced_memory()
+            tracemalloc.stop()
+        except Exception:
+            peak_memory = 0
+
+        return BenchmarkResult(
+            algorithm=algorithm_name,
+            process=process_name,
+            sample_size=sample_size,
+            run_index=run_index,
+            runtime_seconds=end_time - start_time,
+            peak_memory_bytes=peak_memory,
+            num_states=0,
+            expected_states=expected_states,
+            correct=False,
+            success=False,
+            error=f"Timeout after {timeout_seconds}s",
+        )
     except Exception as e:
         end_time = time.perf_counter()
-        _, peak_memory = tracemalloc.get_traced_memory()
-        tracemalloc.stop()
+        if hasattr(signal, "SIGALRM"):
+            signal.alarm(0)
+        try:
+            _, peak_memory = tracemalloc.get_traced_memory()
+            tracemalloc.stop()
+        except Exception:
+            peak_memory = 0
 
         return BenchmarkResult(
             algorithm=algorithm_name,
@@ -337,8 +401,20 @@ def format_time(seconds: float) -> str:
         return f"{seconds:.2f} s"
 
 
-def run_benchmarks(config: dict[str, Any]) -> tuple[list[BenchmarkResult], list[BenchmarkSummary]]:
-    """Run all benchmarks according to configuration."""
+def run_benchmarks(
+    config: dict[str, Any],
+    run_timeout: int = DEFAULT_RUN_TIMEOUT,
+    total_timeout: int = DEFAULT_TOTAL_TIMEOUT,
+    quick_mode: bool = False,
+) -> tuple[list[BenchmarkResult], list[BenchmarkSummary]]:
+    """Run all benchmarks according to configuration.
+
+    Args:
+        config: Benchmark configuration
+        run_timeout: Timeout per individual run (seconds)
+        total_timeout: Total benchmark timeout (seconds)
+        quick_mode: If True, skip BSI and N=1M for faster runs
+    """
     bench_config = config["experiment"]["benchmark"]
 
     repetitions = bench_config["repetitions"]
@@ -348,11 +424,20 @@ def run_benchmarks(config: dict[str, Any]) -> tuple[list[BenchmarkResult], list[
     processes = bench_config["processes"]
     algorithms = bench_config["algorithms"]
 
+    # Quick mode adjustments
+    if quick_mode:
+        print("\n⚡ QUICK MODE: Skipping BSI and N=1M")
+        algorithms = [a for a in algorithms if a["name"] != "bsi"]
+        sample_sizes = [s for s in sample_sizes if s <= 100_000]
+
     all_results: list[BenchmarkResult] = []
     all_summaries: list[BenchmarkSummary] = []
 
+    benchmark_start = time.perf_counter()
+
     total_configs = len(algorithms) * len(processes) * len(sample_sizes)
     current_config = 0
+    skipped_configs = 0
 
     for algo in algorithms:
         algo_name = algo["name"]
@@ -365,14 +450,37 @@ def run_benchmarks(config: dict[str, Any]) -> tuple[list[BenchmarkResult], list[
 
             for size in sample_sizes:
                 current_config += 1
+
+                # Check total timeout
+                elapsed = time.perf_counter() - benchmark_start
+                remaining = total_timeout - elapsed
+                if remaining <= 0:
+                    print(f"\n⏰ TOTAL TIMEOUT ({total_timeout}s) reached after {elapsed:.0f}s")
+                    print(f"   Completed {current_config - 1}/{total_configs} configs")
+                    return all_results, all_summaries
+
+                # Estimate time remaining
+                if current_config > 1:
+                    avg_time_per_config = elapsed / (current_config - 1)
+                    eta = avg_time_per_config * (total_configs - current_config + 1)
+                    eta_str = f" (ETA: {eta / 60:.1f}min)"
+                else:
+                    eta_str = ""
+
                 print(
-                    f"\n[{current_config}/{total_configs}] {algo_name} / {proc_name} / n={size:,}"
+                    f"\n[{current_config}/{total_configs}] {algo_name} / {proc_name} / n={size:,}{eta_str}"
                 )
 
-                # Warmup runs (not recorded)
-                print(f"  Warmup ({warmup_runs} runs)...", end=" ", flush=True)
+                # Warmup runs (not recorded) - with shorter timeout
+                warmup_timeout = min(run_timeout, 30)  # 30s max for warmup
+                print(
+                    f"  Warmup ({warmup_runs} runs, {warmup_timeout}s timeout)...",
+                    end=" ",
+                    flush=True,
+                )
+                warmup_failed = False
                 for i in range(warmup_runs):
-                    run_single_benchmark(
+                    result = run_single_benchmark(
                         algo_name,
                         algo_config,
                         proc_name,
@@ -381,13 +489,27 @@ def run_benchmarks(config: dict[str, Any]) -> tuple[list[BenchmarkResult], list[
                         -i - 1,
                         seed,
                         expected_states,
+                        timeout_seconds=warmup_timeout,
                     )
+                    if result.error and "Timeout" in result.error:
+                        warmup_failed = True
+                        break
+
+                if warmup_failed:
+                    print("TIMEOUT - skipping this config")
+                    skipped_configs += 1
+                    continue
                 print("done")
 
                 # Actual benchmark runs
                 config_results: list[BenchmarkResult] = []
+                consecutive_timeouts = 0
                 for i in range(repetitions):
-                    print(f"  Run {i + 1}/{repetitions}...", end=" ", flush=True)
+                    print(
+                        f"  Run {i + 1}/{repetitions} ({run_timeout}s timeout)...",
+                        end=" ",
+                        flush=True,
+                    )
                     result = run_single_benchmark(
                         algo_name,
                         algo_config,
@@ -397,17 +519,26 @@ def run_benchmarks(config: dict[str, Any]) -> tuple[list[BenchmarkResult], list[
                         i,
                         seed,
                         expected_states,
+                        timeout_seconds=run_timeout,
                     )
                     config_results.append(result)
                     all_results.append(result)
 
-                    status = "✓" if result.success else "✗"
-                    correct_str = (
-                        " ✓correct"
-                        if result.correct
-                        else f" ✗wrong({result.num_states}/{expected_states})"
-                    )
-                    print(f"{status} {format_time(result.runtime_seconds)}{correct_str}")
+                    if result.error and "Timeout" in result.error:
+                        print("⏰ TIMEOUT")
+                        consecutive_timeouts += 1
+                        if consecutive_timeouts >= 2:
+                            print("  Skipping remaining runs (2 consecutive timeouts)")
+                            break
+                    else:
+                        consecutive_timeouts = 0
+                        status = "✓" if result.success else "✗"
+                        correct_str = (
+                            " ✓correct"
+                            if result.correct
+                            else f" ✗wrong({result.num_states}/{expected_states})"
+                        )
+                        print(f"{status} {format_time(result.runtime_seconds)}{correct_str}")
 
                 # Compute summary for this configuration
                 summary = compute_summary(config_results)
@@ -851,11 +982,46 @@ def generate_plots(summaries: list[BenchmarkSummary], output_dir: Path) -> None:
     print(f"\nFigures saved to {figures_dir}/")
 
 
+def parse_args() -> argparse.Namespace:
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(
+        description="Run algorithm performance benchmarks",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.add_argument(
+        "--timeout",
+        "-t",
+        type=int,
+        default=DEFAULT_RUN_TIMEOUT,
+        help=f"Per-run timeout in seconds (default: {DEFAULT_RUN_TIMEOUT})",
+    )
+    parser.add_argument(
+        "--total-timeout",
+        "-T",
+        type=int,
+        default=DEFAULT_TOTAL_TIMEOUT // 60,
+        help=f"Total benchmark timeout in minutes (default: {DEFAULT_TOTAL_TIMEOUT // 60})",
+    )
+    parser.add_argument(
+        "--quick",
+        "-q",
+        action="store_true",
+        help="Quick mode: skip BSI and N=1M (runs in ~5 min)",
+    )
+    return parser.parse_args()
+
+
 def main() -> int:
     """Main entry point."""
+    args = parse_args()
+
     print("=" * 60)
     print("EXP-005: Algorithm Performance Benchmarks")
     print("=" * 60)
+    print(f"\n⏱️  Per-run timeout: {args.timeout}s")
+    print(f"⏱️  Total timeout: {args.total_timeout} min")
+    if args.quick:
+        print("⚡ Quick mode enabled")
 
     # Load configuration
     config_path = Path(__file__).parent / "config.yaml"
@@ -869,7 +1035,12 @@ def main() -> int:
     print(f"Timestamp: {system_info.timestamp}")
 
     # Run benchmarks
-    results, summaries = run_benchmarks(config)
+    results, summaries = run_benchmarks(
+        config,
+        run_timeout=args.timeout,
+        total_timeout=args.total_timeout * 60,  # Convert to seconds
+        quick_mode=args.quick,
+    )
 
     # Save results
     output_dir = Path(__file__).parent / config["experiment"]["output"]["results_dir"]

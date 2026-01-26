@@ -5,13 +5,23 @@ EXP-002: Noise Robustness Analysis
 Measures how epsilon-machine inference algorithms behave under observation noise.
 
 Usage:
-    uv run python experiments/noise_robustness/run.py
+    uv run python run.py              # Full experiment
+    uv run python run.py --quick      # Skip BSI for faster runs
+    uv run python run.py --timeout 60 # 60s per-run timeout
+
+Timeouts:
+    --timeout SECONDS    Per-run timeout (default: 120s)
+    --total-timeout MINS Total experiment timeout (default: 60 min)
+    --quick              Skip BSI for faster runs
 """
 
 from __future__ import annotations
 
+import argparse
+import contextlib
 import gc
 import json
+import signal
 import statistics
 import sys
 import time
@@ -24,6 +34,22 @@ from typing import Any
 
 import matplotlib.pyplot as plt
 import yaml
+
+# Default timeouts
+DEFAULT_RUN_TIMEOUT = 120  # seconds per run
+DEFAULT_TOTAL_TIMEOUT = 60 * 60  # 1 hour total
+
+
+class TimeoutError(Exception):
+    """Raised when a run exceeds the timeout."""
+
+    pass
+
+
+def timeout_handler(_signum: int, _frame: Any) -> None:
+    """Signal handler for timeout."""
+    raise TimeoutError("Run timed out")
+
 
 # Add project root to path
 PROJECT_ROOT = Path(__file__).parent.parent.parent
@@ -142,19 +168,30 @@ def run_single(
     seed_base: int,
     expected_states: int,
     process_p: float,
+    timeout_seconds: int = DEFAULT_RUN_TIMEOUT,
 ) -> NoiseResult:
-    """Run a single noisy inference."""
+    """Run a single noisy inference with timeout."""
     seed = seed_base + rep * 1000 + int(epsilon * 10000)
     data, alphabet = generate_noisy_data(process_p, sample_size, epsilon, seed)
 
     algorithm = create_algorithm(algorithm_name, algorithm_config)
     gc.collect()
+
+    # Set up timeout (Unix only)
+    if hasattr(signal, "SIGALRM"):
+        signal.signal(signal.SIGALRM, timeout_handler)
+        signal.alarm(timeout_seconds)
+
     tracemalloc.start()
     start = time.perf_counter()
 
     try:
         result = algorithm.infer(data, alphabet=alphabet)
         elapsed = time.perf_counter() - start
+
+        # Cancel timeout
+        if hasattr(signal, "SIGALRM"):
+            signal.alarm(0)
         tracemalloc.stop()
 
         num_states = len(result.machine.states)
@@ -178,9 +215,28 @@ def run_single(
             entropy_rate=h_mu,
             statistical_complexity=c_mu,
         )
+    except TimeoutError:
+        elapsed = time.perf_counter() - start
+        if hasattr(signal, "SIGALRM"):
+            signal.alarm(0)
+        with contextlib.suppress(Exception):
+            tracemalloc.stop()
+        return NoiseResult(
+            algorithm=algorithm_name,
+            epsilon=epsilon,
+            rep=rep,
+            num_states=0,
+            expected_states=expected_states,
+            runtime_seconds=elapsed,
+            success=False,
+            error=f"Timeout after {timeout_seconds}s",
+        )
     except Exception as e:
         elapsed = time.perf_counter() - start
-        tracemalloc.stop()
+        if hasattr(signal, "SIGALRM"):
+            signal.alarm(0)
+        with contextlib.suppress(Exception):
+            tracemalloc.stop()
         return NoiseResult(
             algorithm=algorithm_name,
             epsilon=epsilon,
@@ -300,8 +356,47 @@ def plot_results(summaries: list[NoiseSummary], output_dir: Path) -> None:
     plt.close(fig)
 
 
+def parse_args() -> argparse.Namespace:
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(
+        description="Run noise robustness experiment",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.add_argument(
+        "--timeout",
+        "-t",
+        type=int,
+        default=DEFAULT_RUN_TIMEOUT,
+        help=f"Per-run timeout in seconds (default: {DEFAULT_RUN_TIMEOUT})",
+    )
+    parser.add_argument(
+        "--total-timeout",
+        "-T",
+        type=int,
+        default=DEFAULT_TOTAL_TIMEOUT // 60,
+        help=f"Total experiment timeout in minutes (default: {DEFAULT_TOTAL_TIMEOUT // 60})",
+    )
+    parser.add_argument(
+        "--quick",
+        "-q",
+        action="store_true",
+        help="Quick mode: skip BSI for faster runs",
+    )
+    return parser.parse_args()
+
+
 def main() -> None:
     """Run the noise robustness experiment."""
+    args = parse_args()
+
+    print("=" * 60)
+    print("EXP-002: Noise Robustness Analysis")
+    print("=" * 60)
+    print(f"⏱️  Per-run timeout: {args.timeout}s")
+    print(f"⏱️  Total timeout: {args.total_timeout} min")
+    if args.quick:
+        print("⚡ Quick mode enabled (skipping BSI)")
+
     # Load config
     config_path = Path(__file__).parent / "config.yaml"
     with config_path.open() as f:
@@ -319,6 +414,11 @@ def main() -> None:
     # Algorithms
     algorithms = {a["name"]: a["config"] for a in params["algorithms"]}
 
+    # Quick mode: skip BSI
+    if args.quick and "BSI" in algorithms:
+        print("⚡ Skipping BSI algorithm")
+        del algorithms["BSI"]
+
     # Output directory
     output_dir = Path(__file__).parent / "results"
     output_dir.mkdir(exist_ok=True)
@@ -327,7 +427,10 @@ def main() -> None:
     all_results: list[NoiseResult] = []
     total_runs = len(algorithms) * len(noise_levels) * repetitions
     run_count = 0
+    experiment_start = time.perf_counter()
+    total_timeout_seconds = args.total_timeout * 60
 
+    print()
     print("Running noise robustness experiment")
     print(f"  Process: GoldenMean(p={process_p})")
     print(f"  Sample size: {sample_size}")
@@ -338,8 +441,16 @@ def main() -> None:
 
     for algo_name, algo_config in algorithms.items():
         print(f"{algo_name}:")
+        timeouts_count = 0
         for epsilon in noise_levels:
             for rep in range(repetitions):
+                # Check total timeout
+                elapsed = time.perf_counter() - experiment_start
+                if elapsed > total_timeout_seconds:
+                    print(f"\n⏰ TOTAL TIMEOUT ({args.total_timeout} min) reached")
+                    print(f"   Completed {run_count}/{total_runs} runs")
+                    break
+
                 run_count += 1
                 result = run_single(
                     algo_name,
@@ -350,13 +461,24 @@ def main() -> None:
                     seed_base,
                     expected_states,
                     process_p,
+                    timeout_seconds=args.timeout,
                 )
                 all_results.append(result)
+
+                # Track timeouts
+                if result.error and "Timeout" in result.error:
+                    timeouts_count += 1
+                    if timeouts_count >= 3:
+                        print(f"  ⚠️  Skipping remaining {algo_name} runs (3+ timeouts)")
+                        break
 
                 # Progress
                 if run_count % 50 == 0:
                     pct = 100 * run_count / total_runs
-                    print(f"  Progress: {run_count}/{total_runs} ({pct:.0f}%)")
+                    elapsed_min = (time.perf_counter() - experiment_start) / 60
+                    print(
+                        f"  Progress: {run_count}/{total_runs} ({pct:.0f}%) [{elapsed_min:.1f}min elapsed]"
+                    )
 
         # Quick summary for this algorithm
         algo_results = [r for r in all_results if r.algorithm == algo_name]

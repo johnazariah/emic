@@ -4,6 +4,23 @@
 
 ---
 
+## Working Style
+
+**Default mode: Discuss, don't code.**
+
+- When asked a question, **discuss ideas, design options, and trade-offs first**
+- Only write code when explicitly asked to implement something
+- Brainstorm and explore alternatives before jumping to implementation
+- Ask clarifying questions rather than making assumptions
+- For complex tasks, propose a plan and get approval before coding
+
+**When to code:**
+- User says "implement", "write", "code", "fix", "add", or similar action words
+- User approves a proposed design/plan
+- User explicitly asks for a code sample
+
+---
+
 ## Project Overview
 
 **emic** is a Python library for computational mechanics — the study of structure and complexity in stochastic processes. The core task is inferring *epsilon-machines* (minimal predictive models) from symbolic time series data.

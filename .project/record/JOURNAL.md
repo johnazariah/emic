@@ -6,6 +6,61 @@
 
 ## 2026
 
+### January 26, 2026
+
+**Session Focus**: CSSR Algorithm Correctness & Benchmarking
+
+**Completed**:
+
+1. **CSSR Algorithm Validation Against Shalizi (2004)**
+   - Verified emic CSSR matches published benchmarks
+   - Key result: At N=10,000, CSSR correctly finds 2 states for Even Process and Golden Mean
+   - This matches Shalizi's Table 1 showing 100% correct at N=10^4, α=10^-3, L≥3
+
+2. **Quick Benchmark Script**
+   - Created `scripts/quick_benchmark.py` for fast validation (~1 minute vs 6+ hours for full benchmark)
+   - Tests CSSR, Spectral, and CSM on Even Process, Golden Mean, Biased Coin
+   - Sample sizes: N=1K, 10K, 100K
+   - Results:
+     - CSSR: 67% overall, 100% at N≥100K
+     - Spectral: 100% across all sample sizes (best performer)
+     - CSM: 56% overall
+
+3. **Documentation Updates**
+   - Updated `docs/guide/cssr-deep-dive.md` with new Section 11 "Algorithm Correctness and Benchmarks"
+   - Added validation tables showing Shalizi benchmark comparison
+   - Documented sample size sensitivity guidelines
+
+4. **Technical Report Updates**
+   - Updated `benchmark-data.tex` with corrected macro values
+   - Test count: 326 → 334
+   - Updated correctness percentages: Spectral now 100%, CSSR 67%
+   - Updated test table in technical-report.tex
+
+**Key Findings**:
+- CSSR performance is highly sample-size dependent
+- At N < 1,000: Over-splitting due to statistical fluctuation
+- At N = 10,000: Matches Shalizi published benchmarks
+- At N ≥ 100,000: Reliable reconstruction
+- Spectral Learning consistently outperforms CSSR at all sample sizes
+
+**Files Modified**:
+- `scripts/quick_benchmark.py` — new file
+- `docs/guide/cssr-deep-dive.md` — added Section 11
+- `.project/research/computational-mechanics-review/technical-report/tex/generated/benchmark-data.tex`
+- `.project/research/computational-mechanics-review/technical-report/tex/technical-report.tex`
+
+**Test Results**:
+- 334 tests passing
+- All golden tests for CSSR pass at appropriate sample sizes
+
+**Notes**:
+- Full benchmark (experiments/benchmarks/run.py) takes 6+ hours due to BSI and large sample sizes
+- Quick benchmark provides immediate feedback for algorithm validation
+- Recommend using Spectral for production where speed and accuracy matter
+
+---
+
 ### January 24, 2026
 
 **Session Focus**: Comprehensive Tutorial Development

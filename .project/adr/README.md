@@ -16,6 +16,8 @@ An ADR is a document that captures an important architectural decision made alon
 | [ADR-004](004-project-requirements.md) | Project Requirements Summary | Living | 2026-01-14 |
 | [ADR-005](005-package-naming.md) | Package Naming | Accepted | 2026-01-14 |
 | [ADR-006](006-symbolic-computation.md) | Symbolic Computation Strategy | Accepted | 2026-01-14 |
+| [ADR-007](007-parallelization-strategy.md) | Parallelization Strategy | Accepted | 2026-01-14 |
+| [ADR-008](008-benchmarking-tool.md) | Benchmarking Tool Architecture | Accepted | 2026-01-26 |
 
 ## Status Definitions
 

@@ -44,8 +44,8 @@ class CSSRConfig:
         if self.min_count < 1:
             msg = f"min_count must be >= 1, got {self.min_count}"
             raise ValueError(msg)
-        if self.test not in ("chi2", "ks", "g"):
-            msg = f"test must be 'chi2', 'ks', or 'g', got {self.test}"
+        if self.test not in ("chi2", "ks", "g", "proportion"):
+            msg = f"test must be 'chi2', 'ks', 'g', or 'proportion', got {self.test}"
             raise ValueError(msg)
         if self.merge_significance is not None and not (0 < self.merge_significance < 1):
             msg = f"merge_significance must be in (0, 1), got {self.merge_significance}"

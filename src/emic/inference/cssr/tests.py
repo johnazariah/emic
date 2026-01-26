@@ -5,6 +5,43 @@ from __future__ import annotations
 from typing import Any
 
 
+def proportion_test(
+    dist1: dict[Any, int],
+    dist2: dict[Any, int],
+    tolerance: float = 0.05,
+) -> bool:
+    """
+    Test if two distributions differ by more than a tolerance.
+
+    Unlike chi-squared, this test has CONSTANT sensitivity regardless
+    of sample size. It only cares about the absolute difference in
+    proportions.
+
+    Args:
+        dist1: First count distribution
+        dist2: Second count distribution
+        tolerance: Maximum allowed difference in proportions (default 0.05 = 5%)
+
+    Returns:
+        True if distributions differ by more than tolerance
+    """
+    total1 = sum(dist1.values())
+    total2 = sum(dist2.values())
+
+    if total1 < 5 or total2 < 5:
+        return False
+
+    all_keys = set(dist1.keys()) | set(dist2.keys())
+
+    for key in all_keys:
+        p1 = dist1.get(key, 0) / total1
+        p2 = dist2.get(key, 0) / total2
+        if abs(p1 - p2) > tolerance:
+            return True
+
+    return False
+
+
 def chi_squared_test(
     dist1: dict[Any, int],
     dist2: dict[Any, int],
@@ -94,12 +131,15 @@ def distributions_differ(
     Args:
         counts1: First count distribution
         counts2: Second count distribution
-        significance: P-value threshold
-        test: Test type ("chi2", "ks", or "g")
+        significance: P-value threshold (for chi2) or tolerance (for proportion)
+        test: Test type ("chi2", "proportion", "ks", or "g")
 
     Returns:
         True if distributions are significantly different
     """
+    if test == "proportion":
+        # Use significance as tolerance (e.g., 0.05 = 5% difference)
+        return proportion_test(counts1, counts2, significance)
     if test == "chi2":
         return chi_squared_test(counts1, counts2, significance)
     if test == "g":
