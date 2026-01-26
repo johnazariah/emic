@@ -6,6 +6,65 @@
 
 ## 2026
 
+### January 26, 2026 (Evening)
+
+**Session Focus**: General-Purpose Benchmarking Tool
+
+**Completed**:
+
+1. **ADR-008: Benchmarking Tool Architecture**
+   - Documented design decision for thin core + rich experiments approach
+   - Key principle: Data collection separated from formatting
+   - Output: Timestamped Parquet/JSON results + metadata.yaml
+   - Downstream consumers (papers, CI) handle their own formatting
+
+2. **Implemented `emic.benchmarks` Module**
+   - `schema.py`: BenchmarkResult dataclass, ResultsWriter, Parquet/JSON I/O
+   - `registry.py`: ProcessRegistry and AlgorithmRegistry for declarative registration
+   - `config.py`: YAML-based ExperimentConfig and BenchmarkConfig
+   - `runner.py`: Core runner with SIGALRM timeout handling, progress tracking
+   - `cli.py`: CLI entry point (`emic-benchmark`)
+
+3. **CLI Features**
+   - `emic-benchmark --all`: Run all experiments
+   - `emic-benchmark accuracy`: Run specific experiment
+   - `emic-benchmark --quick`: Skip slow algorithms, use reduced sample sizes
+   - `emic-benchmark --list`: List available experiments
+   - Results saved to `experiments/results/<timestamp>/`
+   - `latest` symlink for convenience
+
+4. **Default Experiments**
+   - accuracy: Measure algorithm accuracy on canonical processes
+   - convergence: How accuracy changes with sample size
+   - scalability: Runtime scaling with data size
+
+5. **Tests**
+   - Added 17 unit tests for benchmarks module
+   - All 351 tests passing
+
+**Files Created**:
+- `src/emic/benchmarks/__init__.py`
+- `src/emic/benchmarks/schema.py`
+- `src/emic/benchmarks/registry.py`
+- `src/emic/benchmarks/config.py`
+- `src/emic/benchmarks/runner.py`
+- `src/emic/benchmarks/cli.py`
+- `tests/unit/test_benchmarks.py`
+- `.project/adr/008-benchmarking-tool.md`
+- `experiments/results/.gitkeep`
+
+**Files Modified**:
+- `pyproject.toml`: Added `emic-benchmark` script entry point, `benchmarks` optional deps
+
+**Branch**: `feature/benchmarks` (worktree at `/workspace/worktrees/benchmarks`)
+
+**Next Steps**:
+- Merge to main after review
+- Migrate existing paper benchmarks to use new tool
+- Add more experiment types as needed
+
+---
+
 ### January 26, 2026
 
 **Session Focus**: CSSR Algorithm Correctness & Benchmarking

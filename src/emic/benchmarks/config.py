@@ -1,0 +1,174 @@
+"""
+Experiment configuration parsing.
+
+Provides YAML-based experiment configuration with sensible defaults.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Any
+
+import yaml
+
+
+@dataclass(frozen=True)
+class ExperimentConfig:
+    """
+    Configuration for a single experiment.
+
+    Attributes:
+        name: Experiment identifier (e.g., "accuracy")
+        description: Human-readable description
+        algorithms: List of algorithm names to benchmark
+        processes: List of process names to test
+        sample_sizes: List of N values for data generation
+        metrics: List of metrics to compute
+        repetitions: Number of times to repeat each configuration
+        seed_offset: Base seed for random number generation
+        algorithm_configs: Per-algorithm config overrides
+        timeout_seconds: Per-run timeout in seconds
+    """
+
+    name: str
+    description: str = ""
+    algorithms: list[str] = field(default_factory=lambda: ["cssr", "spectral"])
+    processes: list[str] = field(default_factory=lambda: ["even_process", "golden_mean"])
+    sample_sizes: list[int] = field(default_factory=lambda: [1000, 5000, 10000])
+    metrics: list[str] = field(default_factory=lambda: ["state_count", "cmu", "hmu", "duration_s"])
+    repetitions: int = 1
+    seed_offset: int = 0
+    algorithm_configs: dict[str, dict[str, Any]] = field(default_factory=dict)
+    timeout_seconds: int = 120
+
+    @property
+    def total_runs(self) -> int:
+        """Total number of individual benchmark runs."""
+        return (
+            len(self.algorithms) * len(self.processes) * len(self.sample_sizes) * self.repetitions
+        )
+
+
+@dataclass(frozen=True)
+class BenchmarkConfig:
+    """
+    Top-level benchmark configuration.
+
+    Attributes:
+        experiments: List of experiment configurations
+        output_dir: Directory for results output
+        quick_mode: If True, use reduced sample sizes and skip slow algorithms
+        quick_sample_sizes: Sample sizes to use in quick mode
+    """
+
+    experiments: list[ExperimentConfig]
+    output_dir: str = "experiments/results"
+    quick_mode: bool = False
+    quick_sample_sizes: list[int] = field(default_factory=lambda: [1000])
+
+    @classmethod
+    def from_yaml(cls, path: str | Path) -> BenchmarkConfig:
+        """Load configuration from a YAML file."""
+        with Path(path).open() as f:
+            data = yaml.safe_load(f)
+        return cls.from_dict(data)
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> BenchmarkConfig:
+        """Create configuration from a dictionary."""
+        experiments = []
+        for exp_data in data.get("experiments", []):
+            experiments.append(ExperimentConfig(**exp_data))
+
+        return cls(
+            experiments=experiments,
+            output_dir=data.get("output_dir", "experiments/results"),
+            quick_mode=data.get("quick_mode", False),
+            quick_sample_sizes=data.get("quick_sample_sizes", [1000]),
+        )
+
+    def get_experiment(self, name: str) -> ExperimentConfig:
+        """Get an experiment by name."""
+        for exp in self.experiments:
+            if exp.name == name:
+                return exp
+        raise KeyError(
+            f"Unknown experiment: {name}. Available: {[e.name for e in self.experiments]}"
+        )
+
+    def list_experiments(self) -> list[str]:
+        """List all experiment names."""
+        return [exp.name for exp in self.experiments]
+
+
+# Default experiment configurations
+DEFAULT_ACCURACY_EXPERIMENT = ExperimentConfig(
+    name="accuracy",
+    description="Measure algorithm accuracy on canonical processes",
+    algorithms=["cssr", "spectral", "csm"],
+    processes=["even_process", "golden_mean", "biased_coin"],
+    sample_sizes=[1000, 5000, 10000],
+    metrics=["state_count", "cmu", "hmu", "duration_s"],
+    repetitions=1,
+)
+
+DEFAULT_CONVERGENCE_EXPERIMENT = ExperimentConfig(
+    name="convergence",
+    description="Measure how accuracy changes with sample size",
+    algorithms=["cssr", "spectral"],
+    processes=["even_process", "golden_mean"],
+    sample_sizes=[100, 500, 1000, 2000, 5000, 10000, 20000],
+    metrics=["state_count", "cmu", "hmu", "duration_s"],
+    repetitions=5,
+    seed_offset=100,
+)
+
+DEFAULT_SCALABILITY_EXPERIMENT = ExperimentConfig(
+    name="scalability",
+    description="Measure runtime scaling with data size",
+    algorithms=["cssr", "spectral", "csm", "bsi"],
+    processes=["even_process"],
+    sample_sizes=[1000, 2000, 5000, 10000, 20000, 50000],
+    metrics=["duration_s", "state_count"],
+    repetitions=3,
+    timeout_seconds=300,
+)
+
+
+def create_default_config(quick_mode: bool = False) -> BenchmarkConfig:
+    """Create the default benchmark configuration."""
+    return BenchmarkConfig(
+        experiments=[
+            DEFAULT_ACCURACY_EXPERIMENT,
+            DEFAULT_CONVERGENCE_EXPERIMENT,
+            DEFAULT_SCALABILITY_EXPERIMENT,
+        ],
+        quick_mode=quick_mode,
+        quick_sample_sizes=[1000],
+    )
+
+
+def load_config(path: str | Path | None = None, quick_mode: bool = False) -> BenchmarkConfig:
+    """
+    Load benchmark configuration.
+
+    Args:
+        path: Path to YAML config file. If None, uses defaults.
+        quick_mode: If True, use reduced parameter space.
+
+    Returns:
+        Loaded or default configuration
+    """
+    if path is not None:
+        config = BenchmarkConfig.from_yaml(path)
+        if quick_mode:
+            # Override quick mode setting from CLI
+            return BenchmarkConfig(
+                experiments=config.experiments,
+                output_dir=config.output_dir,
+                quick_mode=True,
+                quick_sample_sizes=config.quick_sample_sizes,
+            )
+        return config
+    return create_default_config(quick_mode=quick_mode)

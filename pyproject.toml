@@ -53,9 +53,15 @@ docs = [
     "mkdocs-material>=9.0",
     "mkdocstrings[python]>=0.24",
 ]
-all = [
-    "emic[viz,docs]",
+benchmarks = [
+    "pyarrow>=14.0",
 ]
+all = [
+    "emic[viz,docs,benchmarks]",
+]
+
+[project.scripts]
+emic-benchmark = "emic.benchmarks.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/emic"]
