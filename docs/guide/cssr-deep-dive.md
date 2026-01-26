@@ -49,6 +49,7 @@ Compared to other approaches:
 | **BSI** | Uncertainty quantification | Computationally expensive |
 
 CSSR remains the **reference algorithm** in the field because:
+
 - It directly implements the definition of causal states
 - Every step has clear statistical justification
 - Results are interpretable in terms of histories and predictions
