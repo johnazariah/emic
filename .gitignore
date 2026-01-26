@@ -69,3 +69,7 @@ site/
 *.synctex.gz
 *.synctex(busy)
 **/tex/out/
+
+# Built LaTeX documents (attach to releases instead)
+.project/research/**/tex/*.pdf
+!.project/research/**/tex/figures/*.pdf
