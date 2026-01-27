@@ -18,7 +18,10 @@ emic-experiment --help
 | `--shard M/N` | Run shard M of N (for distributed execution) |
 | `--combine DIR` | Combine sharded results from DIR |
 | `--list` | List available experiments |
-| `-o`, `--output-dir` | Output directory (default: experiments/runs) |
+| `--algorithms` | Comma-separated list of algorithms (e.g., `--algorithms cssr,spectral`) |
+| `--timeout` | Per-run timeout in seconds (default: 120) |
+| `-o`, `--output-dir` | Output directory (default: experiments/runs)
+| `-q`, `--quiet` | Suppress progress output | |
 
 ## Core Classes
 
@@ -29,13 +32,27 @@ emic-experiment --help
         - run_experiment
         - run_all
 
-::: emic.experiments.config.ExperimentConfig
+::: emic.experiments.run_single_benchmark
+    options:
+      show_root_heading: true
+
+## Configuration
+
+::: emic.experiments.ExperimentConfig
+    options:
+      show_root_heading: true
+
+::: emic.experiments.ExperimentsConfig
+    options:
+      show_root_heading: true
+
+::: emic.experiments.load_config
     options:
       show_root_heading: true
 
 ## Registries
 
-::: emic.experiments.registry.ProcessRegistry
+::: emic.experiments.ProcessRegistry
     options:
       show_root_heading: true
       members:
@@ -43,17 +60,41 @@ emic-experiment --help
         - get
         - list
 
-::: emic.experiments.registry.AlgorithmRegistry
+::: emic.experiments.ProcessInfo
+    options:
+      show_root_heading: true
+
+::: emic.experiments.AlgorithmRegistry
     options:
       show_root_heading: true
       members:
         - register
         - get
         - list
+
+::: emic.experiments.AlgorithmInfo
+    options:
+      show_root_heading: true
 
 ## Result Schema
 
-::: emic.experiments.schema.ExperimentRecord
+::: emic.experiments.BenchmarkResult
+    options:
+      show_root_heading: true
+
+::: emic.experiments.RunMetadata
+    options:
+      show_root_heading: true
+
+::: emic.experiments.ResultsWriter
+    options:
+      show_root_heading: true
+
+::: emic.experiments.read_results
+    options:
+      show_root_heading: true
+
+::: emic.experiments.read_latest_results
     options:
       show_root_heading: true
 

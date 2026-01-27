@@ -29,6 +29,9 @@ emic-experiment --all --parallel 4
 # Quick mode (skip slow algorithms, reduced sample sizes)
 emic-experiment --quick
 
+# Run only specific algorithms
+emic-experiment accuracy --algorithms cssr,spectral
+
 # List available experiments
 emic-experiment --list
 ```
