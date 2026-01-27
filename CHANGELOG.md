@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.1] - 2026-01-27
+
+### Fixed
+- **CSSR IID detection**: Improved detection of IID processes by skipping history-dependent analysis for L=0, resolving the v0.4.0 known issue where CSSR found spurious states on biased coin processes. CSSR accuracy improved from 67% to 82%.
+
+### Documentation
+- Updated experiments guide with `--algorithms` filter flag
+- Updated benchmark data across all documentation (README, guides, research papers)
+
 ## [0.4.0] - 2026-01-27
 
 ### Added
