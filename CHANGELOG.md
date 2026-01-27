@@ -22,6 +22,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - BSI: 33% accuracy
 - **1,552 experiment records** across 4 algorithms, 3 processes, 3 experiment types
 
+### Known Issues
+- **CSSR regression on IID processes**: CSSR with `max_history >= 5` finds spurious states on biased coin (IID) processes. Previous versions correctly found 1 state; current version finds 3. This was introduced in v0.3.1 commit 8fe9a9f. Workaround: use `max_history <= 4` for IID processes, or use Spectral algorithm.
+
 ## [0.3.1] - 2026-01-26
 
 ### Added
