@@ -16,6 +16,7 @@ An **epsilon-machine** (ε-machine) is the minimal, optimal predictor of a stoch
 | 📊 **[Analysis](guide/analysis.md)** | Compute complexity measures: statistical complexity (Cμ), entropy rate (hμ), excess entropy |
 | 🎲 **[Sources](guide/sources.md)** | Built-in stochastic process generators and empirical data loading |
 | 🔗 **[Pipelines](guide/pipelines.md)** | Compose workflows with the `>>` operator |
+| 🧪 **[Experiments](guide/experiments.md)** | CLI for reproducible algorithm benchmarking and validation |
 
 ## Quick Example
 

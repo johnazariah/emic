@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2026-01-27
+
+### Added
+- **Experiments framework**: New `emic.experiments` module with CLI (`emic-experiment`) for reproducible algorithm benchmarking
+- **Parallel execution**: Run experiments with `--parallel N` for multi-worker execution
+- **Sharded execution**: Distribute experiments across machines with `--shard M/N` and `--combine`
+- **Experiment results**: Baseline results comparing CSSR, Spectral, CSM, and BSI across accuracy, convergence, and scalability
+- **Experiments guide**: Comprehensive documentation for the experimentation framework
+
+### Results
+- **Algorithm comparison** (state count recovery):
+  - Spectral: 89% accuracy (best overall)
+  - CSSR: 56% accuracy, lowest Cμ error (0.053)
+  - CSM: 33% accuracy
+  - BSI: 33% accuracy
+- **1,552 experiment records** across 4 algorithms, 3 processes, 3 experiment types
+
 ## [0.3.1] - 2026-01-26
 
 ### Added

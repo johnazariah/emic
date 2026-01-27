@@ -2,6 +2,32 @@
 
 This directory contains reproducible experiments for the `emic` project.
 
+## Latest Results (January 2026)
+
+### Algorithm Accuracy (State Count Recovery)
+
+| Algorithm | Even Process | Golden Mean | Biased Coin | Overall |
+|-----------|--------------|-------------|-------------|---------|
+| **Spectral** | 100% | 100% | 67% | **89%** |
+| **CSSR** | 67% | 100% | 0% | 56% |
+| CSM | 0% | 67% | 33% | 33% |
+| BSI | 0% | 0% | 100% | 33% |
+
+### Statistical Complexity Error
+
+| Algorithm | Mean |Cμ - true| |
+|-----------|-------------------|
+| **CSSR** | **0.053** |
+| CSM | 0.104 |
+| BSI | 0.528 |
+| Spectral | 0.667 |
+
+**Key findings:**
+
+- **Spectral** excels at state count recovery (89%) but has higher Cμ error
+- **CSSR** has the lowest Cμ error (0.053) but struggles with IID processes
+- Algorithms show complementary strengths across different process types
+
 ## Structure
 
 ```
@@ -9,13 +35,11 @@ experiments/
 ├── registry.yaml       # Catalog of experiments
 ├── README.md           # This file
 ├── runs/               # Experiment output (timestamped folders)
-│   ├── 2026-01-26T14-32-05/
-│   │   ├── intent.md         # Optional: why this was run
+│   ├── 2026-01-27T06-35-40/
 │   │   ├── metadata.yaml     # Git commit, timing, CLI args
-│   │   ├── results.parquet   # Raw benchmark data
-│   │   └── summary.md        # Optional: key findings
+│   │   └── results.json      # Raw experiment data (1552 records)
 │   └── latest -> ...   # Symlink to most recent run
-└── benchmarks/         # Algorithm performance benchmarks (legacy)
+└── results/            # Legacy location
 ```
 
 ## Running Experiments

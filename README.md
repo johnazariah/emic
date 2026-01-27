@@ -29,6 +29,7 @@ Key concepts:
 - 📊 **Analysis**: Compute complexity measures (Cμ, hμ, excess entropy, crypticity)
 - 🎲 **Sources**: Built-in stochastic process generators (Golden Mean, Even Process, Biased Coin, Periodic)
 - 🔗 **Pipeline**: Composable `>>` operator for source → inference → analysis workflows
+- 🧪 **Experiments**: CLI and framework for reproducible algorithm benchmarking
 - 📈 **Visualization**: State diagram rendering with Graphviz
 - 📝 **Export**: LaTeX tables, TikZ diagrams, DOT, Mermaid, and JSON formats
 - 🧩 **Extensible**: Protocol-based architecture for custom algorithms and sources
@@ -98,6 +99,32 @@ print(summary)
 | **Even Process** | Even number of 1s between 0s | 2 |
 | **Biased Coin** | i.i.d. Bernoulli process | 1 |
 | **Periodic** | Deterministic repeating pattern | n (period length) |
+
+## Experiments
+
+Run reproducible experiments to evaluate algorithm performance:
+
+```bash
+# Run all experiments with parallel execution
+emic-experiment --all --parallel 4
+
+# Quick mode for development
+emic-experiment --quick
+
+# List available experiments
+emic-experiment --list
+```
+
+### Algorithm Accuracy (January 2026)
+
+| Algorithm | State Count Accuracy | Cμ Error |
+|-----------|---------------------|----------|
+| **Spectral** | 89% | 0.667 |
+| **CSSR** | 56% | 0.053 |
+| CSM | 33% | 0.104 |
+| BSI | 33% | 0.528 |
+
+See the [Experiments Guide](https://johnazariah.github.io/emic/guide/experiments/) for full details.
 
 ## Project Status
 

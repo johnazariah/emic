@@ -38,6 +38,7 @@ nav:
       - Inference: guide/inference.md
       - Analysis: guide/analysis.md
       - Pipelines: guide/pipelines.md
+      - Experiments: guide/experiments.md
       - Deep Dives:
           - CSSR Algorithm: guide/cssr-deep-dive.md
           - Spectral Learning: guide/spectral-learning-deep-dive.md
@@ -49,6 +50,7 @@ nav:
       - emic.sources: api/sources.md
       - emic.inference: api/inference.md
       - emic.analysis: api/analysis.md
+      - emic.experiments: api/experiments.md
       - emic.types: api/types.md
       - emic.output: api/output.md
   - Contributing: contributing.md
