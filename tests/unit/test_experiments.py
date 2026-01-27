@@ -13,7 +13,7 @@ class TestBenchmarkResult:
 
     def test_create_result(self) -> None:
         """Test creating a benchmark result."""
-        from emic.benchmarks.schema import BenchmarkResult
+        from emic.experiments.schema import BenchmarkResult
 
         result = BenchmarkResult(
             experiment="accuracy",
@@ -36,7 +36,7 @@ class TestBenchmarkResult:
 
     def test_result_with_error(self) -> None:
         """Test creating a result with an error."""
-        from emic.benchmarks.schema import BenchmarkResult
+        from emic.experiments.schema import BenchmarkResult
 
         result = BenchmarkResult(
             experiment="accuracy",
@@ -52,7 +52,7 @@ class TestBenchmarkResult:
 
     def test_to_dict(self) -> None:
         """Test converting result to dict."""
-        from emic.benchmarks.schema import BenchmarkResult
+        from emic.experiments.schema import BenchmarkResult
 
         result = BenchmarkResult(
             experiment="accuracy",
@@ -74,7 +74,7 @@ class TestProcessRegistry:
 
     def test_default_registry(self) -> None:
         """Test default process registry has expected processes."""
-        from emic.benchmarks.registry import get_process_registry
+        from emic.experiments.registry import get_process_registry
 
         registry = get_process_registry()
 
@@ -84,7 +84,7 @@ class TestProcessRegistry:
 
     def test_get_process(self) -> None:
         """Test getting a process by name."""
-        from emic.benchmarks.registry import get_process_registry
+        from emic.experiments.registry import get_process_registry
 
         registry = get_process_registry()
         process = registry.get("even_process")
@@ -98,7 +98,7 @@ class TestProcessRegistry:
         """Test creating a source from registry."""
         from itertools import islice
 
-        from emic.benchmarks.registry import get_process_registry
+        from emic.experiments.registry import get_process_registry
 
         registry = get_process_registry()
         process = registry.get("even_process")
@@ -111,7 +111,7 @@ class TestProcessRegistry:
 
     def test_unknown_process(self) -> None:
         """Test that unknown process raises KeyError."""
-        from emic.benchmarks.registry import get_process_registry
+        from emic.experiments.registry import get_process_registry
 
         registry = get_process_registry()
 
@@ -124,7 +124,7 @@ class TestAlgorithmRegistry:
 
     def test_default_registry(self) -> None:
         """Test default algorithm registry has expected algorithms."""
-        from emic.benchmarks.registry import get_algorithm_registry
+        from emic.experiments.registry import get_algorithm_registry
 
         registry = get_algorithm_registry()
 
@@ -135,7 +135,7 @@ class TestAlgorithmRegistry:
 
     def test_get_algorithm(self) -> None:
         """Test getting an algorithm by name."""
-        from emic.benchmarks.registry import get_algorithm_registry
+        from emic.experiments.registry import get_algorithm_registry
 
         registry = get_algorithm_registry()
         algo = registry.get("cssr")
@@ -146,7 +146,7 @@ class TestAlgorithmRegistry:
 
     def test_bsi_is_slow(self) -> None:
         """Test that BSI is marked as slow."""
-        from emic.benchmarks.registry import get_algorithm_registry
+        from emic.experiments.registry import get_algorithm_registry
 
         registry = get_algorithm_registry()
         bsi = registry.get("bsi")
@@ -155,7 +155,7 @@ class TestAlgorithmRegistry:
 
     def test_list_excluding_slow(self) -> None:
         """Test listing algorithms excluding slow ones."""
-        from emic.benchmarks.registry import get_algorithm_registry
+        from emic.experiments.registry import get_algorithm_registry
 
         registry = get_algorithm_registry()
         fast_algos = registry.list(include_slow=False)
@@ -169,7 +169,7 @@ class TestExperimentConfig:
 
     def test_default_config(self) -> None:
         """Test creating default config."""
-        from emic.benchmarks.config import ExperimentConfig
+        from emic.experiments.config import ExperimentConfig
 
         config = ExperimentConfig(name="test")
 
@@ -180,7 +180,7 @@ class TestExperimentConfig:
 
     def test_total_runs(self) -> None:
         """Test calculating total runs."""
-        from emic.benchmarks.config import ExperimentConfig
+        from emic.experiments.config import ExperimentConfig
 
         config = ExperimentConfig(
             name="test",
@@ -201,7 +201,7 @@ class TestResultsWriter:
         """Test writing results creates expected files."""
         from datetime import UTC, datetime
 
-        from emic.benchmarks.schema import BenchmarkResult, ResultsWriter, RunMetadata
+        from emic.experiments.schema import BenchmarkResult, ResultsWriter, RunMetadata
 
         with tempfile.TemporaryDirectory() as tmpdir:
             writer = ResultsWriter(tmpdir)
@@ -247,8 +247,8 @@ class TestRunSingleBenchmark:
 
     def test_run_benchmark(self) -> None:
         """Test running a single benchmark."""
-        from emic.benchmarks.registry import get_algorithm_registry, get_process_registry
-        from emic.benchmarks.runner import run_single_benchmark
+        from emic.experiments.registry import get_algorithm_registry, get_process_registry
+        from emic.experiments.runner import run_single_benchmark
 
         proc_registry = get_process_registry()
         algo_registry = get_algorithm_registry()
@@ -285,7 +285,7 @@ class TestCLI:
 
     def test_parser_help(self) -> None:
         """Test parser creation."""
-        from emic.benchmarks.cli import create_parser
+        from emic.experiments.cli import create_parser
 
         parser = create_parser()
         # Should not raise
@@ -293,7 +293,7 @@ class TestCLI:
 
     def test_list_experiments(self, capsys: pytest.CaptureFixture) -> None:
         """Test --list command."""
-        from emic.benchmarks.cli import list_experiments
+        from emic.experiments.cli import list_experiments
 
         list_experiments()
         captured = capsys.readouterr()
@@ -308,7 +308,7 @@ class TestSharding:
 
     def test_parse_shard_valid(self) -> None:
         """Test parsing valid shard specifications."""
-        from emic.benchmarks.cli import parse_shard
+        from emic.experiments.cli import parse_shard
 
         assert parse_shard("0/4") == (0, 4)
         assert parse_shard("3/4") == (3, 4)
@@ -317,7 +317,7 @@ class TestSharding:
 
     def test_parse_shard_invalid(self) -> None:
         """Test parsing invalid shard specifications."""
-        from emic.benchmarks.cli import parse_shard
+        from emic.experiments.cli import parse_shard
 
         # Case: index is equal to or greater than total
         with pytest.raises(ValueError, match="must be < total"):
@@ -344,7 +344,7 @@ class TestSharding:
 
     def test_results_writer_with_shard(self) -> None:
         """Test ResultsWriter produces shard-suffixed files."""
-        from emic.benchmarks.schema import BenchmarkResult, ResultsWriter, RunMetadata
+        from emic.experiments.schema import BenchmarkResult, ResultsWriter, RunMetadata
 
         with tempfile.TemporaryDirectory() as tmpdir:
             writer = ResultsWriter(tmpdir, shard=(2, 4))
@@ -386,7 +386,7 @@ class TestSharding:
 
     def test_combine_shard_results(self) -> None:
         """Test combining shard results."""
-        from emic.benchmarks.schema import (
+        from emic.experiments.schema import (
             BenchmarkResult,
             ResultsWriter,
             combine_shard_results,

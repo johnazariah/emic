@@ -18,7 +18,7 @@
    - Output: Timestamped Parquet/JSON results + metadata.yaml
    - Downstream consumers (papers, CI) handle their own formatting
 
-2. **Implemented `emic.benchmarks` Module**
+2. **Implemented `emic.experiments` Module**
    - `schema.py`: BenchmarkResult dataclass, ResultsWriter, Parquet/JSON I/O
    - `registry.py`: ProcessRegistry and AlgorithmRegistry for declarative registration
    - `config.py`: YAML-based ExperimentConfig and BenchmarkConfig

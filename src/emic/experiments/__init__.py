@@ -1,7 +1,8 @@
 """
-Benchmarking module for emic.
+Experiments module for emic.
 
-Provides systematic benchmarking of epsilon-machine inference algorithms.
+Provides systematic experimentation and benchmarking of epsilon-machine
+inference algorithms.
 
 Public API:
     - BenchmarkResult: Single measurement dataclass
@@ -16,29 +17,29 @@ Public API:
     - get_algorithm_registry: Default algorithm registry
 
     - ExperimentConfig: Single experiment configuration
-    - BenchmarkConfig: Top-level configuration
+    - ExperimentsConfig: Top-level configuration
     - load_config: Load YAML configuration
 
-    - BenchmarkRunner: Main runner class
+    - ExperimentRunner: Main runner class
     - run_single_benchmark: Run a single benchmark
 
 Example:
-    from emic.benchmarks import BenchmarkRunner
+    from emic.experiments import ExperimentRunner
 
-    runner = BenchmarkRunner()
+    runner = ExperimentRunner()
     runner.run_all()
 
 CLI:
-    emic-benchmark --all
-    emic-benchmark accuracy --quick
+    emic-experiment --all
+    emic-experiment accuracy --quick
 """
 
-from emic.benchmarks.config import (
-    BenchmarkConfig,
+from emic.experiments.config import (
     ExperimentConfig,
+    ExperimentsConfig,
     load_config,
 )
-from emic.benchmarks.registry import (
+from emic.experiments.registry import (
     AlgorithmInfo,
     AlgorithmRegistry,
     ProcessInfo,
@@ -46,11 +47,11 @@ from emic.benchmarks.registry import (
     get_algorithm_registry,
     get_process_registry,
 )
-from emic.benchmarks.runner import (
-    BenchmarkRunner,
+from emic.experiments.runner import (
+    ExperimentRunner,
     run_single_benchmark,
 )
-from emic.benchmarks.schema import (
+from emic.experiments.schema import (
     BenchmarkResult,
     ResultsWriter,
     RunMetadata,
@@ -61,10 +62,10 @@ from emic.benchmarks.schema import (
 __all__ = [
     "AlgorithmInfo",
     "AlgorithmRegistry",
-    "BenchmarkConfig",
     "BenchmarkResult",
-    "BenchmarkRunner",
     "ExperimentConfig",
+    "ExperimentRunner",
+    "ExperimentsConfig",
     "ProcessInfo",
     "ProcessRegistry",
     "ResultsWriter",

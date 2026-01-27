@@ -8,34 +8,47 @@ This directory contains reproducible experiments for the `emic` project.
 experiments/
 ├── registry.yaml       # Catalog of experiments
 ├── README.md           # This file
-├── results/            # Benchmark output (timestamped folders)
+├── runs/               # Experiment output (timestamped folders)
 │   ├── 2026-01-26T14-32-05/
-│   │   ├── metadata.yaml
-│   │   └── results.parquet
+│   │   ├── intent.md         # Optional: why this was run
+│   │   ├── metadata.yaml     # Git commit, timing, CLI args
+│   │   ├── results.parquet   # Raw benchmark data
+│   │   └── summary.md        # Optional: key findings
 │   └── latest -> ...   # Symlink to most recent run
 └── benchmarks/         # Algorithm performance benchmarks (legacy)
 ```
 
-## Running Benchmarks
+## Running Experiments
 
 ### Using the CLI
 
 ```bash
 # Run all experiments
-emic-benchmark --all
+emic-experiment --all
 
 # Run specific experiment
-emic-benchmark accuracy
+emic-experiment accuracy
 
 # Quick mode (reduced params, skip slow algorithms)
-emic-benchmark --quick
+emic-experiment --quick
 
 # List available experiments
-emic-benchmark --list
+emic-experiment --list
 
 # Custom output directory
-emic-benchmark --output-dir ./my-results
+emic-experiment --output-dir ./my-results
+
+# Parallel execution
+emic-experiment accuracy --parallel 4
 ```
+
+### Interactive Session
+
+For a guided experiment workflow, use the Copilot prompt:
+
+1. Open GitHub Copilot Chat
+2. Reference `.github/prompts/run-experiment.prompt.md`
+3. Follow the interactive steps
 
 ### Default Experiments
 
@@ -58,7 +71,7 @@ results/2026-01-26T14-32-05/
 ### Reading Results
 
 ```python
-from emic.benchmarks import read_latest_results
+from emic.experiments import read_latest_results
 
 df = read_latest_results("experiments/results")
 print(df.groupby(["algorithm", "process"])["value"].mean())
@@ -98,5 +111,5 @@ quick_sample_sizes: [1000]
 Run with:
 
 ```bash
-emic-benchmark --config my_config.yaml --all
+emic-experiment --config my_config.yaml --all
 ```

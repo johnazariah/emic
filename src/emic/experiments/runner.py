@@ -17,7 +17,7 @@ from itertools import islice
 from typing import TYPE_CHECKING, Any
 
 from emic.analysis import entropy_rate, state_count, statistical_complexity
-from emic.benchmarks.registry import (
+from emic.experiments.registry import (
     AlgorithmInfo,
     AlgorithmRegistry,
     ProcessInfo,
@@ -25,10 +25,10 @@ from emic.benchmarks.registry import (
     get_algorithm_registry,
     get_process_registry,
 )
-from emic.benchmarks.schema import BenchmarkResult, ResultsWriter, RunMetadata
+from emic.experiments.schema import BenchmarkResult, ResultsWriter, RunMetadata
 
 if TYPE_CHECKING:
-    from emic.benchmarks.config import BenchmarkConfig, ExperimentConfig
+    from emic.experiments.config import ExperimentConfig, ExperimentsConfig
 
 
 class TimeoutError(Exception):
@@ -271,22 +271,22 @@ def run_single_benchmark(
     return results
 
 
-class BenchmarkRunner:
+class ExperimentRunner:
     """
     Run benchmark experiments and collect results.
 
     Example:
-        runner = BenchmarkRunner()
+        runner = ExperimentRunner()
         runner.run_all()  # Run all default experiments
         runner.run_experiment("accuracy")  # Run specific experiment
 
     Sharding example:
-        runner = BenchmarkRunner(shard=(0, 4))  # Run shard 0 of 4
+        runner = ExperimentRunner(shard=(0, 4))  # Run shard 0 of 4
     """
 
     def __init__(
         self,
-        config: BenchmarkConfig | None = None,
+        config: ExperimentsConfig | None = None,
         process_registry: ProcessRegistry | None = None,
         algorithm_registry: AlgorithmRegistry | None = None,
         output_dir: str | None = None,
@@ -304,7 +304,7 @@ class BenchmarkRunner:
             verbose: Print progress to stdout
             shard: Optional (shard_index, total_shards) for parallel execution
         """
-        from emic.benchmarks.config import create_default_config
+        from emic.experiments.config import create_default_config
 
         self.config = config or create_default_config()
         self.process_registry = process_registry or get_process_registry()

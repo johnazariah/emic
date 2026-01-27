@@ -1,14 +1,14 @@
 """
-Command-line interface for emic benchmarks.
+Command-line interface for emic experiments.
 
 Usage:
-    emic-benchmark --all              # Run all experiments
-    emic-benchmark accuracy           # Run specific experiment
-    emic-benchmark --quick            # Quick mode (reduced params)
-    emic-benchmark --list             # List available experiments
-    emic-benchmark --shard 0/4        # Run shard 0 of 4 (for parallelism)
-    emic-benchmark --parallel 4       # Auto-spawn 4 parallel processes
-    emic-benchmark --combine <dir>    # Combine shard results
+    emic-experiment --all              # Run all experiments
+    emic-experiment accuracy           # Run specific experiment
+    emic-experiment --quick            # Quick mode (reduced params)
+    emic-experiment --list             # List available experiments
+    emic-experiment --shard 0/4        # Run shard 0 of 4 (for parallelism)
+    emic-experiment --parallel 4       # Auto-spawn 4 parallel processes
+    emic-experiment --combine <dir>    # Combine shard results
 """
 
 from __future__ import annotations
@@ -21,19 +21,19 @@ from pathlib import Path
 def create_parser() -> argparse.ArgumentParser:
     """Create the argument parser."""
     parser = argparse.ArgumentParser(
-        prog="emic-benchmark",
-        description="Run emic benchmarks and collect performance data",
+        prog="emic-experiment",
+        description="Run emic experiments and collect performance data",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-    emic-benchmark --all              Run all experiments
-    emic-benchmark accuracy           Run the accuracy experiment
-    emic-benchmark --quick            Quick mode (reduced sample sizes, skip slow algos)
-    emic-benchmark --list             List available experiments
-    emic-benchmark --config my.yaml   Use custom configuration
+    emic-experiment --all              Run all experiments
+    emic-experiment accuracy           Run the accuracy experiment
+    emic-experiment --quick            Quick mode (reduced sample sizes, skip slow algos)
+    emic-experiment --list             List available experiments
+    emic-experiment --config my.yaml   Use custom configuration
 
 Output:
-    Results are saved to experiments/results/<timestamp>/
+    Results are saved to experiments/runs/<timestamp>/
     A 'latest' symlink points to the most recent run.
         """,
     )
@@ -116,7 +116,7 @@ Output:
 
 def list_experiments() -> None:
     """Print available experiments."""
-    from emic.benchmarks.config import create_default_config
+    from emic.experiments.config import create_default_config
 
     config = create_default_config()
 
@@ -174,7 +174,7 @@ def run_parallel(args: argparse.Namespace, n_workers: int) -> int:
     import subprocess
 
     # Build base command from original args
-    base_cmd = [sys.executable, "-m", "emic.benchmarks.cli"]
+    base_cmd = [sys.executable, "-m", "emic.experiments.cli"]
 
     if args.all:
         base_cmd.append("--all")
@@ -227,7 +227,7 @@ def combine_results(results_dir: Path) -> int:
     Returns:
         Exit code (0 on success)
     """
-    from emic.benchmarks.schema import combine_shard_results
+    from emic.experiments.schema import combine_shard_results
 
     try:
         output_path = combine_shard_results(results_dir)
@@ -278,13 +278,13 @@ def main(argv: list[str] | None = None) -> int:
             return 1
 
     # Load configuration
-    from emic.benchmarks.config import load_config
-    from emic.benchmarks.runner import BenchmarkRunner
+    from emic.experiments.config import load_config
+    from emic.experiments.runner import ExperimentRunner
 
     config = load_config(path=args.config, quick_mode=args.quick)
 
     # Create runner
-    runner = BenchmarkRunner(
+    runner = ExperimentRunner(
         config=config,
         output_dir=str(args.output_dir) if args.output_dir else None,
         verbose=not args.quiet,

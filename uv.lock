@@ -474,13 +474,13 @@ all = [
     { name = "mkdocstrings", extra = ["python"] },
     { name = "pyarrow" },
 ]
-benchmarks = [
-    { name = "pyarrow" },
-]
 docs = [
     { name = "mkdocs" },
     { name = "mkdocs-material" },
     { name = "mkdocstrings", extra = ["python"] },
+]
+experiments = [
+    { name = "pyarrow" },
 ]
 viz = [
     { name = "graphviz" },
@@ -508,7 +508,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "emic", extras = ["viz", "docs", "benchmarks"], marker = "extra == 'all'" },
+    { name = "emic", extras = ["viz", "docs", "experiments"], marker = "extra == 'all'" },
     { name = "graphviz", specifier = ">=0.21" },
     { name = "graphviz", marker = "extra == 'viz'", specifier = ">=0.20" },
     { name = "mkdocs", marker = "extra == 'docs'", specifier = ">=1.5" },
@@ -516,10 +516,10 @@ requires-dist = [
     { name = "mkdocstrings", extras = ["python"], marker = "extra == 'docs'", specifier = ">=0.24" },
     { name = "numpy", specifier = ">=2.4.1" },
     { name = "pandas", specifier = ">=3.0.0" },
-    { name = "pyarrow", marker = "extra == 'benchmarks'", specifier = ">=14.0" },
+    { name = "pyarrow", marker = "extra == 'experiments'", specifier = ">=14.0" },
     { name = "scipy", specifier = ">=1.17.0" },
 ]
-provides-extras = ["viz", "docs", "benchmarks", "all"]
+provides-extras = ["viz", "docs", "experiments", "all"]
 
 [package.metadata.requires-dev]
 dev = [

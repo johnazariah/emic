@@ -51,9 +51,9 @@ class ExperimentConfig:
 
 
 @dataclass(frozen=True)
-class BenchmarkConfig:
+class ExperimentsConfig:
     """
-    Top-level benchmark configuration.
+    Top-level experiments configuration.
 
     Attributes:
         experiments: List of experiment configurations
@@ -63,19 +63,19 @@ class BenchmarkConfig:
     """
 
     experiments: list[ExperimentConfig]
-    output_dir: str = "experiments/results"
+    output_dir: str = "experiments/runs"
     quick_mode: bool = False
     quick_sample_sizes: list[int] = field(default_factory=lambda: [1000])
 
     @classmethod
-    def from_yaml(cls, path: str | Path) -> BenchmarkConfig:
+    def from_yaml(cls, path: str | Path) -> ExperimentsConfig:
         """Load configuration from a YAML file."""
         with Path(path).open() as f:
             data = yaml.safe_load(f)
         return cls.from_dict(data)
 
     @classmethod
-    def from_dict(cls, data: dict[str, Any]) -> BenchmarkConfig:
+    def from_dict(cls, data: dict[str, Any]) -> ExperimentsConfig:
         """Create configuration from a dictionary."""
         experiments = []
         for exp_data in data.get("experiments", []):
@@ -83,7 +83,7 @@ class BenchmarkConfig:
 
         return cls(
             experiments=experiments,
-            output_dir=data.get("output_dir", "experiments/results"),
+            output_dir=data.get("output_dir", "experiments/runs"),
             quick_mode=data.get("quick_mode", False),
             quick_sample_sizes=data.get("quick_sample_sizes", [1000]),
         )
@@ -136,9 +136,9 @@ DEFAULT_SCALABILITY_EXPERIMENT = ExperimentConfig(
 )
 
 
-def create_default_config(quick_mode: bool = False) -> BenchmarkConfig:
+def create_default_config(quick_mode: bool = False) -> ExperimentsConfig:
     """Create the default benchmark configuration."""
-    return BenchmarkConfig(
+    return ExperimentsConfig(
         experiments=[
             DEFAULT_ACCURACY_EXPERIMENT,
             DEFAULT_CONVERGENCE_EXPERIMENT,
@@ -149,7 +149,7 @@ def create_default_config(quick_mode: bool = False) -> BenchmarkConfig:
     )
 
 
-def load_config(path: str | Path | None = None, quick_mode: bool = False) -> BenchmarkConfig:
+def load_config(path: str | Path | None = None, quick_mode: bool = False) -> ExperimentsConfig:
     """
     Load benchmark configuration.
 
@@ -161,10 +161,10 @@ def load_config(path: str | Path | None = None, quick_mode: bool = False) -> Ben
         Loaded or default configuration
     """
     if path is not None:
-        config = BenchmarkConfig.from_yaml(path)
+        config = ExperimentsConfig.from_yaml(path)
         if quick_mode:
             # Override quick mode setting from CLI
-            return BenchmarkConfig(
+            return ExperimentsConfig(
                 experiments=config.experiments,
                 output_dir=config.output_dir,
                 quick_mode=True,
