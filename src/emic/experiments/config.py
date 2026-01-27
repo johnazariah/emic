@@ -25,7 +25,8 @@ class ExperimentConfig:
         processes: List of process names to test
         sample_sizes: List of N values for data generation
         metrics: List of metrics to compute
-        repetitions: Number of times to repeat each configuration
+        repetitions: Default number of times to repeat each configuration
+        repetitions_by_sample_size: Override repetitions per sample size (e.g., {1000: 5, 10000: 3})
         seed_offset: Base seed for random number generation
         algorithm_configs: Per-algorithm config overrides
         timeout_seconds: Per-run timeout in seconds
@@ -35,19 +36,23 @@ class ExperimentConfig:
     description: str = ""
     algorithms: list[str] = field(default_factory=lambda: ["cssr", "spectral"])
     processes: list[str] = field(default_factory=lambda: ["even_process", "golden_mean"])
-    sample_sizes: list[int] = field(default_factory=lambda: [1000, 5000, 10000])
+    sample_sizes: list[int] = field(default_factory=lambda: [1_000, 10_000, 100_000])
     metrics: list[str] = field(default_factory=lambda: ["state_count", "cmu", "hmu", "duration_s"])
     repetitions: int = 1
+    repetitions_by_sample_size: dict[int, int] = field(default_factory=dict)
     seed_offset: int = 0
     algorithm_configs: dict[str, dict[str, Any]] = field(default_factory=dict)
     timeout_seconds: int = 120
 
+    def get_repetitions(self, sample_size: int) -> int:
+        """Get repetitions for a specific sample size."""
+        return self.repetitions_by_sample_size.get(sample_size, self.repetitions)
+
     @property
     def total_runs(self) -> int:
         """Total number of individual benchmark runs."""
-        return (
-            len(self.algorithms) * len(self.processes) * len(self.sample_sizes) * self.repetitions
-        )
+        total_reps = sum(self.get_repetitions(n) for n in self.sample_sizes)
+        return len(self.algorithms) * len(self.processes) * total_reps
 
 
 @dataclass(frozen=True)
@@ -108,7 +113,7 @@ DEFAULT_ACCURACY_EXPERIMENT = ExperimentConfig(
     description="Measure algorithm accuracy on canonical processes",
     algorithms=["cssr", "spectral", "csm", "bsi"],
     processes=["even_process", "golden_mean", "biased_coin"],
-    sample_sizes=[1000, 5000, 10000],
+    sample_sizes=[1_000, 10_000, 100_000, 1_000_000],
     metrics=["state_count", "cmu", "hmu", "duration_s"],
     repetitions=1,
 )
@@ -118,9 +123,10 @@ DEFAULT_CONVERGENCE_EXPERIMENT = ExperimentConfig(
     description="Measure how accuracy changes with sample size",
     algorithms=["cssr", "spectral", "csm", "bsi"],
     processes=["even_process", "golden_mean"],
-    sample_sizes=[100, 500, 1000, 2000, 5000, 10000, 20000],
+    sample_sizes=[1_000, 10_000, 100_000, 1_000_000],
     metrics=["state_count", "cmu", "hmu", "duration_s"],
-    repetitions=5,
+    repetitions=3,  # default fallback
+    repetitions_by_sample_size={1_000: 5, 10_000: 4, 100_000: 3, 1_000_000: 3},
     seed_offset=100,
 )
 
@@ -129,9 +135,10 @@ DEFAULT_SCALABILITY_EXPERIMENT = ExperimentConfig(
     description="Measure runtime scaling with data size",
     algorithms=["cssr", "spectral", "csm", "bsi"],
     processes=["even_process"],
-    sample_sizes=[1000, 2000, 5000, 10000, 20000, 50000],
+    sample_sizes=[1_000, 10_000, 100_000, 1_000_000],
     metrics=["duration_s", "state_count"],
-    repetitions=3,
+    repetitions=3,  # default fallback
+    repetitions_by_sample_size={1_000: 5, 10_000: 4, 100_000: 3, 1_000_000: 3},
     timeout_seconds=300,
 )
 

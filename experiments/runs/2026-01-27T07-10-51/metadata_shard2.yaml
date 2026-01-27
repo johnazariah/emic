@@ -1,0 +1,13 @@
+timestamp: '2026-01-27T07:10:51.605880+00:00'
+git_commit: aa8366a
+git_dirty: true
+python_version: 3.11.13
+emic_version: 0.4.0
+cli_args:
+- accuracy
+- --shard
+- 2/4
+duration_seconds: 7.055535929997859
+completed: true
+shard_index: 2
+total_shards: 4

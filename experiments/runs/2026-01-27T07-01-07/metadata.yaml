@@ -1,0 +1,11 @@
+timestamp: '2026-01-27T07:01:07.613323+00:00'
+git_commit: aa8366a
+git_dirty: true
+python_version: 3.11.13
+emic_version: 0.4.0
+cli_args:
+- accuracy
+- -o
+- experiments/runs
+duration_seconds: 13.261048247000872
+completed: true

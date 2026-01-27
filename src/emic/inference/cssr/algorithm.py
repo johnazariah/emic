@@ -428,7 +428,7 @@ class CSSR(Generic[A]):
         """Group histories by distribution similarity.
 
         Uses a two-phase approach:
-        1. First check if all histories have proportions within tolerance
+        1. First check if all histories can be merged (homogeneous)
         2. If so, put all in one state
         3. Otherwise, do greedy grouping
         """
@@ -446,30 +446,47 @@ class CSSR(Generic[A]):
         if not hist_dists:
             return partition
 
-        # Check if all histories have similar proportions (within 15% tolerance)
-        # This catches IID processes regardless of chi-squared sensitivity
-        all_keys = set()
-        for _, dist in hist_dists:
-            all_keys.update(dist.keys())
+        # Check if all histories can be merged into one state
+        # Use pairwise tests between consecutive histories with a lenient threshold
+        # This is more robust than testing against a huge pool
+        all_homogeneous = True
 
-        min_props: dict[A, float] = {}
-        max_props: dict[A, float] = {}
-        for _, dist in hist_dists:
-            total = sum(dist.values())
-            if total < 1:
-                continue
-            for k in all_keys:
-                p = dist.get(k, 0) / total
-                min_props[k] = min(min_props.get(k, 1.0), p)
-                max_props[k] = max(max_props.get(k, 0.0), p)
+        # Use a more lenient significance for the homogeneity check
+        # This accounts for multiple comparisons and sampling variability
+        homog_sig = max(self.config.significance, 0.01)
 
-        # If proportion range is within tolerance for all symbols, merge all
-        tolerance = 0.15  # 15% tolerance
-        all_within_tolerance = all(
-            max_props.get(k, 0) - min_props.get(k, 0) <= tolerance for k in all_keys
-        )
+        # Test first few histories pairwise to check homogeneity
+        for i in range(min(len(hist_dists) - 1, 10)):
+            _, dist1 = hist_dists[i]
+            _, dist2 = hist_dists[i + 1]
+            if distributions_differ(dist1, dist2, homog_sig, self.config.test):
+                all_homogeneous = False
+                break
 
-        if all_within_tolerance:
+        # Also check if any extreme outliers exist using proportion tolerance
+        if all_homogeneous:
+            all_keys = set()
+            for _, dist in hist_dists:
+                all_keys.update(dist.keys())
+
+            min_props: dict[A, float] = {}
+            max_props: dict[A, float] = {}
+            for _, dist in hist_dists:
+                total = sum(dist.values())
+                if total < 1:
+                    continue
+                for k in all_keys:
+                    p = dist.get(k, 0) / total
+                    min_props[k] = min(min_props.get(k, 1.0), p)
+                    max_props[k] = max(max_props.get(k, 0.0), p)
+
+            # Allow 25% range for sample variability
+            tolerance = 0.25
+            all_homogeneous = all(
+                max_props.get(k, 0) - min_props.get(k, 0) <= tolerance for k in all_keys
+            )
+
+        if all_homogeneous:
             state_id = partition.new_state_id()
             for h, _ in hist_dists:
                 partition.assign(h, state_id)

@@ -292,6 +292,7 @@ class ExperimentRunner:
         output_dir: str | None = None,
         verbose: bool = True,
         shard: tuple[int, int] | None = None,
+        algorithms_filter: list[str] | None = None,
     ):
         """
         Initialize the benchmark runner.
@@ -303,6 +304,7 @@ class ExperimentRunner:
             output_dir: Override output directory
             verbose: Print progress to stdout
             shard: Optional (shard_index, total_shards) for parallel execution
+            algorithms_filter: Optional list of algorithm names to run (overrides config)
         """
         from emic.experiments.config import create_default_config
 
@@ -312,6 +314,7 @@ class ExperimentRunner:
         self.output_dir = output_dir or self.config.output_dir
         self.verbose = verbose
         self.shard = shard
+        self.algorithms_filter = algorithms_filter
 
         self.writer = ResultsWriter(self.output_dir, shard=shard)
         self.progress: RunProgress | None = None
@@ -339,9 +342,12 @@ class ExperimentRunner:
         else:
             sample_sizes = experiment.sample_sizes
 
-        # Get algorithms (skip slow in quick mode)
+        # Get algorithms (skip slow in quick mode, filter if specified)
+        algorithm_names = (
+            self.algorithms_filter if self.algorithms_filter else experiment.algorithms
+        )
         algorithms = []
-        for name in experiment.algorithms:
+        for name in algorithm_names:
             try:
                 algo_info = self.algorithm_registry.get(name)
                 if self.config.quick_mode and algo_info.slow:
@@ -364,7 +370,8 @@ class ExperimentRunner:
         for algo_info in algorithms:
             for proc_info in processes:
                 for n in sample_sizes:
-                    for rep in range(experiment.repetitions):
+                    reps = experiment.get_repetitions(n)
+                    for rep in range(reps):
                         all_runs.append((algo_info, proc_info, n, rep))
 
         # Filter by shard if specified

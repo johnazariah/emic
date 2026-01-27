@@ -91,6 +91,13 @@ Output:
         help="Per-run timeout in seconds (default: 120)",
     )
 
+    # Filtering
+    parser.add_argument(
+        "--algorithms",
+        type=str,
+        help="Comma-separated list of algorithms to run (e.g., --algorithms cssr,spectral)",
+    )
+
     # Sharding and parallelism
     parser.add_argument(
         "--shard",
@@ -289,6 +296,7 @@ def main(argv: list[str] | None = None) -> int:
         output_dir=str(args.output_dir) if args.output_dir else None,
         verbose=not args.quiet,
         shard=shard_info,
+        algorithms_filter=args.algorithms.split(",") if args.algorithms else None,
     )
 
     # Run benchmarks
