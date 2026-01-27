@@ -6,6 +6,9 @@ Usage:
     emic-benchmark accuracy           # Run specific experiment
     emic-benchmark --quick            # Quick mode (reduced params)
     emic-benchmark --list             # List available experiments
+    emic-benchmark --shard 0/4        # Run shard 0 of 4 (for parallelism)
+    emic-benchmark --parallel 4       # Auto-spawn 4 parallel processes
+    emic-benchmark --combine <dir>    # Combine shard results
 """
 
 from __future__ import annotations
@@ -88,6 +91,26 @@ Output:
         help="Per-run timeout in seconds (default: 120)",
     )
 
+    # Sharding and parallelism
+    parser.add_argument(
+        "--shard",
+        type=str,
+        metavar="M/N",
+        help="Run shard M of N total shards (e.g., --shard 0/4)",
+    )
+    parser.add_argument(
+        "--parallel",
+        type=int,
+        metavar="N",
+        help="Spawn N parallel processes, each running a different shard",
+    )
+    parser.add_argument(
+        "--combine",
+        type=Path,
+        metavar="DIR",
+        help="Combine shard results in DIR into a single results file",
+    )
+
     return parser
 
 
@@ -109,10 +132,123 @@ def list_experiments() -> None:
         print()
 
 
+def parse_shard(shard_str: str) -> tuple[int, int]:
+    """
+    Parse shard specification like '0/4' into (shard_index, total_shards).
+
+    Args:
+        shard_str: Shard specification in format "M/N"
+
+    Returns:
+        Tuple of (shard_index, total_shards)
+
+    Raises:
+        ValueError: If format is invalid
+    """
+    try:
+        parts = shard_str.split("/")
+        if len(parts) != 2:
+            raise ValueError("Expected format M/N")
+        shard_index = int(parts[0])
+        total_shards = int(parts[1])
+        if shard_index < 0 or total_shards <= 0:
+            raise ValueError("Shard index must be >= 0, total must be > 0")
+        if shard_index >= total_shards:
+            raise ValueError(f"Shard index {shard_index} must be < total {total_shards}")
+        return shard_index, total_shards
+    except ValueError as e:
+        raise ValueError(f"Invalid shard format '{shard_str}': {e}") from e
+
+
+def run_parallel(args: argparse.Namespace, n_workers: int) -> int:
+    """
+    Spawn parallel worker processes, each running a different shard.
+
+    Args:
+        args: Parsed command-line arguments
+        n_workers: Number of parallel workers to spawn
+
+    Returns:
+        Exit code (0 if all workers succeed)
+    """
+    import subprocess
+
+    # Build base command from original args
+    base_cmd = [sys.executable, "-m", "emic.benchmarks.cli"]
+
+    if args.all:
+        base_cmd.append("--all")
+    elif args.experiment:
+        base_cmd.append(args.experiment)
+
+    if args.config:
+        base_cmd.extend(["--config", str(args.config)])
+    if args.output_dir:
+        base_cmd.extend(["--output-dir", str(args.output_dir)])
+    if args.quick:
+        base_cmd.append("--quick")
+    if args.quiet:
+        base_cmd.append("--quiet")
+    if args.timeout != 120:
+        base_cmd.extend(["--timeout", str(args.timeout)])
+
+    print(f"Spawning {n_workers} parallel workers...")
+
+    # Spawn workers
+    processes: list[subprocess.Popen] = []
+    for i in range(n_workers):
+        cmd = [*base_cmd, "--shard", f"{i}/{n_workers}"]
+        print(f"  Worker {i}: {' '.join(cmd)}")
+        proc = subprocess.Popen(cmd)
+        processes.append(proc)
+
+    # Wait for all workers
+    print("\nWaiting for workers to complete...")
+    exit_codes = [p.wait() for p in processes]
+
+    # Report results
+    failed = sum(1 for c in exit_codes if c != 0)
+    if failed:
+        print(f"\n{failed}/{n_workers} workers failed")
+        return 1
+
+    print(f"\nAll {n_workers} workers completed successfully")
+    print("Use --combine <dir> to merge shard results")
+    return 0
+
+
+def combine_results(results_dir: Path) -> int:
+    """
+    Combine shard result files into a single results file.
+
+    Args:
+        results_dir: Directory containing shard files
+
+    Returns:
+        Exit code (0 on success)
+    """
+    from emic.benchmarks.schema import combine_shard_results
+
+    try:
+        output_path = combine_shard_results(results_dir)
+        print(f"Combined results written to: {output_path}")
+        return 0
+    except FileNotFoundError as e:
+        print(f"Error: {e}")
+        return 1
+    except Exception as e:
+        print(f"Error combining results: {e}")
+        return 1
+
+
 def main(argv: list[str] | None = None) -> int:
     """Main entry point."""
     parser = create_parser()
     args = parser.parse_args(argv)
+
+    # Handle --combine
+    if args.combine:
+        return combine_results(args.combine)
 
     # Handle --list
     if args.list_experiments:
@@ -125,6 +261,22 @@ def main(argv: list[str] | None = None) -> int:
         print("\nError: Specify --all or an experiment name")
         return 1
 
+    # Handle --parallel
+    if args.parallel:
+        if args.shard:
+            print("Error: Cannot use --parallel and --shard together")
+            return 1
+        return run_parallel(args, args.parallel)
+
+    # Parse shard if specified
+    shard_info: tuple[int, int] | None = None
+    if args.shard:
+        try:
+            shard_info = parse_shard(args.shard)
+        except ValueError as e:
+            print(f"Error: {e}")
+            return 1
+
     # Load configuration
     from emic.benchmarks.config import load_config
     from emic.benchmarks.runner import BenchmarkRunner
@@ -136,6 +288,7 @@ def main(argv: list[str] | None = None) -> int:
         config=config,
         output_dir=str(args.output_dir) if args.output_dir else None,
         verbose=not args.quiet,
+        shard=shard_info,
     )
 
     # Run benchmarks

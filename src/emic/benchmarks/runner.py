@@ -279,6 +279,9 @@ class BenchmarkRunner:
         runner = BenchmarkRunner()
         runner.run_all()  # Run all default experiments
         runner.run_experiment("accuracy")  # Run specific experiment
+
+    Sharding example:
+        runner = BenchmarkRunner(shard=(0, 4))  # Run shard 0 of 4
     """
 
     def __init__(
@@ -288,6 +291,7 @@ class BenchmarkRunner:
         algorithm_registry: AlgorithmRegistry | None = None,
         output_dir: str | None = None,
         verbose: bool = True,
+        shard: tuple[int, int] | None = None,
     ):
         """
         Initialize the benchmark runner.
@@ -298,6 +302,7 @@ class BenchmarkRunner:
             algorithm_registry: Algorithm registry (uses defaults if None)
             output_dir: Override output directory
             verbose: Print progress to stdout
+            shard: Optional (shard_index, total_shards) for parallel execution
         """
         from emic.benchmarks.config import create_default_config
 
@@ -306,8 +311,9 @@ class BenchmarkRunner:
         self.algorithm_registry = algorithm_registry or get_algorithm_registry()
         self.output_dir = output_dir or self.config.output_dir
         self.verbose = verbose
+        self.shard = shard
 
-        self.writer = ResultsWriter(self.output_dir)
+        self.writer = ResultsWriter(self.output_dir, shard=shard)
         self.progress: RunProgress | None = None
 
     def _log(self, msg: str) -> None:
@@ -353,42 +359,54 @@ class BenchmarkRunner:
             except KeyError:
                 self._log(f"  Warning: Unknown process {name}")
 
-        # Calculate total runs
-        total_runs = len(algorithms) * len(processes) * len(sample_sizes) * experiment.repetitions
-        self.progress = RunProgress(total=total_runs)
-        self.progress.start()
-
-        self._log(f"\n=== {experiment.name}: {experiment.description} ===")
-        self._log(f"Total runs: {total_runs}")
-
+        # Build flat list of all runs
+        all_runs: list[tuple[AlgorithmInfo, ProcessInfo, int, int]] = []
         for algo_info in algorithms:
             for proc_info in processes:
                 for n in sample_sizes:
                     for rep in range(experiment.repetitions):
-                        seed = experiment.seed_offset + rep
+                        all_runs.append((algo_info, proc_info, n, rep))
 
-                        self._log(
-                            f"  {algo_info.name} x {proc_info.name} x N={n} "
-                            f"{self.progress.format_progress()}"
-                        )
+        # Filter by shard if specified
+        if self.shard is not None:
+            shard_index, total_shards = self.shard
+            all_runs = [run for i, run in enumerate(all_runs) if i % total_shards == shard_index]
 
-                        run_results = run_single_benchmark(
-                            algorithm_info=algo_info,
-                            process_info=proc_info,
-                            n_samples=n,
-                            experiment_name=experiment.name,
-                            seed=seed,
-                            timeout_seconds=experiment.timeout_seconds,
-                        )
+        total_runs = len(all_runs)
+        self.progress = RunProgress(total=total_runs)
+        self.progress.start()
 
-                        results.extend(run_results)
-                        self.writer.add_results(run_results)
+        self._log(f"\n=== {experiment.name}: {experiment.description} ===")
+        if self.shard is not None:
+            shard_index, total_shards = self.shard
+            self._log(f"Shard {shard_index}/{total_shards}: {total_runs} runs")
+        else:
+            self._log(f"Total runs: {total_runs}")
 
-                        # Check for errors
-                        if any(r.error for r in run_results):
-                            self.progress.record_failed()
-                        else:
-                            self.progress.record_complete()
+        for algo_info, proc_info, n, rep in all_runs:
+            seed = experiment.seed_offset + rep
+
+            self._log(
+                f"  {algo_info.name} x {proc_info.name} x N={n} {self.progress.format_progress()}"
+            )
+
+            run_results = run_single_benchmark(
+                algorithm_info=algo_info,
+                process_info=proc_info,
+                n_samples=n,
+                experiment_name=experiment.name,
+                seed=seed,
+                timeout_seconds=experiment.timeout_seconds,
+            )
+
+            results.extend(run_results)
+            self.writer.add_results(run_results)
+
+            # Check for errors
+            if any(r.error for r in run_results):
+                self.progress.record_failed()
+            else:
+                self.progress.record_complete()
 
         return results
 
@@ -409,6 +427,9 @@ class BenchmarkRunner:
         self._log("=" * 60)
         self._log(f"Output: {self.output_dir}")
         self._log(f"Quick mode: {self.config.quick_mode}")
+        if self.shard is not None:
+            shard_index, total_shards = self.shard
+            self._log(f"Shard: {shard_index}/{total_shards}")
         self._log(f"Git: {git_commit}{' (dirty)' if git_dirty else ''}")
 
         for experiment in self.config.experiments:
@@ -461,6 +482,9 @@ class BenchmarkRunner:
         self._log("=" * 60)
         self._log(f"Output: {self.output_dir}")
         self._log(f"Quick mode: {self.config.quick_mode}")
+        if self.shard is not None:
+            shard_index, total_shards = self.shard
+            self._log(f"Shard: {shard_index}/{total_shards}")
         self._log(f"Git: {git_commit}{' (dirty)' if git_dirty else ''}")
 
         experiment = self.config.get_experiment(experiment_name)

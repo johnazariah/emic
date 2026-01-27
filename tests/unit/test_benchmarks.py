@@ -301,3 +301,137 @@ class TestCLI:
         assert "accuracy" in captured.out
         assert "convergence" in captured.out
         assert "scalability" in captured.out
+
+
+class TestSharding:
+    """Tests for sharding functionality."""
+
+    def test_parse_shard_valid(self) -> None:
+        """Test parsing valid shard specifications."""
+        from emic.benchmarks.cli import parse_shard
+
+        assert parse_shard("0/4") == (0, 4)
+        assert parse_shard("3/4") == (3, 4)
+        assert parse_shard("0/1") == (0, 1)
+        assert parse_shard("9/10") == (9, 10)
+
+    def test_parse_shard_invalid(self) -> None:
+        """Test parsing invalid shard specifications."""
+        from emic.benchmarks.cli import parse_shard
+
+        # Case: index is equal to or greater than total
+        with pytest.raises(ValueError, match="must be < total"):
+            parse_shard("4/4")
+
+        with pytest.raises(ValueError, match="must be < total"):
+            parse_shard("5/4")
+
+        # Case: negative shard index
+        with pytest.raises(ValueError, match="must be >= 0"):
+            parse_shard("-1/4")
+
+        # Case: total shards is zero
+        with pytest.raises(ValueError, match="must be > 0"):
+            parse_shard("0/0")
+
+        # Case: wrong format - missing separator
+        with pytest.raises(ValueError, match="Expected format M/N"):
+            parse_shard("0")
+
+        # Case: wrong format - too many parts
+        with pytest.raises(ValueError, match="Expected format M/N"):
+            parse_shard("0/4/2")
+
+    def test_results_writer_with_shard(self) -> None:
+        """Test ResultsWriter produces shard-suffixed files."""
+        from emic.benchmarks.schema import BenchmarkResult, ResultsWriter, RunMetadata
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            writer = ResultsWriter(tmpdir, shard=(2, 4))
+
+            # Check filename
+            assert writer.results_filename == "results_shard2.parquet"
+
+            # Add a result and finalize
+            result = BenchmarkResult(
+                experiment="test",
+                algorithm="cssr",
+                process="even_process",
+                n_samples=100,
+                metric="state_count",
+                value=2.0,
+            )
+            writer.add_result(result)
+
+            metadata = RunMetadata(
+                timestamp=writer.timestamp,
+                git_commit="abc123",
+                git_dirty=False,
+                python_version="3.11.0",
+                emic_version="0.3.0",
+                cli_args=["--shard", "2/4"],
+                duration_seconds=1.0,
+                completed=True,
+            )
+            writer.finalize(metadata)
+
+            # Check shard file exists
+            run_dir = writer.run_dir
+            assert (run_dir / "results_shard2.parquet").exists() or (
+                run_dir / "results_shard2.json"
+            ).exists()
+
+            # Check shard metadata exists
+            assert (run_dir / "metadata_shard2.yaml").exists()
+
+    def test_combine_shard_results(self) -> None:
+        """Test combining shard results."""
+        from emic.benchmarks.schema import (
+            BenchmarkResult,
+            ResultsWriter,
+            combine_shard_results,
+            read_results,
+        )
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            # Create a shared run directory
+            base = Path(tmpdir) / "results"
+            base.mkdir()
+            run_dir = base / "2026-01-01T00-00-00"
+            run_dir.mkdir()
+
+            # Write shard 0
+            writer0 = ResultsWriter(base, shard=(0, 2), run_dir=run_dir)
+            writer0.add_result(
+                BenchmarkResult(
+                    experiment="test",
+                    algorithm="cssr",
+                    process="A",
+                    n_samples=100,
+                    metric="x",
+                    value=1.0,
+                )
+            )
+            writer0.save_incremental()
+
+            # Write shard 1
+            writer1 = ResultsWriter(base, shard=(1, 2), run_dir=run_dir)
+            writer1.add_result(
+                BenchmarkResult(
+                    experiment="test",
+                    algorithm="cssr",
+                    process="B",
+                    n_samples=100,
+                    metric="x",
+                    value=2.0,
+                )
+            )
+            writer1.save_incremental()
+
+            # Combine
+            combined_path = combine_shard_results(run_dir)
+
+            # Read combined results
+            df = read_results(combined_path)
+            assert len(df) == 2
+            assert set(df["process"]) == {"A", "B"}
