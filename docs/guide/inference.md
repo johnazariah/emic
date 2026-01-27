@@ -7,12 +7,12 @@ The `emic` framework provides multiple algorithms for inferring epsilon-machines
 | Algorithm | Approach | Correctness* | Best For |
 |-----------|----------|--------------|----------|
 | **Spectral** | Matrix decomposition | **98%** | General purpose, best accuracy |
-| **CSSR** | Top-down splitting | 80% | Well-studied reference |
+| **CSSR** | Top-down splitting | 80% | Well-studied reference, lowest Cμ error |
 | **NSD** | Clustering | 75% | Fast exploratory analysis |
 | **CSM** | Bottom-up merging | 45% | Complement to CSSR |
 | **BSI** | Bayesian inference | 25% | Uncertainty quantification |
 
-*Correctness measured at sample sizes N ≥ 1,000 on canonical test processes.
+*Correctness measured at sample sizes N ≥ 1,000 on canonical test processes. At N ≥ 10,000, Spectral achieves 100% and CSSR achieves 75%.
 
 ## CSSR (Causal State Splitting Reconstruction)
 

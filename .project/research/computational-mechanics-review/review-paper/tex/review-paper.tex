@@ -518,13 +518,13 @@ Process & $N=10^2$ & $10^3$ & $10^4$ & $10^5$ & $10^6$ \\
 \midrule
 Biased Coin & 100 & 100 & 100 & 100 & 100 \\
 Golden Mean & 100 & 100 & 100 & 100 & 100 \\
-Even Process & 100 & 100 & 100 & 100 & 100 \\
+Even Process & 100 & 100 & 0 & 0 & 0 \\
 Periodic(3) & 100 & 100 & 100 & 100 & 100 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-CSSR achieves 100\% correct state identification across all sample sizes for these well-behaved processes. Complexity measures converge to theoretical values with increasing $N$:
+CSSR achieves high accuracy on most processes, with 82\% overall correctness. The notable exception is the Even Process at large sample sizes, where CSSR over-splits to 4 states due to finite-sample effects in the chi-squared test. Complexity measures converge to theoretical values with increasing $N$:
 
 \begin{table}[h]
 \centering
@@ -557,16 +557,16 @@ We compared five inference algorithms on the same processes:
 Process & CSSR & Spec. & CSM & BSI & NSD \\
 \midrule
 Biased Coin & 100 & 100 & 100 & 100 & 100 \\
-Golden Mean & 100 & 100 & 60 & 40 & 80 \\
-Even Process & 100 & 100 & 40 & 20 & 60 \\
-Periodic(3) & 100 & 100 & 60 & 40 & 0 \\
+Golden Mean & 100 & 100 & 100 & 0 & 100 \\
+Even Process & 0 & 100 & 0 & 0 & 100 \\
+Periodic(3) & 100 & 100 & 0 & 0 & 0 \\
 \midrule
-Average & \textbf{100} & \textbf{100} & 65 & 50 & 60 \\
+Average & 75 & \textbf{100} & 50 & 25 & 75 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-CSSR and Spectral learning achieve perfect accuracy on these canonical processes. CSM and BSI struggle with more complex structure; NSD fails on deterministic processes due to gradient issues.
+Spectral learning achieves the highest accuracy at $N = 10^4$. CSSR performs well except on Even Process where it over-splits at large sample sizes. NSD excels on non-deterministic processes but fails on Periodic. CSM and BSI struggle with complex structure.
 
 % ===================================================================
 \section{Related Frameworks}
@@ -667,7 +667,7 @@ Computational Mechanics provides a rigorous, operational framework for analyzing
 
 We have reviewed the mathematical foundations, proving that causal states are prescient (sufficient for prediction), minimal (lowest entropy among sufficient statistics), and unique (up to isomorphism). These properties establish the \eM\ as the canonical model for any stationary process.
 
-Numerical validation using the \texttt{emic} library confirms that inference algorithms recover correct \eM s with sufficient data, with complexity measures converging to theoretical values. Among the algorithms tested, CSSR and Spectral learning achieve the best accuracy.
+Numerical validation using the \texttt{emic} library confirms that inference algorithms recover correct \eM s with sufficient data, with complexity measures converging to theoretical values. Among the algorithms tested, Spectral learning achieves 100\% accuracy at $N \geq 10{,}000$, while CSSR achieves 82\% overall correctness with a known blind spot on the Even Process.
 
 The framework's combination of theoretical rigor and practical computability makes it valuable for analyzing complex systems across physics, biology, neuroscience, and beyond. As data-driven modeling becomes ubiquitous, the \eM's guarantee of minimal complexity provides a principled foundation for model selection and interpretation.
 

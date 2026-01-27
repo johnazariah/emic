@@ -90,39 +90,43 @@ Measures runtime scaling with data size.
 
 #### Algorithm Accuracy (State Count)
 
-| Algorithm | Even Process | Golden Mean | Biased Coin | Overall |
-|-----------|--------------|-------------|-------------|---------|
-| **Spectral** | 100% | 100% | 67% | **89%** |
-| **CSSR** | 67% | 100% | 0% | 56% |
-| **CSM** | 0% | 67% | 33% | 33% |
-| **BSI** | 0% | 0% | 100% | 33% |
+| Algorithm | Even Process | Golden Mean | Biased Coin | Periodic | Overall |
+|-----------|--------------|-------------|-------------|----------|---------|
+| **Spectral** | 100% | 100% | 80% | 100% | **85%** |
+| **CSSR** | 20% | 100% | 100% | 100% | 82% |
+| **NSD** | 100% | 100% | 100% | 0% | 73% |
+| CSM | 0% | 80% | 60% | 0% | 39% |
+| BSI | 0% | 20% | 80% | 20% | 32% |
+
+!!! note "Key Observations"
+    - **Spectral** achieves 100% accuracy at N ≥ 10,000 on all processes
+    - **CSSR** excels on most processes but struggles with Even Process at large N (over-splits to 4 states)
+    - **NSD** fails on deterministic Periodic processes
+    - **CSM** and **BSI** have lower accuracy overall
 
 #### Statistical Complexity Error (Mean |Cμ - true|)
 
 | Algorithm | Mean Error |
 |-----------|------------|
-| **CSSR** | **0.053** |
-| CSM | 0.104 |
-| BSI | 0.528 |
-| Spectral | 0.667 |
+| **CSSR** | **0.05** |
+| CSM | 0.10 |
+| BSI | 0.53 |
+| Spectral | 0.15 |
 
 #### Convergence by Sample Size
 
 | N | Correct Rate |
 |---|--------------|
-| 100 | 32% |
-| 500 | 22% |
-| 1000 | 50% |
-| 2000 | 60% |
-| 5000 | 52% |
-| 10000 | 57% |
-| 20000 | 60% |
+| 100 | 45% |
+| 1,000 | 70% |
+| 10,000 | 75% |
+| 100,000 | 85% |
+| 1,000,000 | 85% |
 
 !!! note "Interpretation"
-    - **Spectral** excels at state count recovery but has higher Cμ error
-    - **CSSR** has the lowest Cμ error but struggles with biased coin
-    - **BSI** performs well on IID processes but struggles with structure
-    - Convergence is non-monotonic — more data doesn't always help
+    - Accuracy generally improves with sample size
+    - **Spectral** achieves 100% at N ≥ 10,000 on all processes
+    - **CSSR** may over-split on Even Process as N grows
 
 ### Output Format
 

@@ -119,10 +119,11 @@ emic-experiment --list
 
 | Algorithm | State Count Accuracy | Cμ Error |
 |-----------|---------------------|----------|
-| **Spectral** | 89% | 0.667 |
-| **CSSR** | 56% | 0.053 |
-| CSM | 33% | 0.104 |
-| BSI | 33% | 0.528 |
+| **Spectral** | 85% (100% at N≥10K) | 0.15 |
+| **CSSR** | 82% | **0.05** |
+| NSD | 73% | 0.12 |
+| CSM | 39% | 0.10 |
+| BSI | 32% | 0.53 |
 
 See the [Experiments Guide](https://johnazariah.github.io/emic/guide/experiments/) for full details.
 
