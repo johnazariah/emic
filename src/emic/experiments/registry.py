@@ -262,7 +262,7 @@ def create_default_algorithm_registry() -> AlgorithmRegistry:
         display_name="Spectral",
         factory=Spectral,
         config_class=SpectralConfig,
-        default_config={"n_states": None, "max_history": 5},
+        default_config={"rank": None, "max_history": 5},
         slow=False,
         description="Spectral learning algorithm (Hsu et al. 2012)",
     )
@@ -272,7 +272,7 @@ def create_default_algorithm_registry() -> AlgorithmRegistry:
         display_name="CSM",
         factory=CSM,
         config_class=CSMConfig,
-        default_config={"max_depth": 5},
+        default_config={"history_length": 5},
         slow=False,
         description="Causal State Merging",
     )
@@ -282,7 +282,7 @@ def create_default_algorithm_registry() -> AlgorithmRegistry:
         display_name="BSI",
         factory=BSI,
         config_class=BSIConfig,
-        default_config={"max_states": 10, "n_restarts": 3},
+        default_config={"max_states": 10, "n_samples": 100, "burnin": 20},
         slow=True,
         description="Bayesian Structural Inference (slow, thorough)",
     )

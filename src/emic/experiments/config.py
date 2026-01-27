@@ -106,7 +106,7 @@ class ExperimentsConfig:
 DEFAULT_ACCURACY_EXPERIMENT = ExperimentConfig(
     name="accuracy",
     description="Measure algorithm accuracy on canonical processes",
-    algorithms=["cssr", "spectral", "csm"],
+    algorithms=["cssr", "spectral", "csm", "bsi"],
     processes=["even_process", "golden_mean", "biased_coin"],
     sample_sizes=[1000, 5000, 10000],
     metrics=["state_count", "cmu", "hmu", "duration_s"],
@@ -116,7 +116,7 @@ DEFAULT_ACCURACY_EXPERIMENT = ExperimentConfig(
 DEFAULT_CONVERGENCE_EXPERIMENT = ExperimentConfig(
     name="convergence",
     description="Measure how accuracy changes with sample size",
-    algorithms=["cssr", "spectral"],
+    algorithms=["cssr", "spectral", "csm", "bsi"],
     processes=["even_process", "golden_mean"],
     sample_sizes=[100, 500, 1000, 2000, 5000, 10000, 20000],
     metrics=["state_count", "cmu", "hmu", "duration_s"],
