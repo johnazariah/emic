@@ -232,3 +232,43 @@ class TestToMermaid:
 
         # Should have transition labels
         assert "|" in mermaid  # Separator between symbol and probability
+
+
+class TestDisplayStateDiagram:
+    """Tests for display_state_diagram function."""
+
+    def test_display_exists(self) -> None:
+        """Test that display_state_diagram exists."""
+        from emic.output.diagram import display_state_diagram
+
+        # Just verify the function exists and has correct signature
+        assert callable(display_state_diagram)
+
+    def test_display_with_mock_ipython(self) -> None:
+        """Test display_state_diagram with mocked IPython."""
+        pytest.importorskip("graphviz")
+        from unittest.mock import MagicMock, patch
+
+        machine = GoldenMeanSource(p=0.5).true_machine
+
+        # Mock IPython.display.display
+        mock_display = MagicMock()
+        with patch.dict(
+            "sys.modules",
+            {"IPython": MagicMock(), "IPython.display": MagicMock(display=mock_display)},
+        ):
+            from emic.output.diagram import display_state_diagram
+
+            display_state_diagram(machine)
+
+    def test_render_returns_graphviz_digraph(self) -> None:
+        """Test that render returns a graphviz Digraph object."""
+        pytest.importorskip("graphviz")
+        import graphviz
+
+        from emic.output import render_state_diagram
+
+        machine = GoldenMeanSource(p=0.5).true_machine
+        diagram = render_state_diagram(machine)
+
+        assert isinstance(diagram, graphviz.Digraph)

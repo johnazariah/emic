@@ -6,6 +6,43 @@
 
 ## 2026
 
+### January 27, 2026
+
+**Session Focus**: Quantum Emergence Research Area
+
+**Completed**:
+
+1. **Created new research area: quantum-emergence/**
+   - Focus on extending emic toward quantum computational mechanics
+   - Goal: Re-derive Mile Gu's results on quantum memory advantage
+   - Structure: review/, experiments/, theory/, implementation/
+
+2. **Literature Review Setup**
+   - Created annotated bibliography of key papers
+   - Documented core concepts: $C_q$, quantum causal states, crypticity
+   - Key papers: Gu et al. (2012), Tan et al. (2014), Garner et al. (2017)
+
+3. **Mathematical Framework**
+   - Documented the key inequality: $E \leq C_q \leq C_\mu$
+   - Crypticity $\chi = C_\mu - E$ as target for quantum elimination
+   - Non-orthogonal encoding as source of quantum advantage
+
+**Key Insight**: The gap between statistical complexity ($C_\mu$) and excess entropy ($E$) represents information waste that quantum models can eliminate. emic already computes both quantities—adding crypticity computation is a natural next step.
+
+**Files Created**:
+- `.project/research/quantum-emergence/README.md`
+- `.project/research/quantum-emergence/review/README.md`
+- `.project/research/quantum-emergence/review/key-papers.md`
+- `.project/research/quantum-emergence/review/concepts.md`
+
+**Next Steps**:
+1. Add crypticity ($\chi = C_\mu - E$) to emic's analysis module
+2. Read and summarize key papers in detail
+3. Identify validation targets (perturbed coin, etc.)
+4. Design quantum epsilon-machine representation
+
+---
+
 ### January 26, 2026 (Evening)
 
 **Session Focus**: General-Purpose Benchmarking Tool

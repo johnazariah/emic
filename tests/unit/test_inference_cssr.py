@@ -140,3 +140,149 @@ class TestCSSRMachineProperties:
         result = CSSR(config).infer(sequence)
 
         assert result.machine.alphabet == frozenset({"a", "b", "c"})
+
+
+class TestCSSRStatisticalTests:
+    """Tests for CSSR with different statistical tests."""
+
+    def test_cssr_with_gtest(self) -> None:
+        """CSSR works with G-test."""
+        source = BiasedCoinSource(p=0.5, _seed=42)
+        sequence = list(TakeN(5000)(source))
+
+        config = CSSRConfig(max_history=3, significance=0.05, test="g")
+        result = CSSR(config).infer(sequence)
+
+        # Should still find ~1 state for IID process
+        assert len(result.machine.states) == 1
+
+    def test_cssr_with_proportion_test(self) -> None:
+        """CSSR works with proportion test."""
+        source = BiasedCoinSource(p=0.5, _seed=42)
+        sequence = list(TakeN(5000)(source))
+
+        config = CSSRConfig(max_history=3, significance=0.05, test="proportion")
+        result = CSSR(config).infer(sequence)
+
+        # Should find ~1 state for IID process
+        assert 1 <= len(result.machine.states) <= 2
+
+    def test_cssr_with_ks_test(self) -> None:
+        """CSSR works with KS test."""
+        source = GoldenMeanSource(p=0.5, _seed=42)
+        sequence = list(TakeN(10000)(source))
+
+        config = CSSRConfig(max_history=4, significance=0.05, test="ks")
+        result = CSSR(config).infer(sequence)
+
+        # Should find states
+        assert len(result.machine.states) >= 1
+
+
+class TestCSSREdgeCases:
+    """Tests for CSSR edge cases and special scenarios."""
+
+    def test_cssr_with_merge_significance(self) -> None:
+        """CSSR respects merge_significance parameter."""
+        source = GoldenMeanSource(p=0.5, _seed=42)
+        sequence = list(TakeN(10000)(source))
+
+        # Higher merge significance = more merging
+        config_lenient = CSSRConfig(max_history=4, significance=0.01, merge_significance=0.2)
+        result_lenient = CSSR(config_lenient).infer(sequence)
+
+        config_strict = CSSRConfig(max_history=4, significance=0.01, merge_significance=0.01)
+        result_strict = CSSR(config_strict).infer(sequence)
+
+        # Lenient merging should produce fewer or equal states
+        assert len(result_lenient.machine.states) <= len(result_strict.machine.states) + 1
+
+    def test_cssr_with_explicit_alphabet(self) -> None:
+        """CSSR respects explicit alphabet parameter."""
+        sequence = [0, 0, 1, 0, 0, 1] * 1000  # Only 0 and 1
+
+        config = CSSRConfig(max_history=3, significance=0.05)
+        cssr = CSSR(config)
+
+        # Pass explicit alphabet with extra symbol
+        result = cssr.infer(sequence, alphabet=frozenset({0, 1, 2}))
+
+        # Machine should have alphabet with at least the observed symbols
+        # Note: machine alphabet may only include symbols with transitions
+        assert 0 in result.machine.alphabet
+        assert 1 in result.machine.alphabet
+
+    def test_cssr_single_symbol_sequence(self) -> None:
+        """CSSR handles sequences with a single symbol repeated."""
+        sequence = [0] * 1000
+
+        config = CSSRConfig(max_history=3, significance=0.05)
+        result = CSSR(config).infer(sequence)
+
+        # Should find 1 state for constant sequence
+        assert len(result.machine.states) == 1
+
+    def test_cssr_alternating_sequence(self) -> None:
+        """CSSR handles perfectly alternating sequence."""
+        sequence = [0, 1] * 2500
+
+        config = CSSRConfig(max_history=3, significance=0.01, min_count=5)
+        result = CSSR(config).infer(sequence)
+
+        # Perfect alternation should yield ~2 states
+        assert 1 <= len(result.machine.states) <= 3
+
+    def test_cssr_very_short_max_history(self) -> None:
+        """CSSR works with max_history=1."""
+        source = BiasedCoinSource(p=0.5, _seed=42)
+        sequence = list(TakeN(2000)(source))
+
+        config = CSSRConfig(max_history=1, significance=0.05)
+        result = CSSR(config).infer(sequence)
+
+        assert result.converged
+        assert len(result.machine.states) >= 1
+
+    def test_cssr_strict_significance(self) -> None:
+        """CSSR with very strict significance level."""
+        source = GoldenMeanSource(p=0.5, _seed=42)
+        sequence = list(TakeN(10000)(source))
+
+        config = CSSRConfig(max_history=4, significance=0.001)
+        result = CSSR(config).infer(sequence)
+
+        # With strict significance, should find 2-3 states
+        assert 2 <= len(result.machine.states) <= 4
+
+    def test_cssr_lenient_significance(self) -> None:
+        """CSSR with lenient significance level."""
+        source = GoldenMeanSource(p=0.5, _seed=42)
+        sequence = list(TakeN(10000)(source))
+
+        config = CSSRConfig(max_history=4, significance=0.5)
+        result = CSSR(config).infer(sequence)
+
+        # With lenient significance, should merge more aggressively
+        assert len(result.machine.states) >= 1
+
+    def test_cssr_high_min_count(self) -> None:
+        """CSSR with high min_count threshold."""
+        source = GoldenMeanSource(p=0.5, _seed=42)
+        sequence = list(TakeN(10000)(source))
+
+        config = CSSRConfig(max_history=3, significance=0.05, min_count=100)
+        result = CSSR(config).infer(sequence)
+
+        # With high min_count, should be more conservative
+        assert result.converged
+
+    def test_cssr_three_symbol_alphabet(self) -> None:
+        """CSSR handles three-symbol alphabet."""
+        source = PeriodicSource(pattern=(0, 1, 2))
+        sequence = list(TakeN(3000)(source))
+
+        config = CSSRConfig(max_history=4, significance=0.01, min_count=5)
+        result = CSSR(config).infer(sequence)
+
+        assert result.machine.alphabet == frozenset({0, 1, 2})
+        assert 2 <= len(result.machine.states) <= 5

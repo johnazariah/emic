@@ -7,6 +7,7 @@ Research projects for the `emic` library.
 | Project | Description | Status |
 |---------|-------------|--------|
 | [computational-mechanics-review/](computational-mechanics-review/) | Literature review and emic documentation | Active |
+| [quantum-emergence/](quantum-emergence/) | Quantum computational mechanics and emic extension | New |
 
 ## Adding New Projects
 
