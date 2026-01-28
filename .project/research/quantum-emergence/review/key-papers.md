@@ -82,6 +82,119 @@
 
 ---
 
+## Crutchfield-Gu Collaborations
+
+These papers represent the direct collaboration between the two main research groups.
+
+### 5. Causal Asymmetry in a Quantum World (Thompson et al., 2018) ⭐
+**Authors**: Jayne Thompson, Andrew J. P. Garner, John R. Mahoney, **James P. Crutchfield**, Vlatko Vedral, **Mile Gu**
+
+**Source**: Phys. Rev. X 8, 031013 (2018) | [arXiv:1712.02368](https://arxiv.org/abs/1712.02368)
+
+**Key results**:
+- Causal asymmetry: memory to predict forward ≠ memory to retrodict backward
+- There's a privileged temporal direction where memory costs are minimal
+- **Quantum models can eliminate this asymmetry entirely**
+- Even when classical overhead is unbounded, quantum models achieve bounded memory
+
+**Relevance to emic**:
+- Direct connection to bidirectional machine analysis (planned in M5)
+- Shows quantum advantage extends to temporal asymmetry
+- Key validation target for emic's quantum extension
+
+**Status**: Already in references as `thompson2018causal/`
+
+---
+
+### 6. Thermodynamic Machine Learning (Boyd, Crutchfield, Gu, 2022)
+**Authors**: A. B. Boyd, **James P. Crutchfield**, **Mile Gu**
+
+**Source**: New J. Phys. 24, 013013 (2022) | [arXiv link TBD]
+
+**Key results**:
+- Connects epsilon-machines to thermodynamic work extraction
+- Maximum work production as learning objective
+- Links statistical complexity to thermodynamic costs
+
+**Relevance to emic**:
+- Thermodynamic interpretation of complexity measures
+- Future direction for emic's quantum extension
+
+**Status**: To acquire and read
+
+---
+
+### 7. Thermodynamic Overfitting and Generalization (Boyd, Crutchfield, Gu et al., 2025)
+**Authors**: A. B. Boyd, **James P. Crutchfield**, **Mile Gu**, et al.
+
+**Source**: New J. Phys. (2025)
+
+**Key results**:
+- Energetics of predictive intelligence
+- Addresses overfitting in thermodynamic learning context
+- Covers both classical and quantum HMMs
+
+**Relevance to emic**:
+- Most recent Crutchfield-Gu collaboration
+- Connects to model selection and generalization
+
+**Status**: To acquire and read (very recent!)
+
+---
+
+### 8. Strong and Weak Optimizations (Loomis & Crutchfield, 2019)
+**Authors**: Samuel Loomis, **James P. Crutchfield**
+
+**Source**: J. Stat. Phys. (2019) | [arXiv:1808.08639](https://arxiv.org/abs/1808.08639)
+
+**Key results**:
+- ε-machine is **strongly minimal** classically (minimizes all Rényi measures)
+- **No strongly minimal quantum model exists** for some processes
+- Quantum memory optimization depends on which measure is used
+
+**Relevance to emic**:
+- Critical for understanding quantum model non-uniqueness
+- Guides choice of complexity measure for quantum extension
+- Shows ε-machine's special classical status doesn't transfer to quantum
+
+**Status**: To read (high priority)
+
+---
+
+### 9. Extreme Quantum Memory Advantage for Rare-Event Sampling (Aghamohammadi et al., 2018)
+**Authors**: C. Aghamohammadi, S. P. Loomis, J. R. Mahoney, **J. P. Crutchfield**
+
+**Source**: Phys. Rev. X 8, 011025 (2018)
+
+**Key results**:
+- Extreme quantum advantage for rare-event sampling
+- Memory advantage can be arbitrarily large
+
+**Relevance to emic**:
+- Shows specific application where quantum shines
+- Connects to importance sampling and rare events
+
+**Status**: To read
+
+---
+
+### 10. Extreme Quantum Advantage with Long-Range Interaction (Aghamohammadi et al., 2017)
+**Authors**: C. Aghamohammadi, J. R. Mahoney, **J. P. Crutchfield**
+
+**Source**: Scientific Reports 7, 6735 (2017)
+
+**Key results**:
+- Long-range correlations → large quantum advantage
+- Explicit constructions for specific process classes
+
+**Relevance to emic**:
+- Identifies structural features predicting quantum advantage
+- Good validation targets
+
+**Status**: To read
+
+---
+
 ## Extended Reading List
 
 ### Computational Mechanics Foundations
@@ -110,24 +223,46 @@
 
 | Paper | arXiv | Priority |
 |-------|-------|----------|
-| Aghamohammadi et al. (2018) | TBD | High |
-| Mahoney et al. (2016) | TBD | High |
+| Boyd, Crutchfield, Gu (2022) - Thermodynamic ML | TBD | High |
+| Boyd, Crutchfield, Gu (2025) - Overfitting | TBD | High |
+| Loomis & Crutchfield (2019) - Strong/Weak Opt | 1808.08639 | High |
+| Aghamohammadi et al. (2018) - Rare Events | TBD | Medium |
+| Mahoney et al. (2016) | TBD | Medium |
 | Binder et al. (2018) | TBD | Medium |
-| Riechers & Crutchfield (2021) | TBD | Medium |
 
 ---
 
 ## Reading Plan
 
-### Week 1
-1. Re-read Gu et al. (2012) carefully, extract all equations
-2. Read Tan et al. (2014) for concrete examples
-3. Read Garner et al. (2017) for unbounded advantage
+### Priority 1: Core Crutchfield-Gu Papers
+1. **Thompson et al. (2018)** - Causal Asymmetry [arXiv:1712.02368] - already in refs
+2. **Loomis & Crutchfield (2019)** - Strong/Weak Optimizations [arXiv:1808.08639]
+3. **Boyd, Crutchfield, Gu (2022)** - Thermodynamic Machine Learning
 
-### Week 2
-4. Read Thompson et al. (2018) on causal asymmetry
-5. Survey recent papers (2020-2026)
-6. Begin extracting mathematical framework
+### Priority 2: Foundational Quantum Advantage
+4. Re-read Gu et al. (2012) - extract all equations for re-derivation
+5. Garner et al. (2017) - Unbounded memory advantage
+6. Tan et al. (2014) - Quantum complexity measures
+
+### Priority 3: Applications & Extensions
+7. Aghamohammadi et al. (2017, 2018) - Long-range & rare events
+8. Boyd et al. (2025) - Most recent work
+9. Survey 2020-2026 developments
+
+---
+
+## Key Insight from Literature
+
+The Crutchfield-Gu collaboration bridges two communities:
+- **Crutchfield (UC Davis)**: Classical computational mechanics, ε-machines, emergence
+- **Gu (NUS Singapore)**: Quantum information, quantum simulation, thermodynamics
+
+Their joint work (especially Thompson et al. 2018 and Loomis & Crutchfield 2019) reveals that:
+1. Quantum models break classical bounds on causal asymmetry
+2. No unique "quantum ε-machine" exists (unlike classical case)
+3. Thermodynamics provides operational interpretation
+
+This is the bridge emic needs to cross to extend to quantum.
 
 ---
 

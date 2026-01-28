@@ -10,13 +10,21 @@ This research area explores how quantum mechanics can simplify the representatio
 
 ## Key Questions
 
-1. **Can we re-derive Gu's results?** Implement quantum epsilon-machines in emic and verify the quantum advantage for specific processes.
+1. **Decoherence Trajectory** (Investigation 1): How does $C_q \to C_\mu$ as quantum coherence is lost? Is there a universal trajectory or phase transitions?
 
-2. **What is the magnitude of quantum advantage?** For which processes is $C_q \ll C_\mu$? Can we identify structural features that predict large quantum advantage?
+2. **Taxonomy of Quantum Advantage** (Investigation 2): Which structural features of an ε-machine predict large quantum advantage?
 
-3. **Can emic compute crypticity?** The gap $\chi = C_\mu - E$ represents classical waste—can we add this to emic's analysis module?
+3. **Robustness to Model Mismatch** (Investigation 3): How sensitive is $C_q$ to errors in the inferred ε-machine?
 
-4. **How do we extend to quantum processes?** What infrastructure is needed to handle quantum states, channels, and measurements?
+4. **Quantum Complexity from Finite Samples** (Investigation 4, Novel): Can we estimate $C_q$ directly from data? What's the sample complexity?
+
+---
+
+## Primary Research Target
+
+> **"Can we infer quantum complexity $C_q$ directly from finite data?"**
+
+This has never been done. All existing work constructs q-machines from *known* classical ε-machines. Making emic the first tool to estimate quantum complexity from empirical data would be a novel contribution.
 
 ---
 
@@ -77,7 +85,18 @@ quantum-emergence/
 
 ## Related Specifications
 
-- [Spec 014: Quantum Computational Mechanics](../../specifications/014-quantum-computational-mechanics.md)
+- [Spec 014: Quantum Computational Mechanics](../../specifications/014-quantum-computational-mechanics.md) - Original vision
+- [Spec 016: Quantum Research Program](../../specifications/016-quantum-research-program.md) - **Detailed investigation plan with algorithms**
+
+---
+
+## Status
+
+**Current Phase:** Literature review complete, research program specified
+
+**Next Step:** Investigation 1 (Decoherence Trajectory)
+
+*Last updated: 2026-01-28*
 - [Roadmap M6-M7](../../plan/ROADMAP.md)
 
 ---
