@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2026-01-28
+
+### Fixed
+- **Spectral algorithm**: Complete rewrite of Hankel matrix construction and belief state computation following Hsu, Kakade & Zhang (2012). Fixed three critical bugs:
+  - Hankel matrix now uses joint probabilities P(history, future) instead of conditional P(future|history)
+  - Symbol-extended matrices H_x now correctly place the symbol *between* history and future
+  - Initial/infinite belief vectors computed from SVD decomposition instead of eigenvectors
+- **Spectral accuracy**: Algorithm now achieves 100% state recovery on benchmark processes (was 89% due to bugs)
+
+### Changed
+- **Benchmarks infrastructure**: Unified experimentation platform using `emic-experiment` CLI instead of ad-hoc scripts
+- Benchmark Makefile now supports `make fast` (skip slow BSI) and `make analyze` targets
+
 ## [0.4.1] - 2026-01-27
 
 ### Fixed
