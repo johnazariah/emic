@@ -71,12 +71,27 @@ class TestInformationTheoreticMeasures:
         h_mu = entropy_rate(machine)
         assert abs(h_mu) < 1e-10
 
-    def test_excess_entropy_equals_complexity_for_unifilar(self) -> None:
-        """For unifilar machines, E = C_mu."""
+    def test_excess_entropy_iid_is_zero(self) -> None:
+        """For IID processes (single state), E = 0."""
+        machine = BiasedCoinSource(p=0.5).true_machine
+        e = excess_entropy(machine)
+        assert abs(e) < 1e-10
+
+    def test_excess_entropy_leq_complexity(self) -> None:
+        """Excess entropy is bounded: E <= C_mu."""
         machine = GoldenMeanSource(p=0.5).true_machine
         c_mu = statistical_complexity(machine)
         e = excess_entropy(machine)
-        assert abs(c_mu - e) < 1e-10
+        assert e <= c_mu + 1e-10
+
+    def test_golden_mean_has_positive_crypticity(self) -> None:
+        """Golden Mean process has non-zero crypticity."""
+        machine = GoldenMeanSource(p=0.5).true_machine
+        c_mu = statistical_complexity(machine)
+        e = excess_entropy(machine)
+        chi = c_mu - e
+        # Golden Mean: E ≈ 0.252, C_mu ≈ 0.918, chi ≈ 0.667
+        assert chi > 0.5  # Significant crypticity
 
 
 class TestAnalysisSummary:
@@ -98,7 +113,8 @@ class TestAnalysisSummary:
         assert summary.alphabet_size == 2
         assert summary.statistical_complexity > 0
         assert summary.entropy_rate > 0
-        assert abs(summary.crypticity) < 1e-10  # Unifilar => chi = 0
+        # Golden Mean has significant crypticity (about 0.667 bits)
+        assert summary.crypticity > 0.5
 
     def test_summary_to_dict(self) -> None:
         """to_dict() returns correct dictionary."""
