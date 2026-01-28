@@ -242,18 +242,40 @@ Analyze changes since the last release, prepare documentation, validate quality,
    - Verify new features are documented
    - Check API reference is updated
 
-6. **Upload release artifacts** (if applicable):
-   ```bash
-   # Build and upload research documentation PDFs
-   # (If project has LaTeX documents in .project/research/)
-   cd .project/research/<project>/technical-report/tex && pdflatex -interaction=nonstopmode *.tex && pdflatex *.tex
-   cd .project/research/<project>/tutorial/tex && pdflatex -interaction=nonstopmode *.tex && pdflatex *.tex
+6. **Build and upload research papers** (if applicable):
 
-   gh release upload vX.Y.Z \
-     .project/research/<project>/technical-report/tex/*.pdf \
-     .project/research/<project>/tutorial/tex/*.pdf \
+   Build all papers in `.project/research/computational-mechanics-review/`:
+   ```bash
+   # Build all three papers
+   cd /workspace/.project/research/computational-mechanics-review/technical-report/tex && latexmk -pdf technical-report.tex
+   cd /workspace/.project/research/computational-mechanics-review/tutorial/tex && latexmk -pdf tutorial.tex
+   cd /workspace/.project/research/computational-mechanics-review/review-paper/tex && latexmk -pdf review-paper.tex
+   ```
+
+   Copy with versioned names and upload:
+   ```bash
+   VERSION=X.Y.Z
+   PAPERS_DIR=/workspace/.project/research/computational-mechanics-review
+
+   # Copy PDFs with versioned names
+   cp "$PAPERS_DIR/technical-report/tex/out/technical-report.pdf" "/tmp/emic-technical-report-$VERSION.pdf"
+   cp "$PAPERS_DIR/tutorial/tex/tutorial.pdf" "/tmp/emic-tutorial-$VERSION.pdf"
+   cp "$PAPERS_DIR/review-paper/tex/review-paper.pdf" "/tmp/emic-review-paper-$VERSION.pdf"
+
+   # Upload all papers to release
+   gh release upload "v$VERSION" \
+     "/tmp/emic-technical-report-$VERSION.pdf" \
+     "/tmp/emic-tutorial-$VERSION.pdf" \
+     "/tmp/emic-review-paper-$VERSION.pdf" \
      --clobber
    ```
+
+   **Papers included**:
+   | Paper | Description |
+   |-------|-------------|
+   | `emic-technical-report-X.Y.Z.pdf` | Complete library documentation (~50 pages) |
+   | `emic-tutorial-X.Y.Z.pdf` | Computational mechanics introduction (~32 pages) |
+   | `emic-review-paper-X.Y.Z.pdf` | Academic review of computational mechanics |
 
 7. **Report final status**:
    ```
