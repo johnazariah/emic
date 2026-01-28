@@ -55,8 +55,12 @@ def build_hankel_matrices(
     """
     Build the Hankel matrix and symbol-conditioned Hankel matrices.
 
-    The Hankel matrix H[i,j] = P(future_j | history_i)
-    The conditioned matrix H_x[i,j] = P(x followed by rest of future_j | history_i)
+    Following Hsu et al. (2012):
+        H[h, f] ≈ P(history h followed by future f)
+        H_x[h, f] ≈ P(history h followed by symbol x followed by future f)
+
+    The key distinction is that H_x conditions on a SINGLE symbol x between
+    the history and future, not on the future starting with x.
 
     Args:
         symbols: The observed sequence of symbols.
@@ -70,31 +74,36 @@ def build_hankel_matrices(
     L = max_history
     n = len(symbols)
 
-    # Count occurrences of (history, future) pairs
-    pair_counts: dict[tuple[tuple[A, ...], tuple[A, ...]], int] = {}
-    history_counts: dict[tuple[A, ...], int] = {}
+    # For H: Count (history, future) pairs where history=[i-L:i], future=[i:i+L]
+    # For H_x: Count (history, x, future) where history=[i-L:i], x=symbols[i], future=[i+1:i+1+L]
 
-    # Count (history, symbol, remaining_future) for conditioned matrices
-    symbol_pair_counts: dict[A, dict[tuple[tuple[A, ...], tuple[A, ...]], int]] = {
+    # Count occurrences of (history, future) pairs for H
+    pair_counts: dict[tuple[tuple[A, ...], tuple[A, ...]], int] = {}
+    total_pairs = 0
+
+    # Count (history, x, future) for H_x - note future is SHIFTED by 1
+    # H_x[h, f] = count of seeing h, then x, then f
+    symbol_triple_counts: dict[A, dict[tuple[tuple[A, ...], tuple[A, ...]], int]] = {
         s: {} for s in alphabet
     }
 
     for i in range(L, n - L):
-        # Use fixed-length histories and futures for rectangular matrix
+        # For main Hankel matrix H
         history = tuple(symbols[i - L : i])
         future = tuple(symbols[i : i + L])
 
         key = (history, future)
         pair_counts[key] = pair_counts.get(key, 0) + 1
-        history_counts[history] = history_counts.get(history, 0) + 1
+        total_pairs += 1
 
-        # For H_x, the first symbol of future determines which matrix
-        if len(future) > 0:
-            first_symbol = future[0]
-            if first_symbol in symbol_pair_counts:
-                symbol_pair_counts[first_symbol][key] = (
-                    symbol_pair_counts[first_symbol].get(key, 0) + 1
-                )
+        # For H_x: the symbol at position i is the conditioning symbol
+        # The future is symbols[i+1 : i+1+L]
+        if i + L < n:  # Make sure we have enough symbols for the shifted future
+            x = symbols[i]
+            future_shifted = tuple(symbols[i + 1 : i + 1 + L])
+            if x in symbol_triple_counts:
+                triple_key = (history, future_shifted)
+                symbol_triple_counts[x][triple_key] = symbol_triple_counts[x].get(triple_key, 0) + 1
 
     # Filter by minimum count
     valid_pairs = {k: v for k, v in pair_counts.items() if v >= min_count}
@@ -131,22 +140,21 @@ def build_hankel_matrices(
     history_idx = {h: i for i, h in enumerate(histories)}
     future_idx = {f: j for j, f in enumerate(futures)}
 
-    # Build main Hankel matrix (normalized by history counts)
+    # Build main Hankel matrix with JOINT probabilities P(history, future)
     H = np.zeros((m, n_cols), dtype=np.float64)
     for (h, f), count in valid_pairs.items():
         i, j = history_idx[h], future_idx[f]
-        h_count = history_counts.get(h, 1)
-        H[i, j] = count / h_count
+        H[i, j] = count / total_pairs
 
-    # Build symbol-conditioned matrices
+    # Build symbol-conditioned matrices with joint probabilities
+    # H_x[h, f] = P(h, x, f) = count(h, x, f) / total
     H_x: dict[A, NDArray[np.float64]] = {}
     for symbol in alphabet:
         Hx = np.zeros((m, n_cols), dtype=np.float64)
-        for (h, f), count in symbol_pair_counts[symbol].items():
+        for (h, f), count in symbol_triple_counts[symbol].items():
             if h in history_idx and f in future_idx:
                 i, j = history_idx[h], future_idx[f]
-                h_count = history_counts.get(h, 1)
-                Hx[i, j] = count / h_count
+                Hx[i, j] = count / total_pairs
         H_x[symbol] = Hx
 
     return HankelResult(H=H, H_x=H_x, histories=histories, futures=futures)

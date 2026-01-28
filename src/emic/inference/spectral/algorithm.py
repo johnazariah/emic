@@ -145,10 +145,13 @@ class Spectral(Generic[A]):
         )
 
         # Step 4: Convert to epsilon-machine
+        # Pass SVD and H for proper b_1 and b_inf computation
         machine = build_machine_from_operators(
             operators=op_result.operators,
             alphabet=alphabet_list,
             symbols=symbols,
+            svd=svd,
+            H=hankel.H,
         )
 
         return InferenceResult(

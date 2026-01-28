@@ -31,6 +31,8 @@ from emic.types import CausalState, EpsilonMachine, EpsilonMachineBuilder
 if TYPE_CHECKING:
     from numpy.typing import NDArray
 
+    from emic.inference.spectral.operators import SVDResult
+
 A = TypeVar("A", bound=Hashable)
 
 
@@ -38,6 +40,8 @@ def build_machine_from_operators(
     operators: dict[A, NDArray[np.float64]],
     alphabet: list[A],
     symbols: list[A],
+    svd: SVDResult | None = None,
+    H: NDArray[np.float64] | None = None,
 ) -> EpsilonMachine[A]:
     """
     Build epsilon-machine from observable operators using belief state clustering.
@@ -46,7 +50,7 @@ def build_machine_from_operators(
     into a discrete-state machine.
 
     Approach:
-        1. Compute initial belief b₁ and normalizer b∞
+        1. Compute initial belief b₁ and normalizer b∞ from SVD/Hankel
         2. Simulate belief state evolution through the sequence
         3. Cluster belief states to identify discrete states
         4. Build transitions from cluster dynamics
@@ -59,6 +63,8 @@ def build_machine_from_operators(
         operators: Dict mapping each symbol to its kxk observable operator.
         alphabet: List of all symbols.
         symbols: Original sequence (for belief simulation).
+        svd: Optional SVD result for computing b_1 and b_inf properly.
+        H: Optional Hankel matrix for computing b_1 and b_inf properly.
 
     Returns:
         Inferred epsilon-machine.
@@ -75,11 +81,15 @@ def build_machine_from_operators(
     # Sum of operators gives the total state-to-state dynamics
     T: NDArray[np.float64] = np.sum(np.stack(ops_list), axis=0)
 
-    # Compute b∞ for proper probability normalization
-    b_inf = _compute_b_infinity(T, k)
-
-    # Compute initial belief state
-    b_init = _compute_initial_belief(T, k)
+    # Compute b∞ and b_1 for proper probability normalization
+    if svd is not None and H is not None:
+        # Use proper Hsu et al. formulas with joint Hankel matrix
+        b_inf = _compute_b_infinity_from_svd(svd, H)
+        b_init = _compute_b_init_from_svd(svd, H)
+    else:
+        # Fallback to eigenvector method
+        b_inf = _compute_b_infinity(T, k)
+        b_init = _compute_initial_belief(T, k)
 
     # Simulate belief states through the sequence
     beliefs = _simulate_beliefs(operators, symbols, b_init, b_inf)
@@ -88,8 +98,9 @@ def build_machine_from_operators(
         # Not enough data for clustering - fall back to dimension-based
         return _build_from_dimensions(operators, alphabet, symbols, k, b_inf, T)
 
-    # Cluster the belief states
-    clusters, n_clusters = _cluster_beliefs_kmeans(beliefs, k)
+    # Cluster the belief states by their emission distributions
+    # This properly identifies causal states based on what they predict
+    clusters, n_clusters = _cluster_beliefs_by_emission(beliefs, operators, alphabet, b_inf, k)
 
     if n_clusters == 0:
         return _build_from_dimensions(operators, alphabet, symbols, k, b_inf, T)
@@ -129,19 +140,26 @@ def _simulate_beliefs(
     return beliefs
 
 
-def _cluster_beliefs_kmeans(
+def _cluster_beliefs_by_emission(
     beliefs: list[tuple[NDArray[np.float64], A, int]],
+    operators: dict[A, NDArray[np.float64]],
+    alphabet: list[A],
+    b_inf: NDArray[np.float64],
     k: int,
     max_iter: int = 50,
 ) -> tuple[list[int], int]:
     """
-    Cluster belief states using k-means with k clusters.
+    Cluster belief states by their emission distributions.
 
-    We use the SVD rank k as the number of clusters, since that's
-    the number of hidden states we expect.
+    For epsilon machines, states are defined by their predictive distribution
+    P(next_symbol | state). We cluster beliefs by this distribution rather
+    than by geometric direction, which properly identifies causal states.
 
     Args:
         beliefs: List of (belief_vector, next_symbol, position) tuples.
+        operators: Observable operators for computing emission probabilities.
+        alphabet: List of all symbols.
+        b_inf: Normalizer vector for computing probabilities.
         k: Number of clusters (= number of hidden states).
         max_iter: Maximum k-means iterations.
 
@@ -151,36 +169,41 @@ def _cluster_beliefs_kmeans(
     if not beliefs or k <= 0:
         return [], 0
 
-    # Extract and normalize belief vectors (use direction, not magnitude)
-    belief_vectors = []
+    # Compute emission distribution for each belief: P(x | b) = b_inf @ A_x @ b
+    emission_vectors: list[NDArray[np.float64]] = []
     for b, _, _ in beliefs:
-        norm = np.linalg.norm(b)
-        if norm > 1e-10:
-            belief_vectors.append(b / norm)
+        emissions: list[float] = []
+        for sym in sorted(alphabet, key=str):
+            A_x = operators[sym]
+            prob = float(np.dot(b_inf, A_x @ b))
+            emissions.append(max(0.0, prob))
+        total = sum(emissions)
+        if total > 1e-10:
+            emissions = [e / total for e in emissions]
         else:
-            belief_vectors.append(np.ones(len(b)) / np.sqrt(len(b)))
+            emissions = [1.0 / len(alphabet)] * len(alphabet)
+        emission_vectors.append(np.array(emissions, dtype=np.float64))
 
-    X = np.array(belief_vectors)
+    X: NDArray[np.float64] = np.array(emission_vectors, dtype=np.float64)
     n_samples = len(X)
 
     if n_samples < k:
-        # Not enough samples - each is its own cluster
         return list(range(n_samples)), n_samples
 
-    # Initialize centroids using k-means++ style
+    # Initialize centroids using k-means++ style on emission vectors
     centroids = _init_centroids_plusplus(X, k)
 
-    # Run k-means
+    # Run k-means with Euclidean distance on emission distributions
     assignments = np.zeros(n_samples, dtype=int)
 
     for _ in range(max_iter):
-        # Assign each point to nearest centroid (using cosine similarity)
         old_assignments = assignments.copy()
-        for i, x in enumerate(X):
-            similarities = [float(np.dot(x, c)) for c in centroids]
-            assignments[i] = int(np.argmax(similarities))
 
-        # Check convergence
+        # Assign each point to nearest centroid
+        for i, x in enumerate(X):
+            distances = [float(np.linalg.norm(x - c)) for c in centroids]
+            assignments[i] = int(np.argmin(distances))
+
         if np.array_equal(assignments, old_assignments):
             break
 
@@ -188,10 +211,7 @@ def _cluster_beliefs_kmeans(
         for j in range(k):
             mask = assignments == j
             if np.sum(mask) > 0:
-                new_centroid = np.mean(X[mask], axis=0)
-                norm = np.linalg.norm(new_centroid)
-                if norm > 1e-10:
-                    centroids[j] = new_centroid / norm
+                centroids[j] = np.mean(X[mask], axis=0)
 
     # Count actual clusters used
     unique_clusters = np.unique(assignments)
@@ -384,6 +404,71 @@ def _compute_initial_belief(T: NDArray[np.float64], k: int) -> NDArray[np.float6
         return b_1
     except np.linalg.LinAlgError:
         return np.ones(k) / k
+
+
+def _compute_b_infinity_from_svd(
+    svd: SVDResult,
+    H: NDArray[np.float64],
+) -> NDArray[np.float64]:
+    """
+    Compute b∞ using the proper spectral learning formula.
+
+    From Hsu et al. (2012):
+        b∞ᵀ = P(futures) @ V @ S^{-1}
+
+    where P(futures) is the vector of marginal future probabilities
+    (column sums of the joint Hankel matrix H).
+
+    Args:
+        svd: The SVD result from the Hankel matrix.
+        H: The joint Hankel matrix.
+
+    Returns:
+        The b∞ vector of dimension k.
+    """
+    k = svd.rank
+    # P(futures) = column sums of H (marginal probability of each future)
+    P_fut = np.sum(H, axis=0)
+
+    # b_inf^T = P(futures) @ V @ S^{-1}  (Hsu et al. 2012)
+    V = svd.Vt[:k, :].T  # (n_futures x k)
+    S_inv = np.diag(1.0 / (svd.S[:k] + 1e-10))  # (k x k)
+
+    b_inf = P_fut @ V @ S_inv  # (k,)
+
+    return b_inf
+
+
+def _compute_b_init_from_svd(
+    svd: SVDResult,
+    H: NDArray[np.float64],
+) -> NDArray[np.float64]:
+    """
+    Compute b₁ (initial belief) using the proper spectral learning formula.
+
+    From Hsu et al. (2012):
+        b₁ = U^T @ P(histories)
+
+    where P(histories) is the vector of marginal history probabilities
+    (row sums of the joint Hankel matrix H).
+
+    Args:
+        svd: The SVD result from the Hankel matrix.
+        H: The joint Hankel matrix.
+
+    Returns:
+        The b₁ vector of dimension k.
+    """
+    k = svd.rank
+    # P(histories) = row sums of H (marginal probability of each history)
+    P_hist = np.sum(H, axis=1)
+
+    # b₁ = U^T @ P(histories)
+    U = svd.U[:, :k]  # (n_histories x k)
+
+    b_1 = U.T @ P_hist  # (k,)
+
+    return b_1
 
 
 def merge_similar_states(
