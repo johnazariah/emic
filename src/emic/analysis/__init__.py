@@ -10,6 +10,15 @@ from emic.analysis.measures import (
     topological_complexity,
     transition_count,
 )
+from emic.analysis.quantum import (
+    decoherence_trajectory,
+    dephasing_channel,
+    quantum_advantage,
+    quantum_complexity,
+    quantum_density_matrix,
+    quantum_signal_states,
+    signal_state_overlap,
+)
 from emic.analysis.summary import AnalysisSummary, analyze
 
 __all__ = [
@@ -27,4 +36,12 @@ __all__ = [
     "state_count",
     "topological_complexity",
     "transition_count",
+    # Quantum measures
+    "quantum_complexity",
+    "quantum_advantage",
+    "quantum_density_matrix",
+    "quantum_signal_states",
+    "signal_state_overlap",
+    "dephasing_channel",
+    "decoherence_trajectory",
 ]

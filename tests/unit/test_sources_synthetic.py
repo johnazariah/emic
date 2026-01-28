@@ -28,9 +28,9 @@ class TestGoldenMeanSource:
         symbols = list(itertools.islice(source, 1000))
 
         for i in range(len(symbols) - 1):
-            assert not (symbols[i] == 1 and symbols[i + 1] == 1), (
-                f"Found consecutive 1s at positions {i} and {i + 1}"
-            )
+            assert not (
+                symbols[i] == 1 and symbols[i + 1] == 1
+            ), f"Found consecutive 1s at positions {i} and {i + 1}"
 
     def test_reproducibility_with_seed(self) -> None:
         """Same seed produces same sequence."""
@@ -110,9 +110,9 @@ class TestEvenProcessSource:
         for s in symbols:
             if s == 0:
                 if seen_first_zero:
-                    assert ones_count % 2 == 0, (
-                        f"Found {ones_count} ones between zeros (should be even)"
-                    )
+                    assert (
+                        ones_count % 2 == 0
+                    ), f"Found {ones_count} ones between zeros (should be even)"
                 seen_first_zero = True
                 ones_count = 0
             else:
@@ -289,3 +289,136 @@ class TestPeriodicSource:
         source = PeriodicSource(pattern=(0, 1))
         result = source.__rshift__(42)  # Not callable
         assert result is NotImplemented
+
+
+class TestPerturbedCoinSource:
+    """Tests for PerturbedCoinSource (coin with persistent bias)."""
+
+    def test_generates_binary_symbols(self) -> None:
+        """Output contains only 0 and 1."""
+        from emic.sources.synthetic.perturbed_coin import PerturbedCoinSource
+
+        source = PerturbedCoinSource(p=0.3, _seed=42)
+        symbols = list(itertools.islice(source, 100))
+        assert all(s in (0, 1) for s in symbols)
+
+    def test_reproducibility_with_seed(self) -> None:
+        """Same seed produces same sequence."""
+        from emic.sources.synthetic.perturbed_coin import PerturbedCoinSource
+
+        source1 = PerturbedCoinSource(p=0.3, _seed=123)
+        source2 = PerturbedCoinSource(p=0.3, _seed=123)
+
+        seq1 = list(itertools.islice(source1, 100))
+        seq2 = list(itertools.islice(source2, 100))
+
+        assert seq1 == seq2
+
+    def test_different_seeds_produce_different_sequences(self) -> None:
+        """Different seeds produce different sequences."""
+        from emic.sources.synthetic.perturbed_coin import PerturbedCoinSource
+
+        source1 = PerturbedCoinSource(p=0.3, _seed=1)
+        source2 = PerturbedCoinSource(p=0.3, _seed=2)
+
+        seq1 = list(itertools.islice(source1, 100))
+        seq2 = list(itertools.islice(source2, 100))
+
+        assert seq1 != seq2
+
+    def test_true_machine_returns_epsilon_machine(self) -> None:
+        """true_machine property returns valid EpsilonMachine."""
+        from emic.sources.synthetic.perturbed_coin import PerturbedCoinSource
+
+        source = PerturbedCoinSource(p=0.3, _seed=42)
+        machine = source.true_machine
+
+        assert isinstance(machine, EpsilonMachine)
+        assert len(machine.states) == 2  # Two causal states
+
+    def test_true_machine_has_correct_probabilities(self) -> None:
+        """Transition probabilities match the parameter p."""
+        from emic.sources.synthetic.perturbed_coin import PerturbedCoinSource
+
+        p = 0.3
+        source = PerturbedCoinSource(p=p, _seed=42)
+        machine = source.true_machine
+
+        # Check S0 transitions
+        s0 = machine.get_state("S0")
+        assert s0 is not None
+        s0_probs = {t.symbol: t.probability for t in s0.transitions}
+        assert abs(s0_probs[0] - (1 - p)) < 1e-10  # P(0|S0) = 1-p
+        assert abs(s0_probs[1] - p) < 1e-10  # P(1|S0) = p
+
+        # Check S1 transitions
+        s1 = machine.get_state("S1")
+        assert s1 is not None
+        s1_probs = {t.symbol: t.probability for t in s1.transitions}
+        assert abs(s1_probs[1] - (1 - p)) < 1e-10  # P(1|S1) = 1-p
+        assert abs(s1_probs[0] - p) < 1e-10  # P(0|S1) = p
+
+    def test_stationary_distribution_is_symmetric(self) -> None:
+        """Stationary distribution is 0.5/0.5 due to symmetry."""
+        from emic.sources.synthetic.perturbed_coin import PerturbedCoinSource
+
+        source = PerturbedCoinSource(p=0.3, _seed=42)
+        machine = source.true_machine
+        pi = machine.stationary_distribution
+
+        assert abs(pi.probs["S0"] - 0.5) < 1e-10
+        assert abs(pi.probs["S1"] - 0.5) < 1e-10
+
+    def test_statistical_complexity_is_one_bit(self) -> None:
+        """C_mu = 1 bit for all p (two equally likely states)."""
+        from emic.analysis import statistical_complexity
+        from emic.sources.synthetic.perturbed_coin import PerturbedCoinSource
+
+        for p in [0.1, 0.2, 0.3, 0.4]:
+            source = PerturbedCoinSource(p=p, _seed=42)
+            machine = source.true_machine
+            c_mu = statistical_complexity(machine)
+            assert abs(c_mu - 1.0) < 1e-10, f"C_mu={c_mu} for p={p}"
+
+    def test_excess_entropy_formula(self) -> None:
+        """E = 1 - H(p) where H is binary entropy."""
+        import math
+
+        from emic.analysis import excess_entropy
+        from emic.sources.synthetic.perturbed_coin import PerturbedCoinSource
+
+        def binary_entropy(p: float) -> float:
+            if p <= 0 or p >= 1:
+                return 0.0
+            return -p * math.log2(p) - (1 - p) * math.log2(1 - p)
+
+        for p in [0.1, 0.2, 0.3, 0.4]:
+            source = PerturbedCoinSource(p=p, _seed=42)
+            machine = source.true_machine
+            e = excess_entropy(machine)
+            expected_e = 1.0 - binary_entropy(p)
+            # Allow some tolerance due to block entropy convergence
+            assert abs(e - expected_e) < 0.01, f"E={e}, expected={expected_e} for p={p}"
+
+    def test_invalid_p_zero(self) -> None:
+        """p=0 raises ValueError."""
+        from emic.sources.synthetic.perturbed_coin import PerturbedCoinSource
+
+        with pytest.raises(ValueError, match="p must be in"):
+            PerturbedCoinSource(p=0.0)
+
+    def test_invalid_p_one(self) -> None:
+        """p=1 raises ValueError."""
+        from emic.sources.synthetic.perturbed_coin import PerturbedCoinSource
+
+        with pytest.raises(ValueError, match="p must be in"):
+            PerturbedCoinSource(p=1.0)
+
+    def test_with_seed_returns_new_source(self) -> None:
+        """with_seed returns a new source with the given seed."""
+        from emic.sources.synthetic.perturbed_coin import PerturbedCoinSource
+
+        source1 = PerturbedCoinSource(p=0.3)
+        source2 = source1.with_seed(42)
+        assert source2 is not source1
+        assert source2.p == source1.p

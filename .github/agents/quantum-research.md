@@ -70,6 +70,31 @@ Quantum models encode states **non-orthogonally** - they only distinguish states
 - Cross-reference between documents
 - The audience is a developer/researcher who knows classical computational mechanics but not quantum
 
+## Research Notes & Breadcrumbs
+
+**Critical**: This is exploratory research into uncharted territory. Capture reasoning, not just results.
+
+After completing work, create a note in `.project/notes/` with filename format:
+`YYYY-MM-DDTHH-MM-<short-description>.md`
+
+Each note should include:
+
+1. **Discovery process** - How did you find/understand this? What led you here?
+2. **Wrong turns** - What approaches failed? What misconceptions did you have?
+3. **Reasoning chain** - The "wait, that can't be right" moments and how they resolved
+4. **Key insights** - The "aha" that made things click
+5. **Implementation notes** - Gotchas, edge cases, things that surprised you
+6. **References** - Which papers/equations were consulted
+
+**Why this matters**: Future sessions (human or AI) will need to understand not just *what* was done but *why* and *how*. The exploration is as valuable as the conclusion.
+
+**Example**: When fixing `excess_entropy()`, the note captured:
+- The bug was found while writing prerequisites docs (not while looking for bugs)
+- The conceptual error: confusing "unifilar" with "co-unifilar"
+- A wrong turn: naive block entropy calculation that gave E = C_μ
+- The fix: finding equation (27) in the James et al. paper
+- A gotcha: PYTHONPATH shadowing the worktree code
+
 ## Starting Point
 
 Start with the **QC Primer** - it's foundational for everything else. The primer should be a working reference with:
