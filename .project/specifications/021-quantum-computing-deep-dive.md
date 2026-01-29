@@ -2,7 +2,7 @@
 
 *An intuition-first introduction to quantum computing*
 
-**Status**: Draft
+**Status**: Complete
 **Created**: 2026-01-29
 **Location**: `.project/research/quantum-deep-dive/`
 
