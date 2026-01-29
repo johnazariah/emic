@@ -6,6 +6,39 @@
 
 ## 2026
 
+### January 29, 2026 (continued)
+
+**Session Focus**: Quantum Module Validation & Decoherence Investigation
+
+**Commits**: `c5c840d`
+
+**Completed**:
+
+1. **Comprehensive Quantum Tests**
+   - Added 30 golden tests in `tests/unit/test_quantum.py`
+   - IID processes (fair coin, biased coin): verify $C_q = 0$
+   - Perturbed coin: parametrized tests for $p = 0.05, 0.10, ..., 0.45$
+   - Golden mean: confirms quantum advantage exists
+   - Decoherence trajectory: verifies endpoints and monotonicity
+   - All values match analytic formulas from Gu et al. (2012)
+
+2. **Ran Decoherence Trajectory Investigation**
+   - Executed `notebooks/decoherence_trajectory.ipynb`
+   - Generated figures for perturbed coin and multiple processes
+   - Discovered all trajectories are **strictly concave**
+
+3. **Key Discovery: Even Process Anomaly**
+   - Even process has $C_q = C_\mu$ (no quantum advantage)
+   - But $C_q(1) = 1.585 > C_\mu = 0.918$!
+   - Reason: diagonal of $\rho$ in tensor product space ≠ stationary distribution
+   - Insight: dephasing in Hilbert space is NOT the same as returning to classical model
+
+**Key Insight**: The decoherence trajectory describes physical quantum coherence decay, not an abstract interpolation to classical complexity. For processes with non-trivial state structure, $C_q(1) \neq C_\mu$ in general.
+
+**Notes**: See `.project/notes/2026-01-29T07-25-decoherence-trajectory-findings.md`
+
+---
+
 ### January 28-29, 2026
 
 **Session Focus**: Quantum Complexity Implementation
