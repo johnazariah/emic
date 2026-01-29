@@ -108,6 +108,46 @@ This is a **statistical mixture**—different from superposition!
 - Superposition: $|\psi\rangle = \alpha|0\rangle + \beta|1\rangle$ (quantum uncertainty)
 - Mixture: $\rho = p|0\rangle\langle 0| + (1-p)|1\rangle\langle 1|$ (classical uncertainty)
 
+### Critical Intuition: Superposition vs Mixed State vs Classical Mixture
+
+This is perhaps the most important conceptual distinction in quantum mechanics:
+
+| Type | What it means | Analogy | Matrix signature |
+|------|--------------|---------|------------------|
+| **Superposition** (pure) | System *is* in a definite quantum state that blends basis states | Coin spinning in air | Off-diagonals, rank 1, $\rho^2 = \rho$ |
+| **Mixed state** | Classical uncertainty over which quantum state we're in | Several spinning coins, don't know which one | Can have off-diagonals, rank > 1, $\rho^2 \neq \rho$ |
+| **Classical mixture** | Classical uncertainty over which *classical* (basis) state | Coin under cup, already landed | Diagonal only, no off-diagonals |
+
+**The matrix view makes this crystal clear:**
+
+```
+Pure |0⟩:                  [1  0]     ← diagonal, in a definite basis state
+                           [0  0]
+
+Pure |1⟩:                  [0  0]     ← diagonal, in a definite basis state
+                           [0  1]
+
+Superposition (|0⟩+|1⟩)/√2: [0.5  0.5]  ← OFF-DIAGONALS = superposition
+                           [0.5  0.5]
+
+Classical 50/50 mixture:   [0.5  0  ]  ← diagonal = classical probability
+                           [0    0.5]
+```
+
+The last two have **identical diagonals** (same measurement probabilities!) but:
+- The superposition can interfere, has lower entropy, is "more ordered"
+- The classical mixture cannot interfere, has maximum entropy for 2 states
+
+**Why this matters for computational mechanics:**
+
+In the q-machine density matrix $\rho = \sum_j \pi_j |s_j\rangle\langle s_j|$:
+- The $\pi_j$ weights are classical uncertainty (which causal state?)
+- Each $|s_j\rangle$ is a superposition in the product space
+- The *overlap* between signal states creates off-diagonals in $\rho$
+- Those off-diagonals enable compression: $C_q < C_\mu$
+
+**The punchline:** Diagonal matrix = classical. Off-diagonals = quantum coherence = compression opportunity.
+
 ### Properties of Density Matrices
 
 Every valid density matrix satisfies:
