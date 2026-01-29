@@ -6,6 +6,63 @@
 
 ## 2026
 
+### January 28-29, 2026
+
+**Session Focus**: Quantum Complexity Implementation
+
+**Commits**: `617a0df`, `a044930`
+
+**Completed**:
+
+1. **Fixed `excess_entropy()` Bug**
+   - Previous implementation incorrectly claimed $E = C_\mu$ for unifilar machines
+   - Rewrote using block entropy convergence method
+   - Added `block_entropy()` and `crypticity()` functions
+   - Golden Mean now correctly shows: $C_\mu = 0.918$, $E = 0.252$, $\chi = 0.667$
+
+2. **Added Perturbed Coin Source**
+   - Canonical example for quantum advantage
+   - Two states with symmetric transitions
+   - Known analytic formulas for validation
+
+3. **Implemented Quantum Complexity Measures**
+   - `quantum_signal_states()`: Construct $|s_j\rangle$ for each causal state
+   - `quantum_density_matrix()`: Compute $\rho = \sum_j \pi_j |s_j\rangle\langle s_j|$
+   - `quantum_complexity()`: Von Neumann entropy $S(\rho)$
+   - `quantum_advantage()`: $\Delta_q = C_\mu - C_q$
+   - `decoherence_trajectory()`: Track $C_q(\gamma)$ as $\gamma \to 1$
+
+4. **Created Validation Notebook**
+   - `notebooks/quantum_validation.ipynb`
+   - Validates $C_q$ matches analytic formula exactly
+   - Confirms hierarchy $E \leq C_q \leq C_\mu$ for all test cases
+   - Shows decoherence trajectory from quantum to classical
+
+5. **Updated Agent Instructions**
+   - Added `write-notes` command for session wrap-up
+   - Formalized research breadcrumb requirements
+
+**Key Insight**: The block entropy must be computed *without* knowing the initial state - marginalizing over the stationary distribution. The naive formula that conditions on the state gives $E = C_\mu$, which is wrong.
+
+**Discovery**: The validation plan table had incorrect $C_q$ values that violated $E \leq C_q$. Our implementation is correct.
+
+**Files Created**:
+- `src/emic/analysis/quantum.py`
+- `src/emic/sources/synthetic/perturbed_coin.py`
+- `notebooks/quantum_validation.ipynb`
+- `.project/notes/2026-01-28T21-19-fix-excess-entropy.md`
+- `.project/notes/2026-01-28T21-19-quantum-research-deliverables.md`
+- `.project/notes/2026-01-29T00-39-quantum-complexity-implementation.md`
+
+**Test Results**: 421 tests passing
+
+**Next Steps**:
+1. Fix validation plan table with correct values
+2. Add unit tests for quantum measures
+3. Begin Investigation 1 (decoherence trajectory analysis)
+
+---
+
 ### January 27, 2026
 
 **Session Focus**: Quantum Emergence Research Area

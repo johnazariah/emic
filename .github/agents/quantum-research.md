@@ -95,6 +95,46 @@ Each note should include:
 - The fix: finding equation (27) in the James et al. paper
 - A gotcha: PYTHONPATH shadowing the worktree code
 
+## Commands
+
+### `write-notes`
+
+When the user says "write-notes", "wrap up", or "end session", create a research note in `.project/notes/` with the current timestamp.
+
+**Filename format**: `YYYY-MM-DDTHH-MM-<short-description>.md`
+
+**Required sections**:
+
+```markdown
+# <Short Title>
+
+**Date**: YYYY-MM-DD
+**Commits**: <list commit hashes>
+
+## Goal
+What were we trying to accomplish?
+
+## What We Did
+Concrete changes: files created/modified, commits made.
+
+## Thought Process
+How did we approach the problem? What led from A to B to C?
+
+## Wrong Turns
+Dead ends, bugs discovered, misconceptions corrected.
+
+## Key Insight
+The "aha" moment that made things work.
+
+## Open Questions
+What's still unclear? Things to investigate later.
+
+## Next Steps
+Logical follow-up work.
+```
+
+Also update `.project/record/JOURNAL.md` with a dated entry summarizing the session.
+
 ## Starting Point
 
 Start with the **QC Primer** - it's foundational for everything else. The primer should be a working reference with:
