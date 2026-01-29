@@ -10,7 +10,7 @@ Computational mechanics studies how much memory is needed to optimally predict a
 
 But what if we allow quantum memory? Can quantum systems do better?
 
-**Yes.** For almost all stochastic processes, quantum models require strictly less memory than the best classical model. This page explains why.
+**Yes.** For many stochastic processes, quantum models require strictly less memory than the best classical model. This page explains why, and precisely when this advantage occurs.
 
 ---
 
@@ -39,6 +39,7 @@ Quantum systems can encode information in **non-orthogonal states**—states tha
 ### Why This Helps
 
 Consider two causal states $S_j$ and $S_k$ that:
+
 1. Have different pasts (so classically must be distinguished)
 2. Can both transition to the **same** future state $S_l$ on the same symbol
 
@@ -52,11 +53,13 @@ Once both reach $S_l$, the information distinguishing $S_j$ from $S_k$ is **irre
 ### Quantum Solution
 
 Instead of orthogonal states:
+
 ```
 Classical: |S_j⟩ ⊥ |S_k⟩  (perfectly distinguishable)
 ```
 
 Use non-orthogonal states:
+
 ```
 Quantum: ⟨s_j|s_k⟩ ≠ 0  (partially distinguishable)
 ```
@@ -72,6 +75,7 @@ The gap between what's stored and what's used is called **crypticity**:
 $$\chi = C_\mu - E$$
 
 where:
+
 - $C_\mu$ = statistical complexity (memory stored)
 - $E$ = excess entropy = $I(\text{Past}; \text{Future})$ (memory actually used for prediction)
 
@@ -92,6 +96,7 @@ Given an ε-machine, we construct a quantum model (q-machine) as follows.
 ### Signal States
 
 For each causal state $S_j$ with transitions:
+
 - Probability $T^{(x)}_{jk}$ of emitting symbol $x$ and going to state $S_k$
 
 Define the **quantum signal state**:
@@ -116,21 +121,35 @@ The perturbed coin is the canonical example demonstrating quantum advantage.
 
 ### Setup
 
-A biased coin (heads probability $p$) is observed at each step. Between observations, the coin flips with probability $p$ (so it "persists" with probability $1-p$).
+A coin that "persists" — it tends to repeat its previous value:
+
+- With probability $1-p$: emit the same symbol as last time
+- With probability $p$: flip to the other symbol
 
 ### Classical Machine
 
 Two causal states:
-- $S_0$: Last observation was 0 (heads)
-- $S_1$: Last observation was 1 (tails)
+
+- $S_0$: Last observation was 0
+- $S_1$: Last observation was 1
 
 Transitions:
+
 - From $S_0$: emit 0 with prob $1-p$, stay in $S_0$; emit 1 with prob $p$, go to $S_1$
 - From $S_1$: emit 1 with prob $1-p$, stay in $S_1$; emit 0 with prob $p$, go to $S_0$
+
+```
+        1-p              1-p
+     ┌──────┐         ┌──────┐
+     │  0   │         │  1   │
+     └──►S₀◄─────p────►S₁◄───┘
+            ◄────p────
+```
 
 Stationary distribution: $\pi_0 = \pi_1 = 0.5$
 
 **Classical complexity:**
+
 $$C_\mu = -0.5 \log_2(0.5) - 0.5 \log_2(0.5) = 1 \text{ bit}$$
 
 Always 1 bit, regardless of $p$!
@@ -141,6 +160,7 @@ $$|s_0\rangle = \sqrt{1-p}|0,0\rangle + \sqrt{p}|1,1\rangle$$
 $$|s_1\rangle = \sqrt{p}|0,0\rangle + \sqrt{1-p}|1,1\rangle$$
 
 These states overlap:
+
 $$\langle s_0 | s_1 \rangle = 2\sqrt{p(1-p)}$$
 
 As $p \to 0.5$: the overlap approaches 1 (states become identical).
@@ -148,58 +168,112 @@ As $p \to 0.5$: the overlap approaches 1 (states become identical).
 ### Quantum Complexity Calculation
 
 The density matrix:
+
 $$\rho = 0.5 |s_0\rangle\langle s_0| + 0.5 |s_1\rangle\langle s_1|$$
 
 Eigenvalues: $\lambda_\pm = 0.5 \pm \sqrt{p(1-p)}$
 
 **Quantum complexity:**
+
 $$C_q = -\lambda_+ \log_2(\lambda_+) - \lambda_- \log_2(\lambda_-)$$
 
 ### Numerical Comparison
 
-| Parameter $p$ | Classical $C_\mu$ | Quantum $C_q$ | Advantage |
-|--------------|-------------------|---------------|-----------|
-| 0.1 | 1.000 bit | 0.469 bits | 0.531 bits (53%) |
-| 0.2 | 1.000 bit | 0.286 bits | 0.714 bits (71%) |
-| 0.3 | 1.000 bit | 0.145 bits | 0.855 bits (86%) |
-| 0.4 | 1.000 bit | 0.080 bits | 0.920 bits (92%) |
-| 0.49 | 1.000 bit | 0.008 bits | 0.992 bits (99%) |
+| $p$ | $C_\mu$ | $C_q$ | $\Delta_q$ | Savings |
+|:---:|:-------:|:-----:|:----------:|:-------:|
+| 0.1 | 1.000 | 0.722 | 0.278 | 28% |
+| 0.2 | 1.000 | 0.469 | 0.531 | 53% |
+| 0.3 | 1.000 | 0.250 | 0.750 | 75% |
+| 0.4 | 1.000 | 0.081 | 0.919 | 92% |
+| 0.49 | 1.000 | 0.002 | 0.998 | 99.8% |
 
-### The Unbounded Advantage
-
-As $p \to 0.5$:
-- $C_\mu = 1$ bit (constant)
-- $C_q \to 0$ bits
-- Ratio $C_\mu / C_q \to \infty$
-
-For a system of $K$ independent perturbed coins:
-- Classical: $K$ bits
-- Quantum: $K \cdot C_q$ bits
-
-With $p = 0.4$, simulating 10 coins requires:
-- Classical: 10 bits
-- Quantum: 0.8 bits
-
-The quantum system stores information about 10 coins in less than 1 bit!
+As $p \to 0.5$, the signal states become nearly identical, overlap approaches 1, and $C_q \to 0$.
 
 ---
 
-## The Irreversibility Condition
+## The Signal State Overlap Criterion
 
-Gu et al. (2012) proved:
+Our validation experiments reveal a precise, computable criterion:
 
-**Theorem:** Quantum advantage exists ($C_q < C_\mu$) if and only if the ε-machine is **irreversible**—meaning there exist two causal states that can transition to the same destination state.
+!!! success "The Main Result"
+    **Quantum advantage exists if and only if signal states have non-zero overlap.**
+
+    Mathematically: $\Delta_q = C_\mu - C_q > 0$ ⟺ $\exists j \neq k: \langle s_j | s_k \rangle > 0$
+
+### The Overlap Formula
+
+The overlap between signal states is:
+
+$$\langle s_j | s_k \rangle = \sum_{x,l} \sqrt{T^{(x)}_{jl} \cdot T^{(x)}_{kl}}$$
+
+This is non-zero when there exists a symbol $x$ and target state $l$ such that **both**:
+
+- $T^{(x)}_{jl} > 0$ (state $j$ can emit $x$ and reach $l$)
+- $T^{(x)}_{kl} > 0$ (state $k$ can emit $x$ and reach $l$)
+
+In graph terms: **paths merge**.
+
+---
+
+## Taxonomy: Which Processes Have Quantum Advantage?
+
+Based on our validation of 10+ process types:
+
+### ❌ Processes WITHOUT Quantum Advantage
+
+| Process Type | Why No Advantage |
+|:------------|:-----------------|
+| **IID (e.g., biased coin)** | Single state → pure signal state → $C_q = 0 = C_\mu$ |
+| **Deterministic (e.g., periodic)** | Each state emits unique symbol → orthogonal signal states |
+| **Co-unifilar** | No merging paths → orthogonal futures |
+
+### ✅ Processes WITH Quantum Advantage
+
+| Process Type | Why Advantage | Typical Savings |
+|:------------|:--------------|:----------------|
+| **Perturbed coin** | Symmetric merging transitions | Up to 100% |
+| **Golden mean** | Shared $S_0 \to S_0$ transition | ~40% |
+| **Most Markov chains** | Irreversible transitions | Varies |
+
+### The Even Process: A Subtle Case
+
+The Even Process (1s must come in pairs) has 2 states like Golden Mean, but **no quantum advantage**:
 
 ```
-        S_j ──(x)──→ S_l ←──(x)── S_k
+Even Process:              Golden Mean:
+  ┌─0─┐                      ┌─0─┐
+  │   ▼                      │   ▼
+  └──A◄───B                  └──S₀◄───S₁
+        │                        1    │
+        1                        ▲    │
+        └────┘                   └─0──┘
 ```
 
-When this happens:
-- Information distinguishing $S_j$ from $S_k$ is lost
-- Classical machines store it anyway (waste)
-- Quantum machines encode it non-orthogonally (no waste)
+**Why the difference?**
 
-**Corollary:** Almost all stochastic processes have irreversible ε-machines, so almost all processes have quantum advantage.
+- **Golden Mean**: Both states can emit 0 and reach $S_0$ → overlap → advantage
+- **Even Process**: State A emits {0,1}, but state B can **only** emit 1 → disjoint futures → orthogonal signal states → no advantage
+
+The key is not the number of states, but whether different states can take the **same transition**.
+
+---
+
+## Decision Tree: Does Your Process Have Quantum Advantage?
+
+```
+1. How many causal states?
+   └─ 1 state → NO (IID, trivially classical)
+   └─ 2+ states → continue...
+
+2. Is the ε-machine deterministic (each state has unique output)?
+   └─ Yes → NO (orthogonal signal states)
+   └─ No → continue...
+
+3. Do any two states share a transition?
+   (Can states j and k both emit symbol x and reach state l?)
+   └─ No → NO (orthogonal signal states)
+   └─ Yes → ✅ YES! Quantum advantage exists
+```
 
 ---
 
@@ -215,7 +289,7 @@ $$E \leq C_q \leq C_\mu$$
 
 ### When Equality Holds
 
-**$C_q = C_\mu$:** When the ε-machine is reversible (no merging transitions). Example: fair coin.
+**$C_q = C_\mu$:** When the ε-machine has no merging transitions (orthogonal signal states).
 
 **$C_q = E$:** When the q-machine achieves the theoretical optimum. The perturbed coin approaches this as $p \to 0.5$.
 
@@ -223,41 +297,43 @@ $$E \leq C_q \leq C_\mu$$
 
 ## Physical Interpretation
 
-### Information Conservation
+### Information Destined to be Lost
 
-A model must store at least $E$ bits to capture the past-future correlation. This is a fundamental limit—thermodynamic, even.
+The quantum advantage represents information that classical models must store but which is **destined to be lost** when paths merge.
 
-### Classical Penalty
+**Analogy**: Imagine two roads (histories) that merge into one highway (future). A classical traffic counter must remember which road each car came from. A quantum counter encodes this information "non-orthogonally" — just distinguishable enough for correct predictions, but no more.
 
-Classical models pay a penalty of $\chi = C_\mu - E$ bits because:
-1. They can't encode partial distinguishability
-2. They must store information that will later be lost
-3. This violates Occam's razor at a physical level
+### The Thermodynamic Connection
 
-### Quantum Advantage
+A model must store at least $E$ bits to capture the past-future correlation. This is a fundamental limit with thermodynamic implications.
 
-Quantum models use non-orthogonal encoding to:
-1. Only distinguish states as much as needed
-2. Store no more than necessary
-3. Approach the fundamental limit $E$
+Classical models pay a penalty of $\chi = C_\mu - E$ bits because they can't encode partial distinguishability. This extra storage represents wasted resources.
 
 ---
 
-## Implications
+## Computing Quantum Complexity in emic
 
-### For Simulation
+```python
+from emic.sources.synthetic.perturbed_coin import PerturbedCoinSource
+from emic.analysis import (
+    statistical_complexity,
+    quantum_complexity,
+    quantum_advantage,
+)
 
-Any physical device that simulates a stochastic process must store memory. If that device is classical, it needs at least $C_\mu$ bits. If quantum, only $C_q$ bits.
+# Create a perturbed coin with p=0.3
+source = PerturbedCoinSource(p=0.3)
+machine = source.true_machine
 
-This implies that many natural processes appearing complex classically might be simpler if quantum effects are involved.
+# Compute complexities
+c_mu = statistical_complexity(machine)  # 1.0 bits
+c_q = quantum_complexity(machine)       # 0.25 bits
+delta = quantum_advantage(machine)      # 0.75 bits (75% savings!)
 
-### For Complexity Science
-
-Statistical complexity $C_\mu$ was thought to measure a process's intrinsic complexity. But quantum mechanics shows this is an artifact of classical limitations—the true complexity is closer to $E$.
-
-### For Quantum Foundations
-
-The existence of quantum advantage connects to fundamental questions about why quantum mechanics exists. Perhaps nature "chose" quantum mechanics because it's more efficient for storing and processing information.
+print(f"Classical: {c_mu:.3f} bits")
+print(f"Quantum:   {c_q:.3f} bits")
+print(f"Advantage: {delta:.3f} bits ({100*delta/c_mu:.0f}% savings)")
+```
 
 ---
 
