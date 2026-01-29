@@ -50,11 +50,53 @@ This is the computational resource. No classical computer can do this.
 
 where $U_f|x, y\rangle = |x, y \oplus f(x)\rangle$ (XOR $f(x)$ into ancilla).
 
+### The Key Trick: Phase Kickback
+
+Here's the crucial insight that makes quantum oracles work.
+
+Look at step 2 of the circuit: the ancilla qubit starts in $|{-}\rangle = \frac{1}{\sqrt{2}}(|0\rangle - |1\rangle)$. Why this specific state?
+
+**The oracle acts as:**
+$$U_f|x\rangle|y\rangle = |x\rangle|y \oplus f(x)\rangle$$
+
+What happens when we apply this to the input qubit $|x\rangle$ and ancilla $|{-}\rangle$?
+
+$$U_f|x\rangle|{-}\rangle = U_f|x\rangle \frac{1}{\sqrt{2}}(|0\rangle - |1\rangle)$$
+
+$$= \frac{1}{\sqrt{2}}(|x\rangle|0 \oplus f(x)\rangle - |x\rangle|1 \oplus f(x)\rangle)$$
+
+$$= \frac{1}{\sqrt{2}}|x\rangle(|f(x)\rangle - |1 \oplus f(x)\rangle)$$
+
+Now consider the two cases:
+
+**If $f(x) = 0$:**
+$$\frac{1}{\sqrt{2}}|x\rangle(|0\rangle - |1\rangle) = |x\rangle|{-}\rangle$$
+
+**If $f(x) = 1$:**
+$$\frac{1}{\sqrt{2}}|x\rangle(|1\rangle - |0\rangle) = -|x\rangle|{-}\rangle$$
+
+In both cases, the ancilla returns to $|{-}\rangle$! But when $f(x) = 1$, there's a **global phase of $-1$** that attaches to the input qubit.
+
+We can write this compactly as:
+
+$$U_f|x\rangle|{-}\rangle = (-1)^{f(x)}|x\rangle|{-}\rangle$$
+
+**This is phase kickback.** The function value $f(x)$ has "kicked back" as a phase onto the input register. The ancilla is unchanged—it was just a catalyst.
+
+### Why Phase Kickback Matters
+
+1. **Information becomes phase**: The classical bit $f(x)$ becomes a quantum phase $(-1)^{f(x)}$
+2. **Phases can interfere**: Unlike classical bits, phases combine through interference
+3. **The ancilla is reusable**: It returns to its original state, ready for the next query
+4. **Global phases become relative**: In superposition, these phases become *relative* between branches
+
+The entire power of quantum oracles comes from this trick: **convert function values to phases, then let them interfere**.
+
 ### How It Works
 
 1. **Superposition**: H gates create $|+\rangle|{-}\rangle$
 
-2. **Oracle**: $U_f$ encodes the function. The ancilla picks up a phase:
+2. **Oracle + Kickback**: $U_f$ queries the function, kickback converts to phases:
    $$U_f|x\rangle|{-}\rangle = (-1)^{f(x)}|x\rangle|{-}\rangle$$
 
 3. **After oracle on first qubit**:
@@ -194,6 +236,45 @@ Not all problems benefit from interference:
 
 ---
 
+## Phase Kickback: The General Principle
+
+The phase kickback trick we saw in Deutsch's algorithm is actually a general principle that powers many quantum algorithms.
+
+### The Setup
+
+Suppose $U$ is a unitary with eigenvector $|u\rangle$ and eigenvalue $e^{i\phi}$:
+
+$$U|u\rangle = e^{i\phi}|u\rangle$$
+
+Now apply a **controlled-$U$** gate with control qubit in superposition:
+
+$$\text{C-}U \left(\frac{|0\rangle + |1\rangle}{\sqrt{2}}\right)|u\rangle$$
+
+The controlled gate acts as: do nothing if control is $|0\rangle$, apply $U$ if control is $|1\rangle$:
+
+$$= \frac{1}{\sqrt{2}}(|0\rangle|u\rangle + |1\rangle U|u\rangle)$$
+$$= \frac{1}{\sqrt{2}}(|0\rangle|u\rangle + e^{i\phi}|1\rangle|u\rangle)$$
+$$= \frac{1}{\sqrt{2}}(|0\rangle + e^{i\phi}|1\rangle) \otimes |u\rangle$$
+
+The eigenvalue $e^{i\phi}$ has **kicked back** onto the control qubit! The target $|u\rangle$ is unchanged.
+
+### Why This Works
+
+The target starts in an **eigenstate** of $U$. Eigenstates are special—they only pick up a phase when $U$ acts. That phase then appears on the control.
+
+### Applications
+
+| Algorithm | What kicks back | The eigenstate |
+|-----------|-----------------|----------------|
+| Deutsch-Jozsa | $(-1)^{f(x)}$ | $\|{-}\rangle$ is eigenstate of bit-flip with eigenvalue $-1$ |
+| Phase estimation | $e^{2\pi i\phi}$ | Eigenstate of the unitary being analyzed |
+| Shor | Phases encoding period | Eigenstates of modular multiplication |
+| Grover | $-1$ for marked items | Oracle encodes solution |
+
+Phase kickback is the universal mechanism for transferring classical information into quantum phases.
+
+---
+
 ## Connection to Computational Mechanics
 
 The link between quantum algorithms and computational mechanics:
@@ -229,6 +310,10 @@ The decoherence trajectory we studied shows how this resource degrades—analogo
 ### "Quantum computers try all answers at once"
 
 Misleading. They create superpositions, but you can only measure one outcome. The trick is making that outcome the right one via interference.
+
+### "The ancilla qubit does the computation"
+
+In phase kickback, it looks like the ancilla ($|{-}\rangle$) is doing something. But it's actually a **catalyst**—it enables the phase to appear but returns to its original state. The real action is on the control qubit, where phases accumulate and interfere.
 
 ### "Quantum computers are exponentially faster at everything"
 
