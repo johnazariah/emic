@@ -366,3 +366,242 @@ class TestEdgeCases:
 
         with pytest.raises(ValueError, match="gamma must be in"):
             dephasing_channel(rho, 1.5)
+
+
+# =============================================================================
+# Tests: Even Process (No Quantum Advantage - Orthogonal States)
+# =============================================================================
+
+
+def make_even_process() -> EpsilonMachine[int]:
+    """Even process: 1s must come in pairs (no odd runs)."""
+    return (
+        EpsilonMachineBuilder[int]()
+        .add_transition("A", 0, "A", 0.5)
+        .add_transition("A", 1, "B", 0.5)
+        .add_transition("B", 1, "A", 1.0)
+        .with_start_state("A")
+        .with_stationary_distribution({"A": 2 / 3, "B": 1 / 3})
+        .build()
+    )
+
+
+class TestEvenProcess:
+    """Even process has orthogonal signal states → no quantum advantage."""
+
+    def test_even_process_c_mu(self) -> None:
+        """Even process has C_mu = H(2/3, 1/3) ≈ 0.918 bits."""
+        from emic.analysis import statistical_complexity
+
+        machine = make_even_process()
+        c_mu = statistical_complexity(machine)
+
+        expected = -(2 / 3) * np.log2(2 / 3) - (1 / 3) * np.log2(1 / 3)
+        assert np.isclose(c_mu, expected, atol=0.001)
+
+    def test_even_process_no_quantum_advantage(self) -> None:
+        """Even process has C_q = C_mu (no quantum advantage)."""
+        from emic.analysis import statistical_complexity
+
+        machine = make_even_process()
+        c_q = quantum_complexity(machine)
+        c_mu = statistical_complexity(machine)
+        delta = quantum_advantage(machine)
+
+        assert np.isclose(c_q, c_mu, atol=1e-10), f"C_q={c_q} should equal C_mu={c_mu}"
+        assert np.isclose(delta, 0.0, atol=1e-10), f"Delta={delta} should be 0"
+
+    def test_even_process_orthogonal_signal_states(self) -> None:
+        """Even process signal states are orthogonal."""
+        machine = make_even_process()
+        overlap = signal_state_overlap(machine)
+
+        # Diagonal should be 1
+        assert np.allclose(np.diag(overlap), 1.0)
+
+        # Off-diagonal should be 0
+        off_diag = overlap - np.diag(np.diag(overlap))
+        assert np.allclose(off_diag, 0.0, atol=1e-10)
+
+    def test_even_process_hierarchy(self) -> None:
+        """Verify E ≤ C_q ≤ C_mu for even process."""
+        from emic.analysis import excess_entropy, statistical_complexity
+
+        machine = make_even_process()
+        e = excess_entropy(machine)
+        c_q = quantum_complexity(machine)
+        c_mu = statistical_complexity(machine)
+
+        assert e <= c_q + 1e-10, f"E={e} > C_q={c_q}"
+        assert c_q <= c_mu + 1e-10, f"C_q={c_q} > C_mu={c_mu}"
+
+
+# =============================================================================
+# Tests: Periodic Processes (Deterministic - No Quantum Advantage)
+# =============================================================================
+
+
+def make_periodic(period: int) -> EpsilonMachine[int]:
+    """Periodic process with given period."""
+    builder = EpsilonMachineBuilder[int]()
+
+    # Create states S0, S1, ..., S_{n-1} with deterministic transitions
+    for i in range(period):
+        next_state = f"S{(i + 1) % period}"
+        symbol = i % 2  # Alternate 0, 1, 0, 1, ...
+        builder.add_transition(f"S{i}", symbol, next_state, 1.0)
+
+    # Uniform stationary distribution
+    stationary = {f"S{i}": 1.0 / period for i in range(period)}
+
+    return builder.with_start_state("S0").with_stationary_distribution(stationary).build()
+
+
+class TestPeriodicProcesses:
+    """Periodic (deterministic) processes have no quantum advantage."""
+
+    @pytest.mark.parametrize("period", [1, 2, 3, 4])
+    def test_periodic_c_mu(self, period: int) -> None:
+        """Periodic process has C_mu = log(period)."""
+        from emic.analysis import statistical_complexity
+
+        machine = make_periodic(period)
+        c_mu = statistical_complexity(machine)
+
+        expected = np.log2(period) if period > 1 else 0.0
+        assert np.isclose(c_mu, expected, atol=0.001), f"C_mu={c_mu}, expected={expected}"
+
+    @pytest.mark.parametrize("period", [1, 2, 3, 4])
+    def test_periodic_no_quantum_advantage(self, period: int) -> None:
+        """Periodic process has C_q = C_mu."""
+        from emic.analysis import statistical_complexity
+
+        machine = make_periodic(period)
+        c_q = quantum_complexity(machine)
+        c_mu = statistical_complexity(machine)
+
+        assert np.isclose(c_q, c_mu, atol=1e-6), f"C_q={c_q} != C_mu={c_mu}"
+
+    @pytest.mark.parametrize("period", [2, 3, 4])
+    def test_periodic_zero_entropy_rate(self, period: int) -> None:
+        """Deterministic processes have h_mu = 0."""
+        from emic.analysis import entropy_rate
+
+        machine = make_periodic(period)
+        h_mu = entropy_rate(machine)
+
+        assert np.isclose(h_mu, 0.0, atol=1e-10)
+
+
+# =============================================================================
+# Tests: Quantum Advantage Taxonomy
+# =============================================================================
+
+
+class TestQuantumAdvantageTaxonomy:
+    """Test the conditions for quantum advantage."""
+
+    def test_iid_no_advantage(self) -> None:
+        """IID processes have no quantum advantage (single state)."""
+        # Fair coin
+        fair = (
+            EpsilonMachineBuilder[int]()
+            .add_transition("S", 0, "S", 0.5)
+            .add_transition("S", 1, "S", 0.5)
+            .with_start_state("S")
+            .with_stationary_distribution({"S": 1.0})
+            .build()
+        )
+
+        assert quantum_advantage(fair) < 1e-10, "Fair coin should have no advantage"
+
+        # Biased coin
+        biased = (
+            EpsilonMachineBuilder[int]()
+            .add_transition("S", 0, "S", 0.7)
+            .add_transition("S", 1, "S", 0.3)
+            .with_start_state("S")
+            .with_stationary_distribution({"S": 1.0})
+            .build()
+        )
+
+        assert quantum_advantage(biased) < 1e-10, "Biased coin should have no advantage"
+
+    def test_symmetric_two_state_has_advantage(self) -> None:
+        """Symmetric two-state processes (perturbed coin) have quantum advantage."""
+        for p in [0.1, 0.2, 0.3, 0.4]:
+            machine = make_perturbed_coin(p)
+            delta = quantum_advantage(machine)
+
+            assert delta > 0.1, f"Perturbed coin p={p} should have advantage, got {delta}"
+
+    def test_advantage_increases_toward_p_half(self) -> None:
+        """Quantum advantage increases as p → 0.5 for perturbed coin."""
+        advantages = []
+        for p in [0.1, 0.2, 0.3, 0.4]:
+            machine = make_perturbed_coin(p)
+            advantages.append(quantum_advantage(machine))
+
+        # Advantage should be monotonically increasing
+        for i in range(len(advantages) - 1):
+            assert (
+                advantages[i] < advantages[i + 1]
+            ), f"Advantage should increase: {advantages[i]} < {advantages[i + 1]}"
+
+    def test_overlapping_futures_gives_advantage(self) -> None:
+        """Signal state overlap > 0 implies quantum advantage."""
+        # Perturbed coin has overlap
+        perturbed = make_perturbed_coin(0.3)
+        overlap_p = signal_state_overlap(perturbed)
+        off_diag_p = np.max(np.abs(overlap_p - np.eye(len(overlap_p))))
+
+        assert off_diag_p > 0.5, "Perturbed coin should have signal state overlap"
+        assert quantum_advantage(perturbed) > 0.1, "Overlap implies advantage"
+
+        # Even process has no overlap
+        even = make_even_process()
+        overlap_e = signal_state_overlap(even)
+        off_diag_e = np.max(np.abs(overlap_e - np.eye(len(overlap_e))))
+
+        assert off_diag_e < 1e-10, "Even process should have no overlap"
+        assert quantum_advantage(even) < 1e-10, "No overlap implies no advantage"
+
+    def test_deterministic_no_advantage(self) -> None:
+        """Deterministic processes have no quantum advantage."""
+        for period in [2, 3, 4]:
+            machine = make_periodic(period)
+            delta = quantum_advantage(machine)
+
+            assert delta < 1e-10, f"Period-{period} should have no advantage"
+
+
+# =============================================================================
+# Tests: Signal State Overlap Analysis
+# =============================================================================
+
+
+class TestSignalStateOverlap:
+    """Tests for the signal state overlap matrix."""
+
+    def test_overlap_symmetric(self, perturbed_coin_03: EpsilonMachine[int]) -> None:
+        """Overlap matrix should be symmetric."""
+        overlap = signal_state_overlap(perturbed_coin_03)
+        assert np.allclose(overlap, overlap.T)
+
+    def test_overlap_diagonal_one(self, perturbed_coin_03: EpsilonMachine[int]) -> None:
+        """Diagonal of overlap matrix should be 1 (normalized states)."""
+        overlap = signal_state_overlap(perturbed_coin_03)
+        assert np.allclose(np.diag(overlap), 1.0)
+
+    def test_overlap_perturbed_coin_formula(self) -> None:
+        """Perturbed coin overlap should match 2*sqrt(p*(1-p))."""
+        for p in [0.1, 0.2, 0.3, 0.4]:
+            machine = make_perturbed_coin(p)
+            overlap = signal_state_overlap(machine)
+
+            expected = 2 * np.sqrt(p * (1 - p))
+            actual = overlap[0, 1]
+
+            assert np.isclose(
+                actual, expected, atol=0.001
+            ), f"p={p}: expected overlap {expected}, got {actual}"
