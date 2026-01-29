@@ -91,6 +91,106 @@ Shor's algorithm breaks RSA encryption. This motivated:
 
 ---
 
+## Sidebar: Why Shor's Algorithm Works (Intuition)
+
+Most people know "Shor breaks RSA" but not *why*. Here's the intuition.
+
+### The Security of RSA
+
+RSA encryption relies on this asymmetry:
+
+| Operation | Difficulty |
+|-----------|------------|
+| Multiply two primes: $p \times q = N$ | Easy (milliseconds) |
+| Factor the product: $N \to p, q$ | Hard (billions of years for large $N$) |
+
+Your public key contains $N$. Breaking RSA means finding $p$ and $q$.
+
+### The Reduction: Factoring → Period Finding
+
+Here's the surprising connection. Pick a random $a < N$ and consider:
+
+$$f(x) = a^x \mod N$$
+
+This function is **periodic**. There exists some $r$ such that:
+
+$$a^r \equiv 1 \pmod{N}$$
+
+meaning $a^{x+r} = a^x \cdot a^r = a^x \cdot 1 = a^x \pmod{N}$.
+
+**If we know $r$, we can often factor $N$:**
+
+Since $a^r - 1 = 0 \pmod{N}$, we have $(a^{r/2} - 1)(a^{r/2} + 1) = 0 \pmod{N}$.
+
+If $r$ is even and $a^{r/2} \neq \pm 1 \pmod{N}$, then $\gcd(a^{r/2} - 1, N)$ gives a factor!
+
+### Why Period Finding Is Hard Classically
+
+The sequence $a, a^2, a^3, \ldots \mod N$ doesn't reveal its period easily.
+
+For 2048-bit RSA, the period $r$ could be around $2^{1024}$. You can't just compute terms until you see a repeat—there are too many.
+
+Best classical algorithms (number field sieve): sub-exponential, but still infeasible for large $N$.
+
+### Why Quantum Helps: The QFT Trick
+
+Quantum computers exploit the periodicity through interference:
+
+**Step 1: Create a periodic superposition**
+
+$$\sum_{x=0}^{Q-1} |x\rangle |a^x \mod N\rangle$$
+
+where $Q$ is large (around $N^2$). All values computed "at once" via superposition.
+
+**Step 2: Apply the Quantum Fourier Transform**
+
+The QFT is essentially the same as the classical Fourier transform, but on amplitudes:
+
+$$|j\rangle \to \frac{1}{\sqrt{Q}} \sum_{k=0}^{Q-1} e^{2\pi i jk/Q} |k\rangle$$
+
+Here's the key: **periodic inputs create peaked outputs**.
+
+If the input has period $r$, the QFT output has peaks at multiples of $Q/r$.
+
+**Step 3: Measure and extract the period**
+
+Measuring gives a value near $kQ/r$ for some integer $k$. Using continued fractions, we can extract $r$ from this.
+
+### The Interference Pattern
+
+Why do non-period frequencies cancel?
+
+Consider amplitudes contributing to output $|m\rangle$:
+
+$$\alpha_m = \sum_{x: \text{period } r} e^{2\pi i xm/Q}$$
+
+If $m$ is a multiple of $Q/r$, the phases align (constructive interference).
+
+If $m$ is not related to the period, phases point in random directions and cancel (destructive interference).
+
+**This is exactly like a diffraction grating:** periodic slits create bright spots at specific angles.
+
+### The Punchline
+
+| Classical | Quantum |
+|-----------|---------|
+| Check $a^x$ one at a time | Superposition: all $a^x$ at once |
+| Can't see periodicity | QFT reveals periodicity via interference |
+| Sub-exponential time | Polynomial time |
+
+The period was always there in the mathematical structure. Quantum mechanics lets us "see" it through interference, just as diffraction lets us see the spacing of atoms in a crystal.
+
+### Why This Matters for Security
+
+- **RSA-2048**: Classical factoring would take longer than the age of the universe
+- **With Shor**: A sufficiently large quantum computer could factor in hours
+- **Current status**: Largest number factored by Shor: 21 (in 2012). We're far from breaking RSA.
+- **But**: "Harvest now, decrypt later" attacks mean encrypted data captured today could be decrypted once quantum computers exist
+
+This is why post-quantum cryptography (lattice-based, hash-based, etc.) is being deployed now.
+
+---
+
 ## Quantum Simulation
 
 ### Problem
