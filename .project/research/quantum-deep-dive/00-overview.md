@@ -34,10 +34,10 @@ Once you see this, quantum mechanics stops being mysterious.
 11. [Quantum Algorithms](11-algorithms.md) — What they actually do
 12. [Why Quantum Speedup?](12-why-speedup.md) — When it helps, when it doesn't
 
-### Part IV: Connections (Optional)
-13. Quantum vs Classical Complexity — Why $C_q < C_\mu$
-14. Error Correction — Protecting coherence
-15. Open Questions — What we don't know
+### Part IV: Connections
+13. [Quantum vs Classical Complexity](13-quantum-vs-classical-complexity.md) — Why $C_q < C_\mu$
+14. [Error Correction](14-error-correction.md) — Protecting coherence
+15. [Open Questions](15-open-questions.md) — What we don't know
 
 ## Prerequisites
 
