@@ -56,8 +56,49 @@
 
 **Test Results**: 421 tests passing
 
+---
+
+### January 29, 2026 (continued)
+
+**Session Focus**: Decoherence Trajectory Investigation (Investigation 1)
+
+**Commits**: `420c961`, `13141a5`, `239467d`, `8da4873`
+
+**Completed**:
+
+1. **Fixed Validation Plan Table**
+   - Corrected $C_q$ values that violated hierarchy $E \leq C_q \leq C_\mu$
+   - Added decoherence trajectory reference values for p=0.3
+
+2. **Created Decoherence Trajectory Notebook**
+   - `notebooks/decoherence_trajectory.ipynb`
+   - Traced $C_q(\gamma)$ for Perturbed Coin at p = 0.1, 0.2, 0.3, 0.4, 0.5
+   - Compared with Golden Mean and Even Process
+   - Analyzed concavity via numerical second derivatives
+
+3. **Key Findings**
+   - All trajectories for processes with quantum advantage are **concave**
+   - Quantum advantage is fragile: even weak dephasing ($\gamma \approx 0.1$) destroys much of it
+   - Signal state overlap predicts quantum advantage (overlap > 0 → advantage exists)
+   - **Even Process anomaly**: dephasing can exceed $C_\mu$ for orthogonal signal states!
+
+4. **Discovered: Dephasing ≠ Classicalization**
+   - The Even Process has $C_q(\gamma=1) = 1.585$ vs $C_\mu = 0.918$
+   - Dephasing removes coherences but doesn't return to the classical mixed state
+   - This only affects processes without quantum advantage (orthogonal signal states)
+
+**Key Insight**: The decoherence trajectory interpretation only works for processes with non-orthogonal signal states. For orthogonal states, the dephased density matrix is not equivalent to the classical model.
+
+**Files Created**:
+- `notebooks/decoherence_trajectory.ipynb`
+- `.project/notes/2026-01-29T01-01-decoherence-trajectory-investigation.md`
+
+**Test Results**: 421 tests passing
+
 **Next Steps**:
-1. Fix validation plan table with correct values
+1. Add unit tests for decoherence trajectory
+2. Investigate mathematical structure of concavity
+3. Consider alternative decoherence channels
 2. Add unit tests for quantum measures
 3. Begin Investigation 1 (decoherence trajectory analysis)
 
