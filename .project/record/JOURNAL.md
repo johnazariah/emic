@@ -6,7 +6,43 @@
 
 ## 2026
 
-### January 29, 2026 (continued)
+### January 29, 2026 (session 2)
+
+**Session Focus**: Quantum Advantage Taxonomy & Comprehensive Testing
+
+**Commits**: `921b3cb`, `d518b8a`
+
+**Completed**:
+
+1. **Extended Quantum Test Suite (30 → 53 tests)**
+   - `TestEvenProcess`: Orthogonal signal states → no advantage
+   - `TestPeriodicProcesses`: Deterministic processes → no advantage
+   - `TestQuantumAdvantageTaxonomy`: Conditions for advantage
+   - `TestSignalStateOverlap`: Verify overlap formula
+   - Total project tests: 474
+
+2. **Characterized When Quantum Advantage Occurs**
+   - **Key finding**: Advantage ⟺ signal state overlap ⟺ merging paths
+   - IID: no advantage (single state)
+   - Deterministic: no advantage (unique outputs)
+   - Even process: no advantage (disjoint futures)
+   - Golden mean: 40% advantage (shared transitions)
+   - Perturbed coin: up to 100% advantage (symmetric merging)
+
+3. **Updated Validation Notebook**
+   - Tested 10 processes across 4 categories
+   - Added visualization comparing $C_\mu$ vs $C_q$
+   - Documented taxonomy with physical interpretation
+
+**Key Insight**: Quantum advantage occurs when different causal states can transition to the **same future state** via the **same symbol**. This creates signal state overlap, allowing non-orthogonal quantum encoding.
+
+**Physical Interpretation**: The quantum advantage represents information that classical models must store but which is **destined to be lost** when paths merge.
+
+**Notes**: See `.project/notes/2026-01-29T07-52-quantum-advantage-taxonomy.md`
+
+---
+
+### January 29, 2026 (session 1)
 
 **Session Focus**: Quantum Module Validation & Decoherence Investigation
 
