@@ -156,22 +156,23 @@ Eigenvalues: $\lambda_\pm = 0.5 \pm \sqrt{p(1-p)}$
 
 $$C_q = -\lambda_+ \log_2 \lambda_+ - \lambda_- \log_2 \lambda_-$$
 
-### Validation Table (From Gu et al. 2012, Fig. 2)
+### Validation Table (Corrected - computed from analytic formula)
 
 | $p$ | $C_\mu$ | $E$ | $C_q$ | $\Delta_q$ |
 |-----|---------|-----|-------|------------|
-| 0.05 | 1.000 | 0.714 | 0.714 | 0.286 |
-| 0.10 | 1.000 | 0.531 | 0.469 | 0.531 |
-| 0.15 | 1.000 | 0.390 | 0.352 | 0.648 |
-| 0.20 | 1.000 | 0.278 | 0.286 | 0.714 |
-| 0.25 | 1.000 | 0.189 | 0.219 | 0.781 |
-| 0.30 | 1.000 | 0.119 | 0.161 | 0.839 |
-| 0.35 | 1.000 | 0.066 | 0.114 | 0.886 |
-| 0.40 | 1.000 | 0.029 | 0.080 | 0.920 |
-| 0.45 | 1.000 | 0.007 | 0.041 | 0.959 |
-| 0.49 | 1.000 | 0.001 | 0.008 | 0.992 |
+| 0.05 | 1.000 | 0.714 | 0.858 | 0.142 |
+| 0.10 | 1.000 | 0.531 | 0.722 | 0.278 |
+| 0.15 | 1.000 | 0.390 | 0.592 | 0.408 |
+| 0.20 | 1.000 | 0.278 | 0.469 | 0.531 |
+| 0.25 | 1.000 | 0.189 | 0.355 | 0.645 |
+| 0.30 | 1.000 | 0.119 | 0.250 | 0.750 |
+| 0.35 | 1.000 | 0.066 | 0.158 | 0.842 |
+| 0.40 | 1.000 | 0.029 | 0.081 | 0.919 |
+| 0.45 | 1.000 | 0.007 | 0.025 | 0.975 |
+| 0.49 | 1.000 | 0.001 | 0.002 | 0.998 |
 
-**Note:** $C_q$ values computed from formula; verify against paper's Figure 2.
+**Note:** These values computed from $\lambda_\pm = 0.5 \pm \sqrt{p(1-p)}$ and verified
+to satisfy the hierarchy $E \leq C_q \leq C_\mu$. Previous table had errors.
 
 ### Tests
 
@@ -191,12 +192,12 @@ For perturbed coin with $p = 0.3$:
 
 | $\gamma$ | $C_q(\gamma)$ | Notes |
 |----------|---------------|-------|
-| 0.0 | 0.161 | Pure quantum |
-| 0.2 | TBD | Compute |
-| 0.4 | TBD | Compute |
-| 0.6 | TBD | Compute |
-| 0.8 | TBD | Compute |
-| 1.0 | 1.000 | Should equal $C_\mu$ |
+| 0.0 | 0.250 | Pure quantum |
+| 0.2 | 0.567 | Computed |
+| 0.4 | 0.769 | Computed |
+| 0.6 | 0.901 | Computed |
+| 0.8 | 0.976 | Computed |
+| 1.0 | 1.000 | Equals $C_\mu$ ✓ |
 
 **Tests:**
 1. $C_q(0) = C_q$ (unperturbed quantum complexity)
