@@ -153,14 +153,14 @@ The review paper will:
 
 ---
 
-## Phase 3: emic Framework Paper (Future)
+## Phase 3: emic Framework Paper (In Progress)
 
-Software paper for Journal of Open Source Software or similar:
-- Focus on API design and extensibility
-- Performance benchmarks
-- Installation and usage guide
+JOSS (Journal of Open Source Software) paper — draft complete at `joss/paper.md`:
+- Succinct software paper (~1000 words) with YAML front matter
+- Links review paper and technical report as associated arXiv preprints
+- Focus on API design, algorithms, and extensibility
 
-**Dependencies:** Library should be stable (v1.0 release).
+**Dependencies:** Review paper and technical report submitted as arXiv preprints.
 
 ---
 

@@ -7,17 +7,46 @@
 
 ## Overview
 
-Three complementary documents serving different audiences and purposes:
+Four complementary documents serving different audiences and purposes:
 
 | Document | Audience | Purpose | Venue |
 |----------|----------|---------|-------|
+| **JOSS Paper** | Software users, reviewers | Announce emic as citable software | Journal of Open Source Software |
 | **Tutorial** | Students, researchers new to field | Teach computational mechanics | University seminars, workshops |
 | **Research Paper** | Academic community | Review & validate Crutchfield/Shalizi | Journal (Entropy, JMLR) |
 | **Technical Report** | Practitioners, thesis committee | Document emic's contribution | Thesis chapter, arXiv |
 
 ---
 
-## 1. Tutorial: "A Practical Guide to Computational Mechanics"
+## 1. JOSS Paper: "emic: A Python Framework for Epsilon-Machine Inference and Characterization"
+
+### Purpose
+Short, citable software paper for the Journal of Open Source Software. Links to the review paper and technical report as associated publications.
+
+### Audience
+- Software users who need a citation for emic
+- Peer reviewers assessing software quality
+- Researchers discovering the library
+
+### Tone
+Concise, factual, software-focused
+
+### Location
+`joss/paper.md` and `joss/paper.bib`
+
+### Key Features
+- ~1000 words (JOSS maximum)
+- Describes all five inference algorithms, analysis suite, pipeline API
+- References review paper and technical report as arXiv preprints
+- YAML front matter with author ORCID and affiliation
+
+### Dependencies
+- Library should be functional and documented (✅ met)
+- Review paper and technical report should be submitted as arXiv preprints
+
+---
+
+## 2. Tutorial: "A Practical Guide to Computational Mechanics"
 
 ### Purpose
 Pedagogical introduction for university presentations. Build intuition before formalism.
@@ -55,7 +84,7 @@ Conversational, worked examples, "why does this matter?"
 
 ---
 
-## 2. Research Paper: "Computational Mechanics: A Modern Review"
+## 3. Research Paper: "Computational Mechanics: A Modern Review"
 
 ### Purpose
 Rigorous exposition of Crutchfield & Shalizi's theoretical framework with:
@@ -117,7 +146,7 @@ Formal, precise, theorem-proof style
 
 ---
 
-## 3. Technical Report: "emic: A Python Framework for ε-Machine Inference"
+## 4. Technical Report: "emic: A Python Framework for ε-Machine Inference"
 
 ### Purpose
 Document the `emic` library's design, implementation, and validation. Forms a thesis chapter.
