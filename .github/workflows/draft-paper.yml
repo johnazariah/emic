@@ -3,11 +3,11 @@ name: Draft JOSS Paper
 on:
   push:
     paths:
-      - 'joss/**'
+      - '.project/research/computational-mechanics-review/joss/**'
       - '.github/workflows/draft-paper.yml'
   pull_request:
     paths:
-      - 'joss/**'
+      - '.project/research/computational-mechanics-review/joss/**'
 
 jobs:
   paper:
@@ -20,10 +20,10 @@ jobs:
         uses: openjournals/openjournals-draft-action@master
         with:
           journal: joss
-          paper-path: joss/paper.md
+          paper-path: .project/research/computational-mechanics-review/joss/paper.md
 
       - name: Upload paper PDF
         uses: actions/upload-artifact@v4
         with:
           name: joss-paper
-          path: joss/paper.pdf
+          path: .project/research/computational-mechanics-review/joss/paper.pdf
