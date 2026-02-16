@@ -68,7 +68,7 @@ mechanics and complexity analysis landscape.
 
 | Package | Language | $\varepsilon$-Machine Inference | Algorithms | $C_\mu$, $h_\mu$ | Tests | Registry | Maintained |
 |:--------|:---------|:-------------------------------:|:-----------|:-----------------:|:-----:|:--------:|:----------:|
-| **emic** | Python | **Yes** | CSSR, Spectral, CSM, BSI, NSD | **Yes** | **194** | **PyPI** | **Yes** |
+| **emic** | Python | **Yes** | CSSR, Spectral, CSM, BSI, NSD | **Yes** | **408** | **PyPI** | **Yes** |
 | CSSR [@shalizi2004algorithm] | C++ | Yes | CSSR | Yes | No | No | No (2008) |
 | transCSSR [@darmon2023transcssr] | Python | Yes | CSSR (transducers) | Indirect | No | No | Yes |
 | CMPy [@cmpy] | Python | Yes | CSSR, Bayesian | Yes | Unknown | No | No (defunct) |
@@ -145,15 +145,14 @@ of Technology Sydney investigating computational mechanics and its quantum
 extensions. It has been used to validate the fundamental theorems of
 computational mechanics — prescience, minimality, uniqueness, and the bound $E
 \le C_\mu$ — against four canonical processes (Golden Mean, Even Process, Biased
-Coin, Periodic), producing numerical results reported in a companion review
-paper [@azariah2026review]. A separate technical report [@azariah2026technical]
-documents the library's architecture, algorithm-comparison benchmarks, and
-convergence analysis in detail.
+Coin, Periodic), producing numerical results reported in a companion technical
+report [@azariah2026technical], which includes a self-contained review of
+computational mechanics theory with complete proofs as an appendix.
 
 The package is available on PyPI (`pip install emic`), with full API
 documentation at https://johnazariah.github.io/emic/. The test suite comprises
-194 tests (unit, integration, golden-test, and property-based via Hypothesis)
-with over 90 % line coverage. Strict static typing is enforced via Pyright.
+408 tests (unit, integration, golden-test, and property-based via Hypothesis)
+with over 82 % line coverage. Strict static typing is enforced via Pyright.
 
 # AI Usage Disclosure
 

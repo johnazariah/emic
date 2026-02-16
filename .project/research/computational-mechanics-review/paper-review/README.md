@@ -1,7 +1,7 @@
 # Research Paper: Computational Mechanics — A Modern Review
 
-**Status:** Draft Complete
-**Target:** Journal (Entropy, J. Stat. Phys., Chaos)
+**Status:** Draft (~25% complete per adviser feedback; currently merged into technical report as Appendix B)
+**Target:** Journal (Entropy, J. Stat. Phys., Chaos) — to be developed into a proper standalone review
 **Format:** LaTeX article (two-column)
 **Pages:** ~10 (estimated)
 
