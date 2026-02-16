@@ -16,11 +16,11 @@ Steps for releasing a new version of `emic` and its associated publications.
 
 ## JOSS Paper
 
-- [ ] `joss/paper.md` YAML frontmatter is correct:
+- [ ] `paper-joss/paper.md` YAML frontmatter is correct:
   - `date` matches release date
   - `bibliography: paper.bib` is set
   - Author ORCID and affiliation are current
-- [ ] `joss/paper.bib` references are complete (no placeholder arXiv IDs)
+- [ ] `paper-joss/paper.bib` references are complete (no placeholder arXiv IDs)
 - [ ] Word count is 750–1750 words
 - [ ] All required JOSS sections present:
   - Summary
@@ -53,7 +53,7 @@ Steps for releasing a new version of `emic` and its associated publications.
   make verify
   ```
 - [ ] Both submitted to arXiv and arXiv IDs obtained
-- [ ] `joss/paper.bib` updated with arXiv eprint IDs:
+- [ ] `paper-joss/paper.bib` updated with arXiv eprint IDs:
   ```bibtex
   eprint = {2602.XXXXX},
   archiveprefix = {arXiv},

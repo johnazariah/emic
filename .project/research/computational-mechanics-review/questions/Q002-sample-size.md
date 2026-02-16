@@ -28,4 +28,4 @@ Epsilon-machine inference requires sufficient data to:
 
 - **Experiments**: `convergence`
 - **Hypotheses**: H004, H005
-- **Papers**: emic-framework (Section 4)
+- **Papers**: paper-framework (Section 4)

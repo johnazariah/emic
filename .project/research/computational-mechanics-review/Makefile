@@ -5,7 +5,7 @@
 #   make pdf          Build PDFs only
 #   make arxiv        Package arXiv tarballs (requires built PDFs)
 #   make verify       Verify arXiv tarballs compile from source
-#   make joss         Build JOSS preview PDF (requires Docker)
+#   make joss         Show JOSS build info (CI only)
 #   make clean        Remove dist/ artifacts
 #
 #   make review       Build review paper PDF only
@@ -13,10 +13,7 @@
 #   make tutorial     Build tutorial PDF only
 #
 # Output: dist/
-#   review-paper.pdf
-#   technical-report.pdf
-#   tutorial.pdf
-#   joss-paper.pdf                    (if Docker available)
+#   paper.pdf                          (from each paper dir)
 #   arxiv-review-paper.tar.gz         (upload to arXiv)
 #   arxiv-technical-report.tar.gz     (upload to arXiv)
 #   arxiv-tutorial.tar.gz             (upload to arXiv)

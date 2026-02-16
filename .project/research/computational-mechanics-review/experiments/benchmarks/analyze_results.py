@@ -1,15 +1,26 @@
 #!/usr/bin/env python3
-"""Generate LaTeX tables from benchmark results.
+"""Generate LaTeX tables from emic-experiment results.
+
+This script reads benchmark results from the unified emic-experiment platform
+and generates LaTeX tables for the technical report.
 
 Usage:
-    python analyze_results.py
+    python analyze_results.py                 # Use latest results
+    python analyze_results.py path/to/data    # Use specific path
 
-Outputs LaTeX table files to the technical report's generated/ directory.
+Input formats supported:
+    - results.parquet (preferred)
+    - results.json
+
+Output:
+    LaTeX table files in paper-technical/generated/
 """
 
+from __future__ import annotations
+
 import json
-import re
 import subprocess
+import sys
 from pathlib import Path
 
 import pandas as pd
@@ -18,8 +29,15 @@ import pandas as pd
 SCRIPT_DIR = Path(__file__).parent
 PROJECT_ROOT = SCRIPT_DIR / "../.."  # computational-mechanics-review
 WORKSPACE_ROOT = SCRIPT_DIR / "../../../.."  # workspace root
-RESULTS_PATH = SCRIPT_DIR / "results/summaries.json"
-OUTPUT_DIR = PROJECT_ROOT / "technical-report/tex/generated"
+OUTPUT_DIR = PROJECT_ROOT / "paper-technical/generated"
+
+# Default results locations (in priority order)
+DEFAULT_RESULTS_PATHS = [
+    SCRIPT_DIR / "results/results.parquet",
+    SCRIPT_DIR / "results/results.json",
+    WORKSPACE_ROOT / "experiments/runs/latest/results.parquet",
+    WORKSPACE_ROOT / "experiments/runs/latest/results.json",
+]
 
 # Process metadata
 PROCESS_NAMES = {
@@ -28,24 +46,82 @@ PROCESS_NAMES = {
     "even_process": "EvenProcess",
     "periodic": "Periodic",
 }
-PROCESS_ORDER = ["biased_coin", "golden_mean", "even_process", "periodic"]
+PROCESS_ORDER = ["biased_coin", "golden_mean", "even_process"]
 EXPECTED_STATES = {"biased_coin": 1, "golden_mean": 2, "even_process": 2, "periodic": 3}
-ALGORITHMS = ["cssr", "spectral", "nsd", "csm", "bsi"]
-SAMPLE_SIZES = [100, 1000, 10000, 100000, 1000000]
+ALGORITHMS = ["cssr", "spectral", "csm", "bsi"]
+SAMPLE_SIZES = [1000, 10000, 100000, 1000000]
 
 
-def load_data() -> pd.DataFrame:
-    """Load benchmark results into a DataFrame."""
-    with open(RESULTS_PATH) as f:
-        data = json.load(f)
-    df = pd.DataFrame(data)
-    df = df.rename(columns={"sample_size": "num_samples", "num_states_mode": "num_states"})
+def find_results_file() -> Path:
+    """Find the results file to analyze."""
+    for path in DEFAULT_RESULTS_PATHS:
+        if path.exists():
+            return path
+    msg = "No results found. Run benchmarks first:\n  make benchmarks"
+    raise FileNotFoundError(msg)
+
+
+def load_data(path: Path | None = None) -> pd.DataFrame:
+    """
+    Load benchmark results into a DataFrame.
+
+    Handles multiple formats:
+    - emic-experiment parquet/json (long format with metric/value pairs)
+    - Legacy run.py json (wide format with direct columns)
+
+    Args:
+        path: Path to results file. If None, searches default locations.
+
+    Returns:
+        DataFrame with columns: algorithm, process, num_samples,
+        num_states, duration_s (if available), etc.
+    """
+    if path is None:
+        path = find_results_file()
+
+    print(f"Loading results from: {path}")
+
+    if path.suffix == ".parquet":
+        df = pd.read_parquet(path)
+    else:
+        with open(path) as f:
+            data = json.load(f)
+        df = pd.DataFrame(data)
+
+    # Detect format and normalize
+    if "metric" in df.columns and "value" in df.columns:
+        # emic-experiment long format - pivot to wide
+        pivot_df = df.pivot_table(
+            index=["experiment", "algorithm", "process", "n_samples"],
+            columns="metric",
+            values="value",
+            aggfunc="first",
+        ).reset_index()
+        pivot_df.columns.name = None
+
+        # Rename for compatibility
+        if "state_count" in pivot_df.columns:
+            pivot_df["num_states"] = pivot_df["state_count"].astype(int)
+        if "n_samples" in pivot_df.columns:
+            pivot_df["num_samples"] = pivot_df["n_samples"]
+
+        df = pivot_df
+    else:
+        # Legacy wide format from old run.py
+        if "sample_size" in df.columns:
+            df["num_samples"] = df["sample_size"]
+        if "runtime_seconds" in df.columns:
+            df["duration_s"] = df["runtime_seconds"]
+        if "num_states" not in df.columns and "num_states_mode" in df.columns:
+            df["num_states"] = df["num_states_mode"]
+
+    print(f"Loaded {len(df)} configurations")
     return df
 
 
 def write_latex(filename: str, content: str) -> None:
     """Write LaTeX content to file."""
-    OUTPUT_DIR.mkdir(exist_ok=True)
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     path = OUTPUT_DIR / filename
     path.write_text(content)
     print(f"  Written: {path}")
@@ -57,11 +133,11 @@ def generate_state_counts_table(df: pd.DataFrame) -> None:
 
     latex = r"""\begin{table}[h]
 \centering
-\caption{Inferred state counts at $N = 100{,}000$ (from benchmark data)}
+\caption{Inferred state counts at $N = 100{,}000$}
 \label{tab:state-counts}
-\begin{tabular}{lcccccc}
+\begin{tabular}{lccccc}
 \toprule
-Process & True & CSSR & Spectral & NSD & CSM & BSI \\
+Process & True & CSSR & Spectral & CSM & BSI \\
 \midrule
 """
 
@@ -71,7 +147,11 @@ Process & True & CSSR & Spectral & NSD & CSM & BSI \\
         states = {row["algorithm"]: int(row["num_states"]) for _, row in proc_data.iterrows()}
         latex += f"{PROCESS_NAMES[proc]} & {expected}"
         for alg in ALGORITHMS:
-            latex += f" & {states.get(alg, '?')}"
+            val = states.get(alg, "?")
+            if val == expected:
+                latex += f" & \\textbf{{{val}}}"
+            else:
+                latex += f" & {val}"
         latex += " \\\\\n"
 
     latex += r"""\bottomrule
@@ -84,13 +164,13 @@ Process & True & CSSR & Spectral & NSD & CSM & BSI \\
 def generate_correctness_table(df: pd.DataFrame) -> None:
     """Generate tab:correctness - correctness summary for N >= 1000."""
     large_n = df[df["num_samples"] >= 1000]
-    max_per_process = 4  # 4 sample sizes >= 1000
+    max_per_process = len([n for n in SAMPLE_SIZES if n >= 1000])
 
     latex = r"""\begin{table}[htbp]
 \centering
-\begin{tabular}{lccccc}
+\begin{tabular}{lcccc}
 \toprule
-\textbf{Process} & \textbf{CSSR} & \textbf{Spectral} & \textbf{NSD} & \textbf{CSM} & \textbf{BSI} \\
+\textbf{Process} & \textbf{CSSR} & \textbf{Spectral} & \textbf{CSM} & \textbf{BSI} \\
 \midrule
 """
 
@@ -103,14 +183,14 @@ def generate_correctness_table(df: pd.DataFrame) -> None:
 
         for alg in ALGORITHMS:
             alg_data = proc_data[proc_data["algorithm"] == alg]
-            correct_count = int((alg_data["correct_rate"] == 1.0).sum())
+            correct_count = int((alg_data["num_states"] == expected).sum())
             scores[alg] = correct_count
             totals[alg] += correct_count
 
         proc_label = f"{PROCESS_NAMES[proc]} ({expected})"
         latex += f"{proc_label}"
         for alg in ALGORITHMS:
-            latex += f" & {scores[alg]}/{max_per_process}"
+            latex += f" & {scores.get(alg, 0)}/{max_per_process}"
         latex += " \\\\\n"
 
     # Totals row
@@ -119,27 +199,28 @@ def generate_correctness_table(df: pd.DataFrame) -> None:
     latex += r"\textbf{Overall}"
 
     # Find best algorithm for bolding
-    best_alg = max(totals, key=totals.get)
+    best_alg = max(totals, key=lambda k: totals[k]) if totals else ALGORITHMS[0]
     for alg in ALGORITHMS:
         if alg == best_alg:
             latex += f" & \\textbf{{{totals[alg]}/{max_total}}}"
         else:
-            latex += f" & {totals[alg]}/{max_total}"
+            latex += f" & {totals.get(alg, 0)}/{max_total}"
     latex += " \\\\\n"
 
     # Percentage row
     latex += " "
     for alg in ALGORITHMS:
-        pct = f"({100 * totals[alg] / max_total:.0f}\\%)"
+        pct = 100 * totals.get(alg, 0) / max_total if max_total > 0 else 0
+        pct_str = f"({pct:.0f}\\%)"
         if alg == best_alg:
-            latex += f" & \\textbf{{{pct}}}"
+            latex += f" & \\textbf{{{pct_str}}}"
         else:
-            latex += f" & {pct}"
+            latex += f" & {pct_str}"
     latex += " \\\\\n"
 
     latex += r"""\bottomrule
 \end{tabular}
-\caption{Correctness by algorithm and process for $N \geq 1{,}000$. Each cell shows the number of sample sizes (out of 4: 1K, 10K, 100K, 1M) where the algorithm found the correct number of states.}
+\caption{Correctness by algorithm and process for $N \geq 1{,}000$. Each cell shows the number of sample sizes where the algorithm found the correct number of states.}
 \label{tab:correctness}
 \end{table}"""
 
@@ -162,10 +243,10 @@ def generate_correctness_detail_table(df: pd.DataFrame) -> None:
     latex = r"""\begin{table}[htbp]
 \centering
 \footnotesize
-\begin{tabular}{l|ccccc|ccccc}
+\begin{tabular}{l|cccc|cccc}
 \toprule
-& \multicolumn{5}{c|}{\textbf{Golden Mean (2 states)}} & \multicolumn{5}{c}{\textbf{Even Process (2 states)}} \\
-\textbf{N} & 100 & 1K & 10K & 100K & 1M & 100 & 1K & 10K & 100K & 1M \\
+& \multicolumn{4}{c|}{\textbf{Golden Mean (2 states)}} & \multicolumn{4}{c}{\textbf{Even Process (2 states)}} \\
+\textbf{N} & 1K & 10K & 100K & 1M & 1K & 10K & 100K & 1M \\
 \midrule
 """
 
@@ -176,226 +257,147 @@ def generate_correctness_detail_table(df: pd.DataFrame) -> None:
         latex += f"{alg_upper} & {' & '.join(gm_results)} & {' & '.join(ep_results)} \\\\\n"
 
     latex += r"""\midrule
-& \multicolumn{5}{c|}{\textbf{Biased Coin (1 state)}} & \multicolumn{5}{c}{\textbf{Periodic (3 states)}} \\
-\textbf{N} & 100 & 1K & 10K & 100K & 1M & 100 & 1K & 10K & 100K & 1M \\
+& \multicolumn{4}{c|}{\textbf{Biased Coin (1 state)}} & \multicolumn{4}{c}{} \\
+\textbf{N} & 1K & 10K & 100K & 1M & & & & \\
 \midrule
 """
 
     for alg in ALGORITHMS:
         alg_upper = alg.upper()
         bc_results = [get_result_symbol("biased_coin", alg, n) for n in SAMPLE_SIZES]
-        per_results = [get_result_symbol("periodic", alg, n) for n in SAMPLE_SIZES]
-        latex += f"{alg_upper} & {' & '.join(bc_results)} & {' & '.join(per_results)} \\\\\n"
+        latex += f"{alg_upper} & {' & '.join(bc_results)} & & & & \\\\\n"
 
     latex += r"""\bottomrule
 \end{tabular}
-\caption{Detailed correctness by sample size. \checkmark = correct state count; $\times n$ = inferred $n$ states (wrong).}
+\caption{Detailed correctness by sample size. \checkmark = correct state count; $\times n$ = inferred $n$ states.}
 \label{tab:correctness-detail}
 \end{table}"""
 
     write_latex("tab-correctness-detail.tex", latex)
 
 
-def generate_perf_summary_table(df: pd.DataFrame) -> None:
-    """Generate tab:perf-summary - performance summary."""
-    n1m = df[df["num_samples"] == 1000000]
-    large_n = df[df["num_samples"] >= 1000]
-
-    # Runtime means
-    runtime_means = {}
-    for alg in ALGORITHMS:
-        alg_data = n1m[n1m["algorithm"] == alg]
-        runtime_means[alg] = alg_data["runtime_mean"].mean()
-
-    # Correctness at N >= 1000
-    correctness_large = {}
-    for alg in ALGORITHMS:
-        alg_data = large_n[large_n["algorithm"] == alg]
-        correctness_large[alg] = alg_data["correct_rate"].mean() * 100
-
-    cssr_time = runtime_means["cssr"]
-    best_alg = max(correctness_large, key=correctness_large.get)
+def generate_runtime_table(df: pd.DataFrame) -> None:
+    """Generate tab:runtime - runtime comparison at different sample sizes."""
+    if "duration_s" not in df.columns:
+        print("  Skipping runtime table (no duration data)")
+        return
 
     latex = r"""\begin{table}[htbp]
 \centering
-\begin{tabular}{lccccc}
+\begin{tabular}{lrrrr}
 \toprule
-\textbf{Metric} & \textbf{CSSR} & \textbf{Spectral} & \textbf{CSM} & \textbf{BSI} & \textbf{NSD} \\
+\textbf{Algorithm} & \textbf{N=1K} & \textbf{N=10K} & \textbf{N=100K} & \textbf{N=1M} \\
 \midrule
 """
 
-    # Time row
-    latex += "Time @ $N=1$M"
-    for alg in ["cssr", "spectral", "csm", "bsi", "nsd"]:
-        latex += f" & {runtime_means[alg]:.1f} s"
-    latex += " \\\\\n"
-
-    # Speedup row
-    latex += "Speedup vs CSSR & 1$\\times$"
-    for alg in ["spectral", "csm", "bsi", "nsd"]:
-        speedup = cssr_time / runtime_means[alg]
-        latex += f" & {speedup:.1f}$\\times$"
-    latex += " \\\\\n"
-
-    # Correctness row
-    latex += "Correctness ($N \\geq 1$K)"
-    for alg in ["cssr", "spectral", "csm", "bsi", "nsd"]:
-        pct = f"{correctness_large[alg]:.0f}\\%"
-        if alg == best_alg:
-            latex += f" & \\textbf{{{pct}}}"
-        else:
-            latex += f" & {pct}"
-    latex += " \\\\\n"
+    for alg in ALGORITHMS:
+        alg_data = df[(df["algorithm"] == alg) & (df["process"] == "even_process")]
+        times = {}
+        for n in SAMPLE_SIZES:
+            row = alg_data[alg_data["num_samples"] == n]
+            if len(row) > 0:
+                t = row["duration_s"].iloc[0]
+                if t < 0.1:
+                    times[n] = f"{t * 1000:.0f}ms"
+                elif t < 10:
+                    times[n] = f"{t:.2f}s"
+                else:
+                    times[n] = f"{t:.1f}s"
+            else:
+                times[n] = "?"
+        latex += f"{alg.upper()} & {times.get(1000, '?')} & {times.get(10000, '?')} & {times.get(100000, '?')} & {times.get(1000000, '?')} \\\\\n"
 
     latex += r"""\bottomrule
 \end{tabular}
-\caption{Summary of performance characteristics across all algorithms.}
-\label{tab:perf-summary}
+\caption{Runtime comparison on Even Process.}
+\label{tab:runtime}
 \end{table}"""
 
-    write_latex("tab-perf-summary.tex", latex)
+    write_latex("tab-runtime.tex", latex)
 
 
 def generate_macros(df: pd.DataFrame) -> None:
-    """Generate benchmark-data.tex with LaTeX macros for use in prose."""
-    large_n = df[df["num_samples"] >= 1000]
-    n1m = df[df["num_samples"] == 1000000]
-    n10k_plus = df[df["num_samples"] >= 10000]
+    """Generate LaTeX macros with key statistics."""
+    macros = []
 
-    # Overall correctness (all sample sizes)
-    overall_correct = {}
-    for alg in ALGORITHMS:
-        alg_data = df[df["algorithm"] == alg]
-        overall_correct[alg] = alg_data["correct_rate"].mean() * 100
+    # Total algorithms tested
+    n_algorithms = df["algorithm"].nunique()
+    macros.append(f"\\newcommand{{\\numAlgorithms}}{{{n_algorithms}}}")
 
-    # Correctness at N >= 1000
-    large_n_correct = {}
-    for alg in ALGORITHMS:
-        alg_data = large_n[large_n["algorithm"] == alg]
-        large_n_correct[alg] = alg_data["correct_rate"].mean() * 100
+    # Total processes tested
+    n_processes = df["process"].nunique()
+    macros.append(f"\\newcommand{{\\numProcesses}}{{{n_processes}}}")
 
-    # Correctness at N >= 10000
-    n10k_correct = {}
-    for alg in ALGORITHMS:
-        alg_data = n10k_plus[n10k_plus["algorithm"] == alg]
-        n10k_correct[alg] = alg_data["correct_rate"].mean() * 100
+    # Total configurations
+    n_configs = len(df)
+    macros.append(f"\\newcommand{{\\numConfigs}}{{{n_configs}}}")
 
-    # Runtime at N=1M
-    runtime_1m = {}
-    for alg in ALGORITHMS:
-        alg_data = n1m[n1m["algorithm"] == alg]
-        runtime_1m[alg] = alg_data["runtime_mean"].mean()
+    # Best algorithm at N=100K
+    n100k = df[df["num_samples"] == 100000]
+    if not n100k.empty:
+        correct_counts = {}
+        for alg in ALGORITHMS:
+            alg_data = n100k[n100k["algorithm"] == alg]
+            correct = sum(
+                1
+                for _, row in alg_data.iterrows()
+                if row["num_states"] == EXPECTED_STATES.get(row["process"], -1)
+            )
+            correct_counts[alg] = correct
+        best_alg = max(correct_counts, key=lambda k: correct_counts[k])
+        macros.append(f"\\newcommand{{\\bestAlgorithm}}{{{best_alg.upper()}}}")
 
-    cssr_time = runtime_1m["cssr"]
-    speedups = {alg: cssr_time / runtime_1m[alg] for alg in ALGORITHMS}
-
-    # Find best algorithm
-    best_alg = max(large_n_correct, key=large_n_correct.get)
-
-    # Generate macros
-    latex = "% Auto-generated benchmark data macros\n"
-    latex += "% Generated by: experiments/benchmarks/analyze_results.py\n"
-    latex += "% Do not edit manually - regenerate with 'make report'\n\n"
-
-    # Overall correctness
-    latex += "% Overall correctness (all sample sizes)\n"
-    for alg in ALGORITHMS:
-        latex += f"\\newcommand{{\\{alg}OverallCorrectness}}{{{overall_correct[alg]:.0f}}}\n"
-
-    # Large N correctness
-    latex += "\n% Correctness at N >= 1,000\n"
-    for alg in ALGORITHMS:
-        latex += f"\\newcommand{{\\{alg}LargeNCorrectness}}{{{large_n_correct[alg]:.0f}}}\n"
-
-    # N >= 10K correctness
-    latex += "\n% Correctness at N >= 10,000\n"
-    for alg in ALGORITHMS:
-        latex += f"\\newcommand{{\\{alg}TenKCorrectness}}{{{n10k_correct[alg]:.0f}}}\n"
-
-    # Runtime
-    latex += "\n% Runtime at N=1,000,000 (seconds)\n"
-    for alg in ALGORITHMS:
-        latex += f"\\newcommand{{\\{alg}Runtime}}{{{runtime_1m[alg]:.1f}}}\n"
-
-    # Speedups
-    latex += "\n% Speedup vs CSSR\n"
-    for alg in ALGORITHMS:
-        if alg == "cssr":
-            latex += f"\\newcommand{{\\{alg}Speedup}}{{1}}\n"
-        else:
-            latex += f"\\newcommand{{\\{alg}Speedup}}{{{speedups[alg]:.1f}}}\n"
-
-    # Best algorithm
-    latex += "\n% Best performing algorithm\n"
-    latex += f"\\newcommand{{\\bestAlgorithm}}{{{best_alg.upper()}}}\n"
-    latex += f"\\newcommand{{\\bestCorrectness}}{{{large_n_correct[best_alg]:.0f}}}\n"
-
-    # Test statistics (from pytest)
-    test_stats = get_test_stats()
-    if test_stats:
-        latex += "\n% Test statistics (from pytest)\n"
-        latex += f"\\newcommand{{\\testCount}}{{{test_stats['count']}}}\n"
-        latex += f"\\newcommand{{\\testCoverage}}{{{test_stats['coverage']}}}\n"
-
-    write_latex("benchmark-data.tex", latex)
-
-
-def get_test_stats() -> dict | None:
-    """Run pytest to get test count and coverage."""
-    workspace = WORKSPACE_ROOT.resolve()
-    print(f"  Running pytest from: {workspace}")
+    # Test stats from pytest (if available)
     try:
-        # Get test count
         result = subprocess.run(
             ["uv", "run", "pytest", "--collect-only", "-q"],
-            cwd=workspace,
             capture_output=True,
             text=True,
-            timeout=60,
+            cwd=WORKSPACE_ROOT,
+            timeout=30,
         )
-        # Parse "X tests collected"
-        match = re.search(r"(\d+) tests? collected", result.stdout)
-        test_count = int(match.group(1)) if match else 0
+        import re
 
-        # Get coverage - use source path
-        result = subprocess.run(
-            ["uv", "run", "pytest", "--cov=src/emic", "--cov-report=term-missing", "-q", "--tb=no"],
-            cwd=workspace,
-            capture_output=True,
-            text=True,
-            timeout=300,
-        )
-        # Parse "TOTAL ... XX%"
-        match = re.search(r"TOTAL\s+\d+\s+\d+\s+\d+\s+\d+\s+(\d+)%", result.stdout)
-        coverage = int(match.group(1)) if match else 0
+        match = re.search(r"(\d+) tests", result.stdout)
+        if match:
+            n_tests = match.group(1)
+            macros.append(f"\\newcommand{{\\numTests}}{{{n_tests}}}")
+    except Exception:
+        pass
 
-        if coverage == 0:
-            # Try alternate parsing or show debug info
-            print(
-                f"  Coverage stdout snippet: {result.stdout[-500:] if result.stdout else 'empty'}"
-            )
+    content = "% Auto-generated macros from benchmark results\n"
+    content += "% Do not edit manually - regenerate with: make analyze\n\n"
+    content += "\n".join(macros) + "\n"
 
-        return {"count": test_count, "coverage": coverage}
-    except (subprocess.TimeoutExpired, FileNotFoundError) as e:
-        print(f"  Warning: Could not get test stats: {e}")
-        return None
+    write_latex("macros.tex", content)
 
 
 def main() -> None:
-    """Generate all LaTeX tables and macros."""
-    print("Loading benchmark results...")
-    df = load_data()
-    print(f"  Loaded {len(df)} records")
+    """Main entry point."""
+    print("=" * 60)
+    print("Generating LaTeX tables from benchmark results")
+    print("=" * 60)
+    print()
 
-    print("Generating LaTeX tables...")
+    # Allow path override from command line
+    path = Path(sys.argv[1]) if len(sys.argv) > 1 else None
+
+    try:
+        df = load_data(path)
+    except FileNotFoundError as e:
+        print(f"ERROR: {e}")
+        sys.exit(1)
+
+    print()
+    print("Generating tables:")
+
     generate_state_counts_table(df)
     generate_correctness_table(df)
     generate_correctness_detail_table(df)
-    generate_perf_summary_table(df)
-
-    print("Generating LaTeX macros...")
+    generate_runtime_table(df)
     generate_macros(df)
 
+    print()
     print("Done!")
 
 

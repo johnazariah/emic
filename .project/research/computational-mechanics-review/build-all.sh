@@ -21,10 +21,10 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$SCRIPT_DIR"
 DIST="$ROOT/dist"
 
-REVIEW="$ROOT/review-paper/tex"
-TECHREPORT="$ROOT/technical-report/tex"
-TUTORIAL="$ROOT/tutorial/tex"
-JOSS="$ROOT/joss"
+REVIEW="$ROOT/paper-review"
+TECHREPORT="$ROOT/paper-technical"
+TUTORIAL="$ROOT/paper-tutorial"
+JOSS="$ROOT/paper-joss"
 SHARED_BIB="$ROOT/shared/bibliography/references.bib"
 BENCH_FIGS="$ROOT/../experiments/benchmarks/results/figures"
 
@@ -60,47 +60,32 @@ build_pdf() {
     popd > /dev/null
 
     # Copy to dist/
-    local pdf
-    if [[ -f "$dir/out/$main.pdf" ]]; then
-        pdf="$dir/out/$main.pdf"
-    elif [[ -f "$dir/$main.pdf" ]]; then
-        pdf="$dir/$main.pdf"
+    if [[ -f "$dir/$main.pdf" ]]; then
+        cp "$dir/$main.pdf" "$DIST/$main.pdf"
+        info "  → ${BOLD}dist/$main.pdf${NC}"
     else
-        error "PDF not found for $main"
+        error "PDF not found for $main in $dir"
         return 1
     fi
-    cp "$pdf" "$DIST/$main.pdf"
-    info "  → ${BOLD}dist/$main.pdf${NC}"
 }
 
 # --- PDF Builds -----------------------------------------------------------
 
 build_review_pdf() {
-    build_pdf "$REVIEW" "review-paper"
+    build_pdf "$REVIEW" "paper"
 }
 
 build_techreport_pdf() {
-    build_pdf "$TECHREPORT" "technical-report" "biber"
+    build_pdf "$TECHREPORT" "paper" "biber"
 }
 
 build_tutorial_pdf() {
-    build_pdf "$TUTORIAL" "tutorial"
+    build_pdf "$TUTORIAL" "paper"
 }
 
 build_joss_pdf() {
-    if command -v docker >/dev/null 2>&1; then
-        info "Building ${BOLD}JOSS paper.pdf${NC} via Docker"
-        docker run --rm \
-            --volume "$JOSS:/data" \
-            --user "$(id -u):$(id -g)" \
-            --env JOURNAL=joss \
-            openjournals/inara 2>&1 | tail -3
-        cp "$JOSS/paper.pdf" "$DIST/joss-paper.pdf"
-        info "  → ${BOLD}dist/joss-paper.pdf${NC}"
-    else
-        warn "Docker not available — skipping JOSS PDF preview"
-        warn "  Install Docker or use the GitHub Action (see joss/README.md)"
-    fi
+    info "JOSS paper builds via GitHub Actions (draft-paper.yml)."
+    info "Push to paper-joss/ to trigger a build."
 }
 
 build_all_pdfs() {
@@ -125,16 +110,14 @@ arxiv_review() {
     rm -rf "$out" && mkdir -p "$out"
 
     # Main .tex — rewrite bibliography path to local
-    sed 's|\\bibliography{../../shared/bibliography/references}|\\bibliography{references}|g' \
-        "$REVIEW/review-paper.tex" > "$out/review-paper.tex"
+    sed 's|\\bibliography{../shared/bibliography/references}|\\bibliography{references}|g' \
+        "$REVIEW/paper.tex" > "$out/paper.tex"
 
     # Compiled bibliography
-    if [[ -f "$REVIEW/out/review-paper.bbl" ]]; then
-        cp "$REVIEW/out/review-paper.bbl" "$out/review-paper.bbl"
-    elif [[ -f "$REVIEW/review-paper.bbl" ]]; then
-        cp "$REVIEW/review-paper.bbl" "$out/review-paper.bbl"
+    if [[ -f "$REVIEW/paper.bbl" ]]; then
+        cp "$REVIEW/paper.bbl" "$out/paper.bbl"
     else
-        error "review-paper.bbl not found — build the PDF first"
+        error "paper.bbl not found — build the PDF first"
         return 1
     fi
 
@@ -152,20 +135,18 @@ arxiv_techreport() {
 
     # Main .tex — remove \addbibresource (biblatex .bbl is self-contained),
     # and rewrite external figure paths to local figures/ directory
-    sed -e 's|\\addbibresource{../../shared/bibliography/references.bib}|% bibliography handled by .bbl|' \
+    sed -e 's|\\addbibresource{../shared/bibliography/references.bib}|% bibliography handled by .bbl|' \
         -e 's|../../experiments/benchmarks/results/figures/|figures/|g' \
-        "$TECHREPORT/technical-report.tex" > "$out/technical-report.tex"
+        "$TECHREPORT/paper.tex" > "$out/paper.tex"
 
     # .latexmkrc for biber
     cp "$TECHREPORT/.latexmkrc" "$out/.latexmkrc" 2>/dev/null || true
 
     # Compiled bibliography (biblatex format)
-    if [[ -f "$TECHREPORT/out/technical-report.bbl" ]]; then
-        cp "$TECHREPORT/out/technical-report.bbl" "$out/technical-report.bbl"
-    elif [[ -f "$TECHREPORT/technical-report.bbl" ]]; then
-        cp "$TECHREPORT/technical-report.bbl" "$out/technical-report.bbl"
+    if [[ -f "$TECHREPORT/paper.bbl" ]]; then
+        cp "$TECHREPORT/paper.bbl" "$out/paper.bbl"
     else
-        error "technical-report.bbl not found — build the PDF first"
+        error "paper.bbl not found — build the PDF first"
         return 1
     fi
 
@@ -205,16 +186,14 @@ arxiv_tutorial() {
     rm -rf "$out" && mkdir -p "$out/figures" "$out/generated"
 
     # Main .tex — rewrite bibliography path
-    sed 's|\\bibliography{../../shared/bibliography/references}|\\bibliography{references}|g' \
-        "$TUTORIAL/tutorial.tex" > "$out/tutorial.tex"
+    sed 's|\\bibliography{../shared/bibliography/references}|\\bibliography{references}|g' \
+        "$TUTORIAL/paper.tex" > "$out/paper.tex"
 
     # Compiled bibliography
-    if [[ -f "$TUTORIAL/out/tutorial.bbl" ]]; then
-        cp "$TUTORIAL/out/tutorial.bbl" "$out/tutorial.bbl"
-    elif [[ -f "$TUTORIAL/tutorial.bbl" ]]; then
-        cp "$TUTORIAL/tutorial.bbl" "$out/tutorial.bbl"
+    if [[ -f "$TUTORIAL/paper.bbl" ]]; then
+        cp "$TUTORIAL/paper.bbl" "$out/paper.bbl"
     else
-        error "tutorial.bbl not found — build the PDF first"
+        error "paper.bbl not found — build the PDF first"
         return 1
     fi
 
@@ -255,9 +234,9 @@ verify_arxiv() {
 }
 
 verify_all() {
-    verify_arxiv "arxiv-review-paper" "review-paper"
-    verify_arxiv "arxiv-technical-report" "technical-report"
-    verify_arxiv "arxiv-tutorial" "tutorial"
+    verify_arxiv "arxiv-review-paper" "paper"
+    verify_arxiv "arxiv-technical-report" "paper"
+    verify_arxiv "arxiv-tutorial" "paper"
 }
 
 # --- Clean ----------------------------------------------------------------

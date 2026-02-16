@@ -9,10 +9,10 @@ The project produces three related documents targeting different audiences:
 
 | Paper | Audience | Status |
 |-------|----------|--------|
-| [tutorial/](tutorial/) | Newcomers, students | In progress |
-| [technical-report/](technical-report/) | Practitioners, users | In progress |
-| [review-paper/](review-paper/) | Researchers, academics | Planned |
-| [emic-framework/](emic-framework/) | Software engineers | Planned |
+| [paper-tutorial/](tutorial/) | Newcomers, students | In progress |
+| [paper-technical/](paper-technical/) | Practitioners, users | In progress |
+| [paper-review/](paper-review/) | Researchers, academics | Planned |
+| [paper-framework/](paper-framework/) | Software engineers | Planned |
 
 All papers share:
 - The same bibliography ([shared/bibliography/](shared/bibliography/))
@@ -35,8 +35,8 @@ cd experiments/benchmarks
 make report
 
 # Build individual papers
-cd tutorial/tex && latexmk -pdf tutorial.tex
-cd technical-report/tex && latexmk -pdf technical-report.tex
+cd paper-tutorial && latexmk -pdf paper.tex
+cd paper-technical/tex && latexmk -pdf paper.tex
 ```
 
 ## Publication Strategy

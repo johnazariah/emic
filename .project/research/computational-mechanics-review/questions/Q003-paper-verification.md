@@ -32,4 +32,4 @@ The foundational papers by Crutchfield and Shalizi establish theoretical results
 
 - **Experiments**: `paper_verification`
 - **References**: `.project/references/`
-- **Papers**: emic-framework (Section 2), derivation (planned)
+- **Papers**: paper-framework (Section 2), derivation (planned)

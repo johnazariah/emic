@@ -13,7 +13,7 @@ Produce a comprehensive body of work that:
 1. Explains computational mechanics to new audiences (tutorial)
 2. Documents the emic library for practitioners (technical report)
 3. Reviews the theoretical foundations for researchers (review paper)
-4. Describes the software framework for engineers (emic-framework paper)
+4. Describes the software framework for engineers (paper-framework paper)
 
 All outputs share experimental data, bibliography, and consistent notation.
 
@@ -88,7 +88,7 @@ All outputs share experimental data, bibliography, and consistent notation.
 - Tutorial: ~1500 lines covering probability, information theory, theorems, CSSR, Spectral, BSI
 - Technical report: Algorithm documentation, initial benchmarks
 - Review paper: Outline only
-- emic-framework paper: Outline only
+- paper-framework paper: Outline only
 
 ---
 
@@ -98,10 +98,10 @@ All outputs share experimental data, bibliography, and consistent notation.
 
 | Paper | Status | Pages | Notes |
 |-------|--------|-------|-------|
-| [tutorial/](tutorial/) | Draft | 31 | Theory + all 5 algorithms documented |
-| [technical-report/](technical-report/) | Draft | ~40 | Benchmarks integrated, LaTeX macros working |
-| [review-paper/](review-paper/) | Outline | - | Not started |
-| [emic-framework/](emic-framework/) | Outline | - | Not started |
+| [paper-tutorial/](tutorial/) | Draft | 31 | Theory + all 5 algorithms documented |
+| [paper-technical/](paper-technical/) | Draft | ~40 | Benchmarks integrated, LaTeX macros working |
+| [paper-review/](paper-review/) | Outline | - | Not started |
+| [paper-framework/](paper-framework/) | Outline | - | Not started |
 
 ### Experiments
 
@@ -155,7 +155,7 @@ The review paper will:
 
 ## Phase 3: emic Framework Paper (In Progress)
 
-JOSS (Journal of Open Source Software) paper — draft complete at `joss/paper.md`:
+JOSS (Journal of Open Source Software) paper — draft complete at `paper-joss/paper.md`:
 - Succinct software paper (~1000 words) with YAML front matter
 - Links review paper and technical report as associated arXiv preprints
 - Focus on API design, algorithms, and extensibility
@@ -173,8 +173,8 @@ make analyze       # Generate LaTeX tables + macros
 make report        # Compile technical report
 
 # Build individual papers
-cd tutorial/tex && latexmk -pdf tutorial.tex
-cd technical-report/tex && latexmk -pdf technical-report.tex
+cd paper-tutorial && latexmk -pdf paper.tex
+cd paper-technical/tex && latexmk -pdf paper.tex
 ```
 
 ---

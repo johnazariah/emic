@@ -79,7 +79,7 @@ def write_latex(filename: str, content: str, output_dir: str = "generated") -> N
     # Support both tutorial and technical-report output dirs
     base = Path(__file__).parent.parent.parent
 
-    for doc in ["tutorial/tex", "technical-report/tex"]:
+    for doc in ["paper-tutorial", "paper-technical"]:
         path = base / doc / output_dir / filename
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(content)
@@ -217,7 +217,7 @@ def generate_noise_plot(summaries: pd.DataFrame) -> None:
 
     # Copy to figure directories
     base = Path(__file__).parent.parent.parent
-    for doc in ["tutorial/tex/figures", "technical-report/tex/figures"]:
+    for doc in ["paper-tutorial/figures", "paper-technical/figures"]:
         fig_dir = base / doc
         fig_dir.mkdir(parents=True, exist_ok=True)
         fig.savefig(fig_dir / "states_vs_noise.pdf", dpi=150, bbox_inches="tight")
@@ -325,7 +325,7 @@ def generate_complexity_plots(df: pd.DataFrame) -> None:
 
     # Copy to figure directories
     base = Path(__file__).parent.parent.parent
-    for doc in ["tutorial/tex/figures", "technical-report/tex/figures"]:
+    for doc in ["paper-tutorial/figures", "paper-technical/figures"]:
         fig_dir = base / doc
         fig_dir.mkdir(parents=True, exist_ok=True)
         fig1.savefig(fig_dir / "entropy_rate_vs_noise.pdf", dpi=150, bbox_inches="tight")

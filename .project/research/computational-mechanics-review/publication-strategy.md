@@ -32,7 +32,7 @@ Short, citable software paper for the Journal of Open Source Software. Links to 
 Concise, factual, software-focused
 
 ### Location
-`joss/paper.md` and `joss/paper.bib`
+`paper-joss/paper.md` and `paper-joss/paper.bib`
 
 ### Key Features
 - ~1000 words (JOSS maximum)
