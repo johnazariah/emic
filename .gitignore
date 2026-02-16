@@ -76,3 +76,6 @@ site/
 
 # Research build output
 .project/research/**/dist/
+
+# Git worktrees
+worktrees/

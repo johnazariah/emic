@@ -155,6 +155,7 @@ directory = "htmlcov"
 target-version = "py311"
 line-length = 100
 src = ["src", "tests"]
+extend-exclude = ["worktrees", ".project", "experiments"]
 
 [tool.ruff.lint]
 select = [
