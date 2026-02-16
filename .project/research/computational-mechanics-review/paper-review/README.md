@@ -51,6 +51,21 @@ Output PDF: `paper.pdf`
 3. Track reference counts by category until coverage targets are met
 4. Build and inspect `paper.pdf` after each substantial pass
 
+## Research Workflow Assets
+
+- Operating playbook: `RESEARCH-PIPELINE.md`
+- Coverage tracker: `literature/citation-ledger.md`
+- Seed queue: `literature/seed-queue.md`
+- Evidence card template: `literature/evidence-card-template.md`
+- Section synthesis template: `literature/synthesis-note-template.md`
+
+Recommended starting sequence:
+
+1. Set weekly targets in `literature/citation-ledger.md`
+2. Fill cards in `literature/cards/` using the evidence template
+3. Produce section syntheses in `literature/synthesis/`
+4. Move validated claims into `paper.tex`
+
 ## Relationship to Other Papers
 
 - `paper-tutorial/`: pedagogical and concept-first

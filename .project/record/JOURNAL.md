@@ -45,6 +45,20 @@
 2. Build category-wise citation ledger toward 120+ references
 3. Draft comparative prose section-by-section from the populated tables
 
+**Progress Update (same session)**:
+
+- Built first executable seed queue at `paper-review/literature/seed-queue.md`
+- Confirmed current bibliography baseline is 29 entries (shortfall to 120+ tracked explicitly)
+- Added first four starter Tier-A evidence cards:
+   - `crutchfield1989inferring`
+   - `shalizi2001computational`
+   - `shalizi2004algorithm`
+   - `gu2012quantum`
+- Instantiated first two live synthesis notes:
+   - `paper-review/literature/synthesis/foundations.md`
+   - `paper-review/literature/synthesis/inference.md`
+- Updated review README to link the new seed queue
+
 **Session Focus**: Release Process Hardening, Publication Consistency, and Journal Stewardship
 
 **Completed**:
@@ -374,9 +388,6 @@
 
 **Notes**:
 - Full benchmark (experiments/benchmarks/run.py) takes 6+ hours due to BSI and large sample sizes
-- Quick benchmark provides immediate feedback for algorithm validation
-- Recommend using Spectral for production where speed and accuracy matter
-
 ---
 
 ### January 24, 2026
@@ -406,13 +417,8 @@
 - `.vscode/settings.json` — new file
 
 **Notes**:
-- Tutorial is now ~30 pages, suitable for university seminars
-- References the Bayesian primer in `.project/references/bayesian-inference-primer.md`
-- Cross-references the companion review paper for formal proofs
-
 ---
 
-### January 23, 2026
 
 **Session Focus**: Publication Strategy & Paper Writing Infrastructure
 
