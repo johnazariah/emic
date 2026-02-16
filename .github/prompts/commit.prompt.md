@@ -7,8 +7,8 @@ Analyze the current changes and group them into multiple logical commits.
 1. **Analyze changes** using `get_changed_files`
 
 2. **Run formatting first** to avoid formatting noise in commits:
-   ```powershell
-   dotnet format Aura.sln --verbosity quiet
+   ```bash
+   uv run ruff format . && uv run ruff check . --fix
    ```
 
 3. **Identify logical groups** based on:
@@ -26,7 +26,7 @@ Analyze the current changes and group them into multiple logical commits.
    - Dependency updates
 
 5. **For each logical group**, execute:
-   ```powershell
+   ```bash
    # First unstage everything
    git reset HEAD
 
