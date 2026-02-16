@@ -56,15 +56,33 @@ Build a comprehensive framework for computational mechanics that bridges classic
 - [ ] Bidirectional analysis
 
 ### 💡 M6: Quantum Extension (Future)
-- [ ] Quantum process simulation
-- [ ] Quantum causal states definition
-- [ ] Quantum complexity measures
-- [ ] Inference from measurement data
+*See [Spec 016](../specifications/016-quantum-research-program.md) for detailed research program*
 
-### 💡 M7: Quantum Emergence (Future)
-- [ ] Quantum-to-classical transitions
-- [ ] Decoherence effects
-- [ ] Thermodynamic connections
+**Investigation 1: Decoherence Trajectory** (First target)
+- [ ] Quantum types (`QuantumCausalState`, `QuantumEpsilonMachine`)
+- [ ] Q-machine construction from ε-machine
+- [ ] Decoherence channels (dephasing, depolarizing)
+- [ ] $C_q(\gamma)$ trajectory analysis
+- [ ] Phase transition / universality analysis
+
+**Investigation 2: Taxonomy of Quantum Advantage**
+- [ ] Feature extraction from ε-machines
+- [ ] Correlation analysis: structure vs advantage
+- [ ] Classification of processes by quantum advantage
+
+**Investigation 3: Robustness to Model Mismatch**
+- [ ] Error propagation from ε-machine to q-machine
+- [ ] Sensitivity analysis
+- [ ] Tolerance requirements
+
+### 💡 M7: Quantum Complexity Estimation (Future)
+*Novel research direction: first tool to estimate $C_q$ from data*
+
+**Investigation 4: Quantum Complexity from Finite Samples**
+- [ ] Bootstrap confidence intervals for $C_q$
+- [ ] Bias correction for finite samples
+- [ ] Sample complexity analysis
+- [ ] Comparison to classical $C_\mu$ estimation
 
 ---
 

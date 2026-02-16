@@ -6,6 +6,54 @@
 
 ## 2026
 
+### January 28, 2026
+
+**Session Focus**: Quantum Research Program Specification
+
+**Completed**:
+
+1. **Full PDF Extraction**
+   - Discovered previous "extractions" were AI summaries (2-10 lines/page)
+   - Re-extracted all 16 PDFs properly (~50-80 lines/page)
+   - Created `extract_pdf.py` tool for future extractions
+   - Created `CATALOG.md` index organized by topic
+
+2. **Literature Synthesis**
+   - Read key papers: Gu 2012, Thompson 2018, Aghamohammadi 2017/2018
+   - Synthesized the technical insight: non-orthogonal encoding eliminates crypticity
+   - Identified the causal asymmetry result (quantum restores time-symmetry)
+
+3. **Novel Research Questions Identified**
+   - **Decoherence Trajectory**: How does $C_q \to C_\mu$ under noise?
+   - **Taxonomy**: What predicts quantum advantage?
+   - **Robustness**: How sensitive is $C_q$ to ε-machine errors?
+   - **Primary Target**: $C_q$ estimation from finite samples (never done)
+
+4. **Research Program Specification**
+   - Created Spec 016: Quantum Research Program
+   - Detailed algorithm for decoherence trajectory investigation
+   - Pseudocode for q-machine construction
+   - Success criteria and expected outputs
+   - Four investigations building toward novel contribution
+
+**Key Insight**: The decoherence trajectory investigation builds all infrastructure needed for the harder inference problem, while potentially producing a standalone publishable result.
+
+**Files Created/Modified**:
+- `.project/specifications/016-quantum-research-program.md` (new)
+- `.project/references/CATALOG.md` (new)
+- `.project/references/extract_pdf.py` (new)
+- `.project/references/*/..._full.md` (16 full extractions)
+- `.project/plan/ROADMAP.md` (updated M6/M7)
+- `.project/research/quantum-emergence/README.md` (updated)
+
+**Next Steps**:
+1. Implement Investigation 1: Decoherence Trajectory
+2. Build quantum types (`QuantumCausalState`, `QuantumEpsilonMachine`)
+3. Run trajectory analysis on canonical processes
+4. Analyze for phase transitions / universality
+
+---
+
 ### January 27, 2026
 
 **Session Focus**: Quantum Emergence Research Area
