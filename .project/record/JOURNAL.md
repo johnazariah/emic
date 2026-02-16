@@ -85,6 +85,37 @@
 2. Re-point `v0.5.1` tag to release-ready commit
 3. Re-run and verify release workflow artifacts
 
+**Session Focus**: Lock-Step Publication Automation and Post-JOSS Toggle
+
+**Completed**:
+
+1. **Lock-step publication orchestration**
+   - Updated `release.yml` to call reusable `publications.yml` after GitHub release creation
+   - Publication PDFs now upload in the same release run for synchronized software + paper artifacts
+
+2. **Post-submission JOSS flexibility**
+   - Added conditional JOSS bundle packaging gate in `release.yml`:
+     - Build bundle by default
+     - Skip automatically when repository variable `JOSS_SUBMISSION_COMPLETE=true`
+   - Added manual dispatch override input `include_joss_bundle` for release workflow
+
+3. **Publication CI reproducibility fix**
+   - Diagnosed `Publications` workflow failure to missing non-versioned benchmark figure PDFs
+   - Made technical paper self-contained by switching to local `paper-technical/figures/*.pdf` paths
+   - Added required benchmark figure PDFs to `paper-technical/figures/`
+   - Verified technical paper build succeeds locally after path update
+
+4. **JOSS draft workflow noise reduction**
+   - Updated `draft-paper.yml` to ignore release tags (`v*`) so JOSS draft builds do not run on every release tag push
+
+5. **Process docs alignment**
+   - Updated release prompt/checklist to document lock-step publications and `JOSS_SUBMISSION_COMPLETE` behavior
+
+**Next Steps**:
+1. Commit and push workflow/doc/figure updates
+2. Re-run `Publications` for `v0.5.1` to attach tutorial/review/technical PDFs
+3. Verify release assets include package, JOSS bundle policy-compliant artifacts, and publication PDFs
+
 ### January 28, 2026
 
 **Session Focus**: Quantum Research Program Specification

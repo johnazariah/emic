@@ -1250,7 +1250,7 @@ Figure~\ref{fig:runtime-scaling} shows how inference time scales with sequence l
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{../experiments/benchmarks/results/figures/runtime_scaling.pdf}
+    \includegraphics[width=0.8\textwidth]{figures/runtime_scaling.pdf}
     \caption{Runtime scaling comparison across all algorithms (log-log scale). Error bars show standard deviation across 5 runs, averaged over all processes.}
     \label{fig:runtime-scaling}
 \end{figure}
@@ -1271,7 +1271,7 @@ Figure~\ref{fig:memory-scaling} shows peak memory usage as a function of sequenc
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{../experiments/benchmarks/results/figures/memory_scaling.pdf}
+    \includegraphics[width=0.8\textwidth]{figures/memory_scaling.pdf}
     \caption{Peak memory usage comparison. Memory scales linearly with sequence length for both algorithms.}
     \label{fig:memory-scaling}
 \end{figure}
@@ -1284,7 +1284,7 @@ Runtime is only meaningful if the algorithm produces correct results. We define 
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\textwidth]{../experiments/benchmarks/results/figures/correctness_by_process.pdf}
+    \includegraphics[width=0.9\textwidth]{figures/correctness_by_process.pdf}
     \caption{Algorithm correctness by process, averaged over all sample sizes. No algorithm achieves 100\% correctness across all processes.}
     \label{fig:correctness}
 \end{figure}
@@ -1326,7 +1326,7 @@ Figure~\ref{fig:algo-comparison} presents a direct comparison at $N = 1{,}000{,}
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\textwidth]{../experiments/benchmarks/results/figures/algorithm_comparison.pdf}
+    \includegraphics[width=0.9\textwidth]{figures/algorithm_comparison.pdf}
     \caption{Algorithm runtime comparison at $N = 1{,}000{,}000$ for different processes (correct results only). Missing bars indicate the algorithm never achieved correctness for that process at this sample size.}
     \label{fig:algo-comparison}
 \end{figure}
@@ -1345,7 +1345,7 @@ Figure~\ref{fig:runtime-by-process} breaks down runtime scaling by process type,
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{../experiments/benchmarks/results/figures/runtime_by_process.pdf}
+    \includegraphics[width=\textwidth]{figures/runtime_by_process.pdf}
     \caption{Runtime scaling for each process type. Connected points indicate correct results; X markers indicate incorrect state counts.}
     \label{fig:runtime-by-process}
 \end{figure}

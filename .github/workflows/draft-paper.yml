@@ -2,6 +2,8 @@ name: Draft JOSS Paper
 
 on:
   push:
+    tags-ignore:
+      - 'v*'
     paths:
       - '.project/research/computational-mechanics-review/paper-joss/**'
       - '.project/research/computational-mechanics-review/shared/bibliography/**'

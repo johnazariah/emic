@@ -242,7 +242,7 @@ Analyze changes since the last release, prepare documentation, validate quality,
    - Verify new features are documented
    - Check API reference is updated
 
-6. **Package JOSS submission + publish PDF papers separately** (if applicable):
+6. **Package JOSS submission + publish PDF papers in lock-step** (if applicable):
 
     Build a JOSS submission bundle for release assets:
    ```bash
@@ -262,8 +262,18 @@ Analyze changes since the last release, prepare documentation, validate quality,
      --clobber
    ```
 
-   Publish PDF papers via `.github/workflows/publications.yml` (outside package release),
-    then link to those artifacts from release notes.
+    Publication PDFs are built/uploaded automatically in lock-step by the `Release` workflow via reusable `.github/workflows/publications.yml`.
+
+    To backfill publication PDFs for an existing tag (if needed):
+    ```bash
+    VERSION=X.Y.Z
+    gh workflow run publications.yml \
+       -f tag=v$VERSION \
+       -f upload_to_release=true
+    ```
+
+    To stop attaching the JOSS submission bundle after JOSS submission is complete,
+    set repository variable `JOSS_SUBMISSION_COMPLETE=true`.
 
     **JOSS bundle includes**:
    | Paper | Description |

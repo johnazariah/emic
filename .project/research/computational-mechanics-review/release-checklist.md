@@ -68,12 +68,12 @@ Steps for releasing a new version of `emic` and its associated publications.
 - [ ] Create and push tag: `git tag v0.X.0 && git push origin v0.X.0`
 - [ ] GitHub Actions:
   - CI passes
-  - JOSS submission bundle built (`paper.md` + `paper.bib` tarball)
+  - JOSS submission bundle built (`paper.md` + `paper.bib` tarball) unless `JOSS_SUBMISSION_COMPLETE=true`
   - Package published to PyPI
+  - Publication PDFs (tutorial/review/technical) built and uploaded in lock-step via `release.yml` → `publications.yml`
   - GitHub Release created with:
     - `.tar.gz` and `.whl` package artifacts
-    - `emic-joss-submission-X.Y.Z.tar.gz` attached
-- [ ] PDF papers are published via `.github/workflows/publications.yml` (not attached to package release)
+    - `emic-joss-submission-X.Y.Z.tar.gz` attached (optional post-JOSS-submission)
 - [ ] Verify PyPI install: `pip install emic==0.X.0`
 
 ## Post-release
