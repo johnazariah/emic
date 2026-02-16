@@ -8,6 +8,43 @@
 
 ### February 16, 2026
 
+**Session Focus**: Review Paper Reset to State-of-the-Art Standard
+
+**Completed**:
+
+1. **Clean-slate review manuscript scaffold**
+    - Replaced `paper-review/paper.tex` with a review-native structure focused on:
+       - protocol and scope
+       - historical evolution
+       - inference-method synthesis
+       - formal extensions
+       - application landscape
+       - recent advances (2020--2026)
+       - open-problem matrix
+    - Removed tutorial-style proof-heavy framing from the review draft baseline
+
+2. **Hard requirements for review quality**
+    - Updated `paper-review/README.md` to formalize minimum review criteria:
+       - 100+ unique references (target 120+)
+       - balanced coverage across foundations/methods/extensions/applications
+       - explicit evidence-quality grading
+       - actionable research agenda output
+
+3. **Global prompt-level guardrails for future drafting**
+    - Updated `.github/prompts/paper.prompt.md` with a dedicated
+       “Review Paper Standard (Critical)” section
+    - Added required workflow for citation-balance tracking and synthesis-table-first drafting
+
+**Files Updated**:
+- `.project/research/computational-mechanics-review/paper-review/paper.tex`
+- `.project/research/computational-mechanics-review/paper-review/README.md`
+- `.github/prompts/paper.prompt.md`
+
+**Next Steps**:
+1. Populate synthesis tables with first-pass literature mapping
+2. Build category-wise citation ledger toward 120+ references
+3. Draft comparative prose section-by-section from the populated tables
+
 **Session Focus**: Release Process Hardening, Publication Consistency, and Journal Stewardship
 
 **Completed**:

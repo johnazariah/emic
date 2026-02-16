@@ -1,58 +1,58 @@
-# Research Paper: Computational Mechanics — A Modern Review
+# Research Paper: Computational Mechanics — State-of-the-Art Review
 
-**Status:** Draft (~25% complete per adviser feedback; currently merged into technical report as Appendix B)
-**Target:** Journal (Entropy, J. Stat. Phys., Chaos) — to be developed into a proper standalone review
+**Status:** Clean-slate scaffold (February 2026)
+**Target:** Journal review article (Entropy / J. Stat. Phys. / Chaos)
 **Format:** LaTeX article (two-column)
-**Pages:** ~10 (estimated)
 
-## Abstract
+## Objective
 
-A self-contained review of Computational Mechanics, including:
-- Complete proofs of the fundamental theorems (prescience, minimality, uniqueness, E ≤ Cμ)
-- Numerical validation using the `emic` Python library
-- Comparison of 5 inference algorithms (CSSR, Spectral, CSM, BSI, NSD)
-- Discussion of connections to HMMs, MDL, and Kolmogorov complexity
+This paper is a field checkpoint, not a tutorial.
+It must synthesise how Computational Mechanics has evolved, what has been validated, which extensions are credible, and where applications have achieved practical traction.
+
+## Minimum Review Standard
+
+- **Reference volume:** at least **100 unique references** (target: 120+)
+- **Coverage balance:** foundations, inference methods, formal extensions, and applications
+- **Evidence grading:** distinguish theorem-level results, empirical validation, and speculative claims
+- **Temporal synthesis:** include a dedicated section on what changed in 2020–2026
+- **Actionable output:** include open-problem matrix with blockers and near-term experiments
+
+## Manuscript Structure (`paper.tex`)
+
+1. Scope and review protocol
+2. Foundational trajectory
+3. Inference algorithm evolution and trade-offs
+4. Formal extensions beyond classical settings
+5. Application landscape across domains
+6. Recent results (2020–2026)
+7. Open problems and research agenda
+8. Conclusion
 
 ## Build
 
 ```bash
-cd tex && make
-```
-
-Or manually:
-```bash
+cd .project/research/computational-mechanics-review/paper-review
 latexmk -pdf paper.tex
 ```
 
-## Output
+Output PDF: `paper.pdf`
 
-Built PDF: `paper.pdf`
+## Bibliography Workflow
 
-## Structure
+- Canonical source: `../shared/bibliography/references.bib`
+- Add new entries there (do not create local `.bib` files)
+- Use project citation keys: `{first-author-name}{year}[{tag}]`
+- Include DOI whenever available
 
-1. **Introduction** - Historical context, contributions
-2. **Mathematical Preliminaries** - Processes, entropy, HMMs
-3. **Causal States** - Definition, equivalence relation
-4. **The ε-Machine** - Construction, unifilarity
-5. **Fundamental Theorems** - Prescience, minimality, uniqueness, E ≤ Cμ
-6. **Complexity Measures** - Cμ, hμ, E, crypticity
-7. **Inference Algorithms** - CSSR, Spectral, CSM, BSI, NSD
-8. **Numerical Validation** - Canonical processes, convergence, algorithm comparison
-9. **Related Frameworks** - HMMs, MDL, Kolmogorov, PSRs
-10. **Discussion** - Interpretability, computation, limitations, open questions
-11. **Conclusion**
+## Drafting Workflow
 
-## Dependencies
+1. Fill synthesis tables first (algorithm, application, open-problem matrix)
+2. Expand each section with comparative narrative, not proof-heavy exposition
+3. Track reference counts by category until coverage targets are met
+4. Build and inspect `paper.pdf` after each substantial pass
 
-- LaTeX with `latexmk`
-- Packages: mathpazo, amsmath, amsthm, tikz, booktabs, hyperref, cleveref
+## Relationship to Other Papers
 
-## Bibliography
-
-Uses shared bibliography: `../../shared/bibliography/references.bib`
-
-## See Also
-
-- [Publication Strategy](../publication-strategy.md) - Overall publication plan
-- [Tutorial](../paper-tutorial/) - Pedagogical introduction
-- [Technical Report](../paper-technical/) - emic library documentation
+- `paper-tutorial/`: pedagogical and concept-first
+- `paper-review/`: broad literature synthesis and state-of-the-art map
+- `paper-technical/`: implementation and benchmark details

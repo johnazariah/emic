@@ -134,6 +134,48 @@ arXiv tarballs go to `dist/` and include the `.tex`, `.bbl`, and any figures.
 - Every claim should be backed by a citation or experimental result
 - Cross-reference between papers where appropriate (they form a coherent set)
 
+## Review Paper Standard (Critical)
+
+For `paper-review/`, treat the manuscript as a **state-of-the-art checkpoint**.
+It is not sufficient to explain core concepts only.
+
+### Required Characteristics
+
+1. **Comprehensive citation depth**
+  - Typical target: **100+ references** (preferred target: 120+)
+  - Cover foundations, methods, extensions, and applications
+  - Avoid heavy over-concentration on a small canonical subset
+
+2. **Evolution-focused synthesis**
+  - For each major topic, answer:
+    - What was known originally?
+    - What changed in later work?
+    - What is now considered established vs tentative?
+  - Include a dedicated “recent advances” synthesis (e.g., 2020 onward)
+
+3. **Application mapping**
+  - Summarize real usage across domains (physics, biology, neuroscience, linguistics, finance, etc.)
+  - Distinguish conceptual proposals from validated deployments
+
+4. **Evidence quality signaling**
+  - Label claims as theorem-backed, benchmark-backed, case-study evidence, or speculative
+  - Surface unresolved contradictions and replication gaps
+
+5. **Actionable research outlook**
+  - End with an open-problem matrix:
+    - unresolved problem
+    - best current methods
+    - blocker
+    - near-term experiment
+
+### Practical Workflow for `paper-review/`
+
+1. Build section taxonomy first (foundations, inference, extensions, applications, recent advances)
+2. Populate synthesis tables before prose polishing
+3. Track citation counts by category during drafting
+4. Check for balance before each major draft freeze
+5. Ensure final draft exceeds 100 references and includes broad domain coverage
+
 ---
 
 ## Paper Relationships

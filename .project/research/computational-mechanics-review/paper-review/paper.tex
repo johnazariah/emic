@@ -10,13 +10,10 @@
 \usepackage{hyperref}
 \usepackage{cleveref}
 \usepackage{booktabs}
-\usepackage{algorithm}
-\usepackage{algpseudocode}
 \usepackage[margin=0.75in]{geometry}
-\usepackage{tikz}
 \usepackage{enumitem}
 \usepackage{multirow}
-\usetikzlibrary{automata,positioning,arrows.meta}
+\usepackage{longtable}
 
 % === COLORS ===
 \definecolor{linkblue}{RGB}{0,51,153}
@@ -29,67 +26,32 @@
     urlcolor=linkblue
 }
 
-% === THEOREM ENVIRONMENTS ===
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{proposition}[theorem]{Proposition}
-
-\theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{exampleenv}[theorem]{Example}
-
-\theoremstyle{remark}
-\newtheorem{remark}[theorem]{Remark}
-
 % === NOTATION ===
 \newcommand{\eps}{\varepsilon}
 \newcommand{\eM}{$\eps$-machine}
 \newcommand{\Cmu}{C_\mu}
 \newcommand{\hmu}{h_\mu}
-\newcommand{\calS}{\mathcal{S}}
-\newcommand{\calA}{\mathcal{A}}
-\newcommand{\calM}{\mathcal{M}}
-\newcommand{\calP}{\mathcal{P}}
-\newcommand{\calR}{\mathcal{R}}
-\newcommand{\Past}{\overleftarrow{X}}
-\newcommand{\Future}{\overrightarrow{X}}
-\newcommand{\past}{\overleftarrow{x}}
-\newcommand{\future}{\overrightarrow{x}}
-\DeclareMathOperator{\Ent}{H}
-\DeclareMathOperator{\MI}{I}
+\newcommand{\TargetRefs}{120}
+
 \pdfstringdefDisableCommands{%
     \def\eps{epsilon}%
     \def\eM{epsilon-machine}%
     \def\Cmu{Cmu}%
     \def\hmu{hmu}%
-    \def\calS{S}%
-    \def\calA{A}%
-    \def\calM{M}%
-    \def\calP{P}%
-    \def\calR{R}%
-    \def\Past{Xpast}%
-    \def\Future{Xfuture}%
-    \def\past{xpast}%
-    \def\future{xfuture}%
-    \def\Ent{H}%
-    \def\MI{I}%
-    \def\texttt#1{#1}%
 }
 
 % === TITLE ===
 \title{%
     \vspace{-1em}
-    {\Large Computational Mechanics: A Modern Review}\\[0.3em]
-    {\normalsize Structure, Complexity, and Prediction in Stochastic Processes}
+    {\Large Computational Mechanics: A State-of-the-Art Review (1989--2026)}\\[0.3em]
+    {\normalsize Theory, Inference, Extensions, and Applications}
 }
 \author{%
     John S Azariah\\
     \small University of Technology, Sydney (UTS)\\
     \small\texttt{john.azariah@student.uts.edu.au}
 }
-\date{January 2026}
+\date{February 2026}
 
 \begin{document}
 
@@ -97,604 +59,205 @@
 \maketitle
 
 \begin{abstract}
-Computational Mechanics, developed by Crutchfield and collaborators over the past three decades, provides a rigorous framework for quantifying the structure and complexity of stochastic processes. Central to this framework is the \emph{\eM}---the unique, minimal, optimal predictor for a process. We present a modern review of the theoretical foundations, including complete proofs of the fundamental theorems on prescience, minimality, and uniqueness. We validate these results numerically using the \texttt{emic} Python library on canonical processes, demonstrating convergence of inferred complexity measures to their theoretical values. We discuss connections to related frameworks including hidden Markov models, minimum description length, and Kolmogorov complexity. This review serves as a self-contained introduction for researchers in statistical physics, machine learning, and complexity science.
+This manuscript is a clean-slate, comprehensive review of Computational Mechanics designed as a field checkpoint rather than a tutorial.
+The review synthesises the evolution of foundational theory, inference algorithms, formal extensions, and domain applications from 1989 to 2026.
+Its central objective is to map how the field has changed over time, what has been validated, where methods are now used, and which open problems remain unresolved.
+The final version will include at least \TargetRefs{} curated references with explicit coverage across foundations, methods, extensions, applications, and recent advances.
 \end{abstract}
-\vspace{1.5em}
+\vspace{1.2em}
 ]
 
 % ===================================================================
-\section{Introduction}
-\label{sec:introduction}
+\section{Scope and Review Protocol}
+\label{sec:protocol}
 % ===================================================================
 
-The study of complexity has long been hindered by the lack of a rigorous, operational definition. Kolmogorov complexity \cite{kolmogorov1965three}, while mathematically elegant, is uncomputable. Statistical measures like entropy \cite{shannon1948mathematical} capture randomness but not structure. A purely random process has maximal entropy yet arguably zero complexity, while a periodic sequence has zero entropy yet also low complexity. True complexity lies somewhere between order and chaos \cite{crutchfield2012between}.
+\subsection{Review Questions}
 
-Computational Mechanics, pioneered by Crutchfield and Young \cite{crutchfield1989inferring} and formalized by Shalizi and Crutchfield \cite{shalizi2001computational}, resolves this paradox by defining complexity in terms of \emph{prediction}. The key insight is that the minimal memory required for optimal prediction---the \emph{statistical complexity} $\Cmu$---provides an intrinsic, computable measure of a process's structure.
+This review is organised around four questions.
+First, how has the core formalism of causal states and \eM s evolved since the original formulation.
+Second, which inference methods are now considered mature, and under what data regimes.
+Third, which extensions beyond the classical finite-alphabet stationary setting are established.
+Fourth, what evidence exists for real-world utility across scientific domains.
 
-The central object is the \emph{\eM}: a hidden Markov model that is simultaneously the minimal sufficient statistic for prediction and the unique model achieving this minimality. The \eM\ captures exactly the information in the past that is relevant for predicting the future---no more, no less.
+\subsection{Inclusion Criteria and Evidence Quality}
 
-\paragraph{Historical Context.} The foundations were laid in \cite{crutchfield1989inferring}, which introduced the notion of inferring ``statistical complexity'' from data. The theoretical framework was completed in \cite{shalizi2001computational}, which proved the fundamental theorems. The CSSR algorithm \cite{shalizi2004algorithm} made inference practical. Over the subsequent decades, the framework has been extended to continuous processes, quantum systems \cite{gu2012quantum,thompson2018causal}, and diverse applications from neuroscience to linguistics \cite{james2011anatomy,marzen2015informational}.
+Included literature must contribute at least one of the following: foundational theory, methodological innovation, rigorous benchmarking, or substantive domain application.
+Each section will distinguish between conceptual proposals, mathematically proven results, and empirically validated outcomes.
 
-\paragraph{Contributions.} This paper provides:
-\begin{enumerate}[nosep]
-    \item A self-contained mathematical exposition of Computational Mechanics
-    \item Complete proofs of the fundamental theorems
-    \item Numerical validation using the \texttt{emic} Python library
-    \item Comparison of inference algorithms (CSSR, Spectral, CSM, BSI, NSD)
-    \item Discussion of connections to related frameworks
-\end{enumerate}
+\subsection{Coverage Targets}
 
-\paragraph{Software and Documentation.} All numerical experiments use the \texttt{emic} Python library, available at \url{https://github.com/johnazariah/emic}. Comprehensive documentation, including algorithm deep dives and practical guidance for applying these methods to empirical data, is available at \url{https://johnazariah.github.io/emic/}.
+The reference budget is distributed across categories to avoid over-concentration on foundational papers.
+
+\begin{table}[h]
+\centering
+\caption{Minimum reference coverage targets}
+\label{tab:ref-targets}
+\small
+\begin{tabular}{lcc}
+\toprule
+Category & Minimum & Status \\
+\midrule
+Foundations and core theory & 15 & TODO \\
+Inference algorithms and estimation & 25 & TODO \\
+Formal extensions (quantum, multivariate, continuous) & 25 & TODO \\
+Applications across domains & 35 & TODO \\
+Recent results (2020--2026) & 20 & TODO \\
+\midrule
+Total unique references & $\geq \TargetRefs$ & TODO \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 % ===================================================================
-\section{Mathematical Preliminaries}
-\label{sec:preliminaries}
+\section{Foundational Trajectory of the Field}
+\label{sec:foundations}
 % ===================================================================
 
-\subsection{Stochastic Processes}
+This section will present a chronological synthesis of the formal core.
+The emphasis is on identifying which theorems and definitions remained stable, which were refined, and how interpretive framing changed across decades.
+Rather than reproducing long proofs, the review will extract the enduring results and their modern implications.
 
-Let $\{X_t\}_{t \in \mathbb{Z}}$ be a stationary stochastic process taking values in a finite alphabet $\calA$. We denote:
+\paragraph{Planned synthesis blocks.}
 \begin{itemize}[nosep]
-    \item $\Past = \dots X_{-2} X_{-1}$: the semi-infinite past
-    \item $\Future = X_0 X_1 X_2 \dots$: the semi-infinite future
-    \item $X_i^{j} = X_i X_{i+1} \dots X_{j}$: a block from index $i$ to $j$
-\end{itemize}
-
-We assume the process is \emph{ergodic}, so that time averages equal ensemble averages. This ensures that complexity measures can be estimated from a single long realization.
-
-\subsection{Information Measures}
-
-The \emph{Shannon entropy} of a random variable $X$ is:
-\begin{equation}
-    \Ent[X] = -\sum_{x \in \calA} P(x) \log_2 P(x)
-\end{equation}
-with the convention $0 \log 0 = 0$. Entropy quantifies uncertainty: a fair coin has $\Ent = 1$ bit.
-
-The \emph{conditional entropy} measures remaining uncertainty given knowledge of another variable:
-\begin{equation}
-    \Ent[X|Y] = \Ent[X,Y] - \Ent[Y]
-\end{equation}
-
-The \emph{mutual information} quantifies shared information:
-\begin{equation}
-    \MI(X;Y) = \Ent[X] - \Ent[X|Y] = \Ent[X] + \Ent[Y] - \Ent[X,Y]
-\end{equation}
-
-For processes, three key quantities emerge:
-
-\begin{definition}[Entropy Rate]
-The \emph{entropy rate} is the asymptotic per-symbol uncertainty:
-\begin{equation}
-    \hmu = \lim_{L \to \infty} \frac{1}{L} \Ent[X_0^{L-1}] = \lim_{L \to \infty} \Ent[X_L | X_0^{L-1}]
-\end{equation}
-\end{definition}
-
-The entropy rate $\hmu$ captures the process's irreducible randomness---the unpredictability that remains even with complete knowledge of the past.
-
-\begin{definition}[Excess Entropy]
-The \emph{excess entropy} is the mutual information between past and future:
-\begin{equation}
-    E = \MI(\Past; \Future) = \lim_{L \to \infty} \MI(X_{-L}^{-1}; X_0^{L-1})
-\end{equation}
-\end{definition}
-
-The excess entropy $E$ measures how much the past tells us about the future, or equivalently, the total historical information stored in the process.
-
-\subsection{Hidden Markov Models}
-
-\begin{definition}[Hidden Markov Model]
-A \emph{hidden Markov model} (HMM) is a tuple $\calM = (S, \calA, \{T^{(x)}\}, \pi)$ where:
-\begin{itemize}[nosep]
-    \item $S$ is a finite set of hidden states
-    \item $\calA$ is the output alphabet
-    \item $T^{(x)}_{ij} = P(s_j, x | s_i)$ are labeled transition matrices
-    \item $\pi$ is the stationary distribution over states
-\end{itemize}
-\end{definition}
-
-The total transition matrix is $T = \sum_{x \in \calA} T^{(x)}$, satisfying $T\mathbf{1} = \mathbf{1}$ and $\pi^T T = \pi^T$.
-
-\begin{definition}[Unifilarity]
-An HMM is \emph{unifilar} if each state-symbol pair $(s, x)$ determines a unique next state. Equivalently, for each state $s$ and symbol $x$, at most one entry of $T^{(x)}_{s,\cdot}$ is non-zero.
-\end{definition}
-
-Unifilarity means the hidden state can be tracked deterministically given the output sequence: once initialized, no ambiguity arises about which state the model occupies.
-
-% ===================================================================
-\section{Causal States}
-\label{sec:causal-states}
-% ===================================================================
-
-The central definition of Computational Mechanics groups histories by their predictive power.
-
-\begin{definition}[Causal Equivalence]
-\label{def:causal-equiv}
-Two pasts $\past, \past' \in \calA^{-\infty}$ are \emph{causally equivalent}, written $\past \sim_\eps \past'$, if and only if they induce identical conditional distributions over all futures:
-\begin{equation}
-    P(\Future | \Past = \past) = P(\Future | \Past = \past')
-\end{equation}
-Equivalently, for all finite futures $\future$ of any length:
-\begin{equation}
-    P(\Future = \future | \Past = \past) = P(\Future = \future | \Past = \past')
-\end{equation}
-\end{definition}
-
-\begin{lemma}
-\label{lem:equiv-relation}
-$\sim_\eps$ is an equivalence relation.
-\end{lemma}
-\begin{proof}
-\emph{Reflexivity}: $P(\Future|\past) = P(\Future|\past)$ trivially.
-\emph{Symmetry}: If $P(\Future|\past) = P(\Future|\past')$, then $P(\Future|\past') = P(\Future|\past)$.
-\emph{Transitivity}: If $P(\Future|\past) = P(\Future|\past')$ and $P(\Future|\past') = P(\Future|\past'')$, then $P(\Future|\past) = P(\Future|\past'')$.
-\end{proof}
-
-\begin{definition}[Causal States]
-\label{def:causal-states}
-The \emph{causal states} $\calS$ are the equivalence classes under $\sim_\eps$:
-\begin{equation}
-    \calS = \calA^{-\infty} / {\sim_\eps}
-\end{equation}
-The \emph{causal state function} $\epsilon: \calA^{-\infty} \to \calS$ maps each past to its equivalence class.
-\end{definition}
-
-Causal states partition all possible histories into groups that are indistinguishable from a predictive standpoint. Two histories in the same causal state may differ arbitrarily in their distant past, but they yield identical probability distributions over all future observations.
-
-\begin{exampleenv}[Golden Mean Process]
-Consider a binary process where the symbol $1$ cannot follow itself. The process alternates between two causal states: $\sigma_A$ (last symbol was $0$ or start) where both $0$ and $1$ are possible, and $\sigma_B$ (last symbol was $1$) where only $0$ can follow. All histories ending in $0$ share the same predictive distribution and thus belong to $\sigma_A$; all histories ending in $1$ belong to $\sigma_B$.
-\end{exampleenv}
-
-% ===================================================================
-\section{The \texorpdfstring{$\eps$}{ε}-Machine}
-\label{sec:epsilon-machine}
-% ===================================================================
-
-\begin{definition}[\eM]
-The \emph{\eM} $\calM = (\calS, \calA, \{T^{(x)}\}, \pi)$ is the HMM where:
-\begin{itemize}[nosep]
-    \item $\calS$ is the set of causal states
-    \item $\calA$ is the output alphabet
-    \item $T^{(x)}_{\sigma\sigma'} = P(\sigma', x | \sigma)$ are the labeled transition probabilities
-    \item $\pi$ is the stationary distribution over causal states
-\end{itemize}
-\end{definition}
-
-The transition probabilities are well-defined because all histories in a causal state $\sigma$ have the same conditional distribution over the next symbol and next causal state.
-
-\begin{lemma}[Unifilarity of the \eM]
-\label{lem:unifilarity}
-The \eM\ is unifilar.
-\end{lemma}
-\begin{proof}
-Suppose the process is in causal state $\sigma$ and emits symbol $x$. We must show this determines a unique next state $\sigma'$.
-
-Let $\past$ be any history with $\epsilon(\past) = \sigma$. After observing $x$, the new history is $\past x$. The next causal state is $\epsilon(\past x)$.
-
-For any other $\past'$ with $\epsilon(\past') = \sigma$, we have $P(\Future | \past) = P(\Future | \past')$ by definition. Conditioning on observing $x$ as the first future symbol:
-\begin{equation}
-    P(X_1^\infty | \past, X_0 = x) = P(X_1^\infty | \past', X_0 = x)
-\end{equation}
-by Bayes' rule (since both pasts assign the same probability to $x$).
-
-But the left side is the predictive distribution from $\past x$, and the right from $\past' x$. Thus $\epsilon(\past x) = \epsilon(\past' x)$.
-
-Therefore, the next causal state depends only on $\sigma$ and $x$, not on the specific history---the \eM\ is unifilar.
-\end{proof}
-
-\begin{definition}[Statistical Complexity]
-The \emph{statistical complexity} is the entropy of the causal state distribution:
-\begin{equation}
-    \Cmu = \Ent[\calS] = -\sum_{\sigma \in \calS} \pi(\sigma) \log_2 \pi(\sigma)
-\end{equation}
-\end{definition}
-
-The statistical complexity $\Cmu$ quantifies the minimal memory required to optimally predict the process. It measures the process's intrinsic structural complexity.
-
-% ===================================================================
-\section{Fundamental Theorems}
-\label{sec:theorems}
-% ===================================================================
-
-We now present the core theoretical results that establish the \eM's special status.
-
-\subsection{Prescience}
-
-The first theorem states that causal states capture all predictive information.
-
-\begin{theorem}[Prescience]
-\label{thm:prescience}
-Causal states are sufficient statistics for prediction:
-\begin{equation}
-    P(\Future | \Past = \past) = P(\Future | \epsilon(\past))
-\end{equation}
-Equivalently, the past and future are conditionally independent given the causal state:
-\begin{equation}
-    \MI(\Future; \Past | \epsilon(\Past)) = 0
-\end{equation}
-\end{theorem}
-\begin{proof}
-By Definition~\ref{def:causal-equiv}, all histories $\past$ with $\epsilon(\past) = \sigma$ satisfy $P(\Future | \past) = P_\sigma(\Future)$ for some fixed distribution $P_\sigma$. Thus:
-\begin{equation}
-    P(\Future | \epsilon(\past) = \sigma) = P_\sigma(\Future) = P(\Future | \past)
-\end{equation}
-for any $\past$ with $\epsilon(\past) = \sigma$.
-
-For the conditional mutual information:
-\begin{align}
-    \MI(\Future; \Past | \epsilon(\Past)) &= \Ent[\Future | \epsilon(\Past)] - \Ent[\Future | \Past, \epsilon(\Past)]
-\end{align}
-Since $\epsilon$ is a function of $\Past$, conditioning on both $\Past$ and $\epsilon(\Past)$ is equivalent to conditioning on $\Past$ alone:
-\begin{equation}
-    \Ent[\Future | \Past, \epsilon(\Past)] = \Ent[\Future | \Past]
-\end{equation}
-And since $P(\Future | \past) = P(\Future | \epsilon(\past))$:
-\begin{equation}
-    \Ent[\Future | \Past] = \Ent[\Future | \epsilon(\Past)]
-\end{equation}
-Thus $\MI(\Future; \Past | \epsilon(\Past)) = 0$.
-\end{proof}
-
-\subsection{Minimality}
-
-The second theorem establishes that causal states are the coarsest sufficient statistic.
-
-\begin{theorem}[Minimality]
-\label{thm:minimality}
-Let $\calR$ be any function of the past that is a sufficient statistic for prediction:
-\begin{equation}
-    P(\Future | \Past) = P(\Future | \calR(\Past))
-\end{equation}
-Then the causal state $\epsilon(\Past)$ is a function of $\calR(\Past)$, and:
-\begin{equation}
-    \Ent[\epsilon(\Past)] \leq \Ent[\calR(\Past)]
-\end{equation}
-Equality holds if and only if $\calR$ refines $\epsilon$: that is, $\calR(\past) = \calR(\past')$ implies $\epsilon(\past) = \epsilon(\past')$.
-\end{theorem}
-\begin{proof}
-Suppose $\calR(\past) = \calR(\past')$. Since $\calR$ is sufficient:
-\begin{equation}
-    P(\Future | \past) = P(\Future | \calR(\past)) = P(\Future | \calR(\past')) = P(\Future | \past')
-\end{equation}
-Thus $\past \sim_\eps \past'$, so $\epsilon(\past) = \epsilon(\past')$.
-
-This shows that whenever $\calR$ assigns the same value to two pasts, so does $\epsilon$. Therefore $\epsilon$ is a function of $\calR$: there exists $f$ such that $\epsilon = f \circ \calR$.
-
-By the data processing inequality, for any function $f$:
-\begin{equation}
-    \Ent[f(\calR(\Past))] \leq \Ent[\calR(\Past)]
-\end{equation}
-with equality if and only if $f$ is injective on the support of $\calR(\Past)$.
-
-Thus $\Ent[\epsilon(\Past)] \leq \Ent[\calR(\Past)]$, with equality iff $\calR$ and $\epsilon$ are related by a bijection---i.e., $\calR$ is just a relabeling of $\epsilon$.
-\end{proof}
-
-\begin{corollary}
-Among all unifilar HMMs that generate a given process, the \eM\ has the minimal number of states and minimal state entropy.
-\end{corollary}
-\begin{proof}
-Any unifilar HMM's state, conditioned on the observed past, is a deterministic function of that past (by unifilarity). If the HMM generates the correct process, its state is a sufficient statistic. Apply Theorem~\ref{thm:minimality}.
-\end{proof}
-
-\subsection{Uniqueness}
-
-\begin{theorem}[Uniqueness]
-\label{thm:uniqueness}
-The \eM\ is unique up to state relabeling.
-\end{theorem}
-\begin{proof}
-Suppose $\calM_1$ and $\calM_2$ are both \eM s for the same process. By definition, both have causal states as their state spaces. The causal states are defined uniquely by the process's probability measure via Definition~\ref{def:causal-states}. Thus $\calM_1$ and $\calM_2$ have the same states (up to labeling) and, since transition probabilities are determined by the process, the same transitions.
-\end{proof}
-
-\subsection{Excess Entropy Bound}
-
-\begin{theorem}[Excess Entropy Bound]
-\label{thm:bound}
-The excess entropy is bounded by the statistical complexity:
-\begin{equation}
-    E \leq \Cmu
-\end{equation}
-with equality if and only if the past determines the future deterministically (zero entropy rate).
-\end{theorem}
-\begin{proof}
-The excess entropy is:
-\begin{equation}
-    E = \MI(\Past; \Future)
-\end{equation}
-
-Since causal states are sufficient for prediction (Theorem~\ref{thm:prescience}), we have the Markov chain $\Past \to \epsilon(\Past) \to \Future$. By the data processing inequality:
-\begin{equation}
-    \MI(\Past; \Future) \leq \MI(\epsilon(\Past); \Future) \leq \Ent[\epsilon(\Past)] = \Cmu
-\end{equation}
-
-The first inequality becomes equality when $\epsilon(\Past)$ captures all mutual information (which it does, by prescience). The second inequality uses $\MI(X;Y) \leq \Ent[X]$.
-
-For equality $E = \Cmu$, we need $\MI(\epsilon(\Past); \Future) = \Ent[\epsilon(\Past)]$, which requires $\Ent[\epsilon(\Past) | \Future] = 0$. This means the future determines the causal state, which combined with prescience (causal state determines future's distribution) implies zero entropy rate.
-\end{proof}
-
-\begin{remark}
-The gap $\Cmu - E$ is called the \emph{crypticity} and measures hidden structure: information stored in the causal state that is not reflected in the asymptotic past-future mutual information.
-\end{remark}
-
-% ===================================================================
-\section{Complexity Measures}
-\label{sec:measures}
-% ===================================================================
-
-The \eM\ framework provides several interrelated complexity measures.
-
-\subsection{Statistical Complexity}
-
-The statistical complexity $\Cmu = \Ent[\calS]$ measures the memory required for optimal prediction. Unlike Kolmogorov complexity:
-\begin{itemize}[nosep]
-    \item $\Cmu$ is computable (from the \eM)
-    \item $\Cmu$ depends on the ensemble, not individual sequences
-    \item $\Cmu$ is zero for both IID and deterministic processes
-\end{itemize}
-
-\subsection{Entropy Rate from the \eM}
-
-Given the \eM, the entropy rate can be computed exactly:
-\begin{equation}
-    \hmu = \sum_{\sigma \in \calS} \pi(\sigma) \Ent[X | \sigma] = -\sum_{\sigma,x} \pi(\sigma) P(x|\sigma) \log_2 P(x|\sigma)
-\end{equation}
-where $P(x|\sigma) = \sum_{\sigma'} T^{(x)}_{\sigma\sigma'}$ is the emission probability from state $\sigma$.
-
-\subsection{Relationships}
-
-For any stationary process:
-\begin{equation}
-    0 \leq E \leq \Cmu \qquad \text{and} \qquad 0 \leq \hmu \leq \log_2 |\calA|
-\end{equation}
-
-The quantities form a coherent picture:
-\begin{itemize}[nosep]
-    \item $\hmu$: intrinsic randomness (irreducible unpredictability)
-    \item $\Cmu$: structural complexity (memory for prediction)
-    \item $E$: apparent complexity (past-future correlation)
-    \item $\Cmu - E$: crypticity (hidden structure)
+    \item Origins of causal-state reconstruction and predictive sufficiency.
+    \item Canonical results on minimality, unifilarity, and uniqueness.
+    \item Clarifications and reinterpretations in later literature.
+    \item Relationship between $E$, $\Cmu$, crypticity, and predictive information.
 \end{itemize}
 
 % ===================================================================
-\section{Inference Algorithms}
+\section{Inference Algorithms: Evolution and Trade-offs}
 \label{sec:inference}
 % ===================================================================
 
-We briefly describe algorithms for inferring \eM s from data.
+This section will compare algorithmic families as they developed over time.
+Each family will be reviewed by assumptions, computational complexity, finite-sample behaviour, robustness, and practical tuning burden.
 
-\subsection{CSSR}
+\subsection{Algorithm Families}
 
-The \emph{Causal State Splitting Reconstruction} (CSSR) algorithm \cite{shalizi2004algorithm} builds causal states by:
-\begin{enumerate}[nosep]
-    \item Collecting suffix statistics from the data
-    \item Initializing all histories of length $L$ as separate states
-    \item Iteratively merging states with statistically indistinguishable futures
-    \item Splitting states that violate sufficiency
-\end{enumerate}
-CSSR is principled but sensitive to the significance threshold and maximum history length parameters.
+\begin{itemize}[nosep]
+    \item CSSR and descendants.
+    \item Spectral and operator-based approaches.
+    \item Bayesian structural inference methods.
+    \item Neural and representation-learning based state discovery.
+\end{itemize}
 
-\subsection{Spectral Learning}
-
-Spectral methods \cite{hsu2012spectral,boots2011closing} use matrix factorization:
-\begin{enumerate}[nosep]
-    \item Build Hankel matrices of substring co-occurrence counts
-    \item Compute SVD to find low-rank structure
-    \item Extract observable operators for each symbol
-    \item Convert to \eM\ representation
-\end{enumerate}
-Spectral learning is fast and consistent but may require more data for accurate estimation.
-
-\subsection{Other Approaches}
-
-\emph{Causal State Merging} (CSM) takes a bottom-up approach, starting with fine-grained states and merging. \emph{Bayesian Structural Inference} (BSI) \cite{strelioff2014bayesian} places priors over model structures. \emph{Neural State Discovery} (NSD) uses recurrent networks to learn state representations.
-
-% ===================================================================
-\section{Numerical Validation}
-\label{sec:validation}
-% ===================================================================
-
-We validate the theoretical framework using the \texttt{emic} Python library on four canonical processes.
-
-\subsection{Canonical Processes}
-
-\begin{table}[h]
+\begin{table*}[t]
 \centering
-\caption{Theoretical values for canonical processes}
-\label{tab:canonical}
+\caption{Algorithm comparison template for literature synthesis}
+\label{tab:algo-synthesis}
 \small
-\begin{tabular}{lccc}
+\begin{tabular}{lllllll}
 \toprule
-Process & $|\calS|$ & $\Cmu$ (bits) & $\hmu$ (bits) \\
+Family & Typical assumptions & Data regime & Runtime scaling & Strengths & Failure modes & Key papers \\
 \midrule
-Biased Coin ($p=0.5$) & 1 & 0.000 & 1.000 \\
-Golden Mean ($p=0.5$) & 2 & 0.918 & 0.667 \\
-Even Process ($p=0.5$) & 2 & 0.918 & 0.667 \\
-Periodic(3) & 3 & 1.585 & 0.000 \\
+CSSR-like & TODO & TODO & TODO & TODO & TODO & TODO \\
+Spectral & TODO & TODO & TODO & TODO & TODO & TODO \\
+BSI-like & TODO & TODO & TODO & TODO & TODO & TODO \\
+Neural/latent & TODO & TODO & TODO & TODO & TODO & TODO \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
-\paragraph{Biased Coin.} An IID process with $P(1) = p$. The single causal state reflects the absence of history-dependence. $\Cmu = 0$, $\hmu = \Ent[p] = -p \log p - (1-p)\log(1-p)$.
+% ===================================================================
+\section{Formal Extensions Beyond the Classical Setting}
+\label{sec:extensions}
+% ===================================================================
 
-\paragraph{Golden Mean.} A renewal process forbidding consecutive $1$s. Two causal states: ``can emit 0 or 1'' and ``must emit 0''. For $p = 0.5$: $\Cmu = \Ent[\frac{2}{3}, \frac{1}{3}] \approx 0.918$ bits.
+This section will review how Computational Mechanics has expanded beyond finite, stationary, univariate symbolic processes.
 
-\paragraph{Even Process.} Blocks of $1$s must have even length. Two causal states corresponding to ``even count'' and ``odd count'' of recent $1$s.
+\paragraph{Extension axes.}
+\begin{itemize}[nosep]
+    \item Quantum and q-machine formulations.
+    \item Continuous-valued and mixed observation settings.
+    \item Spatiotemporal and multivariate generalisations.
+    \item Non-stationary and adaptive formulations.
+\end{itemize}
 
-\paragraph{Periodic(n).} Deterministic period-$n$ sequence. $n$ causal states with $\Cmu = \log_2 n$ and $\hmu = 0$.
+For each axis, the review will explicitly mark maturity level: theoretical proposal, partial validation, or well-established practice.
 
-\subsection{Convergence Results}
+% ===================================================================
+\section{Application Landscape and Cross-domain Uptake}
+\label{sec:applications}
+% ===================================================================
 
-We inferred \eM s using CSSR with varying sample sizes $N \in \{10^2, 10^3, 10^4, 10^5, 10^6\}$, repeating each experiment 5 times.
+A review paper should map where the framework has actually been used, not only where it could be used.
+This section therefore synthesises applications by domain and evaluates evidence quality.
 
-\begin{table}[h]
+\begin{table*}[t]
 \centering
-\caption{CSSR accuracy by sample size (\% correct state count)}
-\label{tab:convergence}
+\caption{Application landscape template}
+\label{tab:application-landscape}
 \small
-\begin{tabular}{lrrrrr}
+\begin{tabular}{llllll}
 \toprule
-Process & $N=10^2$ & $10^3$ & $10^4$ & $10^5$ & $10^6$ \\
+Domain & Typical data & CM objective & Representative studies & Evidence quality & Open gap \\
 \midrule
-Biased Coin & 100 & 100 & 100 & 100 & 100 \\
-Golden Mean & 100 & 100 & 100 & 100 & 100 \\
-Even Process & 100 & 100 & 0 & 0 & 0 \\
-Periodic(3) & 100 & 100 & 100 & 100 & 100 \\
+Physics & TODO & TODO & TODO & TODO & TODO \\
+Neuroscience & TODO & TODO & TODO & TODO & TODO \\
+Biology/Genomics & TODO & TODO & TODO & TODO & TODO \\
+Linguistics & TODO & TODO & TODO & TODO & TODO \\
+Finance/Economics & TODO & TODO & TODO & TODO & TODO \\
+Engineering/Control & TODO & TODO & TODO & TODO & TODO \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
-CSSR achieves high accuracy on most processes, with 82\% overall correctness. The notable exception is the Even Process at large sample sizes, where CSSR over-splits to 4 states due to finite-sample effects in the chi-squared test. Complexity measures converge to theoretical values with increasing $N$:
+% ===================================================================
+\section{What Changed in 2020--2026}
+\label{sec:recent}
+% ===================================================================
 
-\begin{table}[h]
+This section will isolate genuinely new results from incremental re-packaging.
+The goal is to state clearly what is now known that was not established in earlier decades.
+
+\paragraph{Planned outputs.}
+\begin{itemize}[nosep]
+    \item Timeline of major post-2020 contributions.
+    \item Which claims received independent replication.
+    \item Which proposed methods remain unvalidated.
+    \item Which application domains saw first credible uptake.
+\end{itemize}
+
+% ===================================================================
+\section{Open Problems and Research Agenda}
+\label{sec:agenda}
+% ===================================================================
+
+This section will convert the synthesis into an actionable research map.
+Open problems will be prioritised by impact, tractability, and required prerequisites.
+
+\begin{table*}[t]
 \centering
-\caption{Inferred $\Cmu$ for Golden Mean (true: 0.918 bits)}
-\label{tab:cmu-convergence}
+\caption{Open-problem matrix template}
+\label{tab:open-problems}
 \small
-\begin{tabular}{rcc}
+\begin{tabular}{llllll}
 \toprule
-$N$ & $\hat{\Cmu}$ (mean $\pm$ std) & Relative Error \\
+Problem & Why unsolved & Best current approach & Evidence status & Blocker & Near-term experiment \\
 \midrule
-$10^2$ & $0.91 \pm 0.02$ & 0.9\% \\
-$10^3$ & $0.917 \pm 0.005$ & 0.1\% \\
-$10^4$ & $0.9179 \pm 0.0008$ & 0.01\% \\
-$10^5$ & $0.91830 \pm 0.00003$ & 0.003\% \\
+Finite-sample uncertainty quantification & TODO & TODO & TODO & TODO & TODO \\
+Non-stationary inference & TODO & TODO & TODO & TODO & TODO \\
+Scalable multivariate reconstruction & TODO & TODO & TODO & TODO & TODO \\
+Quantum advantage under noise & TODO & TODO & TODO & TODO & TODO \\
 \bottomrule
 \end{tabular}
-\end{table}
-
-\subsection{Algorithm Comparison}
-
-We compared five inference algorithms on the same processes:
-
-\begin{table}[h]
-\centering
-\caption{Algorithm accuracy (\% correct at $N = 10^4$)}
-\label{tab:algorithms}
-\small
-\begin{tabular}{lccccc}
-\toprule
-Process & CSSR & Spec. & CSM & BSI & NSD \\
-\midrule
-Biased Coin & 100 & 100 & 100 & 100 & 100 \\
-Golden Mean & 100 & 100 & 100 & 0 & 100 \\
-Even Process & 0 & 100 & 0 & 0 & 100 \\
-Periodic(3) & 100 & 100 & 0 & 0 & 0 \\
-\midrule
-Average & 75 & \textbf{100} & 50 & 25 & 75 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Spectral learning achieves the highest accuracy at $N = 10^4$. CSSR performs well except on Even Process where it over-splits at large sample sizes. NSD excels on non-deterministic processes but fails on Periodic. CSM and BSI struggle with complex structure.
-
-% ===================================================================
-\section{Related Frameworks}
-\label{sec:related}
-% ===================================================================
-
-Computational Mechanics connects to several established frameworks.
-
-\subsection{Hidden Markov Models}
-
-Standard HMMs \cite{rabiner1989tutorial} are the broader class containing \eM s. The key distinctions:
-\begin{itemize}[nosep]
-    \item \eM s are unifilar; general HMMs need not be
-    \item \eM s have minimal state entropy among equivalent models
-    \item \eM\ states have intrinsic meaning (causal equivalence classes)
-\end{itemize}
-
-Given a non-unifilar HMM, one can compute an equivalent \eM\ (the \emph{unifillarization}), potentially increasing the state count but gaining the interpretability and optimality guarantees.
-
-\subsection{Minimum Description Length}
-
-MDL \cite{rissanen1978modeling} and Kolmogorov complexity seek the shortest description of data. The \eM\ is related but distinct:
-\begin{itemize}[nosep]
-    \item MDL: minimize code length for \emph{this} data
-    \item \eM: minimize memory for \emph{predicting} the process
-\end{itemize}
-
-For ergodic processes, optimal MDL compression rates approach $\hmu$, but the model achieving this rate need not be the \eM. The \eM\ minimizes $\Cmu$, not description length.
-
-\subsection{Kolmogorov Complexity}
-
-Kolmogorov complexity $K(x)$ is the length of the shortest program producing $x$. It is uncomputable and defined for individual strings, not ensembles. In contrast:
-\begin{itemize}[nosep]
-    \item $\Cmu$ is computable from the \eM
-    \item $\Cmu$ describes the ensemble, not individuals
-    \item $\Cmu$ measures prediction memory, not generation description
-\end{itemize}
-
-For random processes, typical sequences have $K(x) \approx n \cdot \hmu + \Cmu$ \cite{crutchfield1994calculi}, showing how the two frameworks connect asymptotically.
-
-\subsection{Predictive State Representations}
-
-PSRs \cite{boots2011closing} from reinforcement learning represent state as predictions of future observations. Like \eM s, PSRs avoid hidden state ambiguity. The \eM\ is essentially a PSR with the additional structure of being the minimal such representation.
-
-% ===================================================================
-\section{Discussion}
-\label{sec:discussion}
-% ===================================================================
-
-\subsection{Interpretability}
-
-A key advantage of \eM s is interpretability. Each causal state corresponds to a predictively distinct situation. This contrasts with:
-\begin{itemize}[nosep]
-    \item Neural network hidden states: high-dimensional and opaque
-    \item Baum-Welch HMM states: arbitrary, depend on initialization
-    \item Spectral HMM states: linear combinations, not discrete
-\end{itemize}
-
-The \eM\ provides a canonical, minimal description that can be visualized, analyzed, and compared across processes.
-
-\subsection{Computational Considerations}
-
-Inference complexity varies by algorithm:
-\begin{itemize}[nosep]
-    \item CSSR: $O(N |\calA|^{L_{\max}})$ where $L_{\max}$ is maximum history
-    \item Spectral: $O(N |\calA|^{L} + |\calA|^{3L})$ for history length $L$
-    \item BSI: Exponential in model complexity (MCMC)
-\end{itemize}
-
-For moderate alphabets and history depths, CSSR and Spectral are practical for $N \sim 10^6$. Very long-range dependencies require advanced techniques.
-
-\subsection{Limitations}
-
-The framework has limitations:
-\begin{enumerate}[nosep]
-    \item \textbf{Stationarity}: Non-stationary processes require extensions
-    \item \textbf{Finite memory}: Some processes have infinite causal states
-    \item \textbf{Finite samples}: Inference requires sufficient data
-    \item \textbf{Discrete symbols}: Continuous observations need discretization
-\end{enumerate}
-
-\subsection{Open Questions}
-
-Several research directions remain active:
-\begin{itemize}[nosep]
-    \item Quantum \eM s and complexity advantages \cite{gu2012quantum}
-    \item Non-unifilar (mixed-state) representations
-    \item Multivariate and spatial processes
-    \item Connections to thermodynamics and information engines
-\end{itemize}
+\end{table*}
 
 % ===================================================================
 \section{Conclusion}
 \label{sec:conclusion}
 % ===================================================================
 
-Computational Mechanics provides a rigorous, operational framework for analyzing structure in stochastic processes. The \eM---defined as the minimal sufficient predictor---yields well-defined complexity measures that distinguish structure from randomness.
-
-We have reviewed the mathematical foundations, proving that causal states are prescient (sufficient for prediction), minimal (lowest entropy among sufficient statistics), and unique (up to isomorphism). These properties establish the \eM\ as the canonical model for any stationary process.
-
-Numerical validation using the \texttt{emic} library confirms that inference algorithms recover correct \eM s with sufficient data, with complexity measures converging to theoretical values. Among the algorithms tested, Spectral learning achieves 100\% accuracy at $N \geq 10{,}000$, while CSSR achieves 82\% overall correctness with a known blind spot on the Even Process.
-
-The framework's combination of theoretical rigor and practical computability makes it valuable for analyzing complex systems across physics, biology, neuroscience, and beyond. As data-driven modeling becomes ubiquitous, the \eM's guarantee of minimal complexity provides a principled foundation for model selection and interpretation.
+The final review will function as a checkpoint of record for the field.
+Its deliverable is not only a summary of concepts, but a structured map of how Computational Mechanics evolved, where it is now applied, and what evidence supports current claims.
+Completing the literature synthesis to at least \TargetRefs{} references is therefore a core methodological requirement rather than a cosmetic target.
 
 % ===================================================================
 % ACKNOWLEDGMENTS
 % ===================================================================
 \section*{Acknowledgments}
-
-Computational resources were generously provided by Dr.\ Jairam Manjunathaiah (Mac Studio, Apple M4 Max).
 
 \input{../shared/snippets/ai-usage-disclosure.tex}
 
