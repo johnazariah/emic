@@ -127,14 +127,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: joss-paper
-          path: joss/
+          path: paper-joss/
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
             dist/*
-            joss/paper.pdf
+            paper-joss/paper.pdf
           generate_release_notes: true
           draft: false
 
@@ -149,10 +149,10 @@ jobs:
         uses: openjournals/openjournals-draft-action@master
         with:
           journal: joss
-          paper-path: .project/research/computational-mechanics-review/joss/paper.md
+          paper-path: .project/research/computational-mechanics-review/paper-joss/paper.md
 
       - name: Upload JOSS paper
         uses: actions/upload-artifact@v4
         with:
           name: joss-paper
-          path: .project/research/computational-mechanics-review/joss/paper.pdf
+          path: .project/research/computational-mechanics-review/paper-joss/paper.pdf

@@ -27,7 +27,7 @@
 
 **Name**: "emic" — phonetic spelling of "εM" (epsilon-machine), pronounced "EE-mik"
 
-**Status**: v0.1.1 on PyPI, actively developed
+**Status**: v0.5.0 on PyPI, actively developed
 
 ---
 
@@ -161,7 +161,7 @@ result = source >> inference >> analysis >> output
 
 ## Testing
 
-- 194 tests, 90% coverage
+- 400+ tests, 90% coverage
 - Golden tests in `tests/golden/` for known processes
 - Property tests with Hypothesis
 - Run `uv run pytest` before committing
@@ -187,3 +187,4 @@ Check `.project/plan/ROADMAP.md` for current priorities, but likely:
 4. **Update documentation** — docstrings required on all public APIs
 5. **Update journal** — record what was done each session
 6. **Check CI** — all commits must pass formatting, types, tests
+7. **Use prompts** — `commit`, `release`, `paper`, `coach`, `pick-next-work` etc.
