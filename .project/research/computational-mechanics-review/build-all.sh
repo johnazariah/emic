@@ -26,7 +26,7 @@ TECHREPORT="$ROOT/paper-technical"
 TUTORIAL="$ROOT/paper-tutorial"
 JOSS="$ROOT/paper-joss"
 SHARED_BIB="$ROOT/shared/bibliography/references.bib"
-BENCH_FIGS="$ROOT/../experiments/benchmarks/results/figures"
+BENCH_FIGS="$ROOT/experiments/benchmarks/results/figures"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -136,7 +136,7 @@ arxiv_techreport() {
     # Main .tex — remove \addbibresource (biblatex .bbl is self-contained),
     # and rewrite external figure paths to local figures/ directory
     sed -e 's|\\addbibresource{../shared/bibliography/references.bib}|% bibliography handled by .bbl|' \
-        -e 's|../../experiments/benchmarks/results/figures/|figures/|g' \
+        -e 's|../experiments/benchmarks/results/figures/|figures/|g' \
         "$TECHREPORT/paper.tex" > "$out/paper.tex"
 
     # .latexmkrc for biber
