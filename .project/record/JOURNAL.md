@@ -73,10 +73,17 @@
    - Bumped package version from `0.5.0` to `0.5.1` in `pyproject.toml`
    - Refreshed lockfile metadata (`uv.lock`) and normalized formatting/newlines in touched files
 
+3. **Post-tag CI parity fix**
+   - Diagnosed release workflow failure to `ruff format --check src tests` mismatch on two test files
+   - Applied CI-equivalent Ruff formatting in:
+     - `tests/golden/test_inference_golden.py`
+     - `tests/unit/test_sources_synthetic.py`
+   - Re-ran CI-equivalent lint checks locally to confirm pass before follow-up push
+
 **Next Steps**:
-1. Create release commit and tag `v0.5.1`
-2. Push branch and tag to trigger release workflow
-3. Verify published package/release artifacts
+1. Push formatter hotfix commit
+2. Re-point `v0.5.1` tag to release-ready commit
+3. Re-run and verify release workflow artifacts
 
 ### January 28, 2026
 
