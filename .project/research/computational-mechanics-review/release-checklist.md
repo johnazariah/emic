@@ -39,21 +39,20 @@ Steps for releasing a new version of `emic` and its associated publications.
   ```
 - [ ] Paper renders correctly (table, math, citations all resolve)
 
-## Associated Publications (arXiv)
+## Associated Publication (arXiv)
 
-- [ ] Review paper final draft reviewed
-- [ ] Technical report final draft reviewed
-- [ ] arXiv packages build:
+- [ ] Technical report final draft reviewed (includes Appendix B: CM review)
+- [ ] arXiv package builds:
   ```bash
   cd .project/research/computational-mechanics-review
   make arxiv
   ```
-- [ ] arXiv packages verify (compile from source):
+- [ ] arXiv package verifies (compile from source):
   ```bash
   make verify
   ```
-- [ ] Both submitted to arXiv and arXiv IDs obtained
-- [ ] `paper-joss/paper.bib` updated with arXiv eprint IDs:
+- [ ] Technical report submitted to arXiv and arXiv ID obtained
+- [ ] `paper-joss/paper.bib` updated with arXiv eprint ID:
   ```bibtex
   eprint = {2602.XXXXX},
   archiveprefix = {arXiv},

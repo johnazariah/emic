@@ -117,8 +117,9 @@ Before submitting to JOSS:
 
 ## Associated Publications
 
-- **Review paper**: "Computational Mechanics: A Modern Review" (arXiv, forthcoming)
 - **Technical report**: "emic: A Python Framework for ε-Machine Inference" (arXiv, forthcoming)
+  — includes Appendix B: "Computational Mechanics: A Modern Review" with full proofs
+- **Review paper**: to be developed as a standalone journal submission (in progress)
 
 ## See Also
 
