@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.1] - 2026-02-16
+
+### Added
+- **Publications workflow**: Added dedicated `.github/workflows/publications.yml` to build and publish versioned tutorial/review/technical PDF artifacts independently of package release.
+- **Journal stewardship prompt**: Added `.github/prompts/journal-steward-agent.prompt.md` for repeatable paper-governance checks across projects.
+- **Shared paper governance assets**:
+  - Canonical author profile in `.project/research/computational-mechanics-review/shared/metadata/author-profile.yaml`
+  - Shared AI disclosure snippets for Markdown and LaTeX
+  - New-paper setup checklist in `paper-framework/new-paper-checklist.md`
+
+### Changed
+- **Release packaging policy**: Release workflow now attaches a JOSS submission bundle (`paper.md` + `paper.bib` tarball) instead of attaching paper PDFs.
+- **Prompt and checklist alignment**: Updated release and paper prompts/checklists to reflect:
+  - Shared bibliography source of truth
+  - Citation key convention `{first-author-name}{year}[{tag}]`
+  - Separate publication pipeline for PDFs
+- **Paper metadata consistency**: Standardized author/profile fields and AI disclosure wording across JOSS/tutorial/review/technical papers.
+
+### Fixed
+- **LaTeX warning hygiene**: Reduced recurring non-blocking warnings in paper sources (`caption` hypcap override, `hyperref` PDF-string substitutions, `fancyhdr` headheight).
+
 ## [0.5.0] - 2026-01-28
 
 ### Fixed

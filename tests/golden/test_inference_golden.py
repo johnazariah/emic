@@ -423,16 +423,16 @@ class TestAlgorithmConsistency:
         # Core algorithms (CSSR, CSM) should be within tolerance of expected
         # Even process needs more tolerance due to its structure
         cssr_tolerance = 3 if source_name == "even_process" else 1
-        assert abs(len(cssr_result.machine.states) - expected_states) <= cssr_tolerance, (
-            f"CSSR: expected ~{expected_states}, got {len(cssr_result.machine.states)}"
-        )
-        assert abs(len(csm_result.machine.states) - expected_states) <= 2, (
-            f"CSM: expected ~{expected_states}, got {len(csm_result.machine.states)}"
-        )
+        assert (
+            abs(len(cssr_result.machine.states) - expected_states) <= cssr_tolerance
+        ), f"CSSR: expected ~{expected_states}, got {len(cssr_result.machine.states)}"
+        assert (
+            abs(len(csm_result.machine.states) - expected_states) <= 2
+        ), f"CSM: expected ~{expected_states}, got {len(csm_result.machine.states)}"
         # Alternative algorithms have more tolerance (±2)
-        assert abs(len(bsi_result.machine.states) - expected_states) <= 2, (
-            f"BSI: expected ~{expected_states}, got {len(bsi_result.machine.states)}"
-        )
-        assert abs(len(nsd_result.machine.states) - expected_states) <= 2, (
-            f"NSD: expected ~{expected_states}, got {len(nsd_result.machine.states)}"
-        )
+        assert (
+            abs(len(bsi_result.machine.states) - expected_states) <= 2
+        ), f"BSI: expected ~{expected_states}, got {len(bsi_result.machine.states)}"
+        assert (
+            abs(len(nsd_result.machine.states) - expected_states) <= 2
+        ), f"NSD: expected ~{expected_states}, got {len(nsd_result.machine.states)}"
