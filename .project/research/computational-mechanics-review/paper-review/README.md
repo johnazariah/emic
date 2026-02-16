@@ -21,12 +21,12 @@ cd tex && make
 
 Or manually:
 ```bash
-cd tex && latexmk -pdf -outdir=out review-paper.tex
+latexmk -pdf paper.tex
 ```
 
 ## Output
 
-Built PDF: `tex/out/review-paper.pdf`
+Built PDF: `paper.pdf`
 
 ## Structure
 
@@ -54,5 +54,5 @@ Uses shared bibliography: `../../shared/bibliography/references.bib`
 ## See Also
 
 - [Publication Strategy](../publication-strategy.md) - Overall publication plan
-- [Tutorial](../tutorial/) - Pedagogical introduction
-- [Technical Report](../technical-report/) - emic library documentation
+- [Tutorial](../paper-tutorial/) - Pedagogical introduction
+- [Technical Report](../paper-technical/) - emic library documentation

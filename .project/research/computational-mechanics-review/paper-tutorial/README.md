@@ -16,4 +16,4 @@ quarto render slides.qmd
 
 ## Structure
 
-See `tex/main.tex` for the document and `../publication-strategy.md` for the full outline.
+See `paper.tex` for the document and `../publication-strategy.md` for the full outline.

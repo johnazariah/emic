@@ -39,10 +39,10 @@ name: JOSS Paper PDF
 on:
   push:
     paths:
-      - 'joss/**'
+      - 'paper-joss/**'
   pull_request:
     paths:
-      - 'joss/**'
+      - 'paper-joss/**'
 
 jobs:
   paper:
@@ -53,11 +53,11 @@ jobs:
       - uses: openjournals/openjournals-draft-action@master
         with:
           journal: joss
-          paper-path: joss/paper.md
+          paper-path: paper-joss/paper.md
       - uses: actions/upload-artifact@v4
         with:
           name: joss-paper
-          path: joss/paper.pdf
+          path: paper-joss/paper.pdf
 ```
 
 ## Including in Release Artifacts
@@ -74,11 +74,11 @@ release workflow that builds the PDF and attaches it:
       - uses: openjournals/openjournals-draft-action@master
         with:
           journal: joss
-          paper-path: joss/paper.md
+          paper-path: paper-joss/paper.md
       - uses: actions/upload-artifact@v4
         with:
           name: joss-paper
-          path: joss/paper.pdf
+          path: paper-joss/paper.pdf
 
   # Then in your release job, download and attach:
   release:
