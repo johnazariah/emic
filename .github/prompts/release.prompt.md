@@ -247,9 +247,9 @@ Analyze changes since the last release, prepare documentation, validate quality,
    Build all papers in `.project/research/computational-mechanics-review/`:
    ```bash
    # Build all three papers
-   cd /workspace/.project/research/computational-mechanics-review/technical-report/tex && latexmk -pdf technical-report.tex
-   cd /workspace/.project/research/computational-mechanics-review/tutorial/tex && latexmk -pdf tutorial.tex
-   cd /workspace/.project/research/computational-mechanics-review/review-paper/tex && latexmk -pdf review-paper.tex
+   cd /workspace/.project/research/computational-mechanics-review/paper-technical && latexmk -pdf paper.tex
+   cd /workspace/.project/research/computational-mechanics-review/paper-tutorial && latexmk -pdf paper.tex
+   cd /workspace/.project/research/computational-mechanics-review/paper-review && latexmk -pdf paper.tex
    ```
 
    Copy with versioned names and upload:
@@ -258,9 +258,9 @@ Analyze changes since the last release, prepare documentation, validate quality,
    PAPERS_DIR=/workspace/.project/research/computational-mechanics-review
 
    # Copy PDFs with versioned names
-   cp "$PAPERS_DIR/technical-report/tex/out/technical-report.pdf" "/tmp/emic-technical-report-$VERSION.pdf"
-   cp "$PAPERS_DIR/tutorial/tex/tutorial.pdf" "/tmp/emic-tutorial-$VERSION.pdf"
-   cp "$PAPERS_DIR/review-paper/tex/review-paper.pdf" "/tmp/emic-review-paper-$VERSION.pdf"
+   cp "$PAPERS_DIR/paper-technical/out/paper.pdf" "/tmp/emic-technical-report-$VERSION.pdf"
+   cp "$PAPERS_DIR/paper-tutorial/paper.pdf" "/tmp/emic-tutorial-$VERSION.pdf"
+   cp "$PAPERS_DIR/paper-review/paper.pdf" "/tmp/emic-review-paper-$VERSION.pdf"
 
    # Upload all papers to release
    gh release upload "v$VERSION" \
