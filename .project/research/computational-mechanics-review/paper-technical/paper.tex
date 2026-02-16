@@ -171,7 +171,7 @@ Despite the elegance and power of this framework, practical adoption has been hi
 \begin{itemize}
     \item \textbf{Modern Python implementation}: Type-annotated, immutable data structures, comprehensive documentation
     \item \textbf{Multiple algorithms}: CSSR, Spectral Learning, Causal State Merging, Bayesian Structural Inference, Naive State Discovery
-    \item \textbf{Rigorous validation}: 326+ tests including golden tests against known analytical results
+    \item \textbf{Rigorous validation}: \testCount{} tests including golden tests against known analytical results
     \item \textbf{Composable pipelines}: Functional composition with \texttt{>>} operator
     \item \textbf{Extensible architecture}: Protocol-based design for custom algorithms
 \end{itemize}
@@ -259,7 +259,7 @@ Tool & Language & Algorithms & Test Suite & Maintained \\
 CSSR (original) & Perl & CSSR only & None & No (2006) \\
 CMPy & Python 2 & CSSR only & Limited & No (2014) \\
 transCSSR & Julia & CSSR variant & Basic & Partial \\
-\emic{} & Python 3.11+ & 5 algorithms & 326 tests & Yes \\
+\emic{} & Python 3.11+ & 5 algorithms & \testCount{} tests & Yes \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -295,7 +295,7 @@ The \emic{} library was developed to address several gaps:
 
     \item \textbf{Composability}: Pipeline operators (\texttt{>>}) enable declarative data flow. Operations compose cleanly without intermediate variables.
 
-    \item \textbf{Correctness First}: Extensive testing (\testCount{} tests, \testCoverage\%+ coverage), including ``golden tests'' that verify inference on processes with known analytical solutions.
+    \item \textbf{Correctness First}: Extensive testing (\testCount{} tests, \testCoverage\% coverage), including ``golden tests'' that verify inference on processes with known analytical solutions.
 \end{enumerate}
 
 \section{Module Structure}
@@ -798,12 +798,12 @@ Correctness is paramount for scientific software. \emic{} employs a multi-layere
 \toprule
 Metric & Value \\
 \midrule
-Total tests & 334 \\
-Unit tests & 253 \\
-Golden tests & 48 \\
-Integration tests & 18 \\
-Property tests & 15 \\
-Coverage & $>\testCoverage\%$ \\
+Total tests & \testCount{} \\
+Unit tests & \unitTestCount{} \\
+Golden tests & \goldenTestCount{} \\
+Integration tests & \integrationTestCount{} \\
+Property tests & \propertyTestCount{} \\
+Coverage & \testCoverage\% \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1474,7 +1474,7 @@ This underscores the importance of \textbf{golden tests}---benchmarks against pr
 This report has presented \emic{}, a production-quality Python library for $\eps$-machine inference from symbolic time series data. Key contributions include:
 
 \begin{enumerate}
-    \item \textbf{Modern implementation}: Type-annotated Python with immutable data structures, extensive documentation, and \testCoverage\%+ test coverage.
+    \item \textbf{Modern implementation}: Type-annotated Python with immutable data structures, extensive documentation, and \testCoverage\% test coverage.
 
     \item \textbf{Multiple algorithms}: Five inference methods (CSSR, Spectral, CSM, BSI, NSD) with different trade-offs, enabling practitioners to choose based on data characteristics.
 

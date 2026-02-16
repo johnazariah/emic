@@ -76,6 +76,8 @@ build_review_pdf() {
 }
 
 build_techreport_pdf() {
+    info "Refreshing technical report test statistics"
+    uv run python "$ROOT/experiments/benchmarks/update_test_stats.py"
     build_pdf "$TECHREPORT" "paper" "biber"
 }
 

@@ -116,6 +116,33 @@
 2. Re-run `Publications` for `v0.5.1` to attach tutorial/review/technical PDFs
 3. Verify release assets include package, JOSS bundle policy-compliant artifacts, and publication PDFs
 
+**Session Focus**: Technical Report Test/Coverage Stats Automation
+
+**Completed**:
+
+1. **Automated test/coverage macro refresh for technical paper**
+   - Added `experiments/benchmarks/update_test_stats.py` to compute:
+     - Total tests
+     - Unit/golden/integration/property test counts
+     - Coverage percentage
+   - Script updates `paper-technical/generated/benchmark-data.tex` macros directly
+
+2. **Integrated stats refresh into build pipeline**
+   - Updated `build-all.sh` so `make techreport` refreshes test/coverage macros before LaTeX build
+   - Eliminates stale hardcoded test/coverage numbers in technical report builds
+
+3. **Technical paper hardcoded value cleanup**
+   - Replaced remaining fixed test-count/coverage text with macros in `paper-technical/paper.tex`
+   - Updated validation table to use dynamic suite-count macros
+
+4. **Validation**
+   - Ran updater successfully (now reports current values)
+   - Verified `make techreport` succeeds end-to-end with automated refresh
+
+**Next Steps**:
+1. Commit and push automation updates
+2. Optionally add a lightweight CI check ensuring generated benchmark-data macros are fresh
+
 ### January 28, 2026
 
 **Session Focus**: Quantum Research Program Specification
