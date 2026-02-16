@@ -53,23 +53,26 @@ Thumbs.db
 .project/references/*.pdf
 site/
 
-# LaTeX build artifacts
-*.aux
-*.bbl
-*.blg
-*.bcf
-*.fdb_latexmk
-*.fls
-*.log
-*.out
-*.toc
-*.lof
-*.lot
-*.run.xml
-*.synctex.gz
-*.synctex(busy)
-**/tex/out/
+# LaTeX build artifacts (papers are rebuilt by CI)
+.project/research/**/*.aux
+.project/research/**/*.bbl
+.project/research/**/*.blg
+.project/research/**/*.bcf
+.project/research/**/*.fdb_latexmk
+.project/research/**/*.fls
+.project/research/**/*.log
+.project/research/**/*.out
+.project/research/**/*.toc
+.project/research/**/*.lof
+.project/research/**/*.lot
+.project/research/**/*.run.xml
+.project/research/**/*.synctex.gz
+.project/research/**/*.synctex(busy)
+.project/research/**/paperNotes.bib
 
 # Built LaTeX documents (attach to releases instead)
-.project/research/**/tex/*.pdf
-!.project/research/**/tex/figures/*.pdf
+.project/research/**/*.pdf
+!.project/research/**/figures/*.pdf
+
+# Research build output
+.project/research/**/dist/
