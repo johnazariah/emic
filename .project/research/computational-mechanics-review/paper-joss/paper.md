@@ -9,14 +9,14 @@ tags:
   - stochastic processes
   - hidden Markov models
 authors:
-  - name: John Azariah
+  - name: John S Azariah
     orcid: 0009-0007-9870-1970
     affiliation: 1
 affiliations:
-  - name: University of Technology Sydney, Australia
+  - name: University of Technology, Sydney (UTS)
     index: 1
 date: 15 February 2026
-bibliography: paper.bib
+bibliography: ../shared/bibliography/references.bib
 ---
 
 # Summary
@@ -48,7 +48,7 @@ The original CSSR reference implementation
 [@shalizi2004algorithm; available at https://github.com/stites/CSSR, mirrored
 from http://bactra.org/CSSR/] is a single-algorithm C++ program, last updated in
 2008, that is difficult to extend and no longer actively maintained. The
-canonical Python library from Crutchfield's group, CMPy [@cmpy], is no longer
+canonical Python library from Crutchfield's group, CMPy [@crutchfield2015cmpy], is no longer
 available — its website and source code have been taken offline. No existing
 maintained package provides multiple inference algorithms, rigorous golden-test
 validation against known processes, or a unified API for both inference and
@@ -71,7 +71,7 @@ mechanics and complexity analysis landscape.
 | **emic** | Python | **Yes** | CSSR, Spectral, CSM, BSI, NSD | **Yes** | **408** | **PyPI** | **Yes** |
 | CSSR [@shalizi2004algorithm] | C++ | Yes | CSSR | Yes | No | No | No (2008) |
 | transCSSR [@darmon2023transcssr] | Python | Yes | CSSR (transducers) | Indirect | No | No | Yes |
-| CMPy [@cmpy] | Python | Yes | CSSR, Bayesian | Yes | Unknown | No | No (defunct) |
+| CMPy [@crutchfield2015cmpy] | Python | Yes | CSSR, Bayesian | Yes | Unknown | No | No (defunct) |
 | cbayes [@strelioff2014bayesian] | Python | Yes | BSI | Indirect | No | No | No (2014) |
 | dit [@james2018dit] | Python | No | — (measures only) | From distributions | Yes | PyPI | Partial |
 | ComplexityMeasures.jl [@datseris2025cm] | Julia | No | — (ordinal patterns) | Permutation-based | Yes | Julia | Yes |
@@ -156,10 +156,10 @@ with over 82 % line coverage. Strict static typing is enforced via Pyright.
 
 # AI Usage Disclosure
 
-GitHub Copilot (Claude) was used during the development of `emic` for code
-generation, refactoring, test scaffolding, documentation drafting, and
-assistance with this paper. All AI-generated outputs were reviewed, edited, and
-validated by the author, who made all core design decisions.
+GitHub Copilot (GPT-5.3-Codex and Claude) was used during development for
+code generation, refactoring, test scaffolding, and documentation drafting.
+All AI-generated outputs were reviewed, edited, and validated by the author,
+who made all core research and design decisions.
 
 # Acknowledgements
 

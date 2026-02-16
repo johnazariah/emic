@@ -17,7 +17,12 @@ The project produces three related documents targeting different audiences:
 All papers share:
 - The same bibliography ([shared/bibliography/](shared/bibliography/))
 - The same experimental data ([experiments/](experiments/))
+- Canonical author profile ([shared/metadata/author-profile.yaml](shared/metadata/author-profile.yaml))
+- Standard AI disclosure snippets ([shared/snippets/](shared/snippets/))
 - Consistent notation and terminology
+
+When starting a new paper, follow the checklist in
+[`paper-framework/new-paper-checklist.md`](paper-framework/new-paper-checklist.md).
 
 ## Experiments
 

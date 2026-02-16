@@ -29,26 +29,42 @@ All papers live under `.project/research/computational-mechanics-review/`:
 
 **Single shared .bib file**: `shared/bibliography/references.bib`
 
+**Canonical author metadata**: `shared/metadata/author-profile.yaml`
+
+### Canonical Author Profile (use exactly)
+
+- Name: John S Azariah
+- Affiliation: University of Technology, Sydney (UTS)
+- ORCID: 0009-0007-9870-1970
+- Email: john.azariah@student.uts.edu.au
+
+**Shared AI disclosure snippets**:
+- Markdown: `shared/snippets/ai-usage-disclosure.md`
+- LaTeX: `shared/snippets/ai-usage-disclosure.tex`
+
+Before drafting a new paper, follow:
+`paper-framework/new-paper-checklist.md`
+
 ### Citation Key Convention
 
-Use `firstauthor_year` format with optional disambiguator:
+Use `{first-author-name}{year}[{tag}]` format:
 
 | Pattern | Example |
 |---------|---------|
-| `author_year` | `crutchfield1989` |
-| `author_yeartopic` | `shalizi2001computational` |
-| `author_yearX` | `crutchfield2012a`, `crutchfield2012b` |
+| `authoryear` | `crutchfield1989` |
+| `authoryeartag` | `shalizi2001computational` |
+| `authoryearx` | `crutchfield2012a`, `crutchfield2012b` |
 
 ### Adding a New Reference
 
 1. Add the entry to `shared/bibliography/references.bib`
-2. Use the `firstauthor_year` key convention
+2. Use the `{first-author-name}{year}[{tag}]` key convention
 3. Always include `doi` when available
 4. The entry is immediately available to all papers
 
 ### JOSS Symlink
 
-`paper-joss/paper.bib` is a **symlink** to `../shared/bibliography/references.bib`. Do not replace it with a regular file. The JOSS front matter references `bibliography: paper.bib` which resolves through the symlink.
+`paper-joss/paper.bib` may be maintained as a symlink to `../shared/bibliography/references.bib` for tool compatibility. The canonical source of truth is always `shared/bibliography/references.bib`.
 
 ---
 
@@ -144,3 +160,8 @@ When writing one paper, be aware of what the others cover to avoid duplication a
 4. **After editing JOSS**: Push to trigger CI build; check the artifact
 5. **Generated content**: Experimental results go in `generated/` subdirectories; never hand-edit generated `.tex` files
 6. **Figures**: Commit source (TikZ, plotting scripts); generated PDFs are build artifacts
+
+## Consistency Stewardship
+
+For repeatable cross-paper consistency checks, use:
+`.github/prompts/journal-steward-agent.prompt.md`

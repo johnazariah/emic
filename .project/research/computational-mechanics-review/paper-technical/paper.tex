@@ -74,6 +74,7 @@
 \fancyhead[L]{\leftmark}
 \fancyhead[R]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
+\setlength{\headheight}{14pt}
 
 % === THEOREM ENVIRONMENTS ===
 \theoremstyle{plain}
@@ -106,6 +107,25 @@
 \DeclareMathOperator{\Ent}{H}
 \DeclareMathOperator{\MI}{I}
 \newcommand{\emic}{\texttt{emic}}
+\pdfstringdefDisableCommands{%
+    \def\eps{epsilon}%
+    \def\eM{epsilon-machine}%
+    \def\Cmu{Cmu}%
+    \def\hmu{hmu}%
+    \def\calS{S}%
+    \def\calA{A}%
+    \def\calM{M}%
+    \def\calP{P}%
+    \def\calR{R}%
+    \def\Past{Xpast}%
+    \def\Future{Xfuture}%
+    \def\past{xpast}%
+    \def\future{xfuture}%
+    \def\Ent{H}%
+    \def\MI{I}%
+    \def\emic{emic}%
+    \def\texttt#1{#1}%
+}
 
 % === TITLE ===
 \title{%
@@ -2265,6 +2285,8 @@ Several research directions remain active:
 \addcontentsline{toc}{chapter}{Acknowledgments}
 
 I thank Dr.\ Jairam Manjunathaiah for generously providing the Mac Studio on which the entire \emic{} library was developed, all computational experiments were conducted, and this document was written.
+
+\input{../shared/snippets/ai-usage-disclosure.tex}
 
 % ===================================================================
 % BIBLIOGRAPHY

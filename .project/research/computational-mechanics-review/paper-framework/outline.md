@@ -11,6 +11,13 @@
 
 ## Status: Drafting Outline
 
+## Paper Setup Requirements
+
+- Use canonical author metadata from `../shared/metadata/author-profile.yaml`
+- Use shared bibliography at `../shared/bibliography/references.bib`
+- Include AI usage disclosure from shared snippets in `../shared/snippets/`
+- Follow `new-paper-checklist.md` before drafting content
+
 ## Abstract
 
 *To be written*

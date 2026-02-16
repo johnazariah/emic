@@ -6,6 +6,57 @@
 
 ## 2026
 
+### February 16, 2026
+
+**Session Focus**: Release Process Hardening, Publication Consistency, and Journal Stewardship
+
+**Completed**:
+
+1. **Release workflow split and packaging policy**
+   - Updated package release flow to attach a JOSS submission bundle (`paper.md` + `paper.bib` tarball) instead of paper PDFs
+   - Added dedicated publications workflow to build/version/upload tutorial, review, and technical PDFs separately
+   - Aligned release checklist and release prompt with the split between software release artifacts and publication artifacts
+
+2. **Cross-paper consistency standardization**
+   - Switched JOSS paper to shared bibliography source of truth
+   - Standardized citation key naming convention references in prompts/checklists
+   - Updated stale software citation metadata in shared bibliography
+   - Standardized canonical author identity fields across papers (name, affiliation, ORCID, email)
+
+3. **Shared governance assets for repeatability**
+   - Added canonical author profile file: `shared/metadata/author-profile.yaml`
+   - Added shared AI disclosure snippets for Markdown and LaTeX
+   - Added new-paper checklist for consistent setup
+   - Added reusable `journal-steward-agent` prompt and integrated it into paper authoring guidance
+
+4. **Paper source hygiene and build validation**
+   - Added/standardized AI usage disclosure in non-JOSS papers via shared snippet
+   - Reduced warning noise in LaTeX sources (caption hypcap, hyperref PDF string handling, fancyhdr headheight)
+   - Verified all three LaTeX papers still build after changes
+
+**Files Created**:
+- `.github/workflows/publications.yml`
+- `.github/prompts/journal-steward-agent.prompt.md`
+- `.project/research/computational-mechanics-review/shared/metadata/author-profile.yaml`
+- `.project/research/computational-mechanics-review/shared/snippets/ai-usage-disclosure.md`
+- `.project/research/computational-mechanics-review/shared/snippets/ai-usage-disclosure.tex`
+- `.project/research/computational-mechanics-review/paper-framework/new-paper-checklist.md`
+
+**Files Updated (high impact)**:
+- `.github/workflows/release.yml`
+- `.github/prompts/release.prompt.md`
+- `.github/prompts/paper.prompt.md`
+- `.project/research/computational-mechanics-review/release-checklist.md`
+- `.project/research/computational-mechanics-review/paper-joss/paper.md`
+- `.project/research/computational-mechanics-review/paper-technical/paper.tex`
+- `.project/research/computational-mechanics-review/paper-review/paper.tex`
+- `.project/research/computational-mechanics-review/paper-tutorial/paper.tex`
+
+**Next Steps**:
+1. Trigger `publications.yml` on next release to validate end-to-end PDF publication path
+2. Optional cleanup of remaining non-blocking LaTeX warnings if desired
+3. Proceed with patch release tagging after final changelog review
+
 ### January 28, 2026
 
 **Session Focus**: Quantum Research Program Specification

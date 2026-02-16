@@ -59,6 +59,24 @@
 \newcommand{\future}{\overrightarrow{x}}
 \DeclareMathOperator{\Ent}{H}
 \DeclareMathOperator{\MI}{I}
+\pdfstringdefDisableCommands{%
+    \def\eps{epsilon}%
+    \def\eM{epsilon-machine}%
+    \def\Cmu{Cmu}%
+    \def\hmu{hmu}%
+    \def\calS{S}%
+    \def\calA{A}%
+    \def\calM{M}%
+    \def\calP{P}%
+    \def\calR{R}%
+    \def\Past{Xpast}%
+    \def\Future{Xfuture}%
+    \def\past{xpast}%
+    \def\future{xfuture}%
+    \def\Ent{H}%
+    \def\MI{I}%
+    \def\texttt#1{#1}%
+}
 
 % === TITLE ===
 \title{%
@@ -68,7 +86,7 @@
 }
 \author{%
     John S Azariah\\
-    \small University of Technology Sydney\\
+    \small University of Technology, Sydney (UTS)\\
     \small\texttt{john.azariah@student.uts.edu.au}
 }
 \date{January 2026}
@@ -677,6 +695,8 @@ The framework's combination of theoretical rigor and practical computability mak
 \section*{Acknowledgments}
 
 Computational resources were generously provided by Dr.\ Jairam Manjunathaiah (Mac Studio, Apple M4 Max).
+
+\input{../shared/snippets/ai-usage-disclosure.tex}
 
 % ===================================================================
 % BIBLIOGRAPHY

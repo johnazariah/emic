@@ -242,40 +242,33 @@ Analyze changes since the last release, prepare documentation, validate quality,
    - Verify new features are documented
    - Check API reference is updated
 
-6. **Build and upload research papers** (if applicable):
+6. **Package JOSS submission + publish PDF papers separately** (if applicable):
 
-   Build all papers in `.project/research/computational-mechanics-review/`:
+    Build a JOSS submission bundle for release assets:
    ```bash
-   # Build all three papers
-   cd /workspace/.project/research/computational-mechanics-review/paper-technical && latexmk -pdf paper.tex
-   cd /workspace/.project/research/computational-mechanics-review/paper-tutorial && latexmk -pdf paper.tex
-   cd /workspace/.project/research/computational-mechanics-review/paper-review && latexmk -pdf paper.tex
+    VERSION=X.Y.Z
+    BASE=/workspace/.project/research/computational-mechanics-review
+    mkdir -p /tmp/joss-bundle
+    cp "$BASE/paper-joss/paper.md" /tmp/joss-bundle/paper.md
+    cp "$BASE/shared/bibliography/references.bib" /tmp/joss-bundle/paper.bib
+    tar -czf "/tmp/emic-joss-submission-$VERSION.tar.gz" -C /tmp/joss-bundle paper.md paper.bib
    ```
 
-   Copy with versioned names and upload:
+    Upload JOSS submission bundle to release:
    ```bash
    VERSION=X.Y.Z
-   PAPERS_DIR=/workspace/.project/research/computational-mechanics-review
-
-   # Copy PDFs with versioned names
-   cp "$PAPERS_DIR/paper-technical/out/paper.pdf" "/tmp/emic-technical-report-$VERSION.pdf"
-   cp "$PAPERS_DIR/paper-tutorial/paper.pdf" "/tmp/emic-tutorial-$VERSION.pdf"
-   cp "$PAPERS_DIR/paper-review/paper.pdf" "/tmp/emic-review-paper-$VERSION.pdf"
-
-   # Upload all papers to release
-   gh release upload "v$VERSION" \
-     "/tmp/emic-technical-report-$VERSION.pdf" \
-     "/tmp/emic-tutorial-$VERSION.pdf" \
-     "/tmp/emic-review-paper-$VERSION.pdf" \
+    gh release upload "v$VERSION" \
+       "/tmp/emic-joss-submission-$VERSION.tar.gz" \
      --clobber
    ```
 
-   **Papers included**:
+   Publish PDF papers via `.github/workflows/publications.yml` (outside package release),
+    then link to those artifacts from release notes.
+
+    **JOSS bundle includes**:
    | Paper | Description |
-   |-------|-------------|
-   | `emic-technical-report-X.Y.Z.pdf` | Complete library documentation (~50 pages) |
-   | `emic-tutorial-X.Y.Z.pdf` | Computational mechanics introduction (~32 pages) |
-   | `emic-review-paper-X.Y.Z.pdf` | Academic review of computational mechanics |
+    |------|-------------|
+    | `emic-joss-submission-X.Y.Z.tar.gz` | `paper.md` + `paper.bib` for JOSS submission |
 
 7. **Report final status**:
    ```

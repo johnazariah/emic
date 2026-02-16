@@ -6,6 +6,7 @@ Steps for releasing a new version of `emic` and its associated publications.
 
 ## Pre-release
 
+- [ ] Run `/.github/prompts/release.prompt.md` Phase 1–3 and capture outputs
 - [ ] All tests pass: `uv run pytest`
 - [ ] Type check clean: `uv run pyright`
 - [ ] Lint clean: `uv run ruff check . && uv run ruff format --check .`
@@ -13,14 +14,18 @@ Steps for releasing a new version of `emic` and its associated publications.
 - [ ] CHANGELOG.md updated with new version section
 - [ ] Version bumped in `pyproject.toml`
 - [ ] Documentation builds: `uv run mkdocs build`
+- [ ] Shared bibliography consistency check:
+  - `paper-joss/paper.md` frontmatter points to `../shared/bibliography/references.bib`
+  - Citation key format is `{first-author-name}{year}[{tag}]`
 
 ## JOSS Paper
 
 - [ ] `paper-joss/paper.md` YAML frontmatter is correct:
   - `date` matches release date
-  - `bibliography: paper.bib` is set
+  - `bibliography: ../shared/bibliography/references.bib` is set
   - Author ORCID and affiliation are current
-- [ ] `paper-joss/paper.bib` references are complete (no placeholder arXiv IDs)
+- [ ] Shared bibliography references are complete (no placeholder arXiv IDs)
+  - `shared/bibliography/references.bib`
 - [ ] Word count is 750–1750 words
 - [ ] All required JOSS sections present:
   - Summary
@@ -52,7 +57,7 @@ Steps for releasing a new version of `emic` and its associated publications.
   make verify
   ```
 - [ ] Technical report submitted to arXiv and arXiv ID obtained
-- [ ] `paper-joss/paper.bib` updated with arXiv eprint ID:
+- [ ] Shared bibliography updated with arXiv eprint ID:
   ```bibtex
   eprint = {2602.XXXXX},
   archiveprefix = {arXiv},
@@ -63,11 +68,12 @@ Steps for releasing a new version of `emic` and its associated publications.
 - [ ] Create and push tag: `git tag v0.X.0 && git push origin v0.X.0`
 - [ ] GitHub Actions:
   - CI passes
-  - JOSS paper PDF built (check `draft-paper.yml` action)
+  - JOSS submission bundle built (`paper.md` + `paper.bib` tarball)
   - Package published to PyPI
   - GitHub Release created with:
     - `.tar.gz` and `.whl` package artifacts
-    - `paper.pdf` (JOSS paper) attached
+    - `emic-joss-submission-X.Y.Z.tar.gz` attached
+- [ ] PDF papers are published via `.github/workflows/publications.yml` (not attached to package release)
 - [ ] Verify PyPI install: `pip install emic==0.X.0`
 
 ## Post-release

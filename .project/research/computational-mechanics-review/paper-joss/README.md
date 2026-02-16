@@ -6,11 +6,11 @@
 ## Files
 
 - `paper.md` — The paper (Markdown with YAML front matter, required by JOSS)
-- `paper.bib` — BibTeX references
+- `../shared/bibliography/references.bib` — Shared BibTeX references
 
 ## Format
 
-JOSS **requires Markdown** (`paper.md` + `paper.bib`). LaTeX is not accepted.
+JOSS **requires Markdown** (`paper.md` with a valid `bibliography:` path). LaTeX is not accepted.
 JOSS compiles the PDF from Markdown via Pandoc/ConTeXt internally upon
 submission. Authors can preview the compiled PDF locally before submitting.
 
@@ -62,35 +62,40 @@ jobs:
 
 ## Including in Release Artifacts
 
-To include the compiled JOSS paper PDF in GitHub releases, add a step to the
-release workflow that builds the PDF and attaches it:
+To include a JOSS submission bundle in GitHub releases, add a step to the
+release workflow that packages `paper.md` and `paper.bib` and attaches the
+resulting tarball. Keep paper PDFs in a separate publication pipeline
+(`.github/workflows/publications.yml`).
 
 ```yaml
 # Add to your existing release workflow (.github/workflows/release.yml)
-  joss-paper:
+  joss-submission:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: openjournals/openjournals-draft-action@master
-        with:
-          journal: joss
-          paper-path: paper-joss/paper.md
+      - name: Build JOSS submission bundle
+        run: |
+          mkdir -p release-artifacts/joss
+          cp paper-joss/paper.md release-artifacts/joss/paper.md
+          cp shared/bibliography/references.bib release-artifacts/joss/paper.bib
+          tar -czf release-artifacts/emic-joss-submission-${GITHUB_REF_NAME#v}.tar.gz -C release-artifacts/joss paper.md paper.bib
       - uses: actions/upload-artifact@v4
         with:
-          name: joss-paper
-          path: paper-joss/paper.pdf
+          name: joss-submission
+          path: release-artifacts/emic-joss-submission-*.tar.gz
 
   # Then in your release job, download and attach:
   release:
-    needs: [joss-paper]
+    needs: [joss-submission]
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: joss-paper
-      - name: Attach paper to release
+          name: joss-submission
+          path: release-artifacts/
+      - name: Attach JOSS bundle to release
         uses: softprops/action-gh-release@v2
         with:
-          files: paper.pdf
+          files: release-artifacts/emic-joss-submission-*.tar.gz
 ```
 
 ## Submission Checklist
@@ -101,7 +106,7 @@ Before submitting to JOSS:
 - [ ] Word count is 750–1750 words
 - [ ] All required sections present (Summary, Statement of Need, State of the
       Field, Software Design, Research Impact Statement, AI Usage Disclosure)
-- [ ] `paper.md` and `paper.bib` are in the main repository (not a submodule)
+- [ ] `paper.md` and `shared/bibliography/references.bib` are in the main repository (not a submodule)
 - [ ] Associated publications (review paper, technical report) submitted to arXiv
 - [ ] Software version tagged and archived on Zenodo
 - [ ] Package available on PyPI
@@ -110,7 +115,7 @@ Before submitting to JOSS:
 
 ## Submission
 
-1. Ensure `paper.md` and `paper.bib` are in the repo (can be in a branch)
+1. Ensure `paper.md` and `shared/bibliography/references.bib` are in the repo (can be in a branch)
 2. Go to https://joss.theoj.org/papers/new
 3. Fill in the short submission form
 4. Wait for a pre-review issue at https://github.com/openjournals/joss-reviews
