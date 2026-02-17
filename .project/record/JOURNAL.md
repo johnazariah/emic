@@ -59,6 +59,15 @@
    - `paper-review/literature/synthesis/inference.md`
 - Updated review README to link the new seed queue
 
+**Sprint 1 Execution (same session)**:
+
+- Added **25** metadata-verified references to shared bibliography:
+   - Source: DOI-resolved metadata (OpenAlex-backed retrieval)
+   - Shared bibliography total moved from **29 → 54** entries
+- Generated **20** new evidence cards in `paper-review/literature/cards/`
+- Updated `paper-review/literature/citation-ledger.md` with sprint totals, provisional category balance, and gap-to-target tracking
+- Noted current strategic gap: strong physics/quantum concentration, under-coverage in biology, linguistics, finance, and neuroscience applications
+
 **Session Focus**: Release Process Hardening, Publication Consistency, and Journal Stewardship
 
 **Completed**:
