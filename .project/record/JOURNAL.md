@@ -6,6 +6,35 @@
 
 ## 2026
 
+### February 17, 2026
+
+**Session Focus**: Review Sprint 2 — Domain-Oriented Expansion
+
+**Completed**:
+
+1. **Bibliography expansion (Sprint 2)**
+   - Added **22** additional references to shared bibliography
+   - Total shared bibliography now **76** entries (up from 54)
+   - Prioritized computational-mechanics-adjacent works and domain-signaled candidates
+
+2. **Evidence card production**
+   - Generated **20** new evidence cards from Sprint 2 additions
+   - Total evidence cards now **49**
+
+3. **Coverage tracking updates**
+   - Updated citation ledger with new totals and revised gaps
+   - Recorded caveat that several domain papers are lower-confidence fits and require stricter manual triage before manuscript use
+
+**Files Updated**:
+- `.project/research/computational-mechanics-review/shared/bibliography/references.bib`
+- `.project/research/computational-mechanics-review/paper-review/literature/cards/*` (20 new files)
+- `.project/research/computational-mechanics-review/paper-review/literature/citation-ledger.md`
+
+**Next Steps**:
+1. Run quality triage pass on Sprint 2 additions (retain/remove/replace)
+2. Replace lower-confidence domain-adjacent entries with direct epsilon-machine application papers where possible
+3. Draft synthesis updates for applications and recent-advances sections
+
 ### February 16, 2026
 
 **Session Focus**: Review Paper Reset to State-of-the-Art Standard
