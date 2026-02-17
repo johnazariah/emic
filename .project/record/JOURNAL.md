@@ -37,6 +37,14 @@
 2. Focus exclusively on under-covered application domains (neuroscience, biology/genomics, finance)
 3. Promote high-confidence cards into section-level synthesis prose
 
+**Progress Update (same day)**:
+
+- Ran a quantum-priority Sprint 3 as requested
+- Added **14** quantum-focused references (stochastic-process simulation, memory advantage, quantum coarse-graining)
+- Added **14** corresponding quantum evidence cards
+- Reached the minimum review threshold: bibliography now **100 references**
+- Card inventory increased to **63** total cards
+
 **Session Focus**: Review Sprint 2 — Domain-Oriented Expansion
 
 **Completed**:
