@@ -1,0 +1,116 @@
+{
+  "removed_keys": [
+    "lafferty1996cluster",
+    "xiao2021julia",
+    "casasdei2002language",
+    "summers2025integrating",
+    "summers2025integratinga",
+    "goodwell2020debates",
+    "sepulvedafontaine2024applications",
+    "liang2023quantitative",
+    "sahu1999object",
+    "dewhurst2021causal"
+  ],
+  "added": [
+    {
+      "key": "crutchfield2003regularities",
+      "doi": "10.1063/1.1530990",
+      "title": "Regularities unseen, randomness observed: Levels of entropy convergence"
+    },
+    {
+      "key": "hanson1997computationa",
+      "doi": "10.1016/s0167-2789(96)00259-x",
+      "title": "Computational mechanics of cellular automata: An example"
+    },
+    {
+      "key": "feldman2003structural",
+      "doi": "10.1103/physreve.67.051104",
+      "title": "Structural information in two-dimensional patterns: Entropy convergence and excess entropy"
+    },
+    {
+      "key": "rundle2018global",
+      "doi": "10.1029/2018ea000464",
+      "title": "Global Seismic Nowcasting With Shannon Information Entropy"
+    },
+    {
+      "key": "strelioff2007inferring",
+      "doi": "10.1103/physreve.76.011106",
+      "title": "Inferring Markov chains: Bayesian estimation, model comparison, entropy rate, and out-of-class modeling"
+    },
+    {
+      "key": "collet1983computing",
+      "doi": "10.1007/bf01209479",
+      "title": "Computing the topological entropy of maps"
+    },
+    {
+      "key": "riechers2016minimized",
+      "doi": "10.1103/physreva.93.052317",
+      "title": "Minimized state complexity of quantum-encoded cryptic processes"
+    },
+    {
+      "key": "shalizi2002information",
+      "doi": "10.1142/s0219525902000481",
+      "title": "INFORMATION BOTTLENECKS, CAUSAL STATES, AND STATISTICAL RELEVANCE BASES: HOW TO REPRESENT RELEVANT INFORMATION IN MEMORYLESS TRANSDUCTION"
+    },
+    {
+      "key": "varn2004finite",
+      "doi": "10.1016/j.physleta.2004.02.077",
+      "title": "From finite to infinite range order via annealing: the causal architecture of deformation faulting in annealed close-packed crystals"
+    },
+    {
+      "key": "marzen2016predictive",
+      "doi": "10.1007/s10955-016-1520-1",
+      "title": "Predictive Rate-Distortion for Infinite-Order Markov Processes"
+    },
+    {
+      "key": "wiesner2008computation",
+      "doi": "10.1016/j.physd.2008.01.021",
+      "title": "Computation in finitary stochastic and quantum processes"
+    },
+    {
+      "key": "marzen2014information",
+      "doi": "10.3390/e16094713",
+      "title": "Information Anatomy of Stochastic Equilibria"
+    },
+    {
+      "key": "crutchfield1991reconstructi",
+      "doi": "10.1007/978-1-4899-2305-9_4",
+      "title": "Reconstructing Language Hierarchies"
+    },
+    {
+      "key": "jurgens2021divergent",
+      "doi": "10.1063/5.0050460",
+      "title": "Divergent predictive states: The statistical complexity dimension of stationary, ergodic hidden Markov processes"
+    },
+    {
+      "key": "mctague2006automated",
+      "doi": "10.1016/j.tcs.2006.05.002",
+      "title": "Automated pattern detection\u2014An algorithm for constructing optimally synchronizing multi-regular language filters"
+    },
+    {
+      "key": "crutchfield2011introduction",
+      "doi": "10.1063/1.3643065",
+      "title": "Introduction to Focus Issue on \u201cRandomness, Structure, and Causality: Measures of Complexity from Theory to Applications\u201d"
+    },
+    {
+      "key": "loomis2023topology",
+      "doi": "10.1016/j.physd.2022.133621",
+      "title": "Topology, convergence, and reconstruction of predictive states"
+    },
+    {
+      "key": "lyu2024learning",
+      "doi": "10.1103/physreve.110.064151",
+      "title": "Learning entropy production from underdamped Langevin trajectories"
+    },
+    {
+      "key": "anza2024maximum",
+      "doi": "10.3390/e26030225",
+      "title": "Maximum Geometric Quantum Entropy"
+    },
+    {
+      "key": "loomis2022exploring",
+      "doi": "10.1063/5.0102603",
+      "title": "Exploring predictive states via Cantor embeddings and Wasserstein distance"
+    }
+  ]
+}

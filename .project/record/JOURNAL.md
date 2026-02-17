@@ -8,6 +8,35 @@
 
 ### February 17, 2026
 
+**Session Focus**: Review Sprint 2.5 — Strict Quality Cleanup
+
+**Completed**:
+
+1. **Weak-fit removal and replacement pass**
+   - Removed **10** low-confidence/domain-drift references from Sprint 2 additions
+   - Added **20** direct computational-mechanics references from core-author and core-topic literature
+   - Net bibliography change: **+10** (from 76 to 86)
+
+2. **Evidence-card realignment**
+   - Deleted cards tied to removed references
+   - Added replacement high-confidence cards for newly added core CM papers
+   - Card total remained stable while quality improved
+
+3. **Tracking updates**
+   - Updated citation ledger to reflect Sprint 2.5 quality improvements and net totals
+   - Added audit artifact: `paper-review/literature/sprint25-cleanup.json`
+
+**Files Updated**:
+- `.project/research/computational-mechanics-review/shared/bibliography/references.bib`
+- `.project/research/computational-mechanics-review/paper-review/literature/citation-ledger.md`
+- `.project/research/computational-mechanics-review/paper-review/literature/cards/*` (cleanup + replacements)
+- `.project/research/computational-mechanics-review/paper-review/literature/sprint25-cleanup.json`
+
+**Next Steps**:
+1. Acquire the final +14 references to clear the 100-reference floor
+2. Focus exclusively on under-covered application domains (neuroscience, biology/genomics, finance)
+3. Promote high-confidence cards into section-level synthesis prose
+
 **Session Focus**: Review Sprint 2 — Domain-Oriented Expansion
 
 **Completed**:
