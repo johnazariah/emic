@@ -13,10 +13,10 @@ authors:
     orcid: 0009-0007-9870-1970
     affiliation: 1
 affiliations:
-  - name: University of Technology, Sydney (UTS)
+  - name: Centre for Quantum Software and Information, School of Computer Science, Faculty of Engineering & Information Technology, University of Technology Sydney, NSW 2007, Australia
     index: 1
-date: 15 February 2026
-bibliography: ../shared/bibliography/references.bib
+date: 25 February 2026
+bibliography: paper.bib
 ---
 
 # Summary
@@ -163,8 +163,13 @@ who made all core research and design decisions.
 
 # Acknowledgements
 
-The author thanks James Crutchfield, Cosma Shalizi, and their collaborators for
-the foundational theory that `emic` implements, and the `dit` development team
-for their complementary work on information-theoretic measures.
+The author thanks Dr. Christopher Ferrie (University of Technology Sydney) for
+his guidance, patience, and encouragement in the exploration of computational
+mechanics and the development of this software package. The author also thanks
+James Crutchfield, Cosma Shalizi, and their collaborators for the foundational
+theory that `emic` implements, and the `dit` development team for their
+complementary work on information-theoretic measures. Dr. Jairam Manjunathaiah
+generously provided the computing hardware on which `emic` was developed and
+all experiments were conducted.
 
 # References

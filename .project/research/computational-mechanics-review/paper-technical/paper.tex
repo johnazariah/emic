@@ -136,10 +136,13 @@
 }
 \author{%
     John S Azariah\\
-    \small University of Technology, Sydney (UTS)\\
+    \small Centre for Quantum Software and Information,\\
+    \small School of Computer Science,\\
+    \small Faculty of Engineering \& Information Technology,\\
+    \small University of Technology Sydney, NSW 2007, Australia\\
     \small\texttt{john.azariah@student.uts.edu.au}
 }
-\date{January 2026}
+\date{February 2026}
 
 \begin{document}
 
@@ -162,7 +165,7 @@ Computational Mechanics provides a rigorous framework for understanding structur
 
 Computational Mechanics, developed by Crutchfield, Shalizi, and colleagues over the past three decades, provides the theoretical foundation for understanding structure and complexity in stochastic processes. The central object is the \emph{$\eps$-machine}—the unique, minimal hidden Markov model that captures a process's ``causal architecture.''
 
-Despite the elegance and power of this framework, practical adoption has been hindered by the lack of modern, well-documented software tools. The original CSSR implementation in Perl \cite{shalizi2004algorithm} is unmaintained. More recent tools exist but lack comprehensive documentation, testing, or support for multiple algorithms.
+Despite the elegance and power of this framework, practical adoption has been hindered by the lack of modern, well-documented software tools. The original CSSR implementation in C++~\cite{shalizi2004algorithm} is unmaintained. More recent tools exist but lack comprehensive documentation, testing, or support for multiple algorithms.
 
 \section{Contribution}
 
@@ -256,9 +259,9 @@ Several tools for $\eps$-machine inference exist, but each has limitations:
 \toprule
 Tool & Language & Algorithms & Test Suite & Maintained \\
 \midrule
-CSSR (original) & Perl & CSSR only & None & No (2006) \\
-CMPy & Python 2 & CSSR only & Limited & No (2014) \\
-transCSSR & Julia & CSSR variant & Basic & Partial \\
+CSSR (original) & C++ & CSSR only & None & No (2008) \\
+CMPy & Python & CSSR, Bayesian & Limited & No (defunct) \\
+transCSSR & Python & CSSR (transducers) & No & Yes \\
 \emic{} & Python 3.11+ & 5 algorithms & \testCount{} tests & Yes \\
 \bottomrule
 \end{tabular}
@@ -2284,7 +2287,11 @@ Several research directions remain active:
 \chapter*{Acknowledgments}
 \addcontentsline{toc}{chapter}{Acknowledgments}
 
-I thank Dr.\ Jairam Manjunathaiah for generously providing the Mac Studio on which the entire \emic{} library was developed, all computational experiments were conducted, and this document was written.
+I thank Dr.\ Christopher Ferrie (University of Technology Sydney) for his
+guidance, patience, and encouragement in the exploration of computational
+mechanics and the development of this software package.
+
+I also thank Dr.\ Jairam Manjunathaiah for generously providing the Mac Studio on which the entire \emic{} library was developed, all computational experiments were conducted, and this document was written.
 
 \input{../shared/snippets/ai-usage-disclosure.tex}
 
