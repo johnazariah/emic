@@ -5,6 +5,7 @@
 [![Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen)](https://github.com/johnazariah/emic)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18869131.svg)](https://doi.org/10.5281/zenodo.18869131)
 
 **E**psilon **M**achine **I**nference & **C**haracterization
 
