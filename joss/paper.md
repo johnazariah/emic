@@ -145,9 +145,8 @@ of Technology Sydney investigating computational mechanics and its quantum
 extensions. It has been used to validate the fundamental theorems of
 computational mechanics — prescience, minimality, uniqueness, and the bound $E
 \le C_\mu$ — against four canonical processes (Golden Mean, Even Process, Biased
-Coin, Periodic), producing numerical results reported in a companion technical
-report [@azariah2026technical], which includes a self-contained review of
-computational mechanics theory with complete proofs as an appendix.
+Coin, Periodic), with golden tests that verify inferred machines match
+analytically known epsilon-machines for each process.
 
 The package is available on PyPI (`pip install emic`), with full API
 documentation at https://johnazariah.github.io/emic/. The test suite comprises

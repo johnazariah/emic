@@ -27,7 +27,7 @@
 
 **Name**: "emic" — phonetic spelling of "εM" (epsilon-machine), pronounced "EE-mik"
 
-**Status**: v0.5.0 on PyPI, actively developed
+**Status**: v0.5.1 on PyPI, actively developed
 
 ---
 
@@ -48,13 +48,43 @@
 ```
 Source → Inference → Analysis → Output
   │          │           │         │
-  │          │           │         └─ Visualization, export
-  │          │           └─ Compute Cμ, hμ, entropy
-  │          └─ CSSR algorithm → EpsilonMachine
+  │          │           │         └─ Visualization, export (diagram, latex, serialization)
+  │          │           └─ Compute Cμ, hμ, entropy (measures, summary)
+  │          └─ 5 algorithms → EpsilonMachine
   └─ Generate/load symbolic data
 ```
 
-**Pipeline composition**: Components compose with `>>` operator.
+**Pipeline composition**: Components compose with `>>` operator (defined via `__rshift__` on sources/transforms).
+
+### Source Module (`src/emic/sources/`)
+
+- `protocol.py` — `SequenceSource` and `SeededSource` protocols
+- `synthetic/` — Built-in process generators (GoldenMean, EvenProcess, BiasedCoin, Periodic)
+- `empirical/` — Load data from files
+- `transforms/` — `TakeN` and other sequence transforms
+
+### Inference Module (`src/emic/inference/`)
+
+Five algorithms, each in its own subpackage with a `Config` dataclass:
+
+| Algorithm | Subpackage | Config |
+|-----------|-----------|--------|
+| CSSR | `cssr/` | `CSSRConfig(max_history, significance)` |
+| CSM | `csm/` | `CSMConfig(history_length, merge_threshold)` |
+| BSI | `bsi/` | `BSIConfig(...)` |
+| Spectral | `spectral/` | `SpectralConfig(...)` |
+| NSD | `nsd/` | `NSDConfig(...)` |
+
+All satisfy `InferenceAlgorithm` protocol with `.infer(sequence, alphabet=None) -> InferenceResult`.
+
+### Types Module (`src/emic/types/`)
+
+- `machine.py` — `EpsilonMachine[A]` (frozen dataclass, generic over alphabet type `A`)
+- `states.py` — `CausalState`, `StateId`, `Transition`
+- `probability.py` — `Distribution`
+- `alphabet.py` — Alphabet utilities
+
+Use `EpsilonMachineBuilder[A]` to construct machines (fluent API with `.add_transition().with_start_state().build()`).
 
 ---
 
@@ -62,8 +92,9 @@ Source → Inference → Analysis → Output
 
 | File | Purpose |
 |------|---------|
-| `src/emic/types.py` | Core types: `Symbol`, `StateId`, `EpsilonMachine` |
-| `src/emic/inference/cssr.py` | CSSR algorithm implementation |
+| `src/emic/types/` | Core types: `EpsilonMachine`, `CausalState`, `StateId`, `Distribution` |
+| `src/emic/inference/protocol.py` | `InferenceAlgorithm` protocol |
+| `src/emic/sources/protocol.py` | `SequenceSource` and `SeededSource` protocols |
 | `src/emic/analysis/` | Complexity measure computation |
 | `pyproject.toml` | Dependencies, version, metadata |
 
@@ -75,10 +106,20 @@ Source → Inference → Analysis → Output
 # Install dependencies
 uv sync
 
-# Run tests
+# Run all tests
 uv run pytest
 
-# Type check
+# Run a single test file
+uv run pytest tests/unit/test_types.py
+
+# Run a single test by name
+uv run pytest -k "test_cssr_finds_one_state"
+
+# Run tests by marker (unit, integration, property, golden, slow, notebooks)
+uv run pytest -m golden
+uv run pytest -m "unit and not slow"
+
+# Type check (strict mode)
 uv run pyright
 
 # Format and lint
@@ -89,6 +130,11 @@ uv run mkdocs serve
 
 # Run pre-commit hooks
 uv run pre-commit run --all-files
+
+# Run experiments
+emic-experiment --list          # List available experiments
+emic-experiment --quick         # Quick mode for development
+emic-experiment --all           # Full experiment suite
 ```
 
 ---
@@ -111,13 +157,11 @@ Before making changes, review the relevant standards:
 
 | Document | Purpose |
 |----------|---------|
-| [.project/plan/ROADMAP.md](.project/plan/ROADMAP.md) | Current milestones and next actions |
-| [.project/record/JOURNAL.md](.project/record/JOURNAL.md) | Chronological work history |
 | [.project/specifications/](.project/specifications/) | Design specifications |
+| `joss/paper.md` | JOSS submission paper |
 
-**Always check the ROADMAP** to understand current priorities.
-
-**Always update the JOURNAL** after completing work.
+> **Note:** Research planning (ROADMAP, JOURNAL) lives in the private
+> `emic-research` repo. This repo focuses on the public software.
 
 ---
 
@@ -137,6 +181,8 @@ Before making changes, review the relevant standards:
 
 ### Immutable Dataclasses
 
+All dataclasses are frozen. Use `tuple` instead of `list` for fixed collections.
+
 ```python
 @dataclass(frozen=True)
 class Config:
@@ -145,11 +191,17 @@ class Config:
 
 ### Protocol-Based Extension
 
+Extension points use `Protocol` with generics — never inherit from base classes.
+
 ```python
 class Algorithm(Protocol[C]):
     config: C
     def infer(self, data: Sequence[Symbol]) -> Result: ...
 ```
+
+### Generic Alphabet Type
+
+Core types are generic over `A = TypeVar("A", bound=Hashable)` — the symbol type. Most built-in sources use `int`.
 
 ### Pipeline Composition
 
@@ -161,30 +213,46 @@ result = source >> inference >> analysis >> output
 
 ## Testing
 
-- 400+ tests, 90% coverage
-- Golden tests in `tests/golden/` for known processes
-- Property tests with Hypothesis
+- Tests organized by category: `tests/unit/`, `tests/integration/`, `tests/property/`, `tests/golden/`
+- Golden tests verify algorithms against known processes with analytically-known ε-machines
+- Property tests with Hypothesis (profiles: `dev` default, `ci` for CI, `debug` for verbose)
+- Pytest markers: `unit`, `integration`, `property`, `golden`, `slow`, `notebooks`
 - Run `uv run pytest` before committing
+
+---
+
+## Type Checking
+
+Pyright is configured in **strict mode** (`typeCheckingMode = "strict"`). All public APIs must have complete type annotations. Line length is 100 characters (ruff config).
 
 ---
 
 ## Current Focus
 
-Check `.project/plan/ROADMAP.md` for current priorities, but likely:
-
-1. **Experiments** — Convergence analysis, parameter sensitivity
-2. **Alternative algorithms** — CSM, Spectral, BSI
-3. **Research paper** — Figures, writing
+1. **JOSS submission** — `joss/paper.md` review and submission
+2. **Software quality** — Tests, docs, type checking
+3. **Alternative algorithms** — CSM, Spectral, BSI improvements
 4. **Quantum extension** — Future direction
+
+---
+
+## Repository Layout
+
+This is the **public software repo**. Research-specific content (papers,
+literature reviews, notes, experiment analysis) lives in the private
+`emic-research` repo.
+
+| This repo (`emic`) | Private repo (`emic-research`) |
+|---------------------|--------------------------------|
+| Source code, tests | LaTeX papers, drafts |
+| API docs, guides | Literature reviews, reading notes |
+| JOSS paper (`joss/`) | Research experiments, hypotheses |
+| ADRs, specs, standards | ROADMAP, JOURNAL, plan |
+| Software experiments | References (summaries) |
 
 ---
 
 ## Tips
 
 1. **Ask about context** if unsure — read specs and standards first
-2. **Use immutable types** — frozen dataclasses, tuples
-3. **Write tests** — especially golden tests for new processes
-4. **Update documentation** — docstrings required on all public APIs
-5. **Update journal** — record what was done each session
-6. **Check CI** — all commits must pass formatting, types, tests
-7. **Use prompts** — `commit`, `release`, `paper`, `coach`, `pick-next-work` etc.
+2. **Use prompts** — `commit`, `release`, `paper`, `coach`, `pick-next-work` etc.

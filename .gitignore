@@ -50,32 +50,18 @@ htmlcov/
 Thumbs.db
 
 # Project specific
-.project/references/*.pdf
 site/
 
-# LaTeX build artifacts (papers are rebuilt by CI)
-.project/research/**/*.aux
-.project/research/**/*.bbl
-.project/research/**/*.blg
-.project/research/**/*.bcf
-.project/research/**/*.fdb_latexmk
-.project/research/**/*.fls
-.project/research/**/*.log
-.project/research/**/*.out
-.project/research/**/*.toc
-.project/research/**/*.lof
-.project/research/**/*.lot
-.project/research/**/*.run.xml
-.project/research/**/*.synctex.gz
-.project/research/**/*.synctex(busy)
-.project/research/**/paperNotes.bib
+# Private research content (lives in emic-research repo)
+.project/notes/
+.project/plan/
+.project/record/
+.project/references/
+.project/research/
+.project/experiments/
 
-# Built LaTeX documents (attach to releases instead)
-.project/research/**/*.pdf
-!.project/research/**/figures/*.pdf
-
-# Research build output
-.project/research/**/dist/
+# External research repo
+emic-research/
 
 # Git worktrees
 worktrees/
