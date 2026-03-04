@@ -1,6 +1,7 @@
 # emic
 
 [![CI](https://github.com/johnazariah/emic/actions/workflows/ci.yml/badge.svg)](https://github.com/johnazariah/emic/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/emic)](https://pypi.org/project/emic/)
 [![Docs](https://github.com/johnazariah/emic/actions/workflows/docs.yml/badge.svg)](https://johnazariah.github.io/emic/)
 [![Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen)](https://github.com/johnazariah/emic)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
