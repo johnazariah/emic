@@ -145,16 +145,6 @@ jobs:
           generate_release_notes: true
           draft: false
 
-  publications:
-    name: Publish PDF Papers
-    needs: github-release
-    uses: ./.github/workflows/publications.yml
-    permissions:
-      contents: write
-    with:
-      tag: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || '' }}
-      upload_to_release: true
-
   joss-submission:
     name: Package JOSS Submission
     needs: ci
@@ -168,8 +158,8 @@ jobs:
           set -euo pipefail
           VERSION="${GITHUB_REF_NAME#v}"
           mkdir -p release-artifacts/joss
-          cp .project/research/computational-mechanics-review/paper-joss/paper.md release-artifacts/joss/paper.md
-          cp .project/research/computational-mechanics-review/shared/bibliography/references.bib release-artifacts/joss/paper.bib
+          cp joss/paper.md release-artifacts/joss/paper.md
+          cp joss/paper.bib release-artifacts/joss/paper.bib
           tar -czf "release-artifacts/emic-joss-submission-${VERSION}.tar.gz" -C release-artifacts/joss paper.md paper.bib
 
       - name: Upload JOSS submission bundle

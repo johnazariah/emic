@@ -5,13 +5,11 @@ on:
     tags-ignore:
       - 'v*'
     paths:
-      - '.project/research/computational-mechanics-review/paper-joss/**'
-      - '.project/research/computational-mechanics-review/shared/bibliography/**'
+      - 'joss/**'
       - '.github/workflows/draft-paper.yml'
   pull_request:
     paths:
-      - '.project/research/computational-mechanics-review/paper-joss/**'
-      - '.project/research/computational-mechanics-review/shared/bibliography/**'
+      - 'joss/**'
 
 jobs:
   paper:
@@ -24,10 +22,10 @@ jobs:
         uses: openjournals/openjournals-draft-action@master
         with:
           journal: joss
-          paper-path: .project/research/computational-mechanics-review/paper-joss/paper.md
+          paper-path: joss/paper.md
 
       - name: Upload paper PDF
         uses: actions/upload-artifact@v4
         with:
           name: joss-paper
-          path: .project/research/computational-mechanics-review/paper-joss/paper.pdf
+          path: joss/paper.pdf
