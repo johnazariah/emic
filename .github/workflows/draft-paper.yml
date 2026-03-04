@@ -1,6 +1,7 @@
 name: Draft JOSS Paper
 
 on:
+  workflow_dispatch:
   push:
     tags-ignore:
       - 'v*'
