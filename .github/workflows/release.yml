@@ -46,6 +46,7 @@ jobs:
         with:
           name: dist
           path: dist/
+          retention-days: 30
 
   test-release:
     name: Test Built Package
@@ -167,3 +168,4 @@ jobs:
         with:
           name: joss-submission
           path: release-artifacts/emic-joss-submission-*.tar.gz
+          retention-days: 30
