@@ -141,6 +141,24 @@ See the [Experiments Guide](https://johnazariah.github.io/emic/guide/experiments
 
 📚 **[Full documentation available](https://johnazariah.github.io/emic/)**
 
+## Testing
+
+All 429 tests are catalogued in the [Testing Register](.project/testing-register.md), each with a plain English intent and classified by kind:
+
+| Kind | Count | What it verifies |
+|------|-------|------------------|
+| **Fact** | 280 | Deterministic structural truths — immutability, validation, construction |
+| **Theory** | 73 | Mathematical relationships from computational mechanics — Cμ, hμ, E, χ values |
+| **Property** | 30 | Invariants across inputs — reproducibility, algorithm agreement, stochastic validity |
+
+Test categories:
+- **Unit tests** — Types, analysis measures, all 5 inference algorithms, sources, transforms, output formats
+- **Golden tests** — Algorithms verified against analytically known ε-machines (Golden Mean, Even Process, Biased Coin, Periodic)
+- **Integration tests** — Pipeline composition from source through inference to analysis
+- **Machine invariant tests** — Every algorithm's output validated for stochastic correctness (transition sums ≤ 1.0)
+
+Pre-commit hooks enforce that the testing register is updated whenever tests change.
+
 ## Etymology
 
 The name **emic** works on multiple levels:
