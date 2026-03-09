@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import pytest
 
+from emic.analysis import analyze
 from emic.inference import (
     BSI,
     CSM,
@@ -423,16 +424,148 @@ class TestAlgorithmConsistency:
         # Core algorithms (CSSR, CSM) should be within tolerance of expected
         # Even process needs more tolerance due to its structure
         cssr_tolerance = 3 if source_name == "even_process" else 1
-        assert abs(len(cssr_result.machine.states) - expected_states) <= cssr_tolerance, (
-            f"CSSR: expected ~{expected_states}, got {len(cssr_result.machine.states)}"
-        )
-        assert abs(len(csm_result.machine.states) - expected_states) <= 2, (
-            f"CSM: expected ~{expected_states}, got {len(csm_result.machine.states)}"
-        )
+        assert (
+            abs(len(cssr_result.machine.states) - expected_states) <= cssr_tolerance
+        ), f"CSSR: expected ~{expected_states}, got {len(cssr_result.machine.states)}"
+        assert (
+            abs(len(csm_result.machine.states) - expected_states) <= 2
+        ), f"CSM: expected ~{expected_states}, got {len(csm_result.machine.states)}"
         # Alternative algorithms have more tolerance (±2)
-        assert abs(len(bsi_result.machine.states) - expected_states) <= 2, (
-            f"BSI: expected ~{expected_states}, got {len(bsi_result.machine.states)}"
-        )
-        assert abs(len(nsd_result.machine.states) - expected_states) <= 2, (
-            f"NSD: expected ~{expected_states}, got {len(nsd_result.machine.states)}"
-        )
+        assert (
+            abs(len(bsi_result.machine.states) - expected_states) <= 2
+        ), f"BSI: expected ~{expected_states}, got {len(bsi_result.machine.states)}"
+        assert (
+            abs(len(nsd_result.machine.states) - expected_states) <= 2
+        ), f"NSD: expected ~{expected_states}, got {len(nsd_result.machine.states)}"
+
+
+# ====================================================================
+# Machine Invariant Tests
+# ====================================================================
+
+
+class TestMachineInvariants:
+    """Verify all algorithms produce valid stochastic machines.
+
+    These tests catch bugs where algorithms produce machines with
+    non-stochastic transitions (probabilities summing to != 1.0).
+    """
+
+    @pytest.fixture
+    def golden_mean_data(self) -> list[int]:
+        source = GoldenMeanSource(p=0.5, _seed=42)
+        return list(TakeN(10000)(source))
+
+    @pytest.fixture
+    def even_process_data(self) -> list[int]:
+        source = EvenProcessSource(p=0.5, _seed=42)
+        return list(TakeN(10000)(source))
+
+    @pytest.mark.parametrize(
+        ("algo_name", "algo_fn"),
+        [
+            ("CSSR", lambda: CSSR(CSSRConfig(max_history=5))),
+            ("CSM", lambda: CSM(CSMConfig(history_length=5))),
+            ("BSI", lambda: BSI(BSIConfig(max_states=5, max_history=3, n_samples=100, seed=42))),
+            ("NSD", lambda: NSD(NSDConfig(max_states=5, history_length=5, seed=42))),
+            ("Spectral", lambda: Spectral(SpectralConfig())),
+        ],
+    )
+    def test_stochastic_transitions_golden_mean(
+        self, golden_mean_data: list[int], algo_name: str, algo_fn: object
+    ) -> None:
+        """Every state's transition probabilities must sum to <= 1.0."""
+        result = algo_fn().infer(golden_mean_data)  # type: ignore[operator]
+        for state in result.machine.states:
+            total = sum(t.probability for t in state.transitions)
+            assert (
+                total <= 1.0 + 1e-6
+            ), f"{algo_name}: state {state.id} has transition sum {total:.6f} > 1.0"
+
+    @pytest.mark.parametrize(
+        ("algo_name", "algo_fn"),
+        [
+            ("CSSR", lambda: CSSR(CSSRConfig(max_history=5))),
+            ("CSM", lambda: CSM(CSMConfig(history_length=5))),
+            ("BSI", lambda: BSI(BSIConfig(max_states=5, max_history=3, n_samples=100, seed=42))),
+            ("NSD", lambda: NSD(NSDConfig(max_states=5, history_length=5, seed=42))),
+            ("Spectral", lambda: Spectral(SpectralConfig())),
+        ],
+    )
+    def test_stochastic_transitions_even_process(
+        self, even_process_data: list[int], algo_name: str, algo_fn: object
+    ) -> None:
+        """Every state's transition probabilities must sum to <= 1.0."""
+        result = algo_fn().infer(even_process_data)  # type: ignore[operator]
+        for state in result.machine.states:
+            total = sum(t.probability for t in state.transitions)
+            assert (
+                total <= 1.0 + 1e-6
+            ), f"{algo_name}: state {state.id} has transition sum {total:.6f} > 1.0"
+
+
+# ====================================================================
+# Analysis Measure Golden Tests
+# ====================================================================
+
+
+class TestAnalysisMeasuresGolden:
+    """Verify analysis measures on inferred machines match known values.
+
+    These tests catch bugs in both the inference and analysis pipelines
+    by checking that the full chain (data → infer → analyze) produces
+    correct Cμ, hμ, E, and χ for known processes.
+    """
+
+    @pytest.fixture
+    def golden_mean_data(self) -> list[int]:
+        source = GoldenMeanSource(p=0.5, _seed=42)
+        return list(TakeN(50000)(source))
+
+    @pytest.fixture
+    def biased_coin_data(self) -> list[int]:
+        source = BiasedCoinSource(p=0.5, _seed=42)
+        return list(TakeN(10000)(source))
+
+    def test_cssr_golden_mean_measures(self, golden_mean_data: list[int]) -> None:
+        """CSSR on Golden Mean: Cμ ≈ 0.918, hμ ≈ 0.667, E ≈ 0.252, χ ≈ 0.667."""
+        result = CSSR(CSSRConfig(max_history=5)).infer(golden_mean_data)
+        s = analyze(result.machine)
+
+        assert abs(s.statistical_complexity - 0.918) < 0.05
+        assert abs(s.entropy_rate - 0.667) < 0.05
+        assert abs(s.excess_entropy - 0.252) < 0.05
+        assert abs(s.crypticity - 0.667) < 0.05
+
+    def test_spectral_golden_mean_measures(self, golden_mean_data: list[int]) -> None:
+        """Spectral on Golden Mean: same analytical targets."""
+        result = Spectral(SpectralConfig()).infer(golden_mean_data)
+        s = analyze(result.machine)
+
+        assert abs(s.statistical_complexity - 0.918) < 0.05
+        assert abs(s.entropy_rate - 0.667) < 0.05
+        assert abs(s.excess_entropy - 0.252) < 0.05
+        assert abs(s.crypticity - 0.667) < 0.05
+
+    def test_cssr_biased_coin_measures(self, biased_coin_data: list[int]) -> None:
+        """CSSR on Biased Coin: Cμ = 0, E = 0, χ = 0."""
+        result = CSSR(CSSRConfig(max_history=3)).infer(biased_coin_data)
+        s = analyze(result.machine)
+
+        assert abs(s.statistical_complexity) < 0.01
+        assert abs(s.excess_entropy) < 0.01
+        assert abs(s.crypticity) < 0.01
+
+    def test_excess_entropy_bounded_by_complexity(self, golden_mean_data: list[int]) -> None:
+        """E ≤ Cμ must hold for all algorithms (fundamental bound)."""
+        algorithms = [
+            CSSR(CSSRConfig(max_history=5)),
+            CSM(CSMConfig(history_length=5)),
+            Spectral(SpectralConfig()),
+        ]
+        for algo in algorithms:
+            result = algo.infer(golden_mean_data)
+            s = analyze(result.machine)
+            assert (
+                s.excess_entropy <= s.statistical_complexity + 0.01
+            ), f"{algo.__class__.__name__}: E={s.excess_entropy:.4f} > Cμ={s.statistical_complexity:.4f}"

@@ -55,8 +55,9 @@ class TestEpsilonMachine:
         """Check unifilarity."""
         machine = (
             EpsilonMachineBuilder[int]()
-            .add_transition("A", 0, "A", 1.0)
-            .add_transition("A", 1, "B", 1.0)
+            .add_transition("A", 0, "A", 0.5)
+            .add_transition("A", 1, "B", 0.5)
+            .add_transition("B", 0, "A", 1.0)
             .with_start_state("A")
             .build()
         )

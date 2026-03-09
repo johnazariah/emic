@@ -85,6 +85,16 @@ class EpsilonMachine(Generic[A]):
                     raise ValueError(msg)
                 seen[t.symbol] = t.target
 
+        # Validate stochastic transitions: total emission probability per state ≤ 1
+        for state in self.states:
+            total = sum(t.probability for t in state.transitions)
+            if total > 1.0 + 1e-6:
+                msg = (
+                    f"State {state.id} has non-stochastic transitions: "
+                    f"probabilities sum to {total:.6f} > 1.0"
+                )
+                raise ValueError(msg)
+
     def __len__(self) -> int:
         """Number of causal states."""
         return len(self.states)
