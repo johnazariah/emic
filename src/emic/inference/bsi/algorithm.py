@@ -372,13 +372,6 @@ class BSI(Generic[A]):
 
                 builder.add_transition(from_id, sym, to_id, prob)
 
-        # Ensure all states have all symbols
-        for old_s in used_states:
-            state_id = state_map[old_s]
-            for sym in symbols:
-                if (old_s, sym) not in trans_counts:
-                    builder.add_transition(state_id, sym, state_id, 1.0 / len(symbols))
-
         # Set start state
         start_id = state_map[min(used_states)]
         builder.with_start_state(start_id)

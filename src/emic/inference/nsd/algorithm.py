@@ -329,15 +329,8 @@ class NSD(Generic[A]):
 
                 builder.add_transition(from_id, sym, to_id, prob)
 
-        # Ensure all states have all symbols
         if not used_states:
             used_states = {0}
-
-        for state in used_states:
-            state_id = f"S{state}"
-            for sym in symbols:
-                if (state, sym) not in trans_counts:
-                    builder.add_transition(state_id, sym, state_id, 1.0 / len(symbols))
 
         # Set start state
         start_id = f"S{min(used_states)}"
