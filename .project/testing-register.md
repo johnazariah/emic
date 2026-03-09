@@ -8,7 +8,7 @@ A complete catalogue of every test in the emic test suite.
 - **Theory** — Verifies a mathematical or analytical relationship derived from computational mechanics theory (e.g. "E ≤ Cμ always", "Golden Mean Cμ ≈ 0.918")
 - **Property** — Verifies an invariant that should hold across inputs or configurations (e.g. "same seed → same output", "all algorithms agree on state count")
 
-**Last updated**: 2026-03-09 · **Total tests**: 429
+**Last updated**: 2026-03-09 · **Total tests**: 431
 
 ---
 
@@ -516,6 +516,8 @@ A complete catalogue of every test in the emic test suite.
 | 403 | `Measures::test_spectral_golden_mean_measures` | Spectral on Golden Mean: same analytical targets | Theory |
 | 404 | `Measures::test_cssr_biased_coin_measures` | CSSR on Biased Coin: Cμ=0, E=0, χ=0 | Theory |
 | 405 | `Measures::test_excess_entropy_bounded_by_complexity` | E ≤ Cμ holds for all algorithms on Golden Mean | Theory |
+| 406 | `Published::test_shalizi2004_even_process` | Reproduce Shalizi & Klinkner (2004): CSSR finds 2 states for Even Process at N=10⁴, α=10⁻³ | Theory |
+| 407 | `Published::test_shalizi2004_even_process_robustness` | Shalizi2004 result holds for ≥90% of random draws (20 seeds) | Property |
 
 ## Integration (`tests/integration/test_pipeline.py`)
 
@@ -550,9 +552,9 @@ A complete catalogue of every test in the emic test suite.
 | Output | 19 | 0 | 0 | 19 |
 | Package | 2 | 0 | 0 | 2 |
 | Experiments | 21 | 0 | 0 | 21 |
-| Golden tests | 0 | 30 | 4 | 34 |
+| Golden tests | 0 | 31 | 5 | 36 |
 | Integration | 10 | 0 | 0 | 10 |
-| **Total** | **280** | **73** | **30** | **383** |
+| **Total** | **280** | **74** | **31** | **385** |
 
 > **Note**: 383 unique test definitions expand to 429 test items due to
 > parametrized tests (e.g. `test_algorithms_agree_on_state_count` ×4 processes,
