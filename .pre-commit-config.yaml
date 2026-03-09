@@ -34,3 +34,10 @@ repos:
         types: [python]
         files: ^src/
         exclude: test_
+
+      - id: check-testing-register
+        name: check testing register
+        entry: bash scripts/check_testing_register.sh
+        language: system
+        pass_filenames: true
+        always_run: true
