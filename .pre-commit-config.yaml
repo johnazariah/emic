@@ -41,3 +41,10 @@ repos:
         language: system
         pass_filenames: true
         always_run: true
+
+      - id: check-readme
+        name: check readme
+        entry: bash scripts/check_readme.sh
+        language: system
+        pass_filenames: true
+        always_run: true
