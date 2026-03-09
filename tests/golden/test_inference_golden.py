@@ -424,19 +424,19 @@ class TestAlgorithmConsistency:
         # Core algorithms (CSSR, CSM) should be within tolerance of expected
         # Even process needs more tolerance due to its structure
         cssr_tolerance = 3 if source_name == "even_process" else 1
-        assert (
-            abs(len(cssr_result.machine.states) - expected_states) <= cssr_tolerance
-        ), f"CSSR: expected ~{expected_states}, got {len(cssr_result.machine.states)}"
-        assert (
-            abs(len(csm_result.machine.states) - expected_states) <= 2
-        ), f"CSM: expected ~{expected_states}, got {len(csm_result.machine.states)}"
+        assert abs(len(cssr_result.machine.states) - expected_states) <= cssr_tolerance, (
+            f"CSSR: expected ~{expected_states}, got {len(cssr_result.machine.states)}"
+        )
+        assert abs(len(csm_result.machine.states) - expected_states) <= 2, (
+            f"CSM: expected ~{expected_states}, got {len(csm_result.machine.states)}"
+        )
         # Alternative algorithms have more tolerance (±2)
-        assert (
-            abs(len(bsi_result.machine.states) - expected_states) <= 2
-        ), f"BSI: expected ~{expected_states}, got {len(bsi_result.machine.states)}"
-        assert (
-            abs(len(nsd_result.machine.states) - expected_states) <= 2
-        ), f"NSD: expected ~{expected_states}, got {len(nsd_result.machine.states)}"
+        assert abs(len(bsi_result.machine.states) - expected_states) <= 2, (
+            f"BSI: expected ~{expected_states}, got {len(bsi_result.machine.states)}"
+        )
+        assert abs(len(nsd_result.machine.states) - expected_states) <= 2, (
+            f"NSD: expected ~{expected_states}, got {len(nsd_result.machine.states)}"
+        )
 
 
 # ====================================================================
@@ -478,9 +478,9 @@ class TestMachineInvariants:
         result = algo_fn().infer(golden_mean_data)  # type: ignore[operator]
         for state in result.machine.states:
             total = sum(t.probability for t in state.transitions)
-            assert (
-                total <= 1.0 + 1e-6
-            ), f"{algo_name}: state {state.id} has transition sum {total:.6f} > 1.0"
+            assert total <= 1.0 + 1e-6, (
+                f"{algo_name}: state {state.id} has transition sum {total:.6f} > 1.0"
+            )
 
     @pytest.mark.parametrize(
         ("algo_name", "algo_fn"),
@@ -499,9 +499,9 @@ class TestMachineInvariants:
         result = algo_fn().infer(even_process_data)  # type: ignore[operator]
         for state in result.machine.states:
             total = sum(t.probability for t in state.transitions)
-            assert (
-                total <= 1.0 + 1e-6
-            ), f"{algo_name}: state {state.id} has transition sum {total:.6f} > 1.0"
+            assert total <= 1.0 + 1e-6, (
+                f"{algo_name}: state {state.id} has transition sum {total:.6f} > 1.0"
+            )
 
 
 # ====================================================================
@@ -566,6 +566,6 @@ class TestAnalysisMeasuresGolden:
         for algo in algorithms:
             result = algo.infer(golden_mean_data)
             s = analyze(result.machine)
-            assert (
-                s.excess_entropy <= s.statistical_complexity + 0.01
-            ), f"{algo.__class__.__name__}: E={s.excess_entropy:.4f} > Cμ={s.statistical_complexity:.4f}"
+            assert s.excess_entropy <= s.statistical_complexity + 0.01, (
+                f"{algo.__class__.__name__}: E={s.excess_entropy:.4f} > Cμ={s.statistical_complexity:.4f}"
+            )
