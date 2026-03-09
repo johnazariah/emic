@@ -1,6 +1,7 @@
 """Analysis module for epsilon-machine measures."""
 
 from emic.analysis.measures import (
+    crypticity,
     entropy_rate,
     excess_entropy,
     state_count,
@@ -14,6 +15,7 @@ __all__ = [
     # Summary
     "AnalysisSummary",
     "analyze",
+    "crypticity",
     "entropy_rate",
     "excess_entropy",
     # Structural measures

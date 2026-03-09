@@ -46,8 +46,8 @@ processes in emic:
 | Process | C_μ | E (correct) | χ (correct) | E (emic reports) | χ (emic reports) |
 |---------|-----|-------------|-------------|------------------|------------------|
 | Biased Coin | 0.0 | 0.0 | 0.0 | 0.0 ✓ | 0.0 ✓ |
-| Golden Mean (p=0.5) | ~0.918 | ~0.459 | ~0.459 | 0.918 ✗ | 0.000 ✗ |
-| Even Process (p=0.5) | ~0.918 | ~0.459 | ~0.459 | 0.918 ✗ | 0.000 ✗ |
+| Golden Mean (p=0.5) | ~0.918 | ~0.252 | ~0.667 | 0.918 ✗ | 0.000 ✗ |
+| Even Process (p=0.5) | ~0.918 | ~0.918 | ~0.000 | 0.918 ✓ | 0.000 ✓ |
 | Periodic (0,1) | 1.0 | 1.0 | 0.0 | 1.0 ✓ | 0.0 ✓ |
 
 The bug is invisible for IID and deterministic processes, which is why it
@@ -142,10 +142,10 @@ efficient for larger machines.
 
 1. **Implement correct `excess_entropy()`** using one of the methods above.
 2. **Validate against known analytical values:**
-   - Golden Mean (p=0.5): E ≈ 0.4591 bits
-   - Even Process (p=0.5): E ≈ 0.4591 bits
+   - Golden Mean (p=0.5): E ≈ 0.2516 bits, χ ≈ 0.6667 bits
+   - Even Process (p=0.5): E ≈ 0.918 bits (≈ Cμ), χ ≈ 0
    - Biased Coin: E = 0 (trivial case, already correct)
-   - Periodic: E = C_μ (special case where χ = 0)
+   - Periodic: E = Cμ (special case where χ = 0)
 3. **Fix the two incorrect tests** in `test_analysis.py`.
 4. **Add new tests** asserting correct E and χ for Golden Mean and Even Process.
 5. **Verify notebook outputs** still render correctly with new values.

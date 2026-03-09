@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING, TypeVar
 
 from emic.analysis.measures import (
+    crypticity,
     entropy_rate,
     excess_entropy,
     state_count,
@@ -88,12 +89,13 @@ def analyze(machine: EpsilonMachine[A]) -> AnalysisSummary:
     c_mu = statistical_complexity(machine)
     h_mu = entropy_rate(machine)
     e = excess_entropy(machine)
+    chi = crypticity(machine)
 
     return AnalysisSummary(
         statistical_complexity=c_mu,
         entropy_rate=h_mu,
         excess_entropy=e,
-        crypticity=c_mu - e,
+        crypticity=chi,
         num_states=state_count(machine),
         num_transitions=transition_count(machine),
         alphabet_size=len(machine.alphabet),

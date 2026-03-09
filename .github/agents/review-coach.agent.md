@@ -1,6 +1,6 @@
 ---
 description: "Review coaching agent. Use when: studying the review literature, reading synthesis notes, understanding paper arguments, preparing to write manuscript sections, quizzing on content, navigating the evidence card system, building confidence with the material."
-tools: [read, search]
+tools: [read/terminalSelection, read/terminalLastCommand, read/getNotebookSummary, read/problems, read/readFile, read/readNotebookCellOutput, edit/createDirectory, edit/createFile, edit/createJupyterNotebook, edit/editFiles, edit/editNotebook, edit/rename, search/changes, search/codebase, search/fileSearch, search/listDirectory, search/searchResults, search/textSearch, search/usages]
 name: "Review Coach"
 ---
 

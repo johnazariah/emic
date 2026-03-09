@@ -5,6 +5,7 @@ from __future__ import annotations
 from emic.analysis import (
     AnalysisSummary,
     analyze,
+    crypticity,
     entropy_rate,
     excess_entropy,
     state_count,
@@ -13,6 +14,7 @@ from emic.analysis import (
     transition_count,
 )
 from emic.sources.synthetic.biased_coin import BiasedCoinSource
+from emic.sources.synthetic.even_process import EvenProcessSource
 from emic.sources.synthetic.golden_mean import GoldenMeanSource
 from emic.sources.synthetic.periodic import PeriodicSource
 
@@ -71,12 +73,60 @@ class TestInformationTheoreticMeasures:
         h_mu = entropy_rate(machine)
         assert abs(h_mu) < 1e-10
 
-    def test_excess_entropy_equals_complexity_for_unifilar(self) -> None:
-        """For unifilar machines, E = C_mu."""
-        machine = GoldenMeanSource(p=0.5).true_machine
-        c_mu = statistical_complexity(machine)
+    def test_excess_entropy_iid_is_zero(self) -> None:
+        """IID process has zero excess entropy."""
+        machine = BiasedCoinSource(p=0.5).true_machine
         e = excess_entropy(machine)
-        assert abs(c_mu - e) < 1e-10
+        assert abs(e) < 1e-10
+
+    def test_excess_entropy_golden_mean(self) -> None:
+        """Golden Mean has E ≈ 0.252 (= H(X) - hμ)."""
+        machine = GoldenMeanSource(p=0.5).true_machine
+        e = excess_entropy(machine)
+        # E = H(2/3, 1/3) - 2/3 ≈ 0.2516
+        assert abs(e - 0.2516) < 0.01
+
+    def test_excess_entropy_less_than_complexity(self) -> None:
+        """E ≤ Cμ always (fundamental bound)."""
+        machine = GoldenMeanSource(p=0.5).true_machine
+        e = excess_entropy(machine)
+        c_mu = statistical_complexity(machine)
+        assert e <= c_mu + 1e-10
+
+    def test_excess_entropy_periodic_equals_complexity(self) -> None:
+        """Periodic process has E = Cμ (χ = 0)."""
+        machine = PeriodicSource(pattern=(0, 1)).true_machine
+        e = excess_entropy(machine)
+        c_mu = statistical_complexity(machine)
+        assert abs(e - c_mu) < 1e-6
+
+    def test_excess_entropy_even_process(self) -> None:
+        """Even Process has E ≈ Cμ (χ ≈ 0)."""
+        machine = EvenProcessSource(p=0.5).true_machine
+        e = excess_entropy(machine)
+        c_mu = statistical_complexity(machine)
+        # Even Process is special: E ≈ Cμ
+        assert abs(e - c_mu) < 0.01
+
+    def test_crypticity_golden_mean(self) -> None:
+        """Golden Mean has χ ≈ 0.667 (= hμ)."""
+        machine = GoldenMeanSource(p=0.5).true_machine
+        chi = crypticity(machine)
+        h_mu = entropy_rate(machine)
+        # For Golden Mean, χ = hμ = 2/3
+        assert abs(chi - h_mu) < 0.01
+
+    def test_crypticity_iid_is_zero(self) -> None:
+        """IID process has zero crypticity."""
+        machine = BiasedCoinSource(p=0.5).true_machine
+        chi = crypticity(machine)
+        assert abs(chi) < 1e-10
+
+    def test_crypticity_periodic_is_zero(self) -> None:
+        """Periodic process has zero crypticity."""
+        machine = PeriodicSource(pattern=(0, 1)).true_machine
+        chi = crypticity(machine)
+        assert abs(chi) < 1e-6
 
 
 class TestAnalysisSummary:
@@ -98,7 +148,9 @@ class TestAnalysisSummary:
         assert summary.alphabet_size == 2
         assert summary.statistical_complexity > 0
         assert summary.entropy_rate > 0
-        assert abs(summary.crypticity) < 1e-10  # Unifilar => chi = 0
+        # Golden Mean has χ ≈ hμ ≈ 0.667
+        assert summary.crypticity > 0.6
+        assert summary.excess_entropy < summary.statistical_complexity
 
     def test_summary_to_dict(self) -> None:
         """to_dict() returns correct dictionary."""
