@@ -5,7 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.5.1] - 2026-02-16
+## [0.5.4] - 2026-03-09
+
+### Fixed
+- **Excess entropy computation (DEF-001)**: `excess_entropy()` previously returned Cμ (statistical complexity) for all inputs, incorrectly assuming E = Cμ for unifilar machines. Now correctly computed via block entropy convergence. Golden Mean E corrected from 0.918 to 0.252; crypticity χ corrected from 0.000 to 0.667.
+- **BSI non-stochastic transitions**: BSI injected unobserved (state, symbol) pairs with probability 1/|alphabet| without re-normalizing, producing machines with transition sums > 1.0.
+- **NSD non-stochastic transitions**: Same bug as BSI — removed the faulty "ensure all states have all symbols" block.
+
+### Added
+- **`crypticity()` standalone function**: New exported measure in `emic.analysis` computing χ = Cμ - E.
+- **Machine stochastic validation**: `EpsilonMachine.__post_init__` now rejects machines where any state's transitions sum to > 1.0.
+- **Golden analysis tests**: 14 new tests verifying Cμ, hμ, E, χ on inferred machines match analytical values, plus stochastic transition invariants across all 5 algorithms.
+- **Testing register**: Complete catalogue of all 429 tests with plain English intent, classified as Fact, Theory, or Property (`.project/testing-register.md`).
+- **Pre-commit gates**: `check-testing-register` and `check-readme` hooks ensure documentation stays current.
+
+### Changed
+- `analyze()` now uses `crypticity()` function instead of inline subtraction.
+- README updated: test count (429), coverage (82%+), BitFlipNoise mention, deep dive docs.
+
+## [0.5.3] - 2026-02-23
 
 ### Added
 - **Publications workflow**: Added dedicated `.github/workflows/publications.yml` to build and publish versioned tutorial/review/technical PDF artifacts independently of package release.

@@ -28,8 +28,8 @@ Key concepts:
 ## Features
 
 - 🔮 **Inference**: Reconstruct ε-machines using multiple algorithms (CSSR, CSM, BSI, Spectral, NSD)
-- 📊 **Analysis**: Compute complexity measures (Cμ, hμ, excess entropy, crypticity)
-- 🎲 **Sources**: Built-in stochastic process generators (Golden Mean, Even Process, Biased Coin, Periodic)
+- 📊 **Analysis**: Compute complexity measures (Cμ, hμ, excess entropy E, crypticity χ)
+- 🎲 **Sources**: Built-in stochastic process generators (Golden Mean, Even Process, Biased Coin, Periodic) with noise transforms (BitFlipNoise)
 - 🔗 **Pipeline**: Composable `>>` operator for source → inference → analysis workflows
 - 🧪 **Experiments**: CLI and framework for reproducible algorithm benchmarking
 - 📈 **Visualization**: State diagram rendering with Graphviz
@@ -133,10 +133,11 @@ See the [Experiments Guide](https://johnazariah.github.io/emic/guide/experiments
 
 ✅ **Core implementation complete** — The framework is functional with:
 - Multiple inference algorithms: CSSR, CSM, BSI, Spectral, NSD
-- Full analysis suite (Cμ, hμ, excess entropy, crypticity)
-- Synthetic and empirical data sources
+- Full analysis suite (Cμ, hμ, excess entropy E, crypticity χ)
+- Synthetic and empirical data sources with noise transforms
 - Pipeline composition
-- 194 tests with 90% coverage
+- 429 tests with 82%+ coverage
+- Deep dive documentation: CSSR, Spectral Learning, Complexity Measures, Working with Real Data
 
 📚 **[Full documentation available](https://johnazariah.github.io/emic/)**
 

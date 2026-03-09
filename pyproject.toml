@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "emic"
-version = "0.5.3"
+version = "0.5.4"
 description = "Epsilon Machine Inference & Characterization - A framework for computational mechanics"
 readme = "README.md"
 license = "MIT"
