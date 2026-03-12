@@ -28,7 +28,7 @@ jobs:
   build:
     name: Build Package
     needs: ci
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64, buildbeast, podman, release]
     steps:
       - uses: actions/checkout@v4
 
@@ -51,7 +51,7 @@ jobs:
   test-release:
     name: Test Built Package
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64, buildbeast, podman, release]
     steps:
       - uses: actions/checkout@v4
 
@@ -80,7 +80,7 @@ jobs:
     name: Publish to TestPyPI
     needs: test-release
     if: ${{ inputs.use_testpypi == true }}
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64, buildbeast, podman, release]
     environment: testpypi
     permissions:
       id-token: write
@@ -100,7 +100,7 @@ jobs:
     name: Publish to PyPI
     needs: test-release
     if: ${{ always() && needs.test-release.result == 'success' }}
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64, buildbeast, podman, release]
     environment: pypi
     permissions:
       id-token: write
@@ -117,7 +117,7 @@ jobs:
   github-release:
     name: Create GitHub Release
     needs: [publish-pypi, joss-submission]
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64, buildbeast, podman, release]
     permissions:
       contents: write
     steps:
@@ -150,7 +150,7 @@ jobs:
     name: Package JOSS Submission
     needs: ci
     if: ${{ vars.JOSS_SUBMISSION_COMPLETE != 'true' && (github.event_name != 'workflow_dispatch' || inputs.include_joss_bundle == true) }}
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, X64, buildbeast, podman, release]
     steps:
       - uses: actions/checkout@v4
 
