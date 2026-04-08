@@ -37,6 +37,15 @@ This directory contains **technical design specifications** for the `emic` proje
 | [010](010-alternative-inference.md) | Alternative Inference Algorithms | ✅ Complete |
 | [016](016-performance-optimization.md) | Performance Optimization | 📝 Planning |
 
+### Quantum Extension
+
+| Spec | Title | Status |
+|------|-------|--------|
+| [021](021-quantum-core-types.md) | Quantum Core Types | 📝 Planning |
+| [022](022-quantum-construction.md) | q-Machine Construction | 📝 Planning |
+| [023](023-quantum-analysis.md) | Quantum Analysis Module | 📝 Planning |
+| [024](024-decoherence-trajectories.md) | Decoherence Trajectories | 📝 Planning |
+
 ### Research (Archived — see `.project/research/`)
 
 The following specs have been migrated to the new research organization:

@@ -1,0 +1,11 @@
+timestamp: '2026-03-09T09:59:36.944591+00:00'
+git_commit: e481d55
+git_dirty: true
+python_version: 3.11.13
+emic_version: 0.5.3
+cli_args:
+- --all
+- --timeout
+- '120'
+duration_seconds: 228.51108853799815
+completed: true
